@@ -1,25 +1,12 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
-# from faker.providers import person
 import random
 
 fake = Faker()
-# fake.add_provider(person)
 
 # Adds a demo user, you can add other users here if you want
-def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password', first_name="Demo", last_name="User", balance=500.00, address="147 ESCANYO DR", city="SOUTH SAN FRANCISCO", state="CA", zip_code="94080-4137")
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="May", balance=500.00, address="3151 Granville Lane", city="Belleville", state="NJ", zip_code="07109")
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name="Bobbie", last_name="Bruh", balance=500.00, address="385 Flinderation Road", city="Chicago", state="IL", zip_code="60631")
-
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-
+def seed_stores():
     emails = [fake.unique.email() for i in range(5)]
     for i in range(5):
         new_user = User(
@@ -29,8 +16,10 @@ def seed_users():
             first_name=fake.first_name(),
             last_name=fake.last_name(),
             balance=random.randint(10_000, 1_000_000)/100,
-            address=fake.address(),
-            zip_code=zip,
+            address=fake.street_address(),
+            city=fake.city(),
+            state=fake.state_abbr(),
+            zip_code=fake.zipcode(),
         )
         db.session.add(new_user)
 

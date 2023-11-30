@@ -15,10 +15,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(40), nullable=False)
     last_name = db.Column(db.String(40), nullable=False)
-    balance = db.Column(db.Numeric(12,2), default=0.0)
+    balance = db.Column(db.Numeric(12,2), default=0.00)
     address = db.Column(db.String(255), nullable=False)
-    city = db.Column(db.String(255), nullable=False)
-    state = db.Column(db.String(255), nullable=False)
     zip_code = db.Column(db.String(10), nullable=False)
 
 
