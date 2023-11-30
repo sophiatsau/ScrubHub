@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom'
+import { login } from "../../store/session";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import DemoLoginButton from "./DemoLoginButton";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -18,6 +21,7 @@ function LoginFormModal() {
       setErrors(Object.values(data));
     } else {
         closeModal()
+        history.push('/')
     }
   };
 
@@ -49,6 +53,8 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit">Log In</button>
+
+        <DemoLoginButton {...{setErrors, closeModal}}/>
       </form>
     </>
   );
