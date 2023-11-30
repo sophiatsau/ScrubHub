@@ -28,7 +28,7 @@ def seed_users():
         [state, zip] = state_zip.split(' ')
 
         new_user = User(
-            username=f'Demo{i}',
+            username=f'Demo{i+1}',
             email=emails[i],
             password='password',
             first_name=fake.first_name(),
