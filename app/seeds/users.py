@@ -22,6 +22,11 @@ def seed_users():
 
     emails = [fake.unique.email() for i in range(5)]
     for i in range(5):
+        full_address = fake.address()
+        [street_address, city_state_zip] = full_address.split('\n')
+        [city, state_zip] = city_state_zip.split(', ')
+        [state, zip] = state_zip.split(' ')
+
         new_user = User(
             username=f'Demo{i}',
             email=emails[i],
@@ -29,7 +34,9 @@ def seed_users():
             first_name=fake.first_name(),
             last_name=fake.last_name(),
             balance=random.randint(10_000, 1_000_000)/100,
-            address=fake.address(),
+            address=street_address,
+            city=city,
+            state=state,
             zip_code=zip,
         )
         db.session.add(new_user)
