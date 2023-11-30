@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DecimalField
-from wtforms.validators import DataRequired, Email, ValidationError, Length, NumberRange
+from wtforms.validators import DataRequired, Email, ValidationError, Length, NumberRange, Optional
 from app.models import User
 from .utils import is_valid_us_zip
 
@@ -27,7 +27,7 @@ class SignUpForm(FlaskForm):
     password = StringField('password', validators=[DataRequired()])
     firstName = StringField(validators=[DataRequired(), Length(1,40,"First name must be between 1 - 40 characters long")])
     lastName = StringField(validators=[DataRequired(), Length(1,40,"Last name must be between 1 - 40 characters long")])
-    balance = DecimalField(validators=[DataRequired(), NumberRange(0, 10_000_000_000)])
+    balance = DecimalField(validators=[Optional(), NumberRange(0, 10_000_000_000)])
     address = StringField(validators=[Length(max=255)])
     city = StringField(validators=[Length(max=255)])
     state = StringField(validators=[Length(max=255)])
