@@ -49,3 +49,29 @@ def remove_file_from_s3(image_url):
     except Exception as e:
         return { "errors": str(e) }
     return True
+
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages
+
+
+def error_message(key,string):
+    """
+    Consistent format for single error message
+    """
+    errorMessages= {"errors":{key:string}}
+    return errorMessages
+
+
+def error_messages(dictionary):
+    """
+    Consistent format for multiple error messages, such as WTForms validation errors
+    """
+    return {"errors": dictionary}
