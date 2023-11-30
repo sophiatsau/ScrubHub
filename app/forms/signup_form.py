@@ -31,4 +31,4 @@ class SignUpForm(FlaskForm):
     address = StringField(validators=[Length(max=255)])
     city = StringField(validators=[Length(max=255)])
     state = StringField(validators=[Length(max=255)])
-    zipCode = StringField(validators=[DataRequired(), is_valid_us_zip])
+    zipCode = StringField(validators=[is_valid_us_zip])

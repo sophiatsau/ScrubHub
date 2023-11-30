@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     address = db.Column(db.String(255))
     city = db.Column(db.String(255))
     state = db.Column(db.String(255))
-    zip_code = db.Column(db.String(10), nullable=False)
+    zip_code = db.Column(db.String(10))
 
 
     @property
