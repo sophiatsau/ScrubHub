@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import ViewAllShops from "./components/ViewAllShops";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +17,10 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route>You are on a Route (App)</Route>
+          <Route exact path="/">
+            <ViewAllShops />
+          </Route>
+          <Route>404 Page Not Found</Route>
         </Switch>
       )}
     </>

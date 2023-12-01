@@ -60,7 +60,7 @@ class Shop(db.Model):
 
         else:
             d.update({
-                "searchImageUrl": self.coverImageUrl,
+                "searchImageUrl": self.searchImageUrl,
             })
 
         return d
