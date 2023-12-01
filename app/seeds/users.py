@@ -1,7 +1,7 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
-# from faker.providers import person
+from .utils import generate_address
 import random
 
 fake = Faker()
@@ -22,10 +22,8 @@ def seed_users():
 
     emails = [fake.unique.email() for i in range(5)]
     for i in range(5):
-        full_address = fake.address()
-        [street_address, city_state_zip] = full_address.split('\n')
-        [city, state_zip] = city_state_zip.split(', ')
-        [state, zip] = state_zip.split(' ')
+        [street_address, city, state, zip] = generate_address()
+
 
         new_user = User(
             username=f'user{i+1}',

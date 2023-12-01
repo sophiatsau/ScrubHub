@@ -2,14 +2,14 @@ from app.models import db, User, Shop, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
 import random
+from .utils import generate_address, generate_numbers
 
 fake = Faker()
 
 n = 10
 SHOP_OWNERS = [1,2,3,4,5,2,2,2,2,1]
 EMAILS = [fake.unique.email() for i in range(n)]
-_NUMBERS_UNFORMATTED = [fake.unique.phone_number() for i in range(n)]
-NUMBERS = [f'({num[:3]}) {num[3:6]}-{num[6:]}' for num in _NUMBERS_UNFORMATTED]
+NUMBERS = generate_numbers(n)
 SHOP_NAMES = [
     "Reptile Retail",
     "Hop Shop",
@@ -101,10 +101,7 @@ Sun Closed''',
 # Adds a demo user, you can add other users here if you want
 def seed_shops():
     for i in range(n):
-        full_address = fake.address()
-        [street_address, city_state_zip] = full_address.split('\n')
-        [city, state_zip] = city_state_zip.split(', ')
-        [state, zip] = state_zip.split(' ')
+        [street_address, city, state, zip] = generate_address()
 
         new_shop = Shop(
             userId = SHOP_OWNERS[i],
