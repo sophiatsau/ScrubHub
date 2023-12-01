@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     state = db.Column(db.String(255))
     zip_code = db.Column(db.String(10))
 
-    stores = db.relationship(
+    shops = db.relationship(
         "Shop",
         back_populates="owner",
         cascade="all, delete-orphan",
@@ -39,7 +39,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def to_dict(self):
-        return {
+        d = {
             'id': self.id,
             'username': self.username,
             'email': self.email,
@@ -51,3 +51,9 @@ class User(db.Model, UserMixin):
             'state': self.state,
             'zipCode': self.zip_code,
         }
+
+        # view shops - eager load
+        d["shops"] = [shop.to_dict() for shop in self.shops]
+        # view critters - only through shop
+        # view reviews - lazy load
+        return d

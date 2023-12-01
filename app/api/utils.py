@@ -1,3 +1,4 @@
+# app/api/utils.py
 import boto3
 import botocore
 import os
@@ -62,7 +63,7 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-def error_message(key,string):
+def error_message(key="unknown",string="An unknown error has occurred"):
     """
     Consistent format for single error message
     """
