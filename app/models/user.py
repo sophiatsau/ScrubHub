@@ -21,6 +21,11 @@ class User(db.Model, UserMixin):
     state = db.Column(db.String(255))
     zip_code = db.Column(db.String(10))
 
+    stores = db.relationship(
+        "Shop",
+        back_populates="owner",
+        cascade="all, delete-orphan",
+    )
 
     @property
     def password(self):
