@@ -10,11 +10,11 @@ fake = Faker()
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password', first_name="Demo", last_name="User", balance=500.00, address="147 ESCANYO DR", city="SOUTH SAN FRANCISCO", state="CA", zip_code="94080-4137")
+        username='Demo', email='demo@aa.io', password='password', firstName="Demo", lastName="User", balance=500.00, address="147 ESCANYO DR", city="SOUTH SAN FRANCISCO", state="CA", zipCode="94080-4137")
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="May", balance=500.00, address="3151 Granville Lane", city="Belleville", state="NJ", zip_code="07109")
+        username='marnie', email='marnie@aa.io', password='password', firstName="Marnie", lastName="May", balance=500.00, address="3151 Granville Lane", city="Belleville", state="NJ", zipCode="07109")
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name="Bobbie", last_name="Bruh", balance=500.00, address="385 Flinderation Road", city="Chicago", state="IL", zip_code="60631")
+        username='bobbie', email='bobbie@aa.io', password='password', firstName="Bobbie", lastName="Bruh", balance=500.00, address="385 Flinderation Road", city="Chicago", state="IL", zipCode="60631")
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -28,16 +28,16 @@ def seed_users():
         [state, zip] = state_zip.split(' ')
 
         new_user = User(
-            username=f'Demo{i+1}',
+            username=f'user{i+1}',
             email=emails[i],
             password='password',
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
+            firstName=fake.first_name(),
+            lastName=fake.last_name(),
             balance=random.randint(10_000, 1_000_000)/100,
             address=street_address,
             city=city,
             state=state,
-            zip_code=zip,
+            zipCode=zip,
         )
         db.session.add(new_user)
 

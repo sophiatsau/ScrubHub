@@ -6,6 +6,7 @@ import random
 fake = Faker()
 
 n = 10
+SHOP_OWNERS = [1,2,3,4,5,2,2,2,2,1]
 EMAILS = [fake.unique.email() for i in range(n)]
 _NUMBERS_UNFORMATTED = [fake.unique.phone_number() for i in range(n)]
 NUMBERS = [f'({num[:3]}) {num[3:6]}-{num[6:]}' for num in _NUMBERS_UNFORMATTED]
@@ -106,7 +107,7 @@ def seed_shops():
         [state, zip] = state_zip.split(' ')
 
         new_shop = Shop(
-            userId = random.randint(1,5),
+            userId = SHOP_OWNERS[i],
             name=SHOP_NAMES[i],
             address=street_address,
             city=city,
