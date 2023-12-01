@@ -1,8 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, TextAreaField, BooleanField
 from wtforms.validators import DataRequired, Email, ValidationError, Length, NumberRange, Optional
+from flask_wtf.file import FileField, FileAllowed
+
 from app.models import Shop
 from .utils import is_valid_us_zip
+from ..api.utils import ALLOWED_EXTENSIONS
 
 def shop_email_exists(form, field):
     # Checking if shop with same email exists
@@ -26,10 +29,10 @@ class ShopCreateForm(FlaskForm):
     zipCode = StringField(validators=[is_valid_us_zip, DataRequired()])
     priceRange = IntegerField(validators=[DataRequired(), NumberRange(1,5, "Please select a price range for your critters")])
     businessHours = StringField(validators=[DataRequired(), Length(max=255)])
-    email = StringField(validators=[DataRequired("Email is required for important notifications concerning your shop."), Email("Email is invalid"), shop_email_exists])
+    email = StringField(validators=[DataRequired(), Email("Email is invalid"), shop_email_exists])
     phoneNumber = StringField(validators=[Optional(), Length(min=13, max=13), shop_number_exists])
     description = TextAreaField(validators=[Optional(), Length(max=5000)])
-    # coverImageUrl = db.Column(db.String(255), nullable=False)
-    # businessImageUrl = db.Column(db.String(255), nullable=False)
+    coverImageUrl = FileField(validators=[DataRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    businessImageUrl = FileField(validators=[DataRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     pickup = BooleanField(validators=[DataRequired()])
     delivery = BooleanField(validators=[DataRequired()])
