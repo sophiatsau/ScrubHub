@@ -24,6 +24,7 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		if (password === confirmPassword) {
 			const data = await dispatch(signUp({username, email, password, firstName, lastName, address, city, state, zipCode}));
 			if (data) {
@@ -119,7 +120,6 @@ function SignupFormModal() {
 						type="text"
 						value={zipCode}
 						onChange={(e) => setZipCode(e.target.value)}
-						required
 						placeholder="XXXXX or XXXXX-XXXX"
 					/>
 				</label>

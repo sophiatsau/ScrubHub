@@ -19,6 +19,7 @@ class Shop(db.Model):
     email = db.Column(db.String(255), nullable=False, unique=True)
     phoneNumber = db.Column(db.String(13), unique=True)
     description = db.Column(db.Text)
+    searchImageUrl = db.Column(db.String(255), nullable=False)
     coverImageUrl = db.Column(db.String(255), nullable=False)
     businessImageUrl = db.Column(db.String(255), nullable=False)
     pickup = db.Column(db.Boolean, nullable=False)
@@ -26,13 +27,12 @@ class Shop(db.Model):
 
     owner = db.relationship(
         "User",
-        back_populates="stores",
+        back_populates="shops",
     )
 
-    def to_dict(self):
-        return {
+    def to_dict(self, scope=None):
+        d = {
             "id": self.id,
-            "userId": self.userId,
             "name": self.name,
             "address": self.address,
             "city": self.city,
@@ -40,11 +40,27 @@ class Shop(db.Model):
             "zipCode": self.zipCode,
             "priceRange": self.priceRange,
             "businessHours": self.businessHours,
-            "email": self.email,
-            "phoneNumber": self.phoneNumber,
-            "description": self.description,
-            "coverImageUrl": self.coverImageUrl,
-            "businessImageUrl": self.businessImageUrl,
             "pickup": self.pickup,
             "delivery": self.delivery,
+            # rating
+            # calculated distance
         }
+
+        if scope=="detailed":
+            d.update({
+                "userId": self.userId,
+                "email": self.email,
+                "phoneNumber": self.phoneNumber,
+                "description": self.description,
+                "coverImageUrl": self.coverImageUrl,
+                "businessImageUrl": self.businessImageUrl,
+            })
+            # critters
+            # reviews
+
+        else:
+            d.update({
+                "searchImageUrl": self.coverImageUrl,
+            })
+
+        return d
