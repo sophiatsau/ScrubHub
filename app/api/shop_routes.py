@@ -2,7 +2,7 @@ from flask import Blueprint, session, request
 from app.models import Shop, db
 from app.forms import ShopCreateForm
 from flask_login import current_user, login_required
-from .utils import error_messages, error_message
+from .utils import error_messages, error_message, get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 shop_routes = Blueprint('shop', __name__)
 
@@ -33,8 +33,26 @@ def create_shop():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        images = {}
 
-        shop = Shop()
+        for field in ["searchImageUrl","coverImageUrl","businessImageUrl"]:
+            img = form.data[field]
+            img.filename = get_unique_filename(img.filename)
+            upload = upload_file_to_s3(img)
+            print("🚀 ~ file: shop_routes.py:50 ~ upload:", upload)
+
+            if "url" not in upload:
+                # if no upload key, there was an error uploading.
+                return upload, 500
+
+            url = upload["url"]
+            images[field]=url
+
+        # form_data = {**form.data, **images, "userId": current_user.id}
+
+        shop = Shop(
+            **form.data, **images, userId=current_user.id
+            )
         db.session.add(shop)
         db.session.commit()
         return shop.to_dict(scope="detailed")
