@@ -1,1 +1,116 @@
 /* TODO Add site wide styles */
+:root {
+    --fontFamily: "Figtree", sans-serif ;
+    --fontSize: 14px ;
+    --headingSize: 24pt ;
+    --subheadingSize: 16pt ;
+    --subheadingWeight: 550 ;
+
+    --textColor: rgb(0,0,0);
+    --textColorLighter: rgb(50,50,50);
+    --textHighlightColor: rgb(80,30,255);
+
+    --errorColor: rgb(200,50,50);
+
+    --backgroundColor: rgb(255,255,255);
+
+    --buttonBorderRadius: 10px ;
+    --imgBorderRadius: 14px ;
+    --modalBorderRadius: 15px;
+    --inputBorderRadius: 5px;
+    --cardBorderRadius: 15px;
+    --headerHeight: 65px;
+    --mainPaddingY: 20px;
+    --mainPaddingX: 25px;
+    --dropdownBorderRadius: 5px;
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0 ;
+	padding: 0 ;
+	border: 0 ;
+	font-size: 100% ;
+	font: inherit ;
+	vertical-align: baseline ;
+    /* background-color: var(--backgroundColor); */
+    color: var(--textColor);
+}
+
+html, form {
+    background-color: var(--backgroundColor);
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block ;
+}
+body {
+	line-height: 1 ;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none ;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '' ;
+	content: none ;
+}
+table {
+	border-collapse: collapse ;
+	border-spacing: 0 ;
+}
+/* end of Eric Meyer's reset */
+html {
+    height: 100vh;/* Overrides 100% height in modern HTML5 browsers and uses the viewport's height. Only works in modern HTML5 browsers */
+}
+body {
+    height: auto; /* Allows content to grow beyond the page without overflow */
+    min-height: 100vh;/* Starts web page with 100% height. Uses the viewport's height. Only works in modern HTML5 browsers */
+    overflow-y: scroll;/* Optional: Adds an empty scrollbar to the right margin in case content grows vertically, creating a scrollbar.  Allows for better width calculations, as the browser pre-calculates width before scrollbar appears, avoiding page content shifting.*/
+}
+/* add progress cursor during db access */
+body.waiting * {
+    cursor: progress !important ;
+}
+i,button {
+    cursor: pointer ;
+}
+
+body {
+    box-sizing: border-box ;
+    font-family: var(--fontFamily) ;
+    font-size: var(--fontSize) ;
+}
+button { /* buttons sneakily ignore inheriting */
+    font-family: var(--fontFamily) ;
+    font-size: var(--fontSize) ;
+    border: var(--buttonBorder);
+    border-radius: var(--buttonBorderRadius);
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
