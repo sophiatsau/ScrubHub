@@ -5,7 +5,7 @@ import "./ShopCard.css"
 export default function ShopCard({shop}) {
   return (
     <Link to={`/shops/${shop.id}`}>
-      <img className="shop-card-img" src={shop.searchImageUrl}/>
+      <img className="shop-card-img" src={shop.searchImageUrl} alt={shop.name}/>
       <div>
         <span>{shop.name}</span>
         <span>Price: {shop.priceRange}</span>

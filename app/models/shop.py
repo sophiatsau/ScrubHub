@@ -42,6 +42,7 @@ class Shop(db.Model):
             "businessHours": self.businessHours,
             "pickup": self.pickup,
             "delivery": self.delivery,
+            "searchImageUrl": self.searchImageUrl, # need this even on details, for editing
             # rating
             # calculated distance
         }
@@ -57,10 +58,5 @@ class Shop(db.Model):
             })
             # critters
             # reviews
-
-        else:
-            d.update({
-                "searchImageUrl": self.searchImageUrl,
-            })
 
         return d

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 
 import {thunkGetAllShops} from '../../store/shops.js'
-import ShopCard from '../ShopCard'
+import ShopCard from '../ShopCard/index.js'
 
-export default function ViewAllShops() {
+export default function ShopsViewAll() {
     const dispatch = useDispatch();
     const shops = Object.values(useSelector(state => state.shops))
 

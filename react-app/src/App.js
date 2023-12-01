@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
+
 import Navigation from "./components/Navigation";
-import ViewAllShops from "./components/ViewAllShops";
+import Landing from "./components/Landing";
+import ShopDetails from "./components/ShopDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,7 +20,10 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <ViewAllShops />
+            <Landing />
+          </Route>
+          <Route exact path="/shops/:shopId">
+            <ShopDetails />
           </Route>
           <Route>404 Page Not Found</Route>
         </Switch>

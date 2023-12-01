@@ -1,4 +1,3 @@
-import { fetchData } from "./utils";
 
 const GET_ALL_SHOPS = "shops/GET_ALL_SHOPS"
 const GET_ONE_SHOP = "shops/GET_ONE_SHOP"
@@ -14,11 +13,29 @@ const getOneShop = (shop) => ({
 })
 
 export const thunkGetAllShops = () => async (dispatch) => {
-    const response = await fetchData("/api/shops");
-    if (!response.errors) {
-        dispatch(getAllShops(response.shops));
+    const response = await fetch("/api/shops");
+
+    const data = await response.json()
+    if (response.ok) {
+        dispatch(getAllShops(data.shops));
+    } else {
+        data.status = response.status;
     }
-    return response;
+
+    return data;
+}
+
+export const thunkGetShop = (shopId) => async dispatch => {
+    const response = await fetch(`/api/shops/${shopId}`);
+    const data = await response.json()
+
+    if (response.ok) {
+        dispatch(getOneShop(data));
+    } else {
+        data.status = response.status;
+    }
+
+    return data;
 }
 
 const initialState = {
