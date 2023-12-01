@@ -17,7 +17,7 @@ class Shop(db.Model):
     priceRange = db.Column(db.Integer, nullable=False)
     businessHours = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    phoneNumber = db.Column(db.String(13), unique=True)
+    phoneNumber = db.Column(db.String(14), unique=True)
     description = db.Column(db.Text)
     searchImageUrl = db.Column(db.String(255), nullable=False)
     coverImageUrl = db.Column(db.String(255), nullable=False)
