@@ -16,6 +16,7 @@ export default function ShopsViewAll() {
 
     return (
         <div>
+            <div>Categories List</div>
             {shops.map((shop) => (
                 <div key={shop.id}>
                     <ShopCard shop={shop}/>

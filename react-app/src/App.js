@@ -6,6 +6,9 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import Landing from "./components/Landing";
 import ShopDetails from "./components/ShopDetails";
+import ShopsViewCurrent from "./components/ShopsViewCurrent";
+import ShopCreateForm from "./components/ShopCreateForm";
+import ShopEditForm from "./components/ShopEditForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +27,15 @@ function App() {
           </Route>
           <Route exact path="/shops/:shopId(\\d+)">
             <ShopDetails />
+          </Route>
+          <Route exact path="/shops/current">
+            <ShopsViewCurrent />
+          </Route>
+          <Route exact path="/shops/new">
+            <ShopCreateForm />
+          </Route>
+          <Route exact path="/shops/:shopId(\\d+)/edit">
+            <ShopEditForm />
           </Route>
           <Route>404 Page Not Found</Route>
         </Switch>
