@@ -1,4 +1,4 @@
-from app.models import db, User, Shop, environment, SCHEMA
+from app.models import db, Shop, Category, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
 import random
@@ -22,6 +22,7 @@ SHOP_NAMES = [
     "Aye-Aye Arsenal",
     "Kitten Box",
 ]
+
 DESCRIPTIONS=[
     "Buy all sorts of reptiles here!",
     "We sell everything that hops, from rabbits to frogs!",
@@ -100,6 +101,21 @@ Sun Closed''',
 
 # Adds a demo user, you can add other users here if you want
 def seed_shops():
+    [amphibian, arthropod, bird, cat, dog, marine, mammal, critter, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
+
+    associations = [
+        [reptile,arthropod,bird],
+        [amphibian,arthropod,rabbit,rodent,mammal,critter],
+        [mammal],
+        [dog],
+        [mammal],
+        [marine,mammal],
+        [marine],
+        [bird],
+        [mammal],
+        [cat]
+    ]
+
     for i in range(n):
         [street_address, city, state, zip] = generate_address()
 
@@ -121,6 +137,7 @@ def seed_shops():
             pickup=random.getrandbits(1),
             delivery=random.getrandbits(1),
         )
+        new_shop.categories.extend(associations[i])
         db.session.add(new_shop)
 
     db.session.commit()
