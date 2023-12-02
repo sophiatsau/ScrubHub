@@ -53,7 +53,7 @@ class User(db.Model, UserMixin):
         }
 
         # view shops - eager load
-        d["shops"] = [shop.to_dict() for shop in self.shops]
+        d["shops"] = [shop.id for shop in self.shops]
         # view critters - only through shop
         # view reviews - lazy load
         return d

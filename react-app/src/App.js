@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/">
             <Landing />
           </Route>
-          <Route exact path="/shops/:shopId(\\d+)">
+          <Route exact path="/shops/:shopId([0-9]{1,})">
             <ShopDetails />
           </Route>
           <Route exact path="/shops/current">
