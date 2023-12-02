@@ -7,7 +7,7 @@ from .utils import error_messages, error_message, get_unique_filename, upload_fi
 shop_routes = Blueprint('shop', __name__)
 
 
-@shop_routes('/')
+@shop_routes.route('/')
 def get_all_shops():
     """
     Returns all shops available
@@ -15,15 +15,17 @@ def get_all_shops():
     shops = Shop.query.all()
     return {"shops": [shop.to_dict() for shop in shops]}
 
-@shops_routes('/:id')
+@shop_routes.route('/<int:id>')
 def get_one_shop(id):
     """
     Queries for and returns shop details by id
     """
     shop = Shop.query.get(id)
+    if not shop:
+        return error_message("shop", "Shop does not exist"), 404
     return shop.to_dict(scope="detailed")
 
-@shop_routes('/new', methods=['POST'])
+@shop_routes.route('/new', methods=['POST'])
 @login_required
 def create_shop():
     """

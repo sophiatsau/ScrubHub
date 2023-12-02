@@ -17,7 +17,7 @@ class Shop(db.Model):
     priceRange = db.Column(db.Integer, nullable=False)
     businessHours = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    phoneNumber = db.Column(db.String(13), unique=True)
+    phoneNumber = db.Column(db.String(14), unique=True)
     description = db.Column(db.Text)
     searchImageUrl = db.Column(db.String(255), nullable=False)
     coverImageUrl = db.Column(db.String(255), nullable=False)
@@ -42,6 +42,7 @@ class Shop(db.Model):
             "businessHours": self.businessHours,
             "pickup": self.pickup,
             "delivery": self.delivery,
+            "searchImageUrl": self.searchImageUrl, # need this even on details, for editing
             # rating
             # calculated distance
         }
@@ -57,10 +58,5 @@ class Shop(db.Model):
             })
             # critters
             # reviews
-
-        else:
-            d.update({
-                "searchImageUrl": self.coverImageUrl,
-            })
 
         return d

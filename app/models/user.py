@@ -12,14 +12,14 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False)
-    first_name = db.Column(db.String(40), nullable=False)
-    last_name = db.Column(db.String(40), nullable=False)
+    hashedPassword = db.Column(db.String(255), nullable=False)
+    firstName = db.Column(db.String(40), nullable=False)
+    lastName = db.Column(db.String(40), nullable=False)
     balance = db.Column(db.Numeric(12,2), default=0.00)
     address = db.Column(db.String(255))
     city = db.Column(db.String(255))
     state = db.Column(db.String(255))
-    zip_code = db.Column(db.String(10))
+    zipCode = db.Column(db.String(10))
 
     shops = db.relationship(
         "Shop",
@@ -29,11 +29,11 @@ class User(db.Model, UserMixin):
 
     @property
     def password(self):
-        return self.hashed_password
+        return self.hashedPassword
 
     @password.setter
     def password(self, password):
-        self.hashed_password = generate_password_hash(password)
+        self.hashedPassword = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
@@ -43,13 +43,13 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'firstName': self.first_name,
-            'lastName': self.last_name,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
             'balance': self.balance,
             'address': self.address,
             'city': self.city,
             'state': self.state,
-            'zipCode': self.zip_code,
+            'zipCode': self.zipCode,
         }
 
         # view shops - eager load

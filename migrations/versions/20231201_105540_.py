@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: fbd39ac4c48e
+Revision ID: 9175fa4a9e11
 Revises: 
-Create Date: 2023-11-30 16:48:30.186402
+Create Date: 2023-12-01 10:55:40.928435
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fbd39ac4c48e'
+revision = '9175fa4a9e11'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,14 +22,14 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('hashed_password', sa.String(length=255), nullable=False),
-    sa.Column('first_name', sa.String(length=40), nullable=False),
-    sa.Column('last_name', sa.String(length=40), nullable=False),
+    sa.Column('hashedPassword', sa.String(length=255), nullable=False),
+    sa.Column('firstName', sa.String(length=40), nullable=False),
+    sa.Column('lastName', sa.String(length=40), nullable=False),
     sa.Column('balance', sa.Numeric(precision=12, scale=2), nullable=True),
     sa.Column('address', sa.String(length=255), nullable=True),
     sa.Column('city', sa.String(length=255), nullable=True),
     sa.Column('state', sa.String(length=255), nullable=True),
-    sa.Column('zip_code', sa.String(length=10), nullable=True),
+    sa.Column('zipCode', sa.String(length=10), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -45,8 +45,9 @@ def upgrade():
     sa.Column('priceRange', sa.Integer(), nullable=False),
     sa.Column('businessHours', sa.String(length=255), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('phoneNumber', sa.String(length=13), nullable=True),
+    sa.Column('phoneNumber', sa.String(length=14), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('searchImageUrl', sa.String(length=255), nullable=False),
     sa.Column('coverImageUrl', sa.String(length=255), nullable=False),
     sa.Column('businessImageUrl', sa.String(length=255), nullable=False),
     sa.Column('pickup', sa.Boolean(), nullable=False),
