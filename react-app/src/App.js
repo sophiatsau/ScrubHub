@@ -9,6 +9,7 @@ import ShopDetails from "./components/ShopDetails";
 import ShopsViewCurrent from "./components/ShopsViewCurrent";
 import ShopCreateForm from "./components/ShopCreateForm";
 import ShopEditForm from "./components/ShopEditForm";
+import ShopByCategory from "./components/ShopByCategory";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,8 +35,11 @@ function App() {
           <Route exact path="/shops/new">
             <ShopCreateForm />
           </Route>
-          <Route exact path="/shops/:shopId(\\d+)/edit">
+          <Route exact path="/shops/:shopId([0-9]{1,})/edit">
             <ShopEditForm />
+          </Route>
+          <Route exact path="/shops/:category">
+            <ShopByCategory />
           </Route>
           <Route>404 Page Not Found</Route>
         </Switch>
