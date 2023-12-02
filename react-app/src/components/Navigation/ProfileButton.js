@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
@@ -7,6 +8,7 @@ import SignupFormModal from "../SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -34,6 +36,14 @@ function ProfileButton({ user }) {
     dispatch(logout());
   };
 
+  const viewShops = () => {
+    history.push('/current/shops')
+  }
+
+  const createShop = () => {
+    history.push('/shops/new')
+  }
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
@@ -47,6 +57,10 @@ function ProfileButton({ user }) {
           <>
             <li>{user.username}</li>
             <li>{user.email}</li>
+            {user.shops.length ?
+              <li onClick={viewShops}>View My Shops</li>
+              : <li onClick={createShop}>Become a Shop Owner</li>
+            }
             <li>
               <button onClick={handleLogout}>Log Out</button>
             </li>

@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/">
             <Landing />
           </Route>
-          <Route exact path="/shops/:shopId">
+          <Route exact path="/shops/:shopId(\\d+)">
             <ShopDetails />
           </Route>
           <Route>404 Page Not Found</Route>
