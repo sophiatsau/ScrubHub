@@ -101,7 +101,7 @@ Sun Closed''',
 
 # Adds a demo user, you can add other users here if you want
 def seed_shops():
-    [amphibian, arthropod, bird, cat, dog, marine, mammal, critter, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
+    [amphibian, arthropod, bird, cat, dog, marine, critter, mammal, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
 
     associations = [
         [reptile,arthropod,bird],
