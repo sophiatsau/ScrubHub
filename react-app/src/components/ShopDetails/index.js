@@ -28,21 +28,21 @@ export default function ShopDetails() {
 
     if (!shop?.coverImageUrl) return <div>Loading Shop...</div>
 
-    const {name,
-        address,
-        city,
-        state,
-        zipCode,
-        priceRange,
-        businessHours,
-        email,
-        phoneNumber,
-        description,
-        coverImageUrl,
-        businessImageUrl,
-        pickup,
-        delivery,
-    } = shop
+    // const {name,
+    //     address,
+    //     city,
+    //     state,
+    //     zipCode,
+    //     priceRange,
+    //     businessHours,
+    //     email,
+    //     phoneNumber,
+    //     description,
+    //     coverImageUrl,
+    //     businessImageUrl,
+    //     pickup,
+    //     delivery,
+    // } = shop
 
     return (
         <div>
