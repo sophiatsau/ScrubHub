@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .shop_category import shop_categories
 
 
 class Shop(db.Model):
@@ -30,6 +31,16 @@ class Shop(db.Model):
         back_populates="shops",
     )
 
+    categories = db.relationship(
+        "Category",
+        secondary=shop_categories,
+        back_populates="shops",
+    )
+
+    def __getitem__(self, item):
+        """Configures model to be conscriptable"""
+        return getattr(self, item)
+
     def to_dict(self, scope=None):
         d = {
             "id": self.id,
@@ -43,6 +54,7 @@ class Shop(db.Model):
             "pickup": self.pickup,
             "delivery": self.delivery,
             "searchImageUrl": self.searchImageUrl, # need this even on details, for editing
+            "categories": [cat.name for cat in self.categories],
             # rating
             # calculated distance
         }

@@ -57,3 +57,7 @@ class User(db.Model, UserMixin):
         # view critters - only through shop
         # view reviews - lazy load
         return d
+
+    def __getitem__(self, item):
+        """Configures model to be conscriptable"""
+        return getattr(self, item)
