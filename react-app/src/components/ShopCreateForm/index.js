@@ -17,7 +17,7 @@ export default function ShopCreateForm() {
     state:"",
     zipCode:"",
     priceRange:0,
-    businessHours:{
+    businessHoursObj:{
       Mon: {open:"",close:"",active:false},
       Tue: {open:"",close:"",active:false},
       Wed: {open:"",close:"",active:false},
@@ -39,9 +39,9 @@ export default function ShopCreateForm() {
   const [errors, setErrors] = useState({})
   const [imageLoading, setImageLoading] = useState(false);
 
-  const formatPhoneNumber = (num) => {
-    return `(${num.slice(0,3)}) ${num.slice(3,6)}-${num.slice(6)}`
-  }
+  // const formatPhoneNumber = (num) => {
+  //   return `(${num.slice(0,3)}) ${num.slice(3,6)}-${num.slice(6)}`
+  // }
 
   const parseBusinessHours = (obj) => {
     const errors = []
@@ -76,12 +76,12 @@ export default function ShopCreateForm() {
       } else if (type==="checkbox") {
         const [day, active] = name.split(" ")
         if (active) {
-          newData.businessHours[day].active = checked
+          newData.businessHoursObj[day].active = checked
         }
         else newData[name] = checked
       } else if (type==="time") {
         const [day, time] = name.split(" ")
-        newData.businessHours[day][time] = value
+        newData.businessHoursObj[day][time] = value
       } else {
         newData[name] = value;
       }
@@ -94,23 +94,19 @@ export default function ShopCreateForm() {
     e.preventDefault();
     setErrors({})
 
-    let businessHours = ""
     try {
-      businessHours = parseBusinessHours(formData.businessHours)
+      formData.businessHours = parseBusinessHours(formData.businessHoursObj)
     } catch (e) {
       setErrors({businessHours: e.message})
+      console.log("********ERRORS CAUGHT")
+      return;
     }
 
     const allFormData = new FormData();
-    allFormData.append("coverImageUrl",formData.coverImageUrl)
-    allFormData.append("businessImageUrl",formData.businessImageUrl)
-    allFormData.append("searchImageUrl",formData.searchImageUrl)
-    allFormData.append("businessHours", businessHours)
-    allFormData.append("phoneNumber", formatPhoneNumber(formData.phoneNumber))
 
-    console.log(formData)
-    console.log(businessHours)
-
+    for (let [key, value] of Object.entries(formData)) {
+      allFormData.append(key, value)
+    }
 
     // Loading message to let user know the data is being processed
     setImageLoading(true);
@@ -136,6 +132,7 @@ export default function ShopCreateForm() {
             accept="image"
             name="coverImageUrl"
             onChange={handleFormUpdate}
+            required
           />
           {errors.coverImageUrl && <div className='error'>{errors.coverImageUrl}</div>}
         </label>
@@ -146,6 +143,7 @@ export default function ShopCreateForm() {
             accept="image"
             name="businessImageUrl"
             onChange={handleFormUpdate}
+            required
           />
           {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
         </label>
@@ -156,6 +154,7 @@ export default function ShopCreateForm() {
             accept="image"
             name="searchImageUrl"
             onChange={handleFormUpdate}
+            required
           />
           {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
         </label>
@@ -166,6 +165,7 @@ export default function ShopCreateForm() {
             name="name"
             value={formData.name}
             onChange={handleFormUpdate}
+            required
           />
           {errors.name && <div className='error'>{errors.name}</div>}
         </label>
@@ -176,6 +176,7 @@ export default function ShopCreateForm() {
             name="address"
             value={formData.address}
             onChange={handleFormUpdate}
+            required
           />
           {errors.address && <div className='error'>{errors.address}</div>}
         </label>
@@ -186,6 +187,7 @@ export default function ShopCreateForm() {
             name="city"
             value={formData.city}
             onChange={handleFormUpdate}
+            required
           />
           {errors.city && <div className='error'>{errors.city}</div>}
         </label>
@@ -196,6 +198,7 @@ export default function ShopCreateForm() {
             name="state"
             value={formData.state}
             onChange={handleFormUpdate}
+            required
           />
           {errors.state && <div className='error'>{errors.state}</div>}
         </label>
@@ -206,6 +209,9 @@ export default function ShopCreateForm() {
             name="zipCode"
             value={formData.zipCode}
             onChange={handleFormUpdate}
+            required
+            placeholder='XXXXX or XXXXX-XXXX'
+            pattern="^\d{5}(-\d{4})?$"
           />
           {errors.zipCode && <div className='error'>{errors.zipCode}</div>}
         </label>
@@ -216,6 +222,7 @@ export default function ShopCreateForm() {
             name="priceRange"
             value={formData.priceRange}
             onChange={handleFormUpdate}
+            required
           />
           {errors.priceRange && <div className='error'>{errors.priceRange}</div>}
         </label>
@@ -227,7 +234,7 @@ export default function ShopCreateForm() {
               <input
                 type="checkbox"
                 name={`${day} active`}
-                value={formData.businessHours[day].active}
+                value={formData.businessHoursObj[day].active}
                 onChange={handleFormUpdate}
               />
               {day}:
@@ -236,9 +243,9 @@ export default function ShopCreateForm() {
                 <input
                   type="time"
                   name={`${day} open`}
-                  value={formData.businessHours[day].open}
+                  value={formData.businessHoursObj[day].open}
                   onChange={handleFormUpdate}
-                  disabled={!formData.businessHours[day].active}
+                  disabled={!formData.businessHoursObj[day].active}
                   pattern="[0-9]{2}:[0-9]{2}"
                 />
               </label>
@@ -247,9 +254,9 @@ export default function ShopCreateForm() {
                 <input
                   type="time"
                   name={`${day} close`}
-                  value={formData.businessHours[day].close}
+                  value={formData.businessHoursObj[day].close}
                   onChange={handleFormUpdate}
-                  disabled={!formData.businessHours[day].active}
+                  disabled={!formData.businessHoursObj[day].active}
                   pattern="[0-9]{2}:[0-9]{2}"
                 />
               </label>
@@ -265,16 +272,18 @@ export default function ShopCreateForm() {
             name="email"
             value={formData.email}
             onChange={handleFormUpdate}
+            required
           />
           {errors.email && <div className='error'>{errors.email}</div>}
         </label>
         <label>
-          Phone Number (Optional):
+          Phone Number (Optional) ((XXX) XXX-XXXX):
           <input
-            type="number"
+            type="text"
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleFormUpdate}
+            pattern="\(\d{3}\) \d{3}-\d{4}"
           />
           {errors.phoneNumber && <div className='error'>{errors.phoneNumber}</div>}
         </label>
@@ -311,7 +320,7 @@ export default function ShopCreateForm() {
             <div className='error'>{errors.delivery && errors.delivery}</div>
           </label>
         </label>
-        <button type="submit" disabled={imageLoading}>Submit</button>
+        <button type="submit" disabled={false}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>

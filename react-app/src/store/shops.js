@@ -14,7 +14,7 @@ const getOneShop = (shop) => ({
 })
 
 const createShop = (shop) => ({
-    type: CREATE_SHOP.
+    type: CREATE_SHOP,
     shop
 })
 

@@ -53,10 +53,12 @@ def create_shop():
             url = upload["url"]
             images[field]=url
 
-        # form_data = {**form.data, **images, "userId": current_user.id}
+        form_data = {**form.data, **images, "userId": current_user.id}
 
-        shop = Shop(
-            **form.data, **images, userId=current_user.id
+        del form_data['csrf_token']
+
+        shop = Shop( **form_data,
+            # **form.data,**images, userId=current_user.id
             )
         db.session.add(shop)
         db.session.commit()
