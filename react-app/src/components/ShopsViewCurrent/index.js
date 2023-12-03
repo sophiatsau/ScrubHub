@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import ShopCard from '../ShopCard'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
-import { thunkGetAllShops } from '../../store/shops'
+import { thunkGetUserShops } from '../../store/shops'
 
 export default function ShopsViewCurrent() {
   const dispatch = useDispatch()
@@ -12,7 +12,7 @@ export default function ShopsViewCurrent() {
 
   useEffect(() => {
     if (sessionUser) {
-      dispatch(thunkGetAllShops())
+      dispatch(thunkGetUserShops())
     }
   }, [dispatch, sessionUser])
 

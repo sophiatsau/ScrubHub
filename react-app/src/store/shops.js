@@ -1,10 +1,16 @@
 import { normalizeObj } from "./utils"
 const GET_ALL_SHOPS = "shops/GET_ALL_SHOPS"
+const GET_USER_SHOPS = "shops/GET_USER_SHOPS"
 const GET_ONE_SHOP = "shops/GET_ONE_SHOP"
 const CREATE_SHOP = "shops/CREATE_SHOP"
 
 const getAllShops = (shops) => ({
     type: GET_ALL_SHOPS,
+    shops
+})
+
+const getUserShops = shops => ({
+    type: GET_USER_SHOPS,
     shops
 })
 
@@ -24,6 +30,19 @@ export const thunkGetAllShops = () => async (dispatch) => {
     const data = await response.json()
     if (response.ok) {
         dispatch(getAllShops(data.shops));
+    } else {
+        data.status = response.status;
+    }
+
+    return data;
+}
+
+export const thunkGetUserShops = () => async (dispatch) => {
+    const response = await fetch(`/api/shops/current`);
+
+    const data = await response.json()
+    if (response.ok) {
+        dispatch(getUserShops(data.shops));
     } else {
         data.status = response.status;
     }
@@ -66,7 +85,10 @@ const initialState = {}
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_SHOPS: {
-            return {...normalizeObj(action.shops)}
+            return normalizeObj(action.shops)
+        }
+        case GET_USER_SHOPS: {
+            return {...state, ...normalizeObj(action.shops)}
         }
         case GET_ONE_SHOP:
             return {...state, [action.shop.id]: action.shop}

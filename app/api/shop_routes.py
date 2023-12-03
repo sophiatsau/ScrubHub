@@ -10,9 +10,19 @@ shop_routes = Blueprint('shop', __name__)
 @shop_routes.route('/')
 def get_all_shops():
     """
-    Returns all shops available
+    Returns all shops available as a list of dictionaries
     """
     shops = Shop.query.all()
+    return {"shops": [shop.to_dict() for shop in shops]}
+
+
+@shop_routes.route('/current')
+@login_required
+def get_user_shops():
+    """
+    Returns all current user's shops as a list of dictionaries
+    """
+    shops = Shop.query.filter(Shop.userId==current_user.id).all()
     return {"shops": [shop.to_dict() for shop in shops]}
 
 
