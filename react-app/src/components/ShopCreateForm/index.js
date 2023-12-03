@@ -2,10 +2,24 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { thunkCreateShop } from '../../store/shops';
+import { userAddShop } from '../../store/session';
 
 import "./ShopCreateForm.css"
 
 const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+const CATEGORIES = [
+  "Amphibians",
+  "Arthropods",
+  "Birds",
+  "Cats",
+  "Dogs",
+  "Marines",
+  "Other Mammals",
+  "Other Critters",
+  "Rabbits",
+  "Reptiles",
+  "Rodents",
+]
 
 export default function ShopCreateForm() {
   const dispatch = useDispatch();
@@ -34,7 +48,9 @@ export default function ShopCreateForm() {
     searchImageUrl: null,
     pickup: false,
     delivery: false,
+    categories: [],
   })
+  const [categories, setCategories] = useState(new Set())
 
   const [errors, setErrors] = useState({})
   const [imageLoading, setImageLoading] = useState(false);
@@ -90,6 +106,13 @@ export default function ShopCreateForm() {
     })
   }
 
+  const handleCategoryUpdate = e => {
+    const { name, checked } = e.target;
+    const newCats = new Set(categories)
+    checked ? newCats.add(name) : newCats.delete(name)
+    setCategories(newCats)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({})
@@ -98,9 +121,10 @@ export default function ShopCreateForm() {
       formData.businessHours = parseBusinessHours(formData.businessHoursObj)
     } catch (e) {
       setErrors({businessHours: e.message})
-      console.log("********ERRORS CAUGHT")
       return;
     }
+
+    formData.categories = [...categories].join(",")
 
     const allFormData = new FormData();
 
@@ -115,8 +139,13 @@ export default function ShopCreateForm() {
 
     if (newShop.errors) {
       setErrors(newShop.errors)
-    } else history.push(`/shops/${newShop.id}`)
+    } else {
+      await dispatch(userAddShop(newShop.id))
+      history.push(`/shops/${newShop.id}`)
+    }
   }
+
+  console.log("************IMAGE LOADING", imageLoading)
 
   return (
     <div>
@@ -319,6 +348,21 @@ export default function ShopCreateForm() {
             Delivery
             <div className='error'>{errors.delivery && errors.delivery}</div>
           </label>
+        </label>
+        <label className="choose-categories-form">
+          Select categories for your shop:
+          {CATEGORIES.map(cat => (
+            <label key={cat}>
+              <input
+                type="checkbox"
+                name={`${cat}`}
+                onChange={handleCategoryUpdate}
+                checked={categories.has(cat)}
+                />
+              {cat}
+            </label>
+          ))}
+          {errors.categories && <div className='error'>{errors.categories}</div>}
         </label>
         <button type="submit" disabled={false}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}

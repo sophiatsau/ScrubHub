@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const USER_ADD_SHOP = "session/USER_ADD_SHOP"
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -10,6 +11,11 @@ const setUser = (user) => ({
 const removeUser = () => ({
 	type: REMOVE_USER,
 });
+
+export const userAddShop = (shopId) => ({
+	type: USER_ADD_SHOP,
+	shopId
+})
 
 const initialState = { user: null };
 
@@ -96,6 +102,8 @@ export default function reducer(state = initialState, action) {
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
+		case USER_ADD_SHOP:
+			return { user: {...state.user, shops:[...state.user.shops, action.shopId]} }
 		default:
 			return state;
 	}

@@ -45,13 +45,11 @@ export const thunkGetShop = (shopId) => async dispatch => {
 }
 
 export const thunkCreateShop = formData => async dispatch => {
-    console.log("🚀 ~ file: shops.js:48 ~ thunkCreateShop ~ formData:", formData)
     const res = await fetch(`/api/shops/new`, {
         method: "POST",
         body: formData,
     })
     const data = await res.json()
-    console.log("🚀 ~ file: shops.js:54 ~ thunkCreateShop ~ data:", data)
 
     if (res.ok) {
         dispatch(createShop(data))

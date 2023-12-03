@@ -8,3 +8,8 @@
     grid-template-columns: 5% 5% 20% 20%;
     align-items: center;
 }
+
+.choose-categories-form {
+    display: flex;
+    flex-direction: column;
+}

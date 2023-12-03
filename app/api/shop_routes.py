@@ -1,5 +1,5 @@
 from flask import Blueprint, session, request
-from app.models import Shop, db
+from app.models import Shop, db, Category
 from app.forms import ShopCreateForm
 from flask_login import current_user, login_required
 from .utils import error_messages, error_message, get_unique_filename, upload_file_to_s3, remove_file_from_s3
@@ -35,16 +35,20 @@ def create_shop():
     """
     form = ShopCreateForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("🚀 ~ file: shop_routes.py:38 ~ form.data:", form.data)
 
     if form.validate_on_submit():
         images = {}
+
+        category_list = form.data['categories'].split(',')
+        categories = Category.query.filter(Category.name.in_(category_list)).all()
+
+        if not categories:
+            return {"errors":"no cats"}, 400
 
         for field in ["searchImageUrl","coverImageUrl","businessImageUrl"]:
             img = form.data[field]
             img.filename = get_unique_filename(img.filename)
             upload = upload_file_to_s3(img)
-            print("🚀 ~ file: shop_routes.py:50 ~ upload:", upload)
 
             if "url" not in upload:
                 # if no upload key, there was an error uploading.
@@ -56,10 +60,12 @@ def create_shop():
         form_data = {**form.data, **images, "userId": current_user.id}
 
         del form_data['csrf_token']
+        del form_data['categories']
 
-        shop = Shop( **form_data,
-            # **form.data,**images, userId=current_user.id
-            )
+        shop = Shop( **form_data)
+
+        shop.categories.extend(categories)
+
         db.session.add(shop)
         db.session.commit()
         return shop.to_dict(scope="detailed"), 201
