@@ -118,3 +118,13 @@ button { /* buttons sneakily ignore inheriting */
 .error {
     color: var(--errorColor)
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.business-hours-form {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { thunkCreateShop } from '../../store/shops';
+
+import "./ShopCreateForm.css"
+
+const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
 
 export default function ShopCreateForm() {
+  const dispatch = useDispatch();
+  const history = useHistory()
   const [formData, setFormData] = useState({
     name:"",
     address:"",
@@ -8,15 +17,15 @@ export default function ShopCreateForm() {
     state:"",
     zipCode:"",
     priceRange:0,
-    // businessHours:{
-      Mon: "",
-      Tue: "",
-      Wed: "",
-      Thu: "",
-      Fri: "",
-      Sat: "",
-      Sun: "",
-    // },
+    businessHours:{
+      Mon: {open:"",close:"",active:false},
+      Tue: {open:"",close:"",active:false},
+      Wed: {open:"",close:"",active:false},
+      Thu: {open:"",close:"",active:false},
+      Fri: {open:"",close:"",active:false},
+      Sat: {open:"",close:"",active:false},
+      Sun: {open:"",close:"",active:false},
+    },
     email: "",
     phoneNumber: "",
     description: "",
@@ -28,16 +37,51 @@ export default function ShopCreateForm() {
   })
 
   const [errors, setErrors] = useState({})
+  const [imageLoading, setImageLoading] = useState(false);
+
+  const formatPhoneNumber = (num) => {
+    return `(${num.slice(0,3)}) ${num.slice(3,6)}-${num.slice(6)}`
+  }
+
+  const parseBusinessHours = (obj) => {
+    const errors = []
+    const businessHours = DAYS.map(day => {
+      const {active, open, close} = obj[day]
+      const hours = active ? open+"-"+close : "Closed"
+
+      if (active && (!open || !close)) {
+        errors.push(`Please set your shop's hours on ${day}.`)
+      }
+
+      else if (active && open >= close) {
+        errors.push(`Opening hours must be before closing hours on ${day}.`)
+      }
+
+      return `${day} ${hours}`
+    }).join("\n")
+
+    if (errors.length) throw Error(errors.join("\n"))
+
+    return businessHours
+  }
 
   const handleFormUpdate = (e) => {
     const { name, value, type, files, checked } = e.target;
+
     setFormData((prevData) => {
       const newData = {...prevData};
 
       if (type==="file") {
         newData[name] = files[0];
       } else if (type==="checkbox") {
-        newData[name] = checked
+        const [day, active] = name.split(" ")
+        if (active) {
+          newData.businessHours[day].active = checked
+        }
+        else newData[name] = checked
+      } else if (type==="time") {
+        const [day, time] = name.split(" ")
+        newData.businessHours[day][time] = value
       } else {
         newData[name] = value;
       }
@@ -46,15 +90,75 @@ export default function ShopCreateForm() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({})
+
+    let businessHours = ""
+    try {
+      businessHours = parseBusinessHours(formData.businessHours)
+    } catch (e) {
+      setErrors({businessHours: e.message})
+    }
+
+    const allFormData = new FormData();
+    allFormData.append("coverImageUrl",formData.coverImageUrl)
+    allFormData.append("businessImageUrl",formData.businessImageUrl)
+    allFormData.append("searchImageUrl",formData.searchImageUrl)
+    allFormData.append("businessHours", businessHours)
+    allFormData.append("phoneNumber", formatPhoneNumber(formData.phoneNumber))
+
     console.log(formData)
+    console.log(businessHours)
+
+
+    // Loading message to let user know the data is being processed
+    setImageLoading(true);
+    const newShop = await dispatch(thunkCreateShop(allFormData))
+    setImageLoading(false);
+
+    if (newShop.errors) {
+      setErrors(newShop.errors)
+    } else history.push(`/shops/${newShop.id}`)
   }
 
   return (
     <div>
       <h2>Create A New Shop!</h2>
-      <form>
+      <form
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
+        <label>
+          Choose a cover photo:
+          <input
+            type="file"
+            accept="image"
+            name="coverImageUrl"
+            onChange={handleFormUpdate}
+          />
+          {errors.coverImageUrl && <div className='error'>{errors.coverImageUrl}</div>}
+        </label>
+        <label>
+          Choose a photo for your shop's profile:
+          <input
+            type="file"
+            accept="image"
+            name="businessImageUrl"
+            onChange={handleFormUpdate}
+          />
+          {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
+        </label>
+        <label>
+          Choose a thumbnail photo:
+          <input
+            type="file"
+            accept="image"
+            name="searchImageUrl"
+            onChange={handleFormUpdate}
+          />
+          {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
+        </label>
         <label>
           Shop Name:
           <input
@@ -108,7 +212,7 @@ export default function ShopCreateForm() {
         <label>
           Price Range:
           <input
-            type="text"
+            type="number"
             name="priceRange"
             value={formData.priceRange}
             onChange={handleFormUpdate}
@@ -117,70 +221,41 @@ export default function ShopCreateForm() {
         </label>
         <label>
           Business Hours:
-          <div className='business-hours-form' />
-          <label>
-            Mon:
-            <input
-              type="text"
-              name="Mon"
-              value={formData.Mon}
-              onChange={handleFormUpdate}
-            />
-          </label>
-          <label>
-            Tue:
-            <input
-              type="text"
-              name="Tue"
-              value={formData.Tue}
-              onChange={handleFormUpdate}
-            />
-          </label>
-          <label>
-            Wed:
-            <input
-              type="text"
-              name="Wed"
-              value={formData.Wed}
-              onChange={handleFormUpdate}
-            />
-          </label>
-          <label>
-            Thu:
-            <input
-              type="text"
-              name="Thu"
-              value={formData.Thu}
-              onChange={handleFormUpdate}
-            />
-          </label>
-          <label>
-            Fri:
-            <input
-              type="text"
-              name="Fri"
-              value={formData.Fri}
-              onChange={handleFormUpdate}
-            />
-          </label>
-          <label>
-            Sat:
-            <input
-              type="text"
-              name="Sat"
-              value={formData.Sat}
-              onChange={handleFormUpdate}
-            />
-          </label>
-          <label>
-            Sun:
-            <input
-              type="text"
-              name="Sun"
-              value={formData.Sun}
-              onChange={handleFormUpdate}
-            />
-          </label>
+          <div className='business-hours-form'>
+          {DAYS.map(day => (
+            <label key={day} className='daily-business-hours'>
+              <input
+                type="checkbox"
+                name={`${day} active`}
+                value={formData.businessHours[day].active}
+                onChange={handleFormUpdate}
+              />
+              {day}:
+              <label>
+                Open:
+                <input
+                  type="time"
+                  name={`${day} open`}
+                  value={formData.businessHours[day].open}
+                  onChange={handleFormUpdate}
+                  disabled={!formData.businessHours[day].active}
+                  pattern="[0-9]{2}:[0-9]{2}"
+                />
+              </label>
+              <label>
+                Close:
+                <input
+                  type="time"
+                  name={`${day} close`}
+                  value={formData.businessHours[day].close}
+                  onChange={handleFormUpdate}
+                  disabled={!formData.businessHours[day].active}
+                  pattern="[0-9]{2}:[0-9]{2}"
+                />
+              </label>
+            </label>
+          ))}
+          </div>
           {errors.businessHours && <div className='error'>{errors.businessHours}</div>}
         </label>
         <label>
@@ -196,7 +271,7 @@ export default function ShopCreateForm() {
         <label>
           Phone Number (Optional):
           <input
-            type="text"
+            type="number"
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleFormUpdate}
@@ -236,7 +311,8 @@ export default function ShopCreateForm() {
             <div className='error'>{errors.delivery && errors.delivery}</div>
           </label>
         </label>
-        <button onClick={handleSubmit}>Submit</button>
+        <button type="submit" disabled={imageLoading}>Submit</button>
+        {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>
   )
