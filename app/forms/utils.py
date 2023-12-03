@@ -13,7 +13,7 @@ def value_exists_in_table(field_name, model, msg):
    """
    def validator(form, field):
       data = field.data
-      exists = model.query.filter(model[field_name]).first()
+      exists = model.query.filter(model[field_name]==data).first()
       if exists:
          raise ValidationError(msg)
    return validator
