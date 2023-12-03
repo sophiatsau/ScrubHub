@@ -34,5 +34,6 @@ class ShopCreateForm(FlaskForm):
     description = TextAreaField(validators=[Optional(), Length(max=5000)])
     coverImageUrl = FileField(validators=[DataRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     businessImageUrl = FileField(validators=[DataRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    searchImageUrl = FileField(validators=[DataRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     pickup = BooleanField(validators=[DataRequired()])
     delivery = BooleanField(validators=[DataRequired()])

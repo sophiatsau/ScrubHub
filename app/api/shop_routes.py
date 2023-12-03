@@ -35,6 +35,7 @@ def create_shop():
     """
     form = ShopCreateForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("🚀 ~ file: shop_routes.py:38 ~ form.data:", form.data)
 
     if form.validate_on_submit():
         images = {}
@@ -59,7 +60,7 @@ def create_shop():
             )
         db.session.add(shop)
         db.session.commit()
-        return shop.to_dict(scope="detailed")
+        return shop.to_dict(scope="detailed"), 201
     elif form.errors:
         return error_messages(form.errors), 400
     else:

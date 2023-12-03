@@ -17,9 +17,10 @@ export default function ShopsViewCurrent() {
   }, [dispatch, sessionUser])
 
   if (!sessionUser) return <Redirect to="/" />
-  if (!Object.values(shops).length) return <div>Loading shops...</div>
 
   const userShops = sessionUser.shops.map(shopId => shops[shopId])
+
+  if (userShops.includes(undefined)) return <div>Loading shops...</div>
 
   return (
     <div>
@@ -32,7 +33,7 @@ export default function ShopsViewCurrent() {
         ))
         : <div>You have no shops</div>
         }
-        <Link to="shops/new">Create A New Shop</Link>
+        <Link to="/shops/new">Create A New Shop</Link>
     </div>
   )
 }

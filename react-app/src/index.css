@@ -114,3 +114,7 @@ button { /* buttons sneakily ignore inheriting */
 .hidden {
     display: none;
 }
+
+.error {
+    color: var(--errorColor)
+}
