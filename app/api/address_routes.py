@@ -20,7 +20,7 @@ def view_user_addresses():
 @login_required
 def create_address():
     """
-    Creates a new address for the use and returns new address in a dictionary
+    Creates a new address for the user and returns new address in a dictionary
     """
     form = AddressForm()
 
@@ -38,6 +38,39 @@ def create_address():
         db.session.add(address)
         db.session.commit()
         return address.to_dict(), 201
+    elif form.errors:
+        return error_messages(form.errors), 400
+    else:
+        return error_message(), 500
+
+
+@address_routes.route('/<int:id>/edit', methods=["PUT"])
+@login_required
+def edit_address(id):
+    """
+    Updates an existing address for the user and returns updated address in a dictionary
+    """
+    # handle 404, 403 errors
+    address = Address.query.get(id)
+
+    if not address:
+        return error_message("address", "Address not found."), 404
+    if address.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+
+    form = AddressForm()
+    form["csrf_token"].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        address.fullAddress=form.fullAddress.data
+        address.address=form.address.data
+        address.city=form.city.data
+        address.state=form.state.data
+        address.zipCode=form.zipCode.data
+
+        db.session.add(address)
+        db.session.commit()
+        return address.to_dict(), 200
     elif form.errors:
         return error_messages(form.errors), 400
     else:
