@@ -13,3 +13,6 @@ def add_prefix_for_prod(attr):
         return f"{SCHEMA}.{attr}"
     else:
         return attr
+
+def format_address(self):
+    return f'{self.address}\n{self.city}, {self.state} {self.zipCode}'

@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA, add_prefix_for_prod, format_address
 from .shop_category import shop_categories
 
 
@@ -75,6 +75,7 @@ class Shop(db.Model):
                 "description": self.description,
                 "coverImageUrl": self.coverImageUrl,
                 "businessImageUrl": self.businessImageUrl,
+                "formattedAddress": format_address(self),
             })
             # critters
             # reviews

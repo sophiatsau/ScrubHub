@@ -16,10 +16,12 @@ class User(db.Model, UserMixin):
     firstName = db.Column(db.String(40), nullable=False)
     lastName = db.Column(db.String(40), nullable=False)
     balance = db.Column(db.Numeric(12,2), default=0.00)
-    address = db.Column(db.String(255))
-    city = db.Column(db.String(255))
-    state = db.Column(db.String(255))
-    zipCode = db.Column(db.String(10))
+
+    addresses = db.relationship(
+        "Address",
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
 
     shops = db.relationship(
         "Shop",
@@ -52,10 +54,6 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'balance': self.balance,
-            'address': self.address,
-            'city': self.city,
-            'state': self.state,
-            'zipCode': self.zipCode,
         }
 
         # view shops - eager load
