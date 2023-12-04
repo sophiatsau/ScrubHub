@@ -39,7 +39,8 @@ class Shop(db.Model):
 
     critters = db.relationship(
         "Critter",
-        back_populates="shop"
+        back_populates="shop",
+        cascade="all, delete-orphan",
     )
 
     def __getitem__(self, item):

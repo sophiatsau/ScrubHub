@@ -13,6 +13,7 @@ def get_all_shops():
     Returns all shops available as a list of dictionaries
     """
     shops = Shop.query.all()
+    print("🚀 ~ file: shop_routes.py:16 ~ shops:", shops)
     return {"shops": [shop.to_dict() for shop in shops]}
 
 
