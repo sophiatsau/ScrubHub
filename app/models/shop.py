@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA, add_prefix_for_prod, format_address
 from .shop_category import shop_categories
 
 
@@ -37,6 +37,12 @@ class Shop(db.Model):
         back_populates="shops",
     )
 
+    critters = db.relationship(
+        "Critter",
+        back_populates="shop",
+        cascade="all, delete-orphan",
+    )
+
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
         return getattr(self, item)
@@ -58,10 +64,8 @@ class Shop(db.Model):
             "businessHours": self.businessHours,
             "pickup": self.pickup,
             "delivery": self.delivery,
-            "searchImageUrl": self.searchImageUrl, # need this even on details, for editing
+            "searchImageUrl": self.searchImageUrl,
             "categories": self.categories_names,
-            # rating
-            # calculated distance
         }
 
         if scope=="detailed":
@@ -71,6 +75,7 @@ class Shop(db.Model):
                 "description": self.description,
                 "coverImageUrl": self.coverImageUrl,
                 "businessImageUrl": self.businessImageUrl,
+                "formattedAddress": format_address(self),
             })
             # critters
             # reviews

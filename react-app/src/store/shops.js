@@ -37,7 +37,7 @@ const deleteShop = (shopId) => ({
 })
 
 export const thunkGetAllShops = () => async (dispatch) => {
-    const response = await fetch("/api/shops");
+    const response = await fetch("/api/shops/");
 
     const data = await response.json()
     if (response.ok) {
