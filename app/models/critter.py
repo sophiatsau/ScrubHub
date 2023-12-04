@@ -7,6 +7,7 @@ class Critter(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    name=db.Column(db.String(255), nullable=False)
     species = db.Column(db.String(100))
     shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
@@ -33,6 +34,7 @@ class Critter(db.Model):
     def to_dict(self, scope=None):
         d = {
             "id": self.id,
+            "name": self.name,
             "species": self.species,
             "shopId": self.shopId,
             "userId": self.userId,

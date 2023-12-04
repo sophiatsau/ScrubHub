@@ -4,22 +4,45 @@ from faker import Faker
 from .utils import generate_address
 
 fake = Faker()
-# fake.add_provider(person)
 
-# Adds a demo user, you can add other users here if you want
+# critters info
+NAMES=["Turtle F", "Frilled Lizards 2yr M", "Snakes", "Frogs", "Kangaroo 1yr M"]
+SPECIES=["Chrysemys picta", "Chlamydosaurus Kingii", "Pantherophis guttatus", "Dryophytes cinereus", "Osphranter rufus"]
+CATEGORIES=["Reptile","Reptile","Reptile","Amphibians", "Other Mammals"]
+PREVIEW_IMAGES=["https://crittr-images.s3.us-west-1.amazonaws.com/turtle.webp", None, None, "https://crittr-images.s3.us-west-1.amazonaws.com/hop-grid.jpg", "https://crittr-images.s3.us-west-1.amazonaws.com/hop-cover.jpg"]
+DESCRIPTIONS=["A little turtle", None, "Hsssss", "Green. Comes in all genders and ages.", "He definitely did not kick a toddler in the face when I took him grocery shopping last week"]
+
+# Adds critters
 def seed_critters():
-
-    [street_address, city, state, zip] = generate_address()
-
-    for i in range(5):
-        new_address = Critter(
-            userId=i+1,
-            address=street_address,
-            city=city,
-            state=state,
-            zipCode=zip,
+    # critters for demo user
+    for i in range(3):
+        new_critter = Critter(
+            name=NAMES[i],
+            species=SPECIES[i],
+            shopId=1,
+            userId=1,
+            price=(i+1)*15,
+            category=CATEGORIES[i],
+            previewImageUrl=PREVIEW_IMAGES[i],
+            description=DESCRIPTIONS[i],
+            stock=i*5,
         )
-        db.session.add(new_address)
+        db.session.add(new_critter)
+
+    # seeders for shop 2
+    for i in range(3,5):
+        new_critter = Critter(
+            name=NAMES[i],
+            species=SPECIES[i],
+            shopId=2,
+            userId=2,
+            price=(i)*15,
+            category=CATEGORIES[i],
+            previewImageUrl=PREVIEW_IMAGES[i],
+            description=DESCRIPTIONS[i],
+            stock=[10,1][i-3],
+        )
+        db.session.add(new_critter)
 
     db.session.commit()
 

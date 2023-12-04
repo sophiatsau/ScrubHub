@@ -6,7 +6,7 @@ from .utils import generate_address
 fake = Faker()
 # fake.add_provider(person)
 
-# Adds a demo user, you can add other users here if you want
+# Adds addresses
 def seed_addresses():
 
     [street_address, city, state, zip] = generate_address()

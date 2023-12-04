@@ -4,9 +4,8 @@ from faker import Faker
 import random
 
 fake = Faker()
-# fake.add_provider(person)
 
-# Adds a demo user, you can add other users here if you want
+# Adds demo users
 def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password', firstName="Demo", lastName="User", balance=500.00)
