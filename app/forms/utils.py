@@ -7,6 +7,7 @@ def is_valid_us_zip(form, field):
       raise ValidationError("Zip code is invalid.")
 
 
+#not working
 def value_exists_in_table(field_name, model, msg):
    """
    Custom validator for dynamically checking if value of field already exists in db

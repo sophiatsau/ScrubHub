@@ -66,7 +66,6 @@ class Shop(db.Model):
 
         if scope=="detailed":
             d.update({
-                "userId": self.userId,
                 "email": self.email,
                 "phoneNumber": self.phoneNumber,
                 "description": self.description,

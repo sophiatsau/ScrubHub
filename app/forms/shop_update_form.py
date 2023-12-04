@@ -4,9 +4,8 @@ from wtforms.validators import DataRequired, Email, Length, NumberRange, Optiona
 from flask_wtf.file import FileField, FileAllowed
 
 from app.models import Shop
-from .utils import is_valid_us_zip, value_exists_in_table
+from .utils import is_valid_us_zip
 from ..api.utils import ALLOWED_EXTENSIONS
-
 
 class ShopUpdateForm(FlaskForm):
     name = StringField(validators=[DataRequired(), Length(1,100,"Store must have a name between 1-100 characters long")])
@@ -16,8 +15,8 @@ class ShopUpdateForm(FlaskForm):
     zipCode = StringField(validators=[is_valid_us_zip, DataRequired()])
     priceRange = IntegerField(validators=[DataRequired(), NumberRange(1,5, "Please select a price range for your critters")])
     businessHours = StringField(validators=[DataRequired(), Length(max=255)])
-    email = StringField(validators=[Optional(), Email("Email is invalid"), value_exists_in_table("email", Shop, 'Email is in use: each shop must have a unique email.')])
-    phoneNumber = StringField(validators=[Optional(), Length(min=14, max=14), value_exists_in_table("phoneNumber", Shop, 'Phone number is in use: each shop\'s phone number must be unique.')])
+    email = StringField(validators=[Optional(), Email("Email is invalid")])
+    phoneNumber = StringField(validators=[Optional(), Length(min=14, max=14)])
     description = TextAreaField(validators=[Optional(), Length(max=5000)])
     coverImageUrl = FileField(validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     businessImageUrl = FileField(validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])

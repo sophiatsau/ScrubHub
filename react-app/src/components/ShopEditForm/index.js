@@ -14,29 +14,38 @@ export default function ShopEditForm() {
   const {shopId} = useParams()
   const shop = useSelector(state => state.shops[shopId])
   const sessionUser = useSelector(state => state.session.user)
-  const [shopLoaded, setShopLoaded] = useState(false)
 
-  useEffect(() => {
-    dispatch(thunkGetShop(shopId)).then(setShopLoaded)
-  }, [dispatch, shopId, setShopLoaded])
-
-  const [formData, setFormData] = useState(shop)
-  const [businessHours, setBusinessHours] = useState(parseBusinessHours(formData?.businessHours))
-  const [formImages, setFormImages] = useState({
-    coverImageUrl: null,
-    businessImageUrl: null,
-    searchImageUrl: null,
-  })
-
+  const [formData, setFormData] = useState()
+  const [businessHours, setBusinessHours] = useState()
   const [categories, setCategories] = useState(new Set())
-
   const [errors, setErrors] = useState({})
   const [imageLoading, setImageLoading] = useState(false);
 
-  if (!shopLoaded) return <div>Loading Form...</div>
+  useEffect(() => {
+    dispatch(thunkGetShop(shopId)).then((res)=> {
+      setBusinessHours(parseBusinessHours(res.businessHours))
+      setCategories(new Set(res.categories))
+      setFormData({...res});
+    })
+  }, [dispatch, shopId, setFormData, setBusinessHours, setCategories])
 
-  if (shopLoaded && shopLoaded.userId !== sessionUser.id){
+  if (!formData) return <div>Loading Form...</div>
+
+  if (!sessionUser || (formData && formData.userId !== sessionUser.id)){
     return <Redirect to="/"/>
+  }
+
+  const handleHoursUpdate = (e) => {
+    const { name, value, checked, type } = e.target;
+    const newValue = type==="checkbox" ? checked : value;
+
+    setBusinessHours((prevData) => {
+      const [day, time] = name.split(" ");
+      const newHours = {...prevData};
+      newHours[day][time] = newValue;
+
+      return newHours;
+    })
   }
 
   const handleFormUpdate = (e) => {
@@ -48,14 +57,7 @@ export default function ShopEditForm() {
       if (type==="file") {
         newData[name] = files[0];
       } else if (type==="checkbox") {
-        const [day, active] = name.split(" ")
-        if (active) {
-          newData.businessHoursObj[day].active = checked
-        }
-        else newData[name] = checked
-      } else if (type==="time") {
-        const [day, time] = name.split(" ")
-        newData.businessHoursObj[day][time] = value
+        newData[name] = checked
       } else {
         newData[name] = value;
       }
@@ -76,13 +78,24 @@ export default function ShopEditForm() {
     setErrors({})
 
     try {
-      formData.businessHours = formatBusinessHours(formData.businessHoursObj)
+      formData.businessHours = formatBusinessHours(businessHours)
     } catch (e) {
       setErrors({businessHours: e.message})
       return;
     }
 
     formData.categories = [...categories].join(",")
+
+    const imageTypes = ["searchImageUrl","coverImageUrl","businessImageUrl"]
+
+    imageTypes.forEach(field => {
+      console.log(field, typeof formData[field] === "string")
+      if (typeof formData[field] === "string") {
+        delete formData[field];
+      }
+    })
+
+    console.log(formData)
 
     const allFormData = new FormData();
 
@@ -107,14 +120,14 @@ export default function ShopEditForm() {
 
   return (
     <div>
-      <h2>Create A New Shop!</h2>
+      <h2>Update Your Shop!</h2>
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
         <label>
           Choose a cover photo:
-          <img src={shop.coverImageUrl} alt="Current Cover Photo" />
+          <img src={shop.coverImageUrl} alt="Current Cover" />
           <input
             type="file"
             accept="image"
@@ -126,7 +139,7 @@ export default function ShopEditForm() {
         </label>
         <label>
           Choose a photo for your shop's profile:
-          <img src={shop.businessImageUrl} alt="Current Profile Photo" />
+          <img src={shop.businessImageUrl} alt="Current Profile" />
           <input
             type="file"
             accept="image"
@@ -138,7 +151,7 @@ export default function ShopEditForm() {
         </label>
         <label>
           Choose a thumbnail photo:
-          <img src={shop.searchImageUrl} alt="Current Search Photo" />
+          <img src={shop.searchImageUrl} alt="Current Search" />
           <input
             type="file"
             accept="image"
@@ -224,8 +237,9 @@ export default function ShopEditForm() {
               <input
                 type="checkbox"
                 name={`${day} active`}
-                value={formData.businessHoursObj[day].active}
-                onChange={handleFormUpdate}
+                value={businessHours[day].active}
+                checked={businessHours[day].active}
+                onChange={handleHoursUpdate}
               />
               {day}:
               <label>
@@ -233,9 +247,9 @@ export default function ShopEditForm() {
                 <input
                   type="time"
                   name={`${day} open`}
-                  value={formData.businessHoursObj[day].open}
-                  onChange={handleFormUpdate}
-                  disabled={!formData.businessHoursObj[day].active}
+                  value={businessHours[day].open}
+                  onChange={handleHoursUpdate}
+                  disabled={!businessHours[day].active}
                   pattern="[0-9]{2}:[0-9]{2}"
                 />
               </label>
@@ -244,9 +258,9 @@ export default function ShopEditForm() {
                 <input
                   type="time"
                   name={`${day} close`}
-                  value={formData.businessHoursObj[day].close}
-                  onChange={handleFormUpdate}
-                  disabled={!formData.businessHoursObj[day].active}
+                  value={businessHours[day].close}
+                  onChange={handleHoursUpdate}
+                  disabled={!businessHours[day].active}
                   pattern="[0-9]{2}:[0-9]{2}"
                 />
               </label>
@@ -294,6 +308,7 @@ export default function ShopEditForm() {
               type="checkbox"
               name="pickup"
               value={formData.pickup}
+              checked={formData.pickup}
               onChange={handleFormUpdate}
             />
             Pickup
@@ -304,6 +319,7 @@ export default function ShopEditForm() {
               type="checkbox"
               name="delivery"
               value={formData.delivery}
+              checked={formData.delivery}
               onChange={handleFormUpdate}
             />
             Delivery
@@ -319,6 +335,7 @@ export default function ShopEditForm() {
                 name={`${cat}`}
                 onChange={handleCategoryUpdate}
                 checked={categories.has(cat)}
+                value={categories.has(cat)}
                 />
               {cat}
             </label>

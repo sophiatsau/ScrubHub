@@ -40,6 +40,7 @@ export const formatBusinessHours = (obj) => {
 
     if (errors.length) throw Error(errors.join("\n"))
 
+    console.log("🚀 ~ file: utils.js:44 ~ formatBusinessHours ~ businessHours:", businessHours)
     return businessHours
 }
 
@@ -53,8 +54,9 @@ export const parseBusinessHours = (str) => {
     const hoursObj = {}
 
     // ["Mon 00:00-00:00", ...]
-    str.split("\n").forEach(ele => {
-        const [day, time] = ele.split(" ")
+    str.split(/\r?\n/).forEach(ele => {
+        let [day, time] = ele.split(" ")
+        if (time.endsWith("/r")) time = time.splice(-2,2)
         const [open, close, active] =
             time==="Closed" ?
                 ["","",false]

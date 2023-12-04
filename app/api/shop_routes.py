@@ -92,7 +92,6 @@ def update_shop(shopId):
     Edits an existing shop, returns edited shop as dictionary
     """
     shop = Shop.query.get(shopId)
-    print("🚀 ~ file: shop_routes.py:95 ~ shop:", shop)
 
     # errors
     if not shop:
@@ -102,19 +101,15 @@ def update_shop(shopId):
 
     form = ShopUpdateForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("🚀 ~ file: shop_routes.py:105 ~ form.data:", form.data)
 
     if form.validate_on_submit():
         updated_data = {}
 
-        for [field, value] in form.data.items():
-            print("🚀 ~ file: shop_routes.py:109 ~ [field, value]:", [field, value])
-        return shop
-
-
         for field in ["searchImageUrl","coverImageUrl","businessImageUrl"]:
             img = form.data[field]
             if not img:
+                # don't set it to None
+                del form.data[field]
                 continue
             img.filename = get_unique_filename(img.filename)
             upload = upload_file_to_s3(img)
@@ -123,23 +118,41 @@ def update_shop(shopId):
                 # if no upload key, there was an error uploading.
                 return upload, 500
 
+            # delete original file
+            delete = remove_file_from_s3(shop.to_dict(scope="detailed")[field])
+            if delete is not True:
+                return delete, 500
+
             url = upload["url"]
             updated_data[field]=url
 
-        form_data = {**form.data, **updated_data, "userId": current_user.id}
+        shop.name = form.name.data
+        shop.address = form.address.data
+        shop.city = form.city.data
+        shop.state = form.state.data
+        shop.zipCode = form.zipCode.data
+        shop.priceRange = form.priceRange.data
+        shop.businessHours = form.businessHours.data
+        shop.pickup = form.pickup.data
+        shop.delivery = form.delivery.data
+        shop.email = form.email.data
+        shop.phoneNumber = form.phoneNumber.data
+        shop.description = form.description.data
 
-        del form_data['csrf_token']
-        del form_data['categories']
+        shop.searchImageUrl = updated_data.get("searchImageUrl", shop.searchImageUrl)
+        shop.coverImageUrl = updated_data.get("coverImageUrl", shop.coverImageUrl)
+        shop.businessImageUrl = updated_data.get("businessImageUrl", shop.businessImageUrl)
 
-        shop.categories_names
         category_list = form.data['categories'].split(',')
+
         categories = Category.query.filter(Category.name.in_(category_list)).all()
 
-        shop.categories.extend(categories)
+        _add_cats = [shop.categories.append(cat) for cat in categories if cat not in shop.categories]
+        _remove_cats = [shop.categories.remove(cat) for cat in shop.categories if cat not in categories]
 
         db.session.add(shop)
         db.session.commit()
-        return shop.to_dict(scope="detailed"), 201
+        return shop.to_dict(scope="detailed"), 200
     elif form.errors:
         return error_messages(form.errors), 400
     else:

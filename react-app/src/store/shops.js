@@ -86,6 +86,7 @@ export const thunkCreateShop = formData => async dispatch => {
 }
 
 export const thunkEditShop = (shopId, formData) => async dispatch => {
+    console.log("🚀 ~ file: shops.js:89 ~ thunkEditShop ~ thunkEditShop:")
     const res = await fetch(`/api/shops/${shopId}/edit`, {
         method: "PUT",
         body: formData,
