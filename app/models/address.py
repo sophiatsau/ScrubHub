@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod, format_address
 
 class Address(db.Model):
-    __tablename__ = 'address'
+    __tablename__ = 'addresses'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

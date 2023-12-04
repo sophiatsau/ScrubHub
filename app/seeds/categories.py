@@ -1,7 +1,6 @@
 from app.models import db, Category, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
-from .utils import generate_address
 
 fake = Faker()
 
@@ -19,11 +18,9 @@ CATEGORIES = [
     "Rodents",
 ]
 
-# Adds a demo user, you can add other categories here if you want
+# Adds categories
 def seed_categories():
     _ = [db.session.add(Category(name=cat)) for cat in CATEGORIES]
-    # for cat in CATEGORIES:
-    #     new_cat = Category(cat)
 
     db.session.commit()
 

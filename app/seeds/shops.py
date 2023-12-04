@@ -99,7 +99,7 @@ Sat Closed
 Sun Closed''',
 ]
 
-# Adds a demo user, you can add other users here if you want
+# Adds shops
 def seed_shops():
     [amphibian, arthropod, bird, cat, dog, marine, critter, mammal, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
 
