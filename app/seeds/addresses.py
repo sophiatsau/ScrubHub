@@ -1,10 +1,6 @@
 from app.models import db, Address, environment, SCHEMA
 from sqlalchemy.sql import text
-from faker import Faker
 from .utils import generate_address
-
-fake = Faker()
-# fake.add_provider(person)
 
 # Adds addresses
 def seed_addresses():
@@ -14,6 +10,7 @@ def seed_addresses():
     for i in range(5):
         new_address = Address(
             userId=i+1,
+            name="Home",
             address=street_address,
             city=city,
             state=state,

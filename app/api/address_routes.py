@@ -33,6 +33,7 @@ def create_address():
             city=form.city.data,
             state=form.state.data,
             zipCode=form.zipCode.data,
+            name=form.name.data,
             userId=current_user.id,
         )
         db.session.add(address)
@@ -48,7 +49,7 @@ def create_address():
 @login_required
 def edit_address(id):
     """
-    Updates an existing address for the user and returns updated address in a dictionary
+    Deletes an address and returns a message if successfully deleted
     """
     # handle 404, 403 errors
     address = Address.query.get(id)
@@ -67,6 +68,7 @@ def edit_address(id):
         address.city=form.city.data
         address.state=form.state.data
         address.zipCode=form.zipCode.data
+        address.name=form.name.data
 
         db.session.add(address)
         db.session.commit()
@@ -75,3 +77,21 @@ def edit_address(id):
         return error_messages(form.errors), 400
     else:
         return error_message(), 500
+
+
+@address_routes.route('/<int:id>/delete', methods=["DELETE"])
+@login_required
+def delete_address(id):
+    """
+    Deletes an address and returns a message if successfully deleted
+    """
+    address = Address.query.get(id)
+    if not address:
+        return error_message("address", "Address not found."), 404
+
+    if address.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+
+    db.session.delete(address)
+    db.session.commit()
+    return {"message": "Address successfully deleted."}, 200

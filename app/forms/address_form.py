@@ -14,7 +14,8 @@ def address_exists(form, field):
 
 
 class AddressForm(FlaskForm):
-    fullAddress = StringField(validators=[DataRequired(),Length(max=255), address_exists])
+    name = StringField(validators=[DataRequired(),Length(max=255)])
+    fullAddress = StringField(validators=[DataRequired(),Length(max=255)])
     address = StringField(validators=[DataRequired(),Length(max=255)])
     city = StringField(validators=[DataRequired(),Length(max=255)])
     state = StringField(validators=[DataRequired(),Length(max=255)])

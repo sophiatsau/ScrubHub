@@ -184,6 +184,6 @@ def delete_shop(shopId):
     if all([delete1,delete2,delete3]):
         db.session.delete(shop)
         db.session.commit()
-        return {"message": "Album successfully deleted"}
+        return {"message": "Album successfully deleted"}, 200
     else:
         return error_message("file", "File deletion error"), 401
