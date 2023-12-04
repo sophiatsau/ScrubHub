@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import "./ShopCard.css"
+import { useSelector } from 'react-redux'
 
 export default function ShopCard({shop}) {
-  console.log("🚀 ~ file: index.js:6 ~ ShopCard ~ shop:", shop.categories)
+  const sessionUser = useSelector(state => state.session.user)
+
   return (
     <Link to={`/shops/${shop.id}`}>
       <img className="shop-card-img" src={shop.searchImageUrl} alt={shop.name}/>
@@ -18,6 +20,11 @@ export default function ShopCard({shop}) {
           </span>
         ))}</span>
       </div>
+      {sessionUser && sessionUser.id===shop.userId && (
+        <Link to={`/shops/${shop.id}/edit`}>
+          <button>Edit Shop</button>
+        </Link>
+      )}
     </Link>
   )
 }

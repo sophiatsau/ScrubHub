@@ -48,6 +48,7 @@ class Shop(db.Model):
     def to_dict(self, scope=None):
         d = {
             "id": self.id,
+            "userId": self.userId,
             "name": self.name,
             "address": self.address,
             "city": self.city,

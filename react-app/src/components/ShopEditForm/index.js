@@ -114,6 +114,7 @@ export default function ShopEditForm() {
       >
         <label>
           Choose a cover photo:
+          <img src={shop.coverImageUrl} alt="Current Cover Photo" />
           <input
             type="file"
             accept="image"
@@ -125,6 +126,7 @@ export default function ShopEditForm() {
         </label>
         <label>
           Choose a photo for your shop's profile:
+          <img src={shop.businessImageUrl} alt="Current Profile Photo" />
           <input
             type="file"
             accept="image"
@@ -136,6 +138,7 @@ export default function ShopEditForm() {
         </label>
         <label>
           Choose a thumbnail photo:
+          <img src={shop.searchImageUrl} alt="Current Search Photo" />
           <input
             type="file"
             accept="image"
