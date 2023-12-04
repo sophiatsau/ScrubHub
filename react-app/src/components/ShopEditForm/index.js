@@ -342,6 +342,7 @@ export default function ShopEditForm() {
           ))}
           {errors.categories && <div className='error'>{errors.categories}</div>}
         </label>
+        {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
         <button type="submit" disabled={false}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>

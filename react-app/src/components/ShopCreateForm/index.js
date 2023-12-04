@@ -3,24 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { thunkCreateShop } from '../../store/shops';
 import { userAddShop } from '../../store/session';
-import { formatBusinessHours } from '../../store/utils';
+import { DAYS, CATEGORIES, formatBusinessHours } from '../../store/utils';
 
 import "./ShopCreateForm.css"
-
-const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-const CATEGORIES = [
-  "Amphibians",
-  "Arthropods",
-  "Birds",
-  "Cats",
-  "Dogs",
-  "Marines",
-  "Other Mammals",
-  "Other Critters",
-  "Rabbits",
-  "Reptiles",
-  "Rodents",
-]
 
 export default function ShopCreateForm() {
   const dispatch = useDispatch();
@@ -339,6 +324,7 @@ export default function ShopCreateForm() {
           ))}
           {errors.categories && <div className='error'>{errors.categories}</div>}
         </label>
+        {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
         <button type="submit" disabled={false}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>

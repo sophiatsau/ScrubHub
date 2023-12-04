@@ -82,7 +82,7 @@ def create_shop():
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message(), 500
+        return error_message("unknownError", "An unknown error occurred."), 500
 
 
 @shop_routes.route('/<int:shopId>/edit', methods=['PUT'])
@@ -156,4 +156,31 @@ def update_shop(shopId):
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message(), 500
+        return error_message("unknownError", "An unknown error occurred."), 500
+
+
+@shop_routes.route("/<int:shopId>/delete", methods=["DELETE"])
+@login_required
+def delete_shop(shopId):
+    """
+    Deletes a shop and returns a message if successfully deleted
+    """
+    shop = Shop.query.get(shopId)
+    if not shop:
+        return error_message("shop", "Shop not found."), 404
+
+    if shop.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+
+    delete1 = remove_file_from_s3(shop.searchImageUrl)
+    delete2 = remove_file_from_s3(shop.coverImageUrl)
+    delete3 = remove_file_from_s3(shop.businessImageUrl)
+
+    print("*************DELETES HERE*********", [delete1,delete2,delete3])
+
+    if all([delete1,delete2,delete3]):
+        db.session.delete(shop)
+        db.session.commit()
+        return {"message": "Album successfully deleted"}
+    else:
+        return error_message("file", "File deletion error"), 401

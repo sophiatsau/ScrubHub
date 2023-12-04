@@ -2,6 +2,8 @@
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const USER_ADD_SHOP = "session/USER_ADD_SHOP"
+const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"
+
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -14,6 +16,11 @@ const removeUser = () => ({
 
 export const userAddShop = (shopId) => ({
 	type: USER_ADD_SHOP,
+	shopId
+})
+
+export const deleteUserShop = (shopId) => ({
+	type: DELETE_USER_SHOP,
 	shopId
 })
 
@@ -103,7 +110,12 @@ export default function reducer(state = initialState, action) {
 		case REMOVE_USER:
 			return { user: null };
 		case USER_ADD_SHOP:
-			return { user: {...state.user, shops:[...state.user.shops, action.shopId]} }
+			return { user: {...state.user, shops:[...state.user.shops, parseInt(action.shopId)]} }
+		case DELETE_USER_SHOP: {
+			const newShops =  state.user.shops.filter(shopId => shopId !== parseInt(action.shopId))
+			console.log("🚀 ~ file: session.js:116 ~ reducer ~ newShops:", newShops)
+			return {user: {...state.user, shops: newShops}}
+		}
 		default:
 			return state;
 	}

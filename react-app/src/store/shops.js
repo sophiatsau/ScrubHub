@@ -4,6 +4,7 @@ const GET_USER_SHOPS = "shops/GET_USER_SHOPS"
 const GET_ONE_SHOP = "shops/GET_ONE_SHOP"
 const CREATE_SHOP = "shops/CREATE_SHOP"
 const EDIT_SHOP = "shops/EDIT_SHOP"
+const DELETE_SHOP = "shops/DELETE_SHOP"
 
 const getAllShops = (shops) => ({
     type: GET_ALL_SHOPS,
@@ -28,6 +29,11 @@ const createShop = (shop) => ({
 const editShop = (shop) => ({
     type: EDIT_SHOP,
     shop
+})
+
+const deleteShop = (shopId) => ({
+    type: DELETE_SHOP,
+    shopId
 })
 
 export const thunkGetAllShops = () => async (dispatch) => {
@@ -86,7 +92,6 @@ export const thunkCreateShop = formData => async dispatch => {
 }
 
 export const thunkEditShop = (shopId, formData) => async dispatch => {
-    console.log("🚀 ~ file: shops.js:89 ~ thunkEditShop ~ thunkEditShop:")
     const res = await fetch(`/api/shops/${shopId}/edit`, {
         method: "PUT",
         body: formData,
@@ -96,6 +101,22 @@ export const thunkEditShop = (shopId, formData) => async dispatch => {
 
     if (res.ok) {
         dispatch(editShop(data))
+    } else {
+        data.status = res.status
+    }
+
+    return data;
+}
+
+export const thunkDeleteShop = (shopId) => async dispatch => {
+    const res = await fetch(`/api/shops/${shopId}/delete`, {
+        method: "DELETE",
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+        dispatch(deleteShop(shopId))
     } else {
         data.status = res.status
     }
@@ -121,6 +142,12 @@ export default function reducer(state = initialState, action) {
         }
         case EDIT_SHOP: {
             return {...state, [action.shop.id]: action.shop}
+        }
+        case DELETE_SHOP: {
+            const newState = {...state}
+            delete newState[action.shopId]
+            console.log("🚀 ~ file: shops.js:149 ~ reducer ~ newState:", newState)
+            return newState
         }
         default:
             return state
