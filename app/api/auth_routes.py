@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db
-from app.forms import LoginForm
-from app.forms import SignUpForm
+from app.forms import LoginForm, SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 from .utils import error_messages, error_message
 
@@ -59,10 +58,6 @@ def sign_up():
             firstName=form.firstName.data,
             lastName=form.lastName.data,
             balance=form.balance.data,
-            address=form.address.data,
-            city=form.city.data,
-            state=form.state.data,
-            zipCode=form.zipCode.data,
         )
         db.session.add(user)
         db.session.commit()

@@ -9,7 +9,7 @@ fake = Faker()
 # Adds addresses
 def seed_addresses():
 
-    [street_address, city, state, zip] = generate_address()
+    [street_address, city, state, zip, fullAddress] = generate_address()
 
     for i in range(5):
         new_address = Address(
@@ -18,6 +18,7 @@ def seed_addresses():
             city=city,
             state=state,
             zipCode=zip,
+            fullAddress=fullAddress,
         )
         db.session.add(new_address)
 

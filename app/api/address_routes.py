@@ -1,6 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Address
+from app.models import Address, db
+from app.forms import AddressForm
+from .utils import error_messages, error_message
 
 address_routes = Blueprint('addresses', __name__)
 
@@ -20,5 +22,23 @@ def create_address():
     """
     Creates a new address for the use and returns new address in a dictionary
     """
-    address = Address()
-    return address.to_dict
+    form = AddressForm()
+
+    form["csrf_token"].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        address = Address(
+            fullAddress=form.fullAddress.data,
+            address=form.address.data,
+            city=form.city.data,
+            state=form.state.data,
+            zipCode=form.zipCode.data,
+            userId=current_user.id,
+        )
+        db.session.add(address)
+        db.session.commit()
+        return address.to_dict(), 201
+    elif form.errors:
+        return error_messages(form.errors), 400
+    else:
+        return error_message(), 500

@@ -117,7 +117,7 @@ def seed_shops():
     ]
 
     for i in range(n):
-        [street_address, city, state, zip] = generate_address()
+        [street_address, city, state, zip, _] = generate_address()
 
         new_shop = Shop(
             userId = SHOP_OWNERS[i],
