@@ -13,7 +13,6 @@ def get_all_shops():
     Returns all shops available as a list of dictionaries
     """
     shops = Shop.query.all()
-    print("🚀 ~ file: shop_routes.py:16 ~ shops:", shops)
     return {"shops": [shop.to_dict() for shop in shops]}
 
 
@@ -23,8 +22,7 @@ def get_user_shops():
     """
     Returns all current user's shops as a list of dictionaries
     """
-    shops = Shop.query.filter(Shop.userId==current_user.id).all()
-    return {"shops": [shop.to_dict() for shop in shops]}
+    return {"shops": [shop.to_dict() for shop in current_user.shops]}
 
 
 @shop_routes.route('/<int:id>')
@@ -105,11 +103,13 @@ def update_shop(shopId):
 
     if form.validate_on_submit():
         updated_data = {}
+        delete_success = []
 
         for field in ["searchImageUrl","coverImageUrl","businessImageUrl"]:
             img = form.data[field]
             if not img:
                 # don't set it to None
+                delete_success.append(True)
                 del form.data[field]
                 continue
             img.filename = get_unique_filename(img.filename)
@@ -121,8 +121,8 @@ def update_shop(shopId):
 
             # delete original file
             delete = remove_file_from_s3(shop.to_dict(scope="detailed")[field])
-            if delete is not True:
-                return delete, 500
+
+            delete_success.append(delete)
 
             url = upload["url"]
             updated_data[field]=url
@@ -153,6 +153,10 @@ def update_shop(shopId):
 
         db.session.add(shop)
         db.session.commit()
+
+        if [success for success in delete_success if success is not True]:
+            print("🚀 ~ file: shop_routes.py:159 ~ delete_success not successful:", delete_success)
+
         return shop.to_dict(scope="detailed"), 200
     elif form.errors:
         return error_messages(form.errors), 400
@@ -176,8 +180,6 @@ def delete_shop(shopId):
     delete1 = remove_file_from_s3(shop.searchImageUrl)
     delete2 = remove_file_from_s3(shop.coverImageUrl)
     delete3 = remove_file_from_s3(shop.businessImageUrl)
-
-    print("*************DELETES HERE*********", [delete1,delete2,delete3])
 
     if all([delete1,delete2,delete3]):
         db.session.delete(shop)

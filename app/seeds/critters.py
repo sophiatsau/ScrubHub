@@ -1,9 +1,5 @@
 from app.models import db, Critter, environment, SCHEMA
 from sqlalchemy.sql import text
-from faker import Faker
-from .utils import generate_address
-
-fake = Faker()
 
 # critters info
 NAMES=["Turtle F", "Frilled Lizards 2yr M", "Snakes", "Frogs", "Kangaroo 1yr M"]

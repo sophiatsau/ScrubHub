@@ -24,8 +24,6 @@ export const deleteUserShop = (shopId) => ({
 	shopId
 })
 
-const initialState = { user: null };
-
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
 		headers: {
@@ -103,18 +101,20 @@ export const signUp = (formData) => async (dispatch) => {
 	}
 };
 
+const initialState = { user: null, location: null };
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
+		// set, remove user will keep the location which isn't saved in database.
 		case SET_USER:
-			return { user: action.payload };
+			return { user: action.payload, location: state.location };
 		case REMOVE_USER:
-			return { user: null };
+			return { user: null, location: state.location };
 		case USER_ADD_SHOP:
-			return { user: {...state.user, shops:[...state.user.shops, parseInt(action.shopId)]} }
+			return { ...state, user: {...state.user, shops:[...state.user.shops, parseInt(action.shopId)]} }
 		case DELETE_USER_SHOP: {
 			const newShops =  state.user.shops.filter(shopId => shopId !== parseInt(action.shopId))
-			console.log("🚀 ~ file: session.js:116 ~ reducer ~ newShops:", newShops)
-			return {user: {...state.user, shops: newShops}}
+			return {...state, user: {...state.user, shops: newShops}}
 		}
 		default:
 			return state;

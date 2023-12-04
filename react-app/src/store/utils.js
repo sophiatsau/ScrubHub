@@ -40,7 +40,6 @@ export const formatBusinessHours = (obj) => {
 
     if (errors.length) throw Error(errors.join("\n"))
 
-    console.log("🚀 ~ file: utils.js:44 ~ formatBusinessHours ~ businessHours:", businessHours)
     return businessHours
 }
 
