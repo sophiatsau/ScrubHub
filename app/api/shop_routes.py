@@ -85,13 +85,16 @@ def create_shop():
         return error_message(), 500
 
 
-@shop_routes.route('/:shopId/edit', methods=['PUT'])
+@shop_routes.route('/<int:shopId>/edit', methods=['PUT'])
 @login_required
 def update_shop(shopId):
     """
     Edits an existing shop, returns edited shop as dictionary
     """
     shop = Shop.query.get(shopId)
+    print("🚀 ~ file: shop_routes.py:95 ~ shop:", shop)
+
+    # errors
     if not shop:
         return error_message("shop", "Shop not found."), 404
     if shop.userId != current_user.id:
@@ -99,9 +102,15 @@ def update_shop(shopId):
 
     form = ShopUpdateForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("🚀 ~ file: shop_routes.py:105 ~ form.data:", form.data)
 
     if form.validate_on_submit():
         updated_data = {}
+
+        for [field, value] in form.data.items():
+            print("🚀 ~ file: shop_routes.py:109 ~ [field, value]:", [field, value])
+        return shop
+
 
         for field in ["searchImageUrl","coverImageUrl","businessImageUrl"]:
             img = form.data[field]
