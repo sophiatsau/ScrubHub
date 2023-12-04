@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 export default function ShopDetailsAbout({shop}) {
   const {name,
-    address,
-    city,
-    state,
-    zipCode,
+    // address,
+    // city,
+    // state,
+    // zipCode,
     priceRange,
     businessHours,
     email,
@@ -17,6 +17,7 @@ export default function ShopDetailsAbout({shop}) {
     // pickup,
     // delivery,
     categories,
+    formattedAddress,
   } = shop
 
   return (
@@ -32,8 +33,7 @@ export default function ShopDetailsAbout({shop}) {
       <div>Price Range:{priceRange}</div>
       <div>{description}</div>
       <div>
-        {address}
-        {city}, {state} {zipCode}
+        {formattedAddress}
       </div>
       <div>
         <h3>Contact Us</h3>

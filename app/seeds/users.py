@@ -1,7 +1,6 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
-from .utils import generate_address
 import random
 
 fake = Faker()
@@ -10,11 +9,11 @@ fake = Faker()
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password', firstName="Demo", lastName="User", balance=500.00, address="147 ESCANYO DR", city="SOUTH SAN FRANCISCO", state="CA", zipCode="94080-4137")
+        username='Demo', email='demo@aa.io', password='password', firstName="Demo", lastName="User", balance=500.00)
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', firstName="Marnie", lastName="May", balance=500.00, address="3151 Granville Lane", city="Belleville", state="NJ", zipCode="07109")
+        username='marnie', email='marnie@aa.io', password='password', firstName="Marnie", lastName="May", balance=500.00)
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', firstName="Bobbie", lastName="Bruh", balance=500.00, address="385 Flinderation Road", city="Chicago", state="IL", zipCode="60631")
+        username='bobbie', email='bobbie@aa.io', password='password', firstName="Bobbie", lastName="Bruh", balance=500.00,)
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -22,9 +21,6 @@ def seed_users():
 
     emails = [fake.unique.email() for i in range(5)]
     for i in range(5):
-        [street_address, city, state, zip] = generate_address()
-
-
         new_user = User(
             username=f'user{i+1}',
             email=emails[i],
@@ -32,10 +28,6 @@ def seed_users():
             firstName=fake.first_name(),
             lastName=fake.last_name(),
             balance=random.randint(10_000, 1_000_000)/100,
-            address=street_address,
-            city=city,
-            state=state,
-            zipCode=zip,
         )
         db.session.add(new_user)
 
