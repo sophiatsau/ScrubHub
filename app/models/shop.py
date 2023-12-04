@@ -37,6 +37,11 @@ class Shop(db.Model):
         back_populates="shops",
     )
 
+    critters = db.relationship(
+        "Critter",
+        back_populates="shop"
+    )
+
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
         return getattr(self, item)
@@ -58,10 +63,8 @@ class Shop(db.Model):
             "businessHours": self.businessHours,
             "pickup": self.pickup,
             "delivery": self.delivery,
-            "searchImageUrl": self.searchImageUrl, # need this even on details, for editing
+            "searchImageUrl": self.searchImageUrl,
             "categories": self.categories_names,
-            # rating
-            # calculated distance
         }
 
         if scope=="detailed":
