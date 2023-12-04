@@ -55,32 +55,6 @@ export default function ShopCreateForm() {
   const [errors, setErrors] = useState({})
   const [imageLoading, setImageLoading] = useState(false);
 
-  // const formatPhoneNumber = (num) => {
-  //   return `(${num.slice(0,3)}) ${num.slice(3,6)}-${num.slice(6)}`
-  // }
-
-  const parseBusinessHours = (obj) => {
-    const errors = []
-    const businessHours = DAYS.map(day => {
-      const {active, open, close} = obj[day]
-      const hours = active ? open+"-"+close : "Closed"
-
-      if (active && (!open || !close)) {
-        errors.push(`Please set your shop's hours on ${day}.`)
-      }
-
-      else if (active && open >= close) {
-        errors.push(`Opening hours must be before closing hours on ${day}.`)
-      }
-
-      return `${day} ${hours}`
-    }).join("\n")
-
-    if (errors.length) throw Error(errors.join("\n"))
-
-    return businessHours
-  }
-
   const handleFormUpdate = (e) => {
     const { name, value, type, files, checked } = e.target;
 
@@ -118,7 +92,7 @@ export default function ShopCreateForm() {
     setErrors({})
 
     try {
-      formData.businessHours = parseBusinessHours(formData.businessHoursObj)
+      formData.businessHours = formatBusinessHours(formData.businessHoursObj)
     } catch (e) {
       setErrors({businessHours: e.message})
       return;

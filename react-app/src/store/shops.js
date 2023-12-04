@@ -94,7 +94,7 @@ export const thunkEditShop = (shopId, formData) => async dispatch => {
     const data = await res.json()
 
     if (res.ok) {
-        dispatch(updateShop(data))
+        dispatch(editShop(data))
     } else {
         data.status = res.status
     }
