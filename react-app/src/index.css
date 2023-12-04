@@ -114,3 +114,44 @@ button { /* buttons sneakily ignore inheriting */
 .hidden {
     display: none;
 }
+
+.error {
+    color: var(--errorColor)
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.business-hours-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/**************** DELETE MODAL **************************/
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  flex-direction: column;
+}
+
+.modal-content {
+  position: absolute;
+  background-color: var(--backgroundColor);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}

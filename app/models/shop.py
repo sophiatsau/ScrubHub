@@ -41,9 +41,14 @@ class Shop(db.Model):
         """Configures model to be conscriptable"""
         return getattr(self, item)
 
+    @property
+    def categories_names(self):
+        return [cat.name for cat in self.categories]
+
     def to_dict(self, scope=None):
         d = {
             "id": self.id,
+            "userId": self.userId,
             "name": self.name,
             "address": self.address,
             "city": self.city,
@@ -54,14 +59,13 @@ class Shop(db.Model):
             "pickup": self.pickup,
             "delivery": self.delivery,
             "searchImageUrl": self.searchImageUrl, # need this even on details, for editing
-            "categories": [cat.name for cat in self.categories],
+            "categories": self.categories_names,
             # rating
             # calculated distance
         }
 
         if scope=="detailed":
             d.update({
-                "userId": self.userId,
                 "email": self.email,
                 "phoneNumber": self.phoneNumber,
                 "description": self.description,

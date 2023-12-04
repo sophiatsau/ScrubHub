@@ -76,32 +76,32 @@ PROFILE_IMAGES=[
 ]
 
 HOURS=[
-'''Mon 8:00-17:00
-Tue 8:00-17:00
-Wed 8:00-17:00
-Thu 8:00-17:00
-Fri 8:00-17:00
+'''Mon 08:00-17:00
+Tue 08:00-17:00
+Wed 08:00-17:00
+Thu 08:00-17:00
+Fri 08:00-17:00
 Sat Closed
 Sun Closed''',
 '''Mon Closed
-Tue 8:00-17:00
-Wed 8:00-17:00
-Thu 8:00-17:00
-Fri 8:00-17:00
-Sat 8:00-17:00
+Tue 08:00-17:00
+Wed 08:00-17:00
+Thu 08:00-17:00
+Fri 08:00-17:00
+Sat 08:00-17:00
 Sun Closed''',
-'''Mon 9:00-14:00
-Tue 9:00-14:00
-Wed 9:00-14:00
-Thu 9:00-14:00
-Fri 9:00-14:00
+'''Mon 09:00-14:00
+Tue 09:00-14:00
+Wed 09:00-14:00
+Thu 09:00-14:00
+Fri 09:00-14:00
 Sat Closed
 Sun Closed''',
 ]
 
 # Adds a demo user, you can add other users here if you want
 def seed_shops():
-    [amphibian, arthropod, bird, cat, dog, marine, mammal, critter, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
+    [amphibian, arthropod, bird, cat, dog, marine, critter, mammal, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
 
     associations = [
         [reptile,arthropod,bird],
