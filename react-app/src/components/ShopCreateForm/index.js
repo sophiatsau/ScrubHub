@@ -100,7 +100,7 @@ export default function ShopCreateForm() {
     if (newShop.errors) {
       setErrors(newShop.errors)
     } else {
-      await dispatch(userAddShop(newShop.id))
+      dispatch(userAddShop(newShop.id))
       history.push(`/shops/${newShop.id}`)
     }
   }
