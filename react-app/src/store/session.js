@@ -126,7 +126,52 @@ export const signUp = (formData) => async (dispatch) => {
 	}
 };
 
+export const thunkAddUserAddress = address => async dispatch => {
+	const res = fetch(`/api/addresses/new`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(address),
+	})
 
+	const data = res.json()
+
+	if (res.ok) dispatch(addUserAddress(data))
+	else data.status = res.status
+
+	return data
+}
+
+export const thunkEditUserAddress = address => async dispatch => {
+	const res = fetch(`/api/addresses/${address.id}/edit`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(address),
+	})
+
+	const data = res.json()
+
+	if (res.ok) dispatch(editUserAddress(data))
+	else data.status = res.status
+
+	return data
+}
+
+export const thunkDeleteUserAddress = addressId => async dispatch => {
+	const res = fetch(`/api/addresses/${addressId}/delete`, {
+		method: "DELETE",
+	})
+
+	const data = res.json()
+
+	if (res.ok) dispatch(deleteUserAddress(data))
+	else data.status = res.status
+
+	return data
+}
 
 const initialState = { user: null, location: null };
 
