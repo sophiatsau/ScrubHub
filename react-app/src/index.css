@@ -2,8 +2,9 @@
 :root {
     --fontFamily: "Figtree", sans-serif ;
     --fontSize: 14px ;
-    --headingSize: 24pt ;
-    --subheadingSize: 16pt ;
+    --h1Size: 24pt ;
+    --h2Size: 20pt ;
+    --h3Size: 16pt;
     --subheadingWeight: 550 ;
 
     --textColor: rgb(0,0,0);
@@ -19,10 +20,12 @@
     --modalBorderRadius: 15px;
     --inputBorderRadius: 5px;
     --cardBorderRadius: 15px;
+    --dropdownBorderRadius: 5px;
+
     --headerHeight: 65px;
     --mainPaddingY: 20px;
     --mainPaddingX: 25px;
-    --dropdownBorderRadius: 5px;
+    --modalPadding: 20px;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -45,7 +48,7 @@ time, mark, audio, video {
 	margin: 0 ;
 	padding: 0 ;
 	border: 0 ;
-	font-size: 100% ;
+	/* font-size: 100% ; */
 	font: inherit ;
 	vertical-align: baseline ;
     /* background-color: var(--backgroundColor); */
@@ -111,6 +114,23 @@ button { /* buttons sneakily ignore inheriting */
     text-align: center;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: var(--h1Size);
+}
+
+h2 {
+    font-size: var(--h2Size);
+}
+
+h3 {
+    font-size: var(--h3Size);
+}
+
 .hidden {
     display: none;
 }
@@ -119,10 +139,7 @@ button { /* buttons sneakily ignore inheriting */
     color: var(--errorColor)
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+
 
 .business-hours-form {
     display: flex;

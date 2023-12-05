@@ -1,0 +1,22 @@
+#login-form-container {
+    width: 175px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-form {
+    width: 175px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: transparent;
+}
+
+#login-form>label {
+    display: flex;
+    flex-direction: column;
+}
