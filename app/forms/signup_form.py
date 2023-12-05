@@ -28,7 +28,3 @@ class SignUpForm(FlaskForm):
     firstName = StringField(validators=[DataRequired(), Length(1,40,"First name must be between 1 - 40 characters long")])
     lastName = StringField(validators=[DataRequired(), Length(1,40,"Last name must be between 1 - 40 characters long")])
     balance = DecimalField(validators=[Optional(), NumberRange(0, 10_000_000_000)])
-    address = StringField(validators=[Length(max=255)])
-    city = StringField(validators=[Length(max=255)])
-    state = StringField(validators=[Length(max=255)])
-    zipCode = StringField(validators=[Optional(), is_valid_us_zip])

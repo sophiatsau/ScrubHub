@@ -13,7 +13,7 @@ def generate_address():
             [street_address, city_state_zip] = full_address.split('\n')
             [city, state_zip] = city_state_zip.split(', ')
             [state, zip] = state_zip.split(' ')
-            return [street_address, city, state, zip]
+            return [street_address, city, state, zip, full_address]
         except ValueError:
             continue
 

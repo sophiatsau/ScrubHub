@@ -10,6 +10,7 @@ import ShopsViewCurrent from "./components/ShopsViewCurrent";
 import ShopCreateForm from "./components/ShopCreateForm";
 import ShopEditForm from "./components/ShopEditForm";
 import ShopByCategory from "./components/ShopByCategory";
+import ShopsViewAll from "./components/ShopsViewAll";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Landing />
+          </Route>
+          <Route exact path="/shops">
+            <ShopsViewAll />
           </Route>
           <Route exact path="/shops/:shopId([0-9]{1,})">
             <ShopDetails />

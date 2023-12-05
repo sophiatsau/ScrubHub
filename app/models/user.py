@@ -29,11 +29,11 @@ class User(db.Model, UserMixin):
         cascade="all, delete-orphan",
     )
 
-    critters = db.relationship(
-        "Critter",
-        back_populates="seller",
-        cascade="all, delete-orphan",
-    )
+    # critters = db.relationship(
+    #     "Critter",
+    #     back_populates="seller",
+    #     cascade="all, delete-orphan",
+    # )
 
     @property
     def password(self):
@@ -61,6 +61,15 @@ class User(db.Model, UserMixin):
         # view critters - only through shop
         # view reviews - lazy load
         return d
+
+    def get_addresses(self):
+        return [address.to_dict() for address in self.addresses]
+
+    def get_shops(self):
+        return [shop.to_dict() for shop in self.shops]
+
+    def get_critters(self):
+        return [critter.to_dict() for shop in self.shops for critter in shop.critters]
 
     def __getitem__(self, item):
         """Configures model to be conscriptable"""

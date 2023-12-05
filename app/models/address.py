@@ -8,6 +8,8 @@ class Address(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    fullAddress = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     city = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(255), nullable=False)
@@ -26,11 +28,12 @@ class Address(db.Model):
         d = {
             "id": self.id,
             "userId": self.userId,
+            "name": self.name,
             'address': self.address,
             'city': self.city,
             'state': self.state,
             'zipCode': self.zipCode,
-            'formattedAddress': format_address(self),
+            'fullAddress': self.fullAddress,
         }
 
         return d
