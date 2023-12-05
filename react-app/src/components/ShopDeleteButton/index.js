@@ -27,7 +27,7 @@ export default function ShopDeleteButton({shopId}) {
       if (res.errors) {
         setErrors(Object.values(res.errors))
       } else {
-        await dispatch(deleteUserShop(shopId))
+        dispatch(deleteUserShop(shopId))
         alert("Delete successful! Redirecting to your shops...")
         closeModal()
         history.push("/shops/current")

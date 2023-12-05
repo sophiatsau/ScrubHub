@@ -13,10 +13,10 @@ function SignupFormModal() {
 	const [username, setUsername] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [address, setAddress] = useState("");
-	const [city, setCity] = useState("");
-	const [state, setState] = useState("");
-	const [zipCode, setZipCode] = useState("");
+	// const [address, setAddress] = useState("");
+	// const [city, setCity] = useState("");
+	// const [state, setState] = useState("");
+	// const [zipCode, setZipCode] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
@@ -26,7 +26,7 @@ function SignupFormModal() {
 		e.preventDefault();
 
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp({username, email, password, firstName, lastName, address, city, state, zipCode}));
+			const data = await dispatch(signUp({username, email, password, firstName, lastName}));
 			if (data) {
 				setErrors(Object.values(data));
 				setPassword("")
@@ -47,7 +47,7 @@ function SignupFormModal() {
 	return (
 		<>
 			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} id="signup-form">
 				<ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
@@ -89,7 +89,7 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
-				<label>
+				{/* <label>
 					Address
 					<input
 						type="text"
@@ -122,25 +122,27 @@ function SignupFormModal() {
 						onChange={(e) => setZipCode(e.target.value)}
 						placeholder="XXXXX or XXXXX-XXXX"
 					/>
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
+				</label> */}
+				<div>
+					<label>
+						Password
+						<input
+							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+					</label>
+					<label>
+						Confirm Password
+						<input
+							type="password"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
+					</label>
+				</div>
 				<button type="submit">Sign Up</button>
 				<DemoLoginButton {...{setErrors, closeModal}}/>
 			</form>
