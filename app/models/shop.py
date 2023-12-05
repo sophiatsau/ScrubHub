@@ -76,7 +76,8 @@ class Shop(db.Model):
                 "coverImageUrl": self.coverImageUrl,
                 "businessImageUrl": self.businessImageUrl,
                 "formattedAddress": format_address(self),
-                "critters": [critter.to_dict() for critter in self.critters],
+                "critters": [critter.id for critter in self.critters],
+                "crittersDetails": [critter.to_dict() for critter in self.critters],
             })
             # critters
             # reviews
