@@ -8,9 +8,9 @@ class Critter(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(255), nullable=False)
-    species = db.Column(db.String(100))
+    species = db.Column(db.String(255))
     shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=False)
-    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    # userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     price = db.Column(db.Numeric(18,2), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     previewImageUrl = db.Column(db.String(255))
@@ -22,10 +22,10 @@ class Critter(db.Model):
         back_populates="critters",
     )
 
-    seller = db.relationship(
-        "User",
-        back_populates="critters",
-    )
+    # seller = db.relationship(
+    #     "User",
+    #     back_populates="critters",
+    # )
 
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
@@ -37,7 +37,7 @@ class Critter(db.Model):
             "name": self.name,
             "species": self.species,
             "shopId": self.shopId,
-            "userId": self.userId,
+            # "userId": self.userId,
             "price": self.price,
             "category": self.category,
             "previewImageUrl": self.previewImageUrl,
@@ -48,11 +48,7 @@ class Critter(db.Model):
         # if scope=="detailed":
         #     # use for bonus features
         #     d.update({
-        #         "email": self.email,
-        #         "phoneNumber": self.phoneNumber,
-        #         "description": self.description,
-        #         "coverImageUrl": self.coverImageUrl,
-        #         "businessImageUrl": self.businessImageUrl,
+        #         # stuff
         #     })
 
         return d
