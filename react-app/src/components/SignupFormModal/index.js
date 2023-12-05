@@ -13,10 +13,6 @@ function SignupFormModal() {
 	const [username, setUsername] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	// const [address, setAddress] = useState("");
-	// const [city, setCity] = useState("");
-	// const [state, setState] = useState("");
-	// const [zipCode, setZipCode] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
@@ -89,40 +85,6 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
-				{/* <label>
-					Address
-					<input
-						type="text"
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-						placeholder="Optional, required for delivery"
-					/>
-				</label>
-				<label>
-					City
-					<input
-						type="text"
-						value={city}
-						onChange={(e) => setCity(e.target.value)}
-					/>
-				</label>
-				<label>
-					State
-					<input
-						type="text"
-						value={state}
-						onChange={(e) => setState(e.target.value)}
-					/>
-				</label>
-				<label>
-					Zip Code
-					<input
-						type="text"
-						value={zipCode}
-						onChange={(e) => setZipCode(e.target.value)}
-						placeholder="XXXXX or XXXXX-XXXX"
-					/>
-				</label> */}
 				<div>
 					<label>
 						Password

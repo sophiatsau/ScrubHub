@@ -5,16 +5,17 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import OpenModalButton from '../OpenModalButton'
 
 export default function Landing() {
-  const address = useSelector(state => state.location)
+  const address = useSelector(state => state.session.location)
+
+  if (address) {
+    return <Redirect to="/shops"/>
+  }
   return (
     <div style={{width: "500px", margin: "200px auto 0"}}>
-      {address ?
-        <Redirect to="/shops"/>
-        : <OpenModalButton
+      <OpenModalButton
           buttonText={"📌Enter Your Address"}
           modalComponent={<AddressFormModal type={"temp"}/>}
-        />
-      }
+      />
     </div>
   )
 }

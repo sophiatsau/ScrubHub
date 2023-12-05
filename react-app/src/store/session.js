@@ -3,6 +3,7 @@ const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const USER_ADD_SHOP = "session/USER_ADD_SHOP"
 const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"
+const SAVE_LOCATION = "session/SAVE_LOCATION"
 
 
 const setUser = (user) => ({
@@ -16,12 +17,17 @@ const removeUser = () => ({
 
 export const userAddShop = (shopId) => ({
 	type: USER_ADD_SHOP,
-	shopId
+	shopId,
 })
 
 export const deleteUserShop = (shopId) => ({
 	type: DELETE_USER_SHOP,
-	shopId
+	shopId,
+})
+
+export const saveLocation = location => ({
+	type: SAVE_LOCATION,
+	location,
 })
 
 export const authenticate = () => async (dispatch) => {
@@ -115,6 +121,9 @@ export default function reducer(state = initialState, action) {
 		case DELETE_USER_SHOP: {
 			const newShops =  state.user.shops.filter(shopId => shopId !== parseInt(action.shopId))
 			return {...state, user: {...state.user, shops: newShops}}
+		}
+		case SAVE_LOCATION: {
+			return {...state, location: action.location}
 		}
 		default:
 			return state;
