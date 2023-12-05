@@ -11,6 +11,7 @@ import ShopCreateForm from "./components/ShopCreateForm";
 import ShopEditForm from "./components/ShopEditForm";
 import ShopByCategory from "./components/ShopByCategory";
 import ShopsViewAll from "./components/ShopsViewAll";
+import AddressViewCurrent from "./components/AddressViewCurrent";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/shops/:category">
             <ShopByCategory />
+          </Route>
+          <Route exact path="/addresses/current">
+            <AddressViewCurrent />
           </Route>
           <Route>404 Page Not Found</Route>
         </Switch>
