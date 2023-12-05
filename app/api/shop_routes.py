@@ -1,6 +1,6 @@
 from flask import Blueprint, session, request
-from app.models import Shop, db, Category
-from app.forms import ShopCreateForm, ShopUpdateForm
+from app.models import Shop, db, Category, Critter
+from app.forms import ShopCreateForm, ShopUpdateForm, CritterForm
 from flask_login import current_user, login_required
 from .utils import error_messages, error_message, get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
@@ -184,6 +184,47 @@ def delete_shop(shopId):
     if all([delete1,delete2,delete3]):
         db.session.delete(shop)
         db.session.commit()
-        return {"message": "Album successfully deleted"}, 200
+        return {"message": "Shop successfully deleted"}, 200
     else:
         return error_message("file", "File deletion error"), 401
+
+
+@shop_routes.route("/<int:shopId>/critters/new", methods=["POST"])
+@login_required
+def create_critter(shopId):
+    """
+    Creates a new critter and adds it to the database, returns new critter as dictionary
+    """
+
+    shop = Shop.query.get(shopId)
+    if not shop:
+        return error_message("shop", "Shop not found."), 404
+
+    if shop.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+
+    form = CritterForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        img = form.data["previewImageUrl"]
+        img.filename = get_unique_filename(img.filename)
+        upload = upload_file_to_s3(img)
+        if "url" not in upload:
+            # if no upload key, there was an error uploading.
+            return upload, 500
+        url = upload["url"]
+
+        form_data = {**form.data, "previewImageUrl": url, "shopId": shopId}
+
+        del form_data['csrf_token']
+
+        critter = Critter(**form_data)
+
+        db.session.add(critter)
+        db.session.commit()
+        return critter.to_dict(), 201
+    elif form.errors:
+        return error_messages(form.errors), 400
+    else:
+        return error_message("unknownError", "An unknown error occurred."), 500
