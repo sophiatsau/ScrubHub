@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { saveLocation } from '../../store/session'
 import "./AddressFormModal.css"
 
 export default function AddressFormModal({type}) {
@@ -8,6 +10,8 @@ export default function AddressFormModal({type}) {
   error object
 
   temp-storage:
+    if logged in, drop down for choosing old location?
+
     on submit:
       if logged in:
         option to save address
