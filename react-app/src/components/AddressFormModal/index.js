@@ -74,6 +74,10 @@ export default function AddressFormModal({type}) {
     }
   }
 
+  const handleInputChange = (e) => {
+    const {value, type} = e.target;
+  }
+
   const header = type==="temp" ? "Enter Your Location"
     : type==="create" ? "Add An Address"
     : type==="edit" ? "Edit Your Address" : null
@@ -84,40 +88,39 @@ export default function AddressFormModal({type}) {
     <>
     <h1>{header}</h1>
     <form onSubmit={handleSubmit} id="address-form">
-      {/* <label>
-					Address
-					<input
-						type="text"
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-						placeholder="Optional, required for delivery"
-					/>
-				</label>
-				<label>
-					City
-					<input
-						type="text"
-						value={city}
-						onChange={(e) => setCity(e.target.value)}
-					/>
-				</label>
-				<label>
-					State
-					<input
-						type="text"
-						value={state}
-						onChange={(e) => setState(e.target.value)}
-					/>
-				</label>
-				<label>
-					Zip Code
-					<input
-						type="text"
-						value={zipCode}
-						onChange={(e) => setZipCode(e.target.value)}
-						placeholder="XXXXX or XXXXX-XXXX"
-					/>
-				</label> */}
+      <label>
+				Address
+				<input
+					type="text"
+					value={formData.address}
+					onChange={handleInputChange}
+				/>
+			</label>
+			<label>
+				City
+				<input
+					type="text"
+					value={formData.city}
+					onChange={handleInputChange}
+				/>
+			</label>
+			<label>
+				State
+				<input
+					type="text"
+					value={formData.state}
+					onChange={handleInputChange}
+				/>
+			</label>
+			<label>
+				Zip Code
+				<input
+					type="text"
+					value={formData.zipCode}
+					onChange={handleInputChange}
+					placeholder="XXXXX or XXXXX-XXXX"
+				/>
+			</label>
       <button>{buttonText}</button>
     </form>
     </>

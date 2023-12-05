@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: 95f9c20713d8
-Revises: 
+Revises:
 Create Date: 2023-12-04 17:03:31.169175
 
 """
@@ -84,7 +84,7 @@ def upgrade():
     )
     op.create_table('shop_categories',
     sa.Column('shopId', sa.Integer(), nullable=False),
-    sa.Column('categoryId', sa.Integer(), nullable=False),
+    sa.Column('categoryId', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['categoryId'], ['categories.name'], ),
     sa.ForeignKeyConstraint(['shopId'], ['shops.id'], ),
     sa.PrimaryKeyConstraint('shopId', 'categoryId')
