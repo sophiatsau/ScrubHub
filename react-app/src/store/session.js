@@ -127,7 +127,7 @@ export const signUp = (formData) => async (dispatch) => {
 };
 
 export const thunkAddUserAddress = address => async dispatch => {
-	const res = fetch(`/api/addresses/new`, {
+	const res = await fetch(`/api/addresses/new`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -135,16 +135,18 @@ export const thunkAddUserAddress = address => async dispatch => {
 		body: JSON.stringify(address),
 	})
 
-	const data = res.json()
+	const data = await res.json()
 
-	if (res.ok) dispatch(addUserAddress(data))
-	else data.status = res.status
+	if (res.ok) {
+		dispatch(addUserAddress(data))
+	}
+	else data.errors.status = res.status
 
 	return data
 }
 
 export const thunkEditUserAddress = address => async dispatch => {
-	const res = fetch(`/api/addresses/${address.id}/edit`, {
+	const res = await fetch(`/api/addresses/${address.id}/edit`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
@@ -152,23 +154,23 @@ export const thunkEditUserAddress = address => async dispatch => {
 		body: JSON.stringify(address),
 	})
 
-	const data = res.json()
+	const data = await res.json()
 
 	if (res.ok) dispatch(editUserAddress(data))
-	else data.status = res.status
+	else data.errors.status = res.status
 
 	return data
 }
 
 export const thunkDeleteUserAddress = addressId => async dispatch => {
-	const res = fetch(`/api/addresses/${addressId}/delete`, {
+	const res = await fetch(`/api/addresses/${addressId}/delete`, {
 		method: "DELETE",
 	})
 
-	const data = res.json()
+	const data = await res.json()
 
 	if (res.ok) dispatch(deleteUserAddress(data))
-	else data.status = res.status
+	else data.errors.status = res.status
 
 	return data
 }

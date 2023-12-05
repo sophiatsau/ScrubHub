@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 
 import { saveLocation } from '../../store/session'
-import "./AddressFormModal.css"
 import { useModal } from '../../context/Modal'
 import { getFullAddress } from '../../store/utils'
+import "./AddressFormModal.css"
 
 export default function AddressFormModal({type}) {
   const dispatch = useDispatch()
   const history = useHistory()
   const sessionUser = useSelector(state => state.session.user)
   const {closeModal} = useModal()
-  //TODO: split this into 2-3 components. Edit should have separate form
+  //TODO: option to save address to db
+  //TODO: dropdown menu for users with saved addresses
   const [formData, setFormData] = useState({
     fullAddress:"",
     address:"",
@@ -114,7 +115,7 @@ export default function AddressFormModal({type}) {
 				/>
 			</label>
       <button type="submit">Update Location</button>
-      {sessionUser && <Link to="/addresses/new">Save Location</Link>}
+      {sessionUser && <Link to="/current/addresses">Save Location</Link>}
     </form>
     </>
   )

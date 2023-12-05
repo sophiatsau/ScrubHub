@@ -17,7 +17,8 @@ export default function AddressViewCurrent() {
             <h1>Your Addresses</h1>
             {Object.values(sessionUser.addresses).map(address => (
                 <li key={address.id}>
-                    {address.fullAddress}
+                    <span>{address.name}</span>
+                    <p>{address.fullAddress}</p>
                 </li>
             ))}
             <OpenModalButton
