@@ -5,3 +5,16 @@ from wtforms.validators import ValidationError
 def is_valid_us_zip(form, field):
    if not re.search("^\d{5}(-\d{4})?$", field.data):
       raise ValidationError("Zip code is invalid.")
+
+
+#not working
+def value_exists_in_table(field_name, model, msg):
+   """
+   Custom validator for dynamically checking if value of field already exists in db
+   """
+   def validator(form, field):
+      data = field.data
+      exists = model.query.filter(model[field_name]==data).first()
+      if exists:
+         raise ValidationError(msg)
+   return validator

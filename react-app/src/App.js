@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
-import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
+
 import Navigation from "./components/Navigation";
+import Landing from "./components/Landing";
+import ShopDetails from "./components/ShopDetails";
+import ShopsViewCurrent from "./components/ShopsViewCurrent";
+import ShopCreateForm from "./components/ShopCreateForm";
+import ShopEditForm from "./components/ShopEditForm";
+import ShopByCategory from "./components/ShopByCategory";
+import ShopsViewAll from "./components/ShopsViewAll";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,12 +24,28 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login" >
-            <LoginFormPage />
+          <Route exact path="/">
+            <Landing />
           </Route>
-          <Route path="/signup">
-            <SignupFormPage />
+          <Route exact path="/shops">
+            <ShopsViewAll />
           </Route>
+          <Route exact path="/shops/:shopId([0-9]{1,})">
+            <ShopDetails />
+          </Route>
+          <Route exact path="/shops/current">
+            <ShopsViewCurrent />
+          </Route>
+          <Route exact path="/shops/new">
+            <ShopCreateForm />
+          </Route>
+          <Route exact path="/shops/:shopId([0-9]{1,})/edit">
+            <ShopEditForm />
+          </Route>
+          <Route exact path="/shops/:category">
+            <ShopByCategory />
+          </Route>
+          <Route>404 Page Not Found</Route>
         </Switch>
       )}
     </>

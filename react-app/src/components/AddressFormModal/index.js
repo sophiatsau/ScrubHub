@@ -1,84 +1,90 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import { signUp } from "../../store/session";
-import "./AddressForm.css";
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-function AddressFormModal() {
-	const dispatch = useDispatch();
-	const [address, setAddress] = useState("");
-	const [city, setCity] = useState("");
-	const [state, setState] = useState("");
-	const [zipCode, setZipCode] = useState("");
-	const [errors, setErrors] = useState([]);
-	const { closeModal } = useModal();
+import { saveLocation } from '../../store/session'
+import "./AddressFormModal.css"
+import { useModal } from '../../context/Modal'
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (password === confirmPassword) {
-			const data = await dispatch(signUp({username, email, password, firstName, lastName, address, city, state, zipCode}));
-			if (data) {
-				setErrors(data);
-				setPassword("")
-				setConfirmPassword("")
-			} else {
-				closeModal();
-			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
-			setPassword("")
-			setConfirmPassword("")
-		}
-	};
+export default function AddressFormModal({type}) {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const sessionUser = useSelector(state => state.session.user)
+  const {closeModal} = useModal()
+  //TODO: split this into 2-3 components. Edit should have separate form
+  const [formData, setFormData] = useState({
+    fullAddress:"",
+    address:"",
+    city:"",
+    state:"",
+    zipCode:"",
+  })
 
-	return (
-		<>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Username
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					First Name
-					<input
-						type="text"
-						value={firstName}
-						onChange={(e) => setFirstName(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Last Name
-					<input
-						type="text"
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
+  const [saveNewLocation, setSaveNewLocation] = useState(false)
+
+  /*TODO: create, edit, temp-storage
+
+  form data object
+  error object
+  if user, drop down select of saved addresses (name, address)
+
+  temp-storage:
+    if logged in, drop down for choosing old location?
+
+    on submit:
+      if logged in:
+        option to save address
+        button: if ssessionUser, then show option
+      update store
+      redirect to shops
+
+  create:
+    on submit:
+      add to db
+      update store
+      close modal, back to addresses/current
+
+  edit:
+    on submit:
+      update db
+      update store
+      close modal, back to addresses/current
+  */
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log("submitting form")
+
+    if (type==="temp") {
+      storeLocation(formData)
+      closeModal()
+      history.push("/shops")
+    }
+
+    // type==="temp" ? storeLocation(formData)
+    //   : type==="create" ? "Add An Address"
+    //   : type==="edit" ? "Edit Your Address" : null
+  }
+
+  const storeLocation = (formData) => {
+    dispatch(saveLocation(formData))
+    if (saveNewLocation) {
+      // TODO:
+      console.log("option to save address")
+    }
+  }
+
+  const header = type==="temp" ? "Enter Your Location"
+    : type==="create" ? "Add An Address"
+    : type==="edit" ? "Edit Your Address" : null
+
+  const buttonText = type==="create" ? "Add Address" : "Update Address"
+
+  return (
+    <>
+    <h1>{header}</h1>
+    <form onSubmit={handleSubmit} id="address-form">
+      {/* <label>
 					Address
 					<input
 						type="text"
@@ -109,32 +115,11 @@ function AddressFormModal() {
 						type="text"
 						value={zipCode}
 						onChange={(e) => setZipCode(e.target.value)}
-						required
 						placeholder="XXXXX or XXXXX-XXXX"
 					/>
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<button type="submit">Sign Up</button>
-			</form>
-		</>
-	);
+				</label> */}
+      <button>{buttonText}</button>
+    </form>
+    </>
+  )
 }
-
-export default AddressFormModal;

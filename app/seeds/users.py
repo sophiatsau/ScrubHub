@@ -1,20 +1,18 @@
 from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 from faker import Faker
-# from faker.providers import person
 import random
 
 fake = Faker()
-# fake.add_provider(person)
 
-# Adds a demo user, you can add other users here if you want
+# Adds demo users
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password', first_name="Demo", last_name="User", balance=500.00, address="147 ESCANYO DR", city="SOUTH SAN FRANCISCO", state="CA", zip_code="94080-4137")
+        username='Demo', email='demo@aa.io', password='password', firstName="Demo", lastName="User", balance=500.00)
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="May", balance=500.00, address="3151 Granville Lane", city="Belleville", state="NJ", zip_code="07109")
+        username='marnie', email='marnie@aa.io', password='password', firstName="Marnie", lastName="May", balance=500.00)
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name="Bobbie", last_name="Bruh", balance=500.00, address="385 Flinderation Road", city="Chicago", state="IL", zip_code="60631")
+        username='bobbie', email='bobbie@aa.io', password='password', firstName="Bobbie", lastName="Bruh", balance=500.00,)
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -22,22 +20,13 @@ def seed_users():
 
     emails = [fake.unique.email() for i in range(5)]
     for i in range(5):
-        full_address = fake.address()
-        [street_address, city_state_zip] = full_address.split('\n')
-        [city, state_zip] = city_state_zip.split(', ')
-        [state, zip] = state_zip.split(' ')
-
         new_user = User(
-            username=f'Demo{i+1}',
+            username=f'user{i+1}',
             email=emails[i],
             password='password',
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
+            firstName=fake.first_name(),
+            lastName=fake.last_name(),
             balance=random.randint(10_000, 1_000_000)/100,
-            address=street_address,
-            city=city,
-            state=state,
-            zip_code=zip,
         )
         db.session.add(new_user)
 

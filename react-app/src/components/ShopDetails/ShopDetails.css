@@ -1,0 +1,11 @@
+.shop-cover-img {
+    height: 300px;
+    width: 95%;
+    object-fit: cover;
+}
+
+.shop-profile-img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+}

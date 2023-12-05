@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom'
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
+import DemoLoginButton from "../LoginFormModal/DemoLoginButton";
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [address, setAddress] = useState("");
-	const [city, setCity] = useState("");
-	const [state, setState] = useState("");
-	const [zipCode, setZipCode] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
@@ -21,14 +20,16 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp({username, email, password, firstName, lastName, address, city, state, zipCode}));
+			const data = await dispatch(signUp({username, email, password, firstName, lastName}));
 			if (data) {
-				setErrors(data);
+				setErrors(Object.values(data));
 				setPassword("")
 				setConfirmPassword("")
 			} else {
 				closeModal();
+				history.push('/')
 			}
 		} else {
 			setErrors([
@@ -42,7 +43,7 @@ function SignupFormModal() {
 	return (
 		<>
 			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} id="signup-form">
 				<ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
@@ -84,60 +85,28 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
-				<label>
-					Address
-					<input
-						type="text"
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-						placeholder="Optional, required for delivery"
-					/>
-				</label>
-				<label>
-					City
-					<input
-						type="text"
-						value={city}
-						onChange={(e) => setCity(e.target.value)}
-					/>
-				</label>
-				<label>
-					State
-					<input
-						type="text"
-						value={state}
-						onChange={(e) => setState(e.target.value)}
-					/>
-				</label>
-				<label>
-					Zip Code
-					<input
-						type="text"
-						value={zipCode}
-						onChange={(e) => setZipCode(e.target.value)}
-						required
-						placeholder="XXXXX or XXXXX-XXXX"
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
+				<div>
+					<label>
+						Password
+						<input
+							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+					</label>
+					<label>
+						Confirm Password
+						<input
+							type="password"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
+					</label>
+				</div>
 				<button type="submit">Sign Up</button>
+				<DemoLoginButton {...{setErrors, closeModal}}/>
 			</form>
 		</>
 	);

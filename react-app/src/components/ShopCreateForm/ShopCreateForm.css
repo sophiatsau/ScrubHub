@@ -1,0 +1,15 @@
+.business-hours-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.daily-business-hours {
+    display: grid;
+    grid-template-columns: 5% 5% 20% 20%;
+    align-items: center;
+}
+
+.choose-categories-form {
+    display: flex;
+    flex-direction: column;
+}

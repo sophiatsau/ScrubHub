@@ -1,6 +1,10 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const USER_ADD_SHOP = "session/USER_ADD_SHOP"
+const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"
+const SAVE_LOCATION = "session/SAVE_LOCATION"
+
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -11,7 +15,20 @@ const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+export const userAddShop = (shopId) => ({
+	type: USER_ADD_SHOP,
+	shopId,
+})
+
+export const deleteUserShop = (shopId) => ({
+	type: DELETE_USER_SHOP,
+	shopId,
+})
+
+export const saveLocation = location => ({
+	type: SAVE_LOCATION,
+	location,
+})
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -51,7 +68,7 @@ export const login = (email, password) => async (dispatch) => {
 			return data.errors;
 		}
 	} else {
-		return ["An error occurred. Please try again."];
+		return {"UnknownError": "An error occurred. Please try again."};
 	}
 };
 
@@ -86,16 +103,28 @@ export const signUp = (formData) => async (dispatch) => {
 			return data.errors;
 		}
 	} else {
-		return ["An error occurred. Please try again."];
+		return {"UnknownError": "An error occurred. Please try again."};
 	}
 };
 
+const initialState = { user: null, location: null };
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
+		// set, remove user will keep the location which isn't saved in database.
 		case SET_USER:
-			return { user: action.payload };
+			return { user: action.payload, location: state.location };
 		case REMOVE_USER:
-			return { user: null };
+			return { user: null, location: state.location };
+		case USER_ADD_SHOP:
+			return { ...state, user: {...state.user, shops:[...state.user.shops, parseInt(action.shopId)]} }
+		case DELETE_USER_SHOP: {
+			const newShops =  state.user.shops.filter(shopId => shopId !== parseInt(action.shopId))
+			return {...state, user: {...state.user, shops: newShops}}
+		}
+		case SAVE_LOCATION: {
+			return {...state, location: action.location}
+		}
 		default:
 			return state;
 	}
