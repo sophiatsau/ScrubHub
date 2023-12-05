@@ -33,7 +33,7 @@ export default function ShopsViewCurrent() {
         ))
         : <div>You have no shops</div>
         }
-        <Link to="/shops/new">Create A New Shop</Link>
+        <Link to="/current/shops/new">Create A New Shop</Link>
     </div>
   )
 }

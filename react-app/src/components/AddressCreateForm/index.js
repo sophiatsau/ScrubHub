@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
-import "./AddressForm.css";
+import "./AddressCreateForm.css";
 
-function AddressFormModal() {
+export default function AddressCreateForm() {
 	const dispatch = useDispatch();
 	const [address, setAddress] = useState("");
 	const [city, setCity] = useState("");
@@ -72,5 +72,3 @@ function AddressFormModal() {
 		</>
 	);
 }
-
-export default AddressFormModal;

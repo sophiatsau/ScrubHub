@@ -24,12 +24,12 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
+      {isLoaded && (<>
         <Switch>
           <Route exact path="/">
             <Landing />
           </Route>
-          <Route exact path="/current/:feature">
+          <Route path="/current">
             <UserProfile />
           </Route>
           <Route exact path="/shops">
@@ -38,24 +38,12 @@ function App() {
           <Route exact path="/shops/:shopId([0-9]{1,})">
             <ShopDetails />
           </Route>
-          <Route exact path="/shops/current">
-            <ShopsViewCurrent />
-          </Route>
-          <Route exact path="/shops/new">
-            <ShopCreateForm />
-          </Route>
-          <Route exact path="/shops/:shopId([0-9]{1,})/edit">
-            <ShopEditForm />
-          </Route>
           <Route exact path="/shops/:category">
             <ShopByCategory />
           </Route>
-          <Route exact path="/addresses/current">
-            <AddressViewCurrent />
-          </Route>
           <Route>404 Page Not Found</Route>
         </Switch>
-      )}
+      </>)}
     </>
   );
 }

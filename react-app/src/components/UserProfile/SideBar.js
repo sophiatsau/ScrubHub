@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function SideBar() {
   return (
-    <div>
+    <div id="sidebar-container">
         <NavLink to="/current/addresses">
             View Your Addresses
         </NavLink>
