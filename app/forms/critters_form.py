@@ -5,7 +5,7 @@ from flask_wtf.file import FileField, FileAllowed
 from ..api.utils import ALLOWED_EXTENSIONS
 from app.seeds.categories import CATEGORIES
 
-class CritterEditForm(FlaskForm):
+class CritterForm(FlaskForm):
     name = StringField(validators=[DataRequired(), Length(2,255,"Critter must have a name between 2-255 characters long")])
     species = StringField(validators=[DataRequired(), Length(2,255,"Critter must have a species between 2-255 characters long")])
     price = DecimalField(validators=[DataRequired(), NumberRange(0.01,10**16, "Please select a price range for your critters")], places=2)
