@@ -12,6 +12,7 @@ import ShopEditForm from "./components/ShopEditForm";
 import ShopByCategory from "./components/ShopByCategory";
 import ShopsViewAll from "./components/ShopsViewAll";
 import AddressViewCurrent from "./components/AddressViewCurrent";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Landing />
+          </Route>
+          <Route exact path="/current/:feature">
+            <UserProfile />
           </Route>
           <Route exact path="/shops">
             <ShopsViewAll />

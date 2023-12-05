@@ -56,14 +56,18 @@ class User(db.Model, UserMixin):
             'balance': self.balance,
         }
 
-        # view shops - eager load
+        # add shops, addresses
         d["shops"] = [shop.id for shop in self.shops]
-        # view critters - only through shop
+        d["addresses"] = self.normalize_addresses()
+        # view critters - only through shop?
         # view reviews - lazy load
         return d
 
     def get_addresses(self):
         return [address.to_dict() for address in self.addresses]
+
+    def normalize_addresses(self):
+        return {address["id"]:address for address in self.get_addresses()}
 
     def get_shops(self):
         return [shop.to_dict() for shop in self.shops]
