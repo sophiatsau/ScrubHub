@@ -56,13 +56,10 @@ def update_critter(critterId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        # TODO: check datatype of imageUrl
-        # if remove, set to null
-        # if unchanged, don't upload
-
         img = form.data["previewImageUrl"]
 
-        if type(img) is "FileStorage":
+        # set new url if needed
+        if type(img).__name__ == "FileStorage":
             img.filename = get_unique_filename(img.filename)
             upload = upload_file_to_s3(img)
 
@@ -70,16 +67,17 @@ def update_critter(critterId):
                 # if no upload key, there was an error uploading.
                 return upload, 500
 
-            # delete original file
-            delete_success = remove_file_from_s3(critter.previewImageUrl)
             url = upload["url"]
+        else:
+            # string or None
+            url = None if form.data["removePreview"] else critter.previewImageUrl
+
+        # delete original image if they're different
+        if critter.previewImageUrl and url is not critter.previewImageUrl:
+            delete_success = remove_file_from_s3(critter.previewImageUrl)
 
             if delete_success is not True:
-                print("🚀 ~ file: critter_routes.py:72 ~ delete_success:", delete_success)
-        elif img is None:
-            url = None
-        else:
-            url = critter.previewImageUrl
+                print("🚀 ~ file: critter_routes.py:83 ~ delete_success:", delete_success)
 
         critter.name = form.name.data
         critter.species = form.species.data

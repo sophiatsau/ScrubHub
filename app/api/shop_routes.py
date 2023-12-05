@@ -218,6 +218,7 @@ def create_critter(shopId):
         form_data = {**form.data, "previewImageUrl": url, "shopId": shopId}
 
         del form_data['csrf_token']
+        del form_data["removePreview"]
 
         critter = Critter(**form_data)
 

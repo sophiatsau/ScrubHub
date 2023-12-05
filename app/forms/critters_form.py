@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, DecimalField, SelectField
+from wtforms import StringField, IntegerField, DecimalField, SelectField, BooleanField
 from wtforms.validators import DataRequired, Length, NumberRange, Optional
 from flask_wtf.file import FileField, FileAllowed
 from ..api.utils import ALLOWED_EXTENSIONS
@@ -13,3 +13,4 @@ class CritterForm(FlaskForm):
     previewImageUrl = FileField(validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     description = StringField(validators=[Optional(), Length(max=255)])
     stock=IntegerField(validators=[DataRequired(), NumberRange(min=0)])
+    removePreview = BooleanField()
