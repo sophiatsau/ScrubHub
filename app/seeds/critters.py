@@ -31,7 +31,7 @@ def seed_critters():
             name=NAMES[i],
             species=SPECIES[i],
             shopId=2,
-            userId=2,
+            # userId=2,
             price=(i)*15,
             category=CATEGORIES[i],
             previewImageUrl=PREVIEW_IMAGES[i],
