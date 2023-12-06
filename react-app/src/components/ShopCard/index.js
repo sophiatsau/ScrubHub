@@ -54,9 +54,6 @@ export default function ShopCard({shop}) {
           modalComponent={<DeleteConfirmationModal itemName={"Shop"} deleteFunction={deleteShop}/>}
           buttonText={"Delete"}
         />
-        {/* <div>
-          <ShopDeleteButton shopId={shop.id} />
-        </div> */}
       </div>
       )}
     </div>

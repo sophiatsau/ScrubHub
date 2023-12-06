@@ -59,8 +59,7 @@ class User(db.Model, UserMixin):
         # add shops, addresses
         d["shops"] = [shop.id for shop in self.shops]
         d["addresses"] = self.normalize_addresses()
-        # view critters - only through shop?
-        # view reviews - lazy load
+        d["critters"] = [critter.id for shop in self.shops for critter in shop.critters]
         return d
 
     def get_addresses(self):
