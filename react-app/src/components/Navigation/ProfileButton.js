@@ -50,8 +50,8 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
             <li>
               {user.shops.length ?
-                <Link to='/current/shops'>View My Shops</Link>
-                : <Link to='/current/shops/new'>Become a Shop Owner</Link>
+                <Link to='/profile/shops'>View My Shops</Link>
+                : <Link to='/profile/shops/new'>Become a Shop Owner</Link>
               }
             </li>
             <li>

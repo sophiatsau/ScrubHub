@@ -25,7 +25,7 @@ export default function ShopCard({shop}) {
       </Link>
       {sessionUser && sessionUser.id===shop.userId && (
       <>
-        <Link to={`/current/shops/${shop.id}/edit`}>
+        <Link to={`/profile/shops/${shop.id}/edit`}>
           <button>Edit Shop</button>
         </Link>
         <div>

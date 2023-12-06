@@ -1,24 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useModal } from "../../context/Modal";
-import { thunkAddUserAddress } from "../../store/session";
+import { thunkEditUserAddress } from "../../store/session";
 import { getFullAddress } from '../../store/utils'
 
-import "./AddressCreateForm.css";
+import "./AddressEditForm.css";
 
-export default function AddressCreateForm() {
+export default function AddressEditForm({address}) {
 	const dispatch = useDispatch();
 	const {closeModal} = useModal()
 
-	const [formData, setFormData] = useState({
-		fullAddress:"",
-		address:"",
-		city:"",
-		state:"",
-		zipCode:"",
-		name:"",
-	})
+	const [formData, setFormData] = useState(address)
 
 	const [errors, setErrors] = useState({});
 
@@ -27,7 +20,7 @@ export default function AddressCreateForm() {
 		let formErrors = {}
 		formData.fullAddress = getFullAddress(formData)
 
-		const data = await dispatch(thunkAddUserAddress(formData));
+		const data = await dispatch(thunkEditUserAddress(formData));
 
 		if (data.errors) formErrors=data.errors;
 		else closeModal();
@@ -46,7 +39,7 @@ export default function AddressCreateForm() {
 
 	return (
 		<>
-		<h1>Enter Your Address</h1>
+		<h1>Update Your Address</h1>
 		<form onSubmit={handleSubmit}>
 			<ul>
 				{errors.status!==400 && Object.values(errors).map((error, idx) => (
@@ -104,7 +97,7 @@ export default function AddressCreateForm() {
 				/>
 				{errors.zipCode && <div className='error'>{errors.zipCode}</div>}
 			</label>
-      		<button type="submit">Add Address</button>
+      		<button type="submit">Update Address</button>
 		</form>
 		</>
 	);

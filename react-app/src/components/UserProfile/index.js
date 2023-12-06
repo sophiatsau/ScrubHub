@@ -16,16 +16,16 @@ export default function UserProfile() {
     <div id="user-profile-page-container">
     <SideBar/>
     <Switch>
-        <Route exact path="/current/addresses">
+        <Route exact path="/profile/addresses">
             <AddressViewCurrent />
         </Route>
-        <Route exact path="/current/shops">
+        <Route exact path="/profile/shops">
             <ShopsViewCurrent />
         </Route>
-        <Route exact path="/current/shops/new">
+        <Route exact path="/profile/shops/new">
             <ShopCreateForm />
         </Route>
-        <Route exact path="/current/shops/:shopId([0-9]{1,})/edit">
+        <Route exact path="/profile/shops/:shopId([0-9]{1,})/edit">
             <ShopEditForm />
         </Route>
         <Route>

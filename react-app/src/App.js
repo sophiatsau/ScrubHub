@@ -29,7 +29,7 @@ function App() {
           <Route exact path="/">
             <Landing />
           </Route>
-          <Route path="/current">
+          <Route path="/profile">
             <UserProfile />
           </Route>
           <Route exact path="/shops">

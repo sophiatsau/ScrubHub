@@ -115,7 +115,7 @@ export default function AddressFormModal({type}) {
 				/>
 			</label>
       <button type="submit">Update Location</button>
-      {sessionUser && <Link to="/current/addresses">Save Location</Link>}
+      {sessionUser && <Link to="/profile/addresses">Save Location</Link>}
     </form>
     </>
   )
