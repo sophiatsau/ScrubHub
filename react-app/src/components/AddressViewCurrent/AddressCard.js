@@ -1,12 +1,12 @@
 import React from 'react'
 import { useModal } from '../../context/Modal';
-import AddressEditForm from '../AddressEditForm';
+import AddressForm from '../AddressForm';
 
 export default function AddressCard({address}) {
     const { setModalContent } = useModal();
 
     const onClick = () => {
-        setModalContent(<AddressEditForm address={address}/>);
+        setModalContent(<AddressForm address={address}/>);
     };
 
     return (

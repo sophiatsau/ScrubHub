@@ -2,9 +2,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import OpenModalButton from '../OpenModalButton'
-import AddressCreateForm from '../AddressCreateForm'
 import OpenModalCard from '../OpenModalCard'
 import AddressCard from './AddressCard'
+import AddressForm from '../AddressForm'
 
 import './AddressViewCurrent.css'
 
@@ -22,7 +22,7 @@ export default function AddressViewCurrent() {
                 <AddressCard key={address.id} address={address}/>
             ))}
             <OpenModalButton
-                modalComponent={<AddressCreateForm />}
+                modalComponent={<AddressForm />}
                 buttonText={"➕ Add a New Address"}
             />
         </div>
