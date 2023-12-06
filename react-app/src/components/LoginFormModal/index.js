@@ -52,7 +52,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button style={{marginTop:"5px"}} type="submit" className="purple-button">Log In</button>
 
         <DemoLoginButton {...{setErrors, closeModal}}/>
       </form>

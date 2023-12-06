@@ -18,7 +18,7 @@ export default function DemoLoginButton({setErrors,closeModal}) {
         }
     }
     return (
-    <button className='demo-login-button' onClick={demoLogin}>
+    <button className='demo-login-button light-button' onClick={demoLogin}>
         Log in as Demo User
     </button>
   )

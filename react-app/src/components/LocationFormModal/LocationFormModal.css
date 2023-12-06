@@ -1,0 +1,28 @@
+#location-form {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: transparent;
+}
+
+#location-form>label {
+    display: flex;
+    flex-direction: column;
+}
+
+#location-form>div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+}
+
+#location-form>div>label>input {
+    width: 100%;
+}
+
+#location-form * {
+    box-sizing: border-box;
+}
