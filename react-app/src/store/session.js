@@ -4,6 +4,10 @@ const REMOVE_USER = "session/REMOVE_USER";
 const USER_ADD_SHOP = "session/USER_ADD_SHOP"
 const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"
 const SAVE_LOCATION = "session/SAVE_LOCATION"
+// const GET_USER_ADDRESSES = "session/GET_USER_ADDRESSES"
+const ADD_USER_ADDRESS = "session/ADD_USER_ADDRESS"
+const EDIT_USER_ADDRESS = "session/EDIT_USER_ADDRESS"
+const DELETE_USER_ADDRESS = "session/DELETE_USER_ADDRESS"
 
 
 const setUser = (user) => ({
@@ -28,6 +32,21 @@ export const deleteUserShop = (shopId) => ({
 export const saveLocation = location => ({
 	type: SAVE_LOCATION,
 	location,
+})
+
+const addUserAddress = address => ({
+	type: ADD_USER_ADDRESS,
+	address,
+})
+
+const editUserAddress = address => ({
+	type: EDIT_USER_ADDRESS,
+	address,
+})
+
+const deleteUserAddress = addressId => ({
+	type: DELETE_USER_ADDRESS,
+	addressId,
 })
 
 export const authenticate = () => async (dispatch) => {
@@ -107,6 +126,55 @@ export const signUp = (formData) => async (dispatch) => {
 	}
 };
 
+export const thunkAddUserAddress = address => async dispatch => {
+	const res = await fetch(`/api/addresses/new`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(address),
+	})
+
+	const data = await res.json()
+
+	if (res.ok) {
+		dispatch(addUserAddress(data))
+	}
+	else data.errors.status = res.status
+
+	return data
+}
+
+export const thunkEditUserAddress = address => async dispatch => {
+	const res = await fetch(`/api/addresses/${address.id}/edit`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(address),
+	})
+
+	const data = await res.json()
+
+	if (res.ok) dispatch(editUserAddress(data))
+	else data.errors.status = res.status
+
+	return data
+}
+
+export const thunkDeleteUserAddress = addressId => async dispatch => {
+	const res = await fetch(`/api/addresses/${addressId}/delete`, {
+		method: "DELETE",
+	})
+
+	const data = await res.json()
+
+	if (res.ok) dispatch(deleteUserAddress(parseInt(addressId)))
+	else data.errors.status = res.status
+
+	return data
+}
+
 const initialState = { user: null, location: null };
 
 export default function reducer(state = initialState, action) {
@@ -124,6 +192,46 @@ export default function reducer(state = initialState, action) {
 		}
 		case SAVE_LOCATION: {
 			return {...state, location: action.location}
+		}
+		case ADD_USER_ADDRESS: {
+			const newAddresses = {
+				...state.user.addresses,
+				[action.address.id]: action.address,
+			};
+			return {
+				...state,
+				user: {
+					...state.user,
+					addresses: newAddresses,
+				},
+			}
+		}
+		case EDIT_USER_ADDRESS: {
+			const updatedAddresses = {
+				...state.user.addresses,
+				[action.address.id]: action.address,
+			};
+			return {
+				...state,
+				user: {
+					...state.user,
+					addresses: updatedAddresses,
+				},
+			}
+		}
+		case DELETE_USER_ADDRESS: {
+			const updatedAddresses = {...state.user.addresses};
+			console.log("🚀 ~ file: session.js:224 ~ reducer ~ updatedAddresses:", updatedAddresses)
+			delete updatedAddresses[action.addressId];
+			console.log("🚀 ~ file: session.js:226 ~ reducer ~ updatedAddresses:", updatedAddresses)
+			console.log("🚀 ~ file: session.js:226 ~ reducer ~ action.addressId:", action.addressId)
+			return {
+				...state,
+				user: {
+					...state.user,
+					addresses: updatedAddresses,
+				}
+			}
 		}
 		default:
 			return state;

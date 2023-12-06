@@ -15,6 +15,8 @@
 
     --backgroundColor: rgb(255,255,255);
 
+    --cardBorder: 1px black solid;
+
     --buttonBorderRadius: 10px ;
     --imgBorderRadius: 14px ;
     --modalBorderRadius: 15px;
@@ -54,6 +56,7 @@ time, mark, audio, video {
 	vertical-align: baseline ;
     /* background-color: var(--backgroundColor); */
     color: var(--textColor);
+    white-space: pre-line;
 }
 
 html, form {

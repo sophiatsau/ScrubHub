@@ -1,0 +1,11 @@
+#user-profile-page-container {
+    display: grid;
+    grid-template-columns: 15% 85%;
+}
+
+/************** SIDEBAR *************************/
+#sidebar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

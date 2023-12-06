@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import { saveLocation } from '../../store/session'
-import "./AddressFormModal.css"
 import { useModal } from '../../context/Modal'
+import { getFullAddress } from '../../store/utils'
+import "./AddressFormModal.css"
 
 export default function AddressFormModal({type}) {
   const dispatch = useDispatch()
   const history = useHistory()
   const sessionUser = useSelector(state => state.session.user)
   const {closeModal} = useModal()
-  //TODO: split this into 2-3 components. Edit should have separate form
+  //TODO: option to save address to db
+  //TODO: dropdown menu for users with saved addresses
   const [formData, setFormData] = useState({
     fullAddress:"",
     address:"",
@@ -53,45 +55,33 @@ export default function AddressFormModal({type}) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("submitting form")
 
-    if (type==="temp") {
-      storeLocation(formData)
-      closeModal()
-      history.push("/shops")
-    }
-
-    // type==="temp" ? storeLocation(formData)
-    //   : type==="create" ? "Add An Address"
-    //   : type==="edit" ? "Edit Your Address" : null
-  }
-
-  const storeLocation = (formData) => {
+    formData.fullAddress = getFullAddress(formData)
     dispatch(saveLocation(formData))
-    if (saveNewLocation) {
-      // TODO:
-      console.log("option to save address")
-    }
+
+    closeModal()
+    history.push("/shops")
   }
 
   const handleInputChange = (e) => {
-    const {value, type} = e.target;
+    const {value, name} = e.target;
+
+    const newData = {...formData};
+    newData[name] = value;
+
+    setFormData(newData)
   }
 
-  const header = type==="temp" ? "Enter Your Location"
-    : type==="create" ? "Add An Address"
-    : type==="edit" ? "Edit Your Address" : null
-
-  const buttonText = type==="create" ? "Add Address" : "Update Address"
 
   return (
     <>
-    <h1>{header}</h1>
+    <h1>Enter Your Location</h1>
     <form onSubmit={handleSubmit} id="address-form">
       <label>
 				Address
 				<input
 					type="text"
+          name="address"
 					value={formData.address}
 					onChange={handleInputChange}
 				/>
@@ -100,6 +90,7 @@ export default function AddressFormModal({type}) {
 				City
 				<input
 					type="text"
+          name="city"
 					value={formData.city}
 					onChange={handleInputChange}
 				/>
@@ -108,6 +99,7 @@ export default function AddressFormModal({type}) {
 				State
 				<input
 					type="text"
+          name="state"
 					value={formData.state}
 					onChange={handleInputChange}
 				/>
@@ -116,12 +108,14 @@ export default function AddressFormModal({type}) {
 				Zip Code
 				<input
 					type="text"
+          name="zipCode"
 					value={formData.zipCode}
 					onChange={handleInputChange}
 					placeholder="XXXXX or XXXXX-XXXX"
 				/>
 			</label>
-      <button>{buttonText}</button>
+      <button type="submit">Update Location to View Shops!</button>
+      {/* {sessionUser && <Link to="/profile/addresses">Save Location</Link>} */}
     </form>
     </>
   )

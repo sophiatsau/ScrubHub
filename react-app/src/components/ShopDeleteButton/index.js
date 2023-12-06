@@ -30,7 +30,7 @@ export default function ShopDeleteButton({shopId}) {
         dispatch(deleteUserShop(shopId))
         alert("Delete successful! Redirecting to your shops...")
         closeModal()
-        history.push("/shops/current")
+        history.push("/profile/shops")
       }
 
     }

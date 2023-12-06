@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import AddressFormModal from '../AddressFormModal'
+import AddressFormModal from '../LocationFormModal'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import OpenModalButton from '../OpenModalButton'
 

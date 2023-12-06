@@ -105,14 +105,13 @@ export default function ShopEditForm() {
 
     // Loading message to let user know the data is being processed
     setImageLoading(true);
-    const newShop = await dispatch(thunkEditShop(shopId,allFormData))
+    const editedShop = await dispatch(thunkEditShop(shopId,allFormData))
     setImageLoading(false);
 
-    if (newShop.errors) {
-      setErrors(newShop.errors)
+    if (editedShop.errors) {
+      setErrors(editedShop.errors)
     } else {
-      await dispatch(userAddShop(newShop.id))
-      history.push(`/shops/${newShop.id}`)
+      history.push(`/shops/${editedShop.id}`)
     }
   }
 
@@ -219,7 +218,7 @@ export default function ShopEditForm() {
           {errors.zipCode && <div className='error'>{errors.zipCode}</div>}
         </label>
         <label>
-          Price Range:
+          Price Range (1-5):
           <input
             type="number"
             name="priceRange"

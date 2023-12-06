@@ -66,3 +66,8 @@ export const parseBusinessHours = (str) => {
 
     return hoursObj;
 }
+
+export const getFullAddress = (addressObj) => {
+  const {address, city, state, zipCode} = addressObj;
+  return `${address}\n${city}, ${state} ${zipCode}`;
+}

@@ -1,0 +1,5 @@
+.address-card {
+    border: var(--cardBorder);
+    border-radius: var(--cardBorderRadius);
+    width: 500px;
+}
