@@ -17,6 +17,7 @@
 
     --backgroundColorLighter: rgb(255,255,255);
     --backgroundColor: rgb(250,250,255);
+    --boxShadowColor: rgb(215,215,225);
 
     --cardBorder: 1px black solid;
 
@@ -159,7 +160,7 @@ h3 {
     color: var(--highlightColor);
 }
 
-.purple:hover {
+.purple:hover, .purple:hover *{
     color: var(--highlightColorDarker);
 }
 

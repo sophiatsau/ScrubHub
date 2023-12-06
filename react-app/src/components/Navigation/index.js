@@ -9,8 +9,11 @@ function Navigation({ isLoaded }){
 
 	return (
 		<ul className='nav-container'>
-			<li>
-				<NavLink exact to="/">CRITTR</NavLink>
+			<li id="crittr-logo">
+				<NavLink exact to="/">
+					<i className="fa-solid fa-shop" />
+					CRITTR
+				</NavLink>
 			</li>
 			{isLoaded && (
 				<li>

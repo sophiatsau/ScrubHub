@@ -2,9 +2,45 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-bottom: 1px solid var(--boxShadowColor);
+  background-color: var(--backgroundColorLighter);
+  box-shadow: 0 0 8px var(--boxShadowColor);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+}
+
+#crittr-logo * {
+  color: var(--highlightColor);
+  font-size: var(--h1Size);
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .profile-dropdown {
   position: absolute;
-  right: 20px;
+  top: 80px;
+  right: 2px;
+  background-color: var(--backgroundColorLighter);
+  padding: 8px;
+  border: 1px var(--boxShadowColor) solid;
+  box-shadow: 0 0 5px var(--boxShadowColor);
+  border-radius: 7px;
+}
+
+.profile-button {
+  background-color: var(--backgroundColorLighter);
+}
+
+.profile-button:hover {
+  /* background-color: blue; */
+  /* * {
+    color: var(--highlightColor);
+  } */
+}
+
+.fa-user-circle {
+  font-size: var(--h2Size);
 }
