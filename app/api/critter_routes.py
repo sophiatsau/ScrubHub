@@ -97,7 +97,6 @@ def update_critter(critterId):
         return error_message("unknownError", "An unknown error occurred."), 500
 
 
-
 @critter_routes.route("/<int:critterId>/delete", methods=["DELETE"])
 @login_required
 def delete_critter(critterId):

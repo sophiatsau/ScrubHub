@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import "./ShopCard.css";
 import { useSelector, useDispatch } from 'react-redux';
 
-// import ShopDeleteButton from '../ShopDeleteButton';
 import DeleteConfirmationModal from '../DeleteConfirmationModal';
 import OpenModalButton from '../OpenModalButton';
 import { useModal } from '../../context/Modal';
