@@ -20,7 +20,7 @@ export default function Landing() {
       <p>Share your location to find the critters sold nearby</p>
       <OpenModalButton
           buttonText={<>
-          <i className="fa-solid fa-location-dot" style={{marginRight: "10px", color:"var(--backgroundColor)"}}/>
+          <i className="fa-solid fa-location-dot" style={{marginRight: "10px"}}/>
           Enter Your Address
           </>}
           className={"purple-button landing-button"}

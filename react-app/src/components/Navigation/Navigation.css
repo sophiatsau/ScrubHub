@@ -1,7 +1,7 @@
 .nav-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 175px 175px 1fr 40px;
+  align-items: center;
   border-bottom: 1px solid var(--boxShadowColor);
   background-color: var(--backgroundColorLighter);
   box-shadow: 0 0 8px var(--boxShadowColor);
@@ -28,17 +28,44 @@
   border: 1px var(--boxShadowColor) solid;
   box-shadow: 0 0 5px var(--boxShadowColor);
   border-radius: 7px;
+  width: 180px;
+  text-align: center;
+}
+
+.profile-dropdown>li {
+  margin: 5px 0;
 }
 
 .profile-button {
   background-color: var(--backgroundColorLighter);
 }
 
-.profile-button:hover {
-  /* background-color: blue; */
-  /* * {
-    color: var(--highlightColor);
-  } */
+.dropdown-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.dropdown-links>a {
+  border: var(--boxShadowColor) 1px solid;
+  height: 60px;
+  text-align: center;
+  border-radius: 5px;
+  color: var(--textColorLighter);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-links>a:hover {
+  border-color: var(--highlightColor)
+}
+
+.dropdown-links i {
+  color: var(--textColorLighter);
+  font-size: var(--h3Size);
 }
 
 .fa-user-circle {

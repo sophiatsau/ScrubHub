@@ -164,13 +164,24 @@ h3 {
     color: var(--highlightColorDarker);
 }
 
-.purple-button {
+.purple-button, .purple-button * {
     color: var(--backgroundColorLighter);
     background-color: var(--highlightColor);
 }
 
 .purple-button:hover {
     background-color: var(--highlightColorDarker);
+}
+
+.light-button {
+    background-color: transparent;
+    border: 1px solid var(--boxShadowColor);
+    padding: 8px 12px;
+}
+
+.light-button:hover, .light-button:hover * {
+    font-weight: bold;
+    border-color: var(--highlightColorLighter);
 }
 
 .business-hours-form {

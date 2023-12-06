@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-.fa-solid.fa-shop {
+.landing-container .fa-solid.fa-shop {
     font-size: 50px;
     pointer-events: none;
 }
