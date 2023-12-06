@@ -28,8 +28,14 @@ export default function UserProfile() {
         <Route exact path="/profile/shops/:shopId([0-9]{1,})/edit">
             <ShopEditForm />
         </Route>
+        <Route exact path="/profile/critters">
+            You are not selling any critters.
+        </Route>
+        <Route exact path="/profile/orders">
+            You have not made any orders.
+        </Route>
         <Route>
-            Future implementation
+            Page not found
         </Route>
     </Switch>
     </div>

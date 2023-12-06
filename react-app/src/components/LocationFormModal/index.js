@@ -114,8 +114,8 @@ export default function AddressFormModal({type}) {
 					placeholder="XXXXX or XXXXX-XXXX"
 				/>
 			</label>
-      <button type="submit">Update Location</button>
-      {sessionUser && <Link to="/profile/addresses">Save Location</Link>}
+      <button type="submit">Update Location to View Shops!</button>
+      {/* {sessionUser && <Link to="/profile/addresses">Save Location</Link>} */}
     </form>
     </>
   )
