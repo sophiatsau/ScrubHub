@@ -169,7 +169,7 @@ export const thunkDeleteUserAddress = addressId => async dispatch => {
 
 	const data = await res.json()
 
-	if (res.ok) dispatch(deleteUserAddress(data))
+	if (res.ok) dispatch(deleteUserAddress(parseInt(addressId)))
 	else data.errors.status = res.status
 
 	return data
@@ -221,7 +221,10 @@ export default function reducer(state = initialState, action) {
 		}
 		case DELETE_USER_ADDRESS: {
 			const updatedAddresses = {...state.user.addresses};
+			console.log("🚀 ~ file: session.js:224 ~ reducer ~ updatedAddresses:", updatedAddresses)
 			delete updatedAddresses[action.addressId];
+			console.log("🚀 ~ file: session.js:226 ~ reducer ~ updatedAddresses:", updatedAddresses)
+			console.log("🚀 ~ file: session.js:226 ~ reducer ~ action.addressId:", action.addressId)
 			return {
 				...state,
 				user: {
