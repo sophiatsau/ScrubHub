@@ -8,7 +8,7 @@
     --subheadingWeight: 550 ;
 
     --textColor: rgb(20,20,20);
-    --textColorLighter: rgb(50,50,100);
+    --textColorLighter: rgb(80,80,100);
     --highlightColor: rgb(80,30,255);
     --highlightColorLighter: rgb(120,100,255);
     --highlightColorDarker: rgb(50,30,200);
@@ -171,12 +171,12 @@ h3 {
 
 .purple-button:hover {
     background-color: var(--highlightColorDarker);
+    font-weight: bold;
 }
 
 .light-button {
     background-color: transparent;
     border: 1px solid var(--boxShadowColor);
-    padding: 8px 12px;
 }
 
 .light-button:hover, .light-button:hover * {
@@ -187,31 +187,4 @@ h3 {
 .business-hours-form {
     display: flex;
     flex-direction: column;
-}
-
-/**************** DELETE MODAL **************************/
-.modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.7);
-  flex-direction: column;
-}
-
-.modal-content {
-  position: absolute;
-  background-color: var(--backgroundColor);
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  text-align: center;
 }

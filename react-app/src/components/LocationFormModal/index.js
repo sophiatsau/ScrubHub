@@ -5,29 +5,28 @@ import { useHistory, Link } from 'react-router-dom'
 import { saveLocation } from '../../store/session'
 import { useModal } from '../../context/Modal'
 import { getFullAddress } from '../../store/utils'
-import "./AddressFormModal.css"
+import "./LocationFormModal.css"
 
-export default function AddressFormModal({type}) {
+export default function LocationFormModal({type}) {
   const dispatch = useDispatch()
   const history = useHistory()
-  const sessionUser = useSelector(state => state.session.user)
   const {closeModal} = useModal()
   //TODO: option to save address to db
   //TODO: dropdown menu for users with saved addresses
-  const [formData, setFormData] = useState({
+
+  const currentLocation = useSelector(state => state.session.location) || {
     fullAddress:"",
     address:"",
     city:"",
     state:"",
     zipCode:"",
-  })
+  }
+
+  const [formData, setFormData] = useState(currentLocation)
 
   const [saveNewLocation, setSaveNewLocation] = useState(false)
 
-  /*TODO: create, edit, temp-storage
-
-  form data object
-  error object
+  /*TODO:
   if user, drop down select of saved addresses (name, address)
 
   temp-storage:
@@ -39,24 +38,13 @@ export default function AddressFormModal({type}) {
         button: if ssessionUser, then show option
       update store
       redirect to shops
-
-  create:
-    on submit:
-      add to db
-      update store
-      close modal, back to addresses/current
-
-  edit:
-    on submit:
-      update db
-      update store
-      close modal, back to addresses/current
   */
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
     formData.fullAddress = getFullAddress(formData)
+    localStorage.setItem("location", JSON.stringify(formData))
     dispatch(saveLocation(formData))
 
     closeModal()
@@ -75,8 +63,8 @@ export default function AddressFormModal({type}) {
 
   return (
     <>
-    <h1>Enter Your Location</h1>
-    <form onSubmit={handleSubmit} id="address-form">
+    <h1 style={{marginBottom:"8px"}}>Enter Your Location</h1>
+    <form onSubmit={handleSubmit} id="location-form">
       <label>
 				Address
 				<input
@@ -84,26 +72,31 @@ export default function AddressFormModal({type}) {
           name="address"
 					value={formData.address}
 					onChange={handleInputChange}
+          required
 				/>
 			</label>
-			<label>
-				City
-				<input
-					type="text"
-          name="city"
-					value={formData.city}
-					onChange={handleInputChange}
-				/>
-			</label>
-			<label>
-				State
-				<input
-					type="text"
-          name="state"
-					value={formData.state}
-					onChange={handleInputChange}
-				/>
-			</label>
+      <div>
+        <label>
+          City
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <label>
+          State
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+      </div>
 			<label>
 				Zip Code
 				<input
@@ -112,9 +105,10 @@ export default function AddressFormModal({type}) {
 					value={formData.zipCode}
 					onChange={handleInputChange}
 					placeholder="XXXXX or XXXXX-XXXX"
+          required
 				/>
 			</label>
-      <button type="submit">Update Location to View Shops!</button>
+      <button type="submit" className='purple-button' style={{marginTop:"8px", padding: "8px"}}>Update Location to View Shops!</button>
       {/* {sessionUser && <Link to="/profile/addresses">Save Location</Link>} */}
     </form>
     </>

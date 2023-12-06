@@ -187,7 +187,8 @@ export const thunkDeleteUserAddress = addressId => async dispatch => {
 	return data
 }
 
-const initialState = { user: null, location: null };
+const initLocation = JSON.parse(localStorage.getItem("location"))
+const initialState = { user: null, location: initLocation };
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {

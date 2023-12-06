@@ -10,6 +10,7 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
+	const location = useSelector(state => state.session.location)
 
 	return (
 		<ul className='nav-container'>
@@ -22,10 +23,12 @@ function Navigation({ isLoaded }){
 			<li>
 			<OpenModalButton
 				buttonText={<>
-				<i className="fa-solid fa-location-dot" style={{marginRight: "10px"}}/>
-				Enter Your Address
+				<i className="fa-solid fa-location-dot" style={{marginRight: "8px"}}/>
+				<span className='overflow-cutoff' >
+						{location.address || "Enter Your Address"}
+				</span>
 				</>}
-				className={"light-button"}
+				className={"light-button location-update-button"}
 				modalComponent={<AddressFormModal type={"temp"}/>}
 			/>
 			</li>

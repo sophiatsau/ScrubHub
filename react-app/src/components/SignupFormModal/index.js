@@ -105,7 +105,7 @@ function SignupFormModal() {
 						/>
 					</label>
 				</div>
-				<button type="submit">Sign Up</button>
+				<button type="submit" className="purple-button" style={{marginTop:"5px"}}>Sign Up</button>
 				<DemoLoginButton {...{setErrors, closeModal}}/>
 			</form>
 		</>
