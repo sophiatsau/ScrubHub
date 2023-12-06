@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 import shops from './shops'
+import critters from './critters'
 
 const rootReducer = combineReducers({
   session,
   shops,
+  critters
 });
 
 

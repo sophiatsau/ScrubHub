@@ -1,5 +1,5 @@
 from flask import Blueprint, session, request
-from app.models import Critter, db
+from app.models import Critter, db, Shop
 from app.forms import CritterForm
 from flask_login import current_user, login_required
 from .utils import error_messages, error_message, get_unique_filename, upload_file_to_s3, remove_file_from_s3

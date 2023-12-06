@@ -19,7 +19,6 @@ export default function ShopCard({shop}) {
     const res = await dispatch(thunkDeleteShop(shop.id));
 
     if (res.errors) {
-      delete res.errors.status;
       alert(Object.values(res.errors).join(" ")+" "+"Please refresh the page and try again later.")
     } else {
       dispatch(deleteUserShop(shop.id))

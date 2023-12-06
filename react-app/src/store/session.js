@@ -140,7 +140,7 @@ export const thunkAddUserAddress = address => async dispatch => {
 	if (res.ok) {
 		dispatch(addUserAddress(data))
 	}
-	else data.errors.status = res.status
+	else data.status = res.status
 
 	return data
 }
@@ -157,7 +157,7 @@ export const thunkEditUserAddress = address => async dispatch => {
 	const data = await res.json()
 
 	if (res.ok) dispatch(editUserAddress(data))
-	else data.errors.status = res.status
+	else data.status = res.status
 
 	return data
 }
@@ -170,7 +170,7 @@ export const thunkDeleteUserAddress = addressId => async dispatch => {
 	const data = await res.json()
 
 	if (res.ok) dispatch(deleteUserAddress(parseInt(addressId)))
-	else data.errors.status = res.status
+	else data.status = res.status
 
 	return data
 }
