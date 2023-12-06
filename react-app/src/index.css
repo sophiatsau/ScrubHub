@@ -7,17 +7,20 @@
     --h3Size: 16pt;
     --subheadingWeight: 550 ;
 
-    --textColor: rgb(0,0,0);
-    --textColorLighter: rgb(50,50,50);
-    --textHighlightColor: rgb(80,30,255);
+    --textColor: rgb(20,20,20);
+    --textColorLighter: rgb(50,50,100);
+    --highlightColor: rgb(80,30,255);
+    --highlightColorLighter: rgb(120,100,255);
+    --highlightColorDarker: rgb(50,30,200);
 
     --errorColor: rgb(200,50,50);
 
-    --backgroundColor: rgb(255,255,255);
+    --backgroundColorLighter: rgb(255,255,255);
+    --backgroundColor: rgb(250,250,255);
 
     --cardBorder: 1px black solid;
 
-    --buttonBorderRadius: 10px ;
+    --buttonBorderRadius: 3em ;
     --imgBorderRadius: 14px ;
     --modalBorderRadius: 15px;
     --inputBorderRadius: 5px;
@@ -141,6 +144,7 @@ h2 {
 
 h3 {
     font-size: var(--h3Size);
+    font-weight: bold;
 }
 
 .hidden {
@@ -148,10 +152,25 @@ h3 {
 }
 
 .error {
-    color: var(--errorColor)
+    color: var(--errorColor);
 }
 
+.purple {
+    color: var(--highlightColor);
+}
 
+.purple:hover {
+    color: var(--highlightColorDarker);
+}
+
+.purple-button {
+    color: var(--backgroundColorLighter);
+    background-color: var(--highlightColor);
+}
+
+.purple-button:hover {
+    background-color: var(--highlightColorDarker);
+}
 
 .business-hours-form {
     display: flex;
