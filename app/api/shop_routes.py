@@ -214,7 +214,7 @@ def create_critter(shopId):
             return upload, 500
         url = upload["url"]
 
-        form_data = {**form.data, "previewImageUrl": url, "shopId": shopId}
+        form_data = {**form.data, "previewImageUrl": url}
 
         del form_data['csrf_token']
         del form_data["removePreview"]
