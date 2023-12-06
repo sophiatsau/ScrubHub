@@ -16,7 +16,7 @@ export default function ShopCreateForm() {
     city:"",
     state:"",
     zipCode:"",
-    priceRange:0,
+    priceRange:"",
     businessHoursObj:{
       Mon: {open:"",close:"",active:false},
       Tue: {open:"",close:"",active:false},
@@ -205,7 +205,7 @@ export default function ShopCreateForm() {
           {errors.zipCode && <div className='error'>{errors.zipCode}</div>}
         </label>
         <label>
-          Price Range:
+          Price Range (1-5):
           <input
             type="number"
             name="priceRange"

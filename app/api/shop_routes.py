@@ -148,8 +148,7 @@ def update_shop(shopId):
 
         categories = Category.query.filter(Category.name.in_(category_list)).all()
 
-        _add_cats = [shop.categories.append(cat) for cat in categories if cat not in shop.categories]
-        _remove_cats = [shop.categories.remove(cat) for cat in shop.categories if cat not in categories]
+        shop.categories = categories
 
         db.session.add(shop)
         db.session.commit()
