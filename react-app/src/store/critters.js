@@ -90,6 +90,7 @@ export const thunkCreateCritter = formData => async dispatch => {
 
     if (res.ok) {
         dispatch(createCritter(data))
+        //update shop, user
     } else {
         data.status = res.status
     }
@@ -124,6 +125,7 @@ export const thunkDeleteCritter = (critterId) => async dispatch => {
 
     if (res.ok) {
         dispatch(deleteCritter(critterId))
+        //update shop, user
     } else {
         data.status = res.status
     }
