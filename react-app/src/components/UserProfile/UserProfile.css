@@ -3,6 +3,10 @@
     grid-template-columns: 200px 1fr;
 }
 
+.profile-main-container {
+    padding: 20px 0;
+}
+
 /************** SIDEBAR *************************/
 #sidebar-container {
     position: fixed;

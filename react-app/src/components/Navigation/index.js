@@ -25,7 +25,7 @@ function Navigation({ isLoaded }){
 				buttonText={<>
 				<i className="fa-solid fa-location-dot" style={{marginRight: "8px"}}/>
 				<span className='overflow-cutoff' >
-						{location.address || "Enter Your Address"}
+						{location?.address || "Enter Your Address"}
 				</span>
 				</>}
 				className={"light-button location-update-button"}

@@ -15,7 +15,7 @@ console.log("🚀 ~ file: DisplayPriceRange.js:4 ~ DisplayPriceRange ~ priceRang
         <div className='price-range-display'>
             {
                 [1,2,3,4,5].map(value => (
-                    <button type="button" value={value} onClick={onClick}>
+                    <button type="button" value={value} onClick={onClick} key={value}>
                         <i
                             className={"fa-solid fa-dollar-sign"}
                             style={style(value)}
