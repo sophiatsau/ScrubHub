@@ -144,7 +144,6 @@ export default function ShopCreateForm() {
           {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
         </label>
         <label for="profile-img" className="shop-profile-img">
-
           <input
             id="profile-img"
             type="file"
@@ -159,6 +158,7 @@ export default function ShopCreateForm() {
           {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
         </div>
         </section>
+        <section className="shop-name-price-section">
         <label>
           Shop Name:
           <input
@@ -170,6 +170,15 @@ export default function ShopCreateForm() {
           />
           {errors.name && <div className='error'>{errors.name}</div>}
         </label>
+        <label>
+          <span id='price-range-form-display'>
+          Price Range:
+          <DisplayPriceRange priceRange={formData.priceRange} onClickFunction={handleFormUpdate} />
+          </span>
+          <span className="light">{"$: < $50\n$$: $50-200\n$$$: $200-800\n$$$$: $800-$2000\n$$$$$: $2000+"}</span>
+          {errors.priceRange && <div className='error'>{errors.priceRange}</div>}
+        </label>
+        </section>
         <label>
           Address:
           <input
@@ -215,18 +224,6 @@ export default function ShopCreateForm() {
             pattern="^\d{5}(-\d{4})?$"
           />
           {errors.zipCode && <div className='error'>{errors.zipCode}</div>}
-        </label>
-        <label>
-          {"Price Range ($: < $50 | $$: $50-200 | $$$: $200-800 | $$$$: $800-$2000 | $$$$$: $2000+):"}
-          {/* <input
-            type="number"
-            name="priceRange"
-            value={formData.priceRange}
-            onChange={handleFormUpdate}
-            required
-          /> */}
-          <DisplayPriceRange priceRange={formData.priceRange} onClickFunction={handleFormUpdate} />
-          {errors.priceRange && <div className='error'>{errors.priceRange}</div>}
         </label>
         <label>
           Business Hours:
