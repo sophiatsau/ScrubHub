@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { thunkEditShop, thunkGetShop } from '../../store/shops';
-import { userAddShop } from '../../store/session';
+
 import { DAYS, CATEGORIES, formatBusinessHours, parseBusinessHours } from '../../store/utils';
 
 import "./ShopEditForm.css"

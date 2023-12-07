@@ -41,7 +41,7 @@
 .shop-form-images .shop-card-img {
     position: absolute;
     left: 10px;
-    top: 190px;
+    top: 210px;
 }
 
 .shop-form-images>label>input {
@@ -120,15 +120,41 @@
 .business-hours-form {
     display: flex;
     flex-direction: column;
+    margin-top: 15px;
 }
 
-.daily-business-hours {
+.shop-form-hours .daily-business-hours {
     display: grid;
-    grid-template-columns: 5% 5% 20% 20%;
-    align-items: center;
+    grid-template-columns: 30px 30px 160px 160px;
+    column-gap: 8px;
+    align-items: start;
 }
 
-.choose-categories-form {
+.daily-business-hours>label {
+    font-weight: normal;
+    margin: 0 3px 0;
+}
+
+.daily-business-hours>label>input {
+    width: 100%;
+}
+
+/************* CATEGORIES ***************************/
+
+.choose-categories-form-section>h3 {
+    margin-bottom: 15px;
+}
+
+#choose-categories-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* border: 1px solid blue; */
+}
+
+#choose-categories-form>.choose-categories-input {
+    /* border: 1px solid red; */
+    max-width: 200px;
+    display: grid;
+    grid-template-columns: 30px 1fr;
 }
