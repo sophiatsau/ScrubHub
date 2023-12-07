@@ -38,7 +38,7 @@ export default function ShopDetailsAbout({shop}) {
       </div>
       <div>
         <h3>Contact Us</h3>
-        {phoneNumber} · {email}
+        {phoneNumber} ● {email}
       </div>
       <div>
         <h3>Hours</h3>

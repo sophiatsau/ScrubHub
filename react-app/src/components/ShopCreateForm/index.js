@@ -6,6 +6,7 @@ import { userAddShop } from '../../store/session';
 import { DAYS, CATEGORIES, formatBusinessHours } from '../../store/utils';
 
 import "./ShopCreateForm.css"
+import DisplayPriceRange from '../ShopCard/DisplayPriceRange';
 
 export default function ShopCreateForm() {
   const dispatch = useDispatch();
@@ -42,13 +43,18 @@ export default function ShopCreateForm() {
   const [imageLoading, setImageLoading] = useState(false);
 
   const handleFormUpdate = (e) => {
+    e.preventDefault();
     const { name, value, type, files, checked } = e.target;
+    console.log("🚀 ~ file: index.js:48 ~ handleFormUpdate ~ e.target:", e.target)
+    console.log("🚀 ~ file: index.js:48 ~ handleFormUpdate ~ name, value, type, files, checked:", "name",name,"value", value,"type", type, files, checked)
 
     setFormData((prevData) => {
       const newData = {...prevData};
 
       if (type==="file") {
         newData[name] = files[0];
+      } else if (type==="button") {
+        newData.priceRange = parseInt(value);
       } else if (type==="checkbox") {
         const [day, active] = name.split(" ")
         if (active) {
@@ -61,7 +67,6 @@ export default function ShopCreateForm() {
       } else {
         newData[name] = value;
       }
-
       return newData;
     })
   }
@@ -108,14 +113,16 @@ export default function ShopCreateForm() {
   console.log("************IMAGE LOADING", imageLoading)
 
   return (
-    <div>
+    <div className='profile-main-container'>
       <h2>Create A New Shop!</h2>
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"
+        className='shop-form-container'
       >
-        <label>
-          Choose a cover photo:
+      <section className="shop-form-images">
+        <label className="shop-cover-img">
+          Upload a cover photo for your store:
           <input
             type="file"
             accept="image"
@@ -125,18 +132,7 @@ export default function ShopCreateForm() {
           />
           {errors.coverImageUrl && <div className='error'>{errors.coverImageUrl}</div>}
         </label>
-        <label>
-          Choose a photo for your shop's profile:
-          <input
-            type="file"
-            accept="image"
-            name="businessImageUrl"
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
-        </label>
-        <label>
+        <label className="shop-card-img">
           Choose a thumbnail photo:
           <input
             type="file"
@@ -147,6 +143,22 @@ export default function ShopCreateForm() {
           />
           {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
         </label>
+        <label htmlFor="profile-img" className="shop-profile-img">
+          <input
+            id="profile-img"
+            type="file"
+            accept="image"
+            name="businessImageUrl"
+            onChange={handleFormUpdate}
+            required
+          />
+        </label>
+        <div className='bold' style={{textAlign:"right", marginRight: "150px"}}>
+          Choose a photo for your shop's profile:
+          {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
+        </div>
+        </section>
+        <section className="shop-name-price-section">
         <label>
           Shop Name:
           <input
@@ -158,6 +170,15 @@ export default function ShopCreateForm() {
           />
           {errors.name && <div className='error'>{errors.name}</div>}
         </label>
+        <label>
+          <span id='price-range-form-display'>
+          Price Range:
+          <DisplayPriceRange priceRange={formData.priceRange} onClickFunction={handleFormUpdate} />
+          </span>
+          <span className="light">{"$: < $50\n$$: $50-200\n$$$: $200-800\n$$$$: $800-$2000\n$$$$$: $2000+"}</span>
+          {errors.priceRange && <div className='error'>{errors.priceRange}</div>}
+        </label>
+        </section>
         <label>
           Address:
           <input
@@ -203,17 +224,6 @@ export default function ShopCreateForm() {
             pattern="^\d{5}(-\d{4})?$"
           />
           {errors.zipCode && <div className='error'>{errors.zipCode}</div>}
-        </label>
-        <label>
-          Price Range (1-5):
-          <input
-            type="number"
-            name="priceRange"
-            value={formData.priceRange}
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.priceRange && <div className='error'>{errors.priceRange}</div>}
         </label>
         <label>
           Business Hours:
@@ -325,7 +335,7 @@ export default function ShopCreateForm() {
           {errors.categories && <div className='error'>{errors.categories}</div>}
         </label>
         {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
-        <button type="submit" disabled={false}>Submit</button>
+        <button type="submit" disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>

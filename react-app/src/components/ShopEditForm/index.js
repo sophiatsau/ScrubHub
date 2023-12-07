@@ -29,6 +29,10 @@ export default function ShopEditForm() {
     })
   }, [dispatch, shopId, setFormData, setBusinessHours, setCategories])
 
+  useEffect(() => {
+    if (imageLoading) setImageLoading(false);
+  }, [imageLoading, setImageLoading])
+
   if (!formData) return <div>Loading Form...</div>
 
   if (!sessionUser || (formData && formData.userId !== sessionUser.id)){
@@ -95,8 +99,6 @@ export default function ShopEditForm() {
       }
     })
 
-    console.log(formData)
-
     const allFormData = new FormData();
 
     for (let [key, value] of Object.entries(formData)) {
@@ -106,7 +108,6 @@ export default function ShopEditForm() {
     // Loading message to let user know the data is being processed
     setImageLoading(true);
     const editedShop = await dispatch(thunkEditShop(shopId,allFormData))
-    setImageLoading(false);
 
     if (editedShop.errors) {
       setErrors(editedShop.errors)
@@ -342,7 +343,7 @@ export default function ShopEditForm() {
           {errors.categories && <div className='error'>{errors.categories}</div>}
         </label>
         {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
-        <button type="submit" disabled={false}>Submit</button>
+        <button type="submit" disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>
