@@ -5,21 +5,17 @@ import CritterDisplaySection from '../CritterDisplaySection'
 export default function ShopDetailsCritters({shop}) {
   //TODO: sidebar displaying different categories
   const allCritters = useSelector(state => state.critters)
+  console.log("🚀 ~ file: ShopDetailsCritters.js:8 ~ ShopDetailsCritters ~ allCritters:", allCritters)
 
   if (!allCritters) return <>Loading Critters...</>
 
-  const shopCritters = shop.critters.map(critterId => allCritters[critterId])
-
   const sortedCritters = shop.critters.reduce((accum, critterId) => {
-    const critter = allCritters[critterId]
+    const critter = allCritters[critterId];
+    console.log("🚀 ~ file: ShopDetailsCritters.js:17 ~ sortedCritters ~ critter:", critter, critterId);
     accum[critter.category] = accum[critter.category] ? accum[critter.category].concat(critter):[critter]
     return accum;
   },{})
 
-  // get all critters in store
-  // for each category, pick
-  // split store critters into multiple lists based on category
-  // categorized critters + category into critter display section
 
   return (
     <div className='shop-critter-display-container'>
