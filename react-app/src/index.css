@@ -12,6 +12,7 @@
     --highlightColor: rgb(80,30,255);
     --highlightColorLighter: rgb(120,100,255);
     --highlightColorDarker: rgb(50,30,200);
+    --disabledColor: rgb(230,230,230);
 
     --errorColor: rgb(200,50,50);
 
@@ -187,4 +188,12 @@ h3 {
 .business-hours-form {
     display: flex;
     flex-direction: column;
+}
+
+.main-container{
+    margin-top: 50px;
+}
+
+.bold {
+    font-weight: bold;
 }

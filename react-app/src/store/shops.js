@@ -78,15 +78,18 @@ export const thunkGetUserShops = () => async (dispatch) => {
 
 export const thunkGetShop = (shopId) => async dispatch => {
     const response = await fetch(`/api/shops/${shopId}`);
-    const data = await response.json()
+    const data = await response.json();
+    const critters = data.crittersDetails;
 
     if (response.ok) {
+        //don't put that in store
+        delete data.critterDetails;
         dispatch(getOneShop(data));
     } else {
         data.status = response.status;
     }
 
-    return data;
+    return critters;
 }
 
 export const thunkCreateShop = formData => async dispatch => {

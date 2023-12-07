@@ -64,11 +64,11 @@ function ProfileButton({ user }) {
                 Critters
               </Link>
               <Link to='/profile/orders'>
-                <i class="fa-solid fa-receipt"/>
+                <i className="fa-solid fa-receipt"/>
                 Orders
               </Link>
               <Link to='/profile/bag'>
-                <i class="fa-solid fa-bag-shopping"/>
+                <i className="fa-solid fa-bag-shopping"/>
                 Bag
               </Link>
               {/*TODO: split orders into past / upcoming*/}
