@@ -1,5 +1,18 @@
 .shop-details-container {
     padding: 5px 15px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+.shop-details-container h1,
+.shop-details-container h2 {
+    margin: 20px 0;
+}
+
+
+.shop-details-container h3 {
+    margin: 10px 0;
 }
 
 .shop-profile-container {
