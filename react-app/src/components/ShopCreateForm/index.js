@@ -143,7 +143,7 @@ export default function ShopCreateForm() {
           />
           {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
         </label>
-        <label for="profile-img" className="shop-profile-img">
+        <label htmlFor="profile-img" className="shop-profile-img">
           <input
             id="profile-img"
             type="file"
@@ -153,7 +153,7 @@ export default function ShopCreateForm() {
             required
           />
         </label>
-        <div className='bold'>
+        <div className='bold' style={{textAlign:"right", marginRight: "150px"}}>
           Choose a photo for your shop's profile:
           {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
         </div>
