@@ -8,6 +8,7 @@ import OpenModalButton from '../OpenModalButton';
 import { useModal } from '../../context/Modal';
 import { thunkDeleteShop } from '../../store/shops';
 import { deleteUserShop } from '../../store/session';
+import DisplayPriceRange from './DisplayPriceRange';
 
 export default function ShopCard({shop}) {
   const dispatch = useDispatch()
@@ -34,7 +35,7 @@ export default function ShopCard({shop}) {
         <img className="shop-card-img" src={shop.searchImageUrl} alt={shop.name}/>
         <div>
           <span>{shop.name}</span>
-          <span>Price: {shop.priceRange}</span>
+          <span><DisplayPriceRange priceRange={shop.priceRange}/></span>
           {/* <span>{shop.rating}</span>*/}
           <span>{shop.categories.map(cat=>(
             <span key={cat}>

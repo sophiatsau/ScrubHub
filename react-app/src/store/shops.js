@@ -83,13 +83,13 @@ export const thunkGetShop = (shopId) => async dispatch => {
 
     if (response.ok) {
         //don't put that in store
-        delete data.critterDetails;
+        delete data.crittersDetails;
         dispatch(getOneShop(data));
     } else {
         data.status = response.status;
     }
 
-    return critters;
+    return {...data, critters};
 }
 
 export const thunkCreateShop = formData => async dispatch => {

@@ -3,6 +3,9 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     height: 120px;
+    border-radius: 15px;
+    position: relative;
+    z-index: 0;
 }
 
 .critter-card-container:hover {
@@ -13,10 +16,35 @@
     width: 100%;
     height: 120px;
     object-fit: cover;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+
 }
 
 .sold-out {
     pointer-events: none;
     color: var(--textColorLighter);
     background-color: var(--disabledColor);
+}
+
+.critter-card-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+/* .critter-card-right {
+    position: relative;
+    z-index: -1;
+} */
+
+.critter-price-tag {
+    background-color: var(--modalBackgroundColor);
+    color: var(--backgroundColorLighter);
+    padding: 8px 5px;
+    border-radius: var(--buttonBorderRadius);
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
