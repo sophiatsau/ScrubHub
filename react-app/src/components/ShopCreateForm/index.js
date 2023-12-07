@@ -7,6 +7,8 @@ import { DAYS, CATEGORIES, formatBusinessHours } from '../../store/utils';
 
 import "./ShopCreateForm.css"
 import DisplayPriceRange from '../ShopCard/DisplayPriceRange';
+import ShopFormImages from './ShopFormImages';
+import ShopFormBasicInfo from './ShopFormBasicInfo';
 
 export default function ShopCreateForm() {
   const dispatch = useDispatch();
@@ -45,8 +47,6 @@ export default function ShopCreateForm() {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     const { name, value, type, files, checked } = e.target;
-    console.log("🚀 ~ file: index.js:48 ~ handleFormUpdate ~ e.target:", e.target)
-    console.log("🚀 ~ file: index.js:48 ~ handleFormUpdate ~ name, value, type, files, checked:", "name",name,"value", value,"type", type, files, checked)
 
     setFormData((prevData) => {
       const newData = {...prevData};
@@ -120,111 +120,9 @@ export default function ShopCreateForm() {
         encType="multipart/form-data"
         className='shop-form-container'
       >
-      <section className="shop-form-images">
-        <label className="shop-cover-img">
-          Upload a cover photo for your store:
-          <input
-            type="file"
-            accept="image"
-            name="coverImageUrl"
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.coverImageUrl && <div className='error'>{errors.coverImageUrl}</div>}
-        </label>
-        <label className="shop-card-img">
-          Choose a thumbnail photo:
-          <input
-            type="file"
-            accept="image"
-            name="searchImageUrl"
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
-        </label>
-        <label htmlFor="profile-img" className="shop-profile-img">
-          <input
-            id="profile-img"
-            type="file"
-            accept="image"
-            name="businessImageUrl"
-            onChange={handleFormUpdate}
-            required
-          />
-        </label>
-        <div className='bold' style={{textAlign:"right", marginRight: "150px"}}>
-          Choose a photo for your shop's profile:
-          {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
-        </div>
-        </section>
-        <section className="shop-name-price-section">
-        <label>
-          Shop Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.name && <div className='error'>{errors.name}</div>}
-        </label>
-        <label>
-          <span id='price-range-form-display'>
-          Price Range:
-          <DisplayPriceRange priceRange={formData.priceRange} onClickFunction={handleFormUpdate} />
-          </span>
-          <span className="light">{"$: < $50\n$$: $50-200\n$$$: $200-800\n$$$$: $800-$2000\n$$$$$: $2000+"}</span>
-          {errors.priceRange && <div className='error'>{errors.priceRange}</div>}
-        </label>
-        </section>
-        <label>
-          Address:
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.address && <div className='error'>{errors.address}</div>}
-        </label>
-        <label>
-          City:
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.city && <div className='error'>{errors.city}</div>}
-        </label>
-        <label>
-          State:
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.state && <div className='error'>{errors.state}</div>}
-        </label>
-        <label>
-          Zip Code:
-          <input
-            type="text"
-            name="zipCode"
-            value={formData.zipCode}
-            onChange={handleFormUpdate}
-            required
-            placeholder='XXXXX or XXXXX-XXXX'
-            pattern="^\d{5}(-\d{4})?$"
-          />
-          {errors.zipCode && <div className='error'>{errors.zipCode}</div>}
-        </label>
+        <ShopFormImages {...{formData, handleFormUpdate, errors}}/>
+        <div className='thin-light-border'/>
+        <ShopFormBasicInfo {...{formData, handleFormUpdate, errors}}/>
         <label>
           Business Hours:
           <div className='business-hours-form'>
@@ -264,61 +162,7 @@ export default function ShopCreateForm() {
           </div>
           {errors.businessHours && <div className='error'>{errors.businessHours}</div>}
         </label>
-        <label>
-          Email:
-          <input
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.email && <div className='error'>{errors.email}</div>}
-        </label>
-        <label>
-          Phone Number (Optional) ((XXX) XXX-XXXX):
-          <input
-            type="text"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleFormUpdate}
-            pattern="\(\d{3}\) \d{3}-\d{4}"
-          />
-          {errors.phoneNumber && <div className='error'>{errors.phoneNumber}</div>}
-        </label>
-        <label>
-          Description (Optional):
-          <textarea
-            name="description"
-            placeholder='Describe your shop in up to 5000 characters'
-            value={formData.description}
-            onChange={handleFormUpdate}
-          />
-          {errors.description && <div className='error'>{errors.description}</div>}
-        </label>
-        <label>
-          Services Provided:
-          <label>
-            <input
-              type="checkbox"
-              name="pickup"
-              value={formData.pickup}
-              onChange={handleFormUpdate}
-            />
-            Pickup
-            <div className='error'>{errors.pickup && errors.pickup}</div>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="delivery"
-              value={formData.delivery}
-              onChange={handleFormUpdate}
-            />
-            Delivery
-            <div className='error'>{errors.delivery && errors.delivery}</div>
-          </label>
-        </label>
+
         <label className="choose-categories-form">
           Select categories for your shop:
           {CATEGORIES.map(cat => (
