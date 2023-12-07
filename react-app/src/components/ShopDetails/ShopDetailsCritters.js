@@ -11,7 +11,7 @@ export default function ShopDetailsCritters({shop}) {
 
   const sortedCritters = shop.critters.reduce((accum, critterId) => {
     const critter = allCritters[critterId];
-    console.log("🚀 ~ file: ShopDetailsCritters.js:17 ~ sortedCritters ~ critter:", critter, critterId);
+
     accum[critter.category] = accum[critter.category] ? accum[critter.category].concat(critter):[critter]
     return accum;
   },{})
