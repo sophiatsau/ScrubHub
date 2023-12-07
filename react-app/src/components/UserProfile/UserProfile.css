@@ -1,11 +1,20 @@
 #user-profile-page-container {
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 200px 1fr;
 }
 
 /************** SIDEBAR *************************/
 #sidebar-container {
+    position: fixed;
+    bottom: 0;
+    top: 80px;
+    left: 0;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
+    background-color: var(--backgroundColorLighter);
+    padding: 20px 10px;
+    box-shadow: 0 0 5px var(--boxShadowColor);
+    border: 1px solid var(--boxShadowColor);
+    z-index: 1;
 }

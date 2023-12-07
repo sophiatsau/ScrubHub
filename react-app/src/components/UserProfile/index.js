@@ -15,6 +15,7 @@ export default function UserProfile() {
   return (
     <div id="user-profile-page-container">
     <SideBar/>
+    <div/>
     <Switch>
         <Route exact path="/profile/addresses">
             <AddressViewCurrent />

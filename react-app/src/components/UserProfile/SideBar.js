@@ -1,9 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
+import { NavLink } from 'react-router-dom'
 
 export default function SideBar() {
   return (
     <div id="sidebar-container">
+        <h2>Your Account</h2>
+        <div className='thin-light-border'/>
         <NavLink to="/profile/addresses">
             View Your Addresses
         </NavLink>
