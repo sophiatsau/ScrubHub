@@ -20,6 +20,8 @@
     --backgroundColor: rgb(250,250,255);
     --boxShadowColor: rgb(215,215,225);
 
+    --modalBackgroundColor: rgba(20, 20, 40, 0.7);
+
     --cardBorder: 1px black solid;
 
     --buttonBorderRadius: 3em ;
@@ -62,6 +64,10 @@ time, mark, audio, video {
     /* background-color: var(--backgroundColor); */
     color: var(--textColor);
     white-space: pre-line;
+}
+
+* {
+    position: relative;
 }
 
 html, form {
@@ -138,10 +144,12 @@ label {
 
 h1 {
     font-size: var(--h1Size);
+    font-weight: bold;
 }
 
 h2 {
     font-size: var(--h2Size);
+    font-weight: bold;
 }
 
 h3 {
@@ -196,4 +204,12 @@ h3 {
 
 .bold {
     font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.light {
+    color: var(--textColorLighter)
 }
