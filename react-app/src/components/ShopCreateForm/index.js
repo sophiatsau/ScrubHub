@@ -6,6 +6,7 @@ import { userAddShop } from '../../store/session';
 import { DAYS, CATEGORIES, formatBusinessHours } from '../../store/utils';
 
 import "./ShopCreateForm.css"
+import DisplayPriceRange from '../ShopCard/DisplayPriceRange';
 
 export default function ShopCreateForm() {
   const dispatch = useDispatch();
@@ -42,13 +43,18 @@ export default function ShopCreateForm() {
   const [imageLoading, setImageLoading] = useState(false);
 
   const handleFormUpdate = (e) => {
+    e.preventDefault();
     const { name, value, type, files, checked } = e.target;
+    console.log("🚀 ~ file: index.js:48 ~ handleFormUpdate ~ e.target:", e.target)
+    console.log("🚀 ~ file: index.js:48 ~ handleFormUpdate ~ name, value, type, files, checked:", "name",name,"value", value,"type", type, files, checked)
 
     setFormData((prevData) => {
       const newData = {...prevData};
 
       if (type==="file") {
         newData[name] = files[0];
+      } else if (type==="button") {
+        newData.priceRange = parseInt(value);
       } else if (type==="checkbox") {
         const [day, active] = name.split(" ")
         if (active) {
@@ -61,6 +67,7 @@ export default function ShopCreateForm() {
       } else {
         newData[name] = value;
       }
+      console.log("🚀 ~ file: index.js:68 ~ setFormData ~ newData:", newData)
 
       return newData;
     })
@@ -205,14 +212,15 @@ export default function ShopCreateForm() {
           {errors.zipCode && <div className='error'>{errors.zipCode}</div>}
         </label>
         <label>
-          Price Range (1-5):
-          <input
+          {"Price Range ($: < $50 | $$: $50-200 | $$$: $200-800 | $$$$: $800-$2000 | $$$$$: $2000+):"}
+          {/* <input
             type="number"
             name="priceRange"
             value={formData.priceRange}
             onChange={handleFormUpdate}
             required
-          />
+          /> */}
+          <DisplayPriceRange priceRange={formData.priceRange} onClickFunction={handleFormUpdate} />
           {errors.priceRange && <div className='error'>{errors.priceRange}</div>}
         </label>
         <label>
