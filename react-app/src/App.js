@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (<>
+      {isLoaded && (<div className="main-container">
         <Switch>
           <Route exact path="/">
             <Landing />
@@ -43,7 +43,7 @@ function App() {
           </Route>
           <Route>404 Page Not Found</Route>
         </Switch>
-      </>)}
+      </div>)}
     </>
   );
 }

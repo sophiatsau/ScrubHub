@@ -5,18 +5,26 @@ import "./CritterCard.css"
 // /profile/critters for stock edit only
 // no options if on shop details page
 
-export default function CritterCard({critter}) {
+export default function CritterCard({critter, key}) {
+    //TODO: popup modal for adding to cart
     const {name, species, price, previewImageUrl, description, stock, category} = critter;
+
+    const classAddOn = stock ? '' : 'sold-out'
+
     return (
-        <div>
+        <div key={key} className={`critter-card-container ${classAddOn}`}>
             <div>
                 <h3>{name}</h3>
-                <span>{stock} left in stock</span>
+                {stock ? <span>{stock} left in stock</span> : <span className='error'>Sold Out</span>}
                 <p>{species}</p>
                 <p>{description}</p>
             </div>
             <div>
-                <img src={previewImageUrl} alt={name}/>
+                {previewImageUrl ?
+                    <img
+                    src={previewImageUrl} className="critter-card-img"
+                    alt={name}/>
+                    : <div/>}
                 <span>{price}</span>
                 <div className='critter-card-buttons'>
                     {/*  */}

@@ -18,15 +18,17 @@ export default function ShopDetailsProfile({shop}) {
     } = shop
 
     return (
-        <div>
+        <div className='shop-profile-container'>
             <img className="shop-cover-img" src={coverImageUrl} alt={`Cover for ${name}`} />
             <img className="shop-profile-img" src={businessImageUrl} alt={`Profile for ${name}`} />
             <div>
-                <h2>{name}</h2>
-                <h3>{address}</h3>
+                <h1>{name}</h1>
+                <p>{address}</p>
                 {/* rating here */}
                 <div>
-                    Delivery: {`${delivery}`}, Pickup: {`${pickup}`}
+                    {delivery && "Delivery"}
+                    {delivery && pickup && <span style={{margin:"0 5px"}}>●</span>}
+                    {pickup && "Pickup"}
                 </div>
             </div>
         </div>
