@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 #modal-background {
@@ -16,6 +17,7 @@
   left: 0;
   bottom: 0;
   background-color: var(--modalBackgroundColor);
+  z-index: 2;
 }
 
 #modal-content {
@@ -27,4 +29,5 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }

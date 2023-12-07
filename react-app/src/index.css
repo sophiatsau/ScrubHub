@@ -27,7 +27,7 @@
 
     --modalBackgroundColor: rgba(20, 20, 40, 0.7);
 
-    --cardBorder: 1px black solid;
+    --cardBorder: 1px var(--highlightColor) solid;
 
     --buttonBorderRadius: 3em ;
     --imgBorderRadius: 14px ;

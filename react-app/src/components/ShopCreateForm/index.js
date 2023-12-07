@@ -67,8 +67,6 @@ export default function ShopCreateForm() {
       } else {
         newData[name] = value;
       }
-      console.log("🚀 ~ file: index.js:68 ~ setFormData ~ newData:", newData)
-
       return newData;
     })
   }
@@ -115,14 +113,16 @@ export default function ShopCreateForm() {
   console.log("************IMAGE LOADING", imageLoading)
 
   return (
-    <div>
+    <div className='profile-main-container'>
       <h2>Create A New Shop!</h2>
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"
+        className='shop-form-container'
       >
-        <label>
-          Choose a cover photo:
+      <section className="shop-form-images">
+        <label className="shop-cover-img">
+          Upload a cover photo for your store:
           <input
             type="file"
             accept="image"
@@ -132,18 +132,7 @@ export default function ShopCreateForm() {
           />
           {errors.coverImageUrl && <div className='error'>{errors.coverImageUrl}</div>}
         </label>
-        <label>
-          Choose a photo for your shop's profile:
-          <input
-            type="file"
-            accept="image"
-            name="businessImageUrl"
-            onChange={handleFormUpdate}
-            required
-          />
-          {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
-        </label>
-        <label>
+        <label className="shop-card-img">
           Choose a thumbnail photo:
           <input
             type="file"
@@ -154,6 +143,22 @@ export default function ShopCreateForm() {
           />
           {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
         </label>
+        <label for="profile-img" className="shop-profile-img">
+
+          <input
+            id="profile-img"
+            type="file"
+            accept="image"
+            name="businessImageUrl"
+            onChange={handleFormUpdate}
+            required
+          />
+        </label>
+        <div className='bold'>
+          Choose a photo for your shop's profile:
+          {errors.businessImageUrl && <div className='error'>{errors.businessImageUrl}</div>}
+        </div>
+        </section>
         <label>
           Shop Name:
           <input
@@ -333,7 +338,7 @@ export default function ShopCreateForm() {
           {errors.categories && <div className='error'>{errors.categories}</div>}
         </label>
         {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
-        <button type="submit" disabled={false}>Submit</button>
+        <button type="submit" disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>

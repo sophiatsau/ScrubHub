@@ -1,3 +1,53 @@
+.shop-form-container {
+    padding-right: 15px;
+}
+
+.shop-form-container label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    /* border: 1px red solid; */
+}
+
+.shop-form-images {
+    position: relative;
+}
+
+.shop-form-images>label {
+    border: var(--cardBorder);
+    background-color: var(--disabledColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.shop-form-images .shop-card-img {
+    position: absolute;
+    left: 10px;
+    top: 190px;
+}
+
+/* .shop-form-images>label {
+     text-align: center;
+    margin: 0 auto;
+     width: 90%;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.shop-form-images>label>input {
+    width: 200px;
+}
+
+.shop-form-images>.shop-profile-img>input {
+    width: 100%;
+    white-space: wrap;
+    padding-left: 5px;
+}
+
 .business-hours-form {
     display: flex;
     flex-direction: column;
