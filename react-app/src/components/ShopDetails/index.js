@@ -26,7 +26,7 @@ export default function ShopDetails() {
                     }
                     return res;
                 })
-                .then(res => dispatch(getShopCritters(res)))
+                .then(res => dispatch(getShopCritters(res.critters)))
                 .then(() => setIsLoaded(true))
         }
     }, [shop, shopId, dispatch, history, isLoaded])

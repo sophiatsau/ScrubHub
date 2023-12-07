@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import DisplayPriceRange from '../ShopCard/DisplayPriceRange'
 
 export default function ShopDetailsAbout({shop}) {
   const {name,
@@ -30,7 +31,7 @@ export default function ShopDetailsAbout({shop}) {
           </Link>
         </span>
       ))}
-      <div>Price Range:{priceRange}</div>
+      <DisplayPriceRange priceRange={priceRange}/>
       <div>{description}</div>
       <div>
         {formattedAddress}

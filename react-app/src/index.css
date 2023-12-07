@@ -8,7 +8,10 @@
     --subheadingWeight: 550 ;
 
     --textColor: rgb(20,20,20);
-    --textColorLighter: rgb(80,80,100);
+    /* --textColorLighter: rgb(80,80,100); */
+    --textColorLighter: rgb(100,100,150);
+
+    /* --textColorVeryLight: rgb(100,100,150); */
     --highlightColor: rgb(80,30,255);
     --highlightColorLighter: rgb(120,100,255);
     --highlightColorDarker: rgb(50,30,200);
@@ -212,4 +215,8 @@ h3 {
 
 .light {
     color: var(--textColorLighter)
+}
+
+li {
+    list-style-type: none;
 }
