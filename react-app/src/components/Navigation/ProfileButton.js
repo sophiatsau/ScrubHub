@@ -43,37 +43,58 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button onClick={openMenu} className="profile-button purple">
+        <i className="fas fa-user-circle purple" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li onClick={closeMenu}>
-              {user.shops.length ?
-                <Link to='/profile/shops'>View My Shops</Link>
-                : <Link to='/profile/shops/new'>Become a Shop Owner</Link>
-              }
+            <li><h3>Hi, {user.firstName}</h3></li>
+            <li onClick={closeMenu} className="dropdown-links">
+              <Link to='/profile/addresses'>
+                <i className="fa-solid fa-location-dot"/>
+                Addresses
+              </Link>
+              <Link to='/profile/shops'>
+                <i className="fa-solid fa-shop" />
+                Shops
+              </Link>
+              <Link to='/profile/critters'>
+                <i className="fa-solid fa-paw"/>
+                Critters
+              </Link>
+              <Link to='/profile/orders'>
+                <i className="fa-solid fa-receipt"/>
+                Orders
+              </Link>
+              <Link to='/profile/bag'>
+                <i className="fa-solid fa-bag-shopping"/>
+                Bag
+              </Link>
+              {/*TODO: split orders into past / upcoming*/}
             </li>
             <li>
-              <button onClick={handleLogout}>Log Out</button>
+              <button className="light-button" onClick={handleLogout}>Log Out</button>
             </li>
           </>
         ) : (
           <>
+          <li>
             <OpenModalButton
               buttonText="Log In"
               onItemClick={closeMenu}
+              className="light-button"
               modalComponent={<LoginFormModal />}
             />
-
+          </li>
+          <li>
             <OpenModalButton
               buttonText="Sign Up"
               onItemClick={closeMenu}
+              className="light-button"
               modalComponent={<SignupFormModal />}
             />
+            </li>
           </>
         )}
       </ul>

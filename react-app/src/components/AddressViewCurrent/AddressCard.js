@@ -15,7 +15,6 @@ export default function AddressCard({address}) {
         const res = await dispatch(thunkDeleteUserAddress(address.id));
 
         if (res.errors) {
-            delete res.errors.status;
             alert(Object.values(res.errors).join(" ")+" "+"Please refresh the page and try again later.")
         } else {
             alert("Address successfully removed!")

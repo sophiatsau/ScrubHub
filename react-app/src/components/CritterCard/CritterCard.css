@@ -1,0 +1,22 @@
+.critter-card-container {
+    border: 1px solid var(--boxShadowColor);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    height: 120px;
+}
+
+.critter-card-container:hover {
+    box-shadow: 0 0 5px var(--boxShadowColor);
+}
+
+.critter-card-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.sold-out {
+    pointer-events: none;
+    color: var(--textColorLighter);
+    background-color: var(--disabledColor);
+}

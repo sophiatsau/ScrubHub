@@ -5,6 +5,8 @@ const GET_ONE_SHOP = "shops/GET_ONE_SHOP"
 const CREATE_SHOP = "shops/CREATE_SHOP"
 const EDIT_SHOP = "shops/EDIT_SHOP"
 const DELETE_SHOP = "shops/DELETE_SHOP"
+const DELETE_SHOP_CRITTER = "session/DELETE_SHOP_CRITTER"
+const ADD_SHOP_CRITTER = "session/ADD_SHOP_CRITTER"
 
 const getAllShops = (shops) => ({
     type: GET_ALL_SHOPS,
@@ -36,6 +38,18 @@ const deleteShop = (shopId) => ({
     shopId
 })
 
+export const addShopCritter = (shopId, critterId) => ({
+    type: ADD_SHOP_CRITTER,
+    shopId,
+    critterId,
+})
+
+export const deleteShopCritter = (shopId, critterId) => ({
+    type: DELETE_SHOP_CRITTER,
+    shopId,
+    critterId,
+})
+
 export const thunkGetAllShops = () => async (dispatch) => {
     const response = await fetch("/api/shops/");
 
@@ -64,15 +78,18 @@ export const thunkGetUserShops = () => async (dispatch) => {
 
 export const thunkGetShop = (shopId) => async dispatch => {
     const response = await fetch(`/api/shops/${shopId}`);
-    const data = await response.json()
+    const data = await response.json();
+    const critters = data.crittersDetails;
 
     if (response.ok) {
+        //don't put that in store
+        delete data.critterDetails;
         dispatch(getOneShop(data));
     } else {
         data.status = response.status;
     }
 
-    return data;
+    return critters;
 }
 
 export const thunkCreateShop = formData => async dispatch => {
@@ -146,8 +163,17 @@ export default function reducer(state = initialState, action) {
         case DELETE_SHOP: {
             const newState = {...state}
             delete newState[action.shopId]
-            console.log("🚀 ~ file: shops.js:149 ~ reducer ~ newState:", newState)
             return newState
+        }
+        case ADD_SHOP_CRITTER: {
+            const shop = {...state[action.shopId]}
+            shop.critters = [...shop.critters, parseInt(action.critterId)]
+            return {...state, [shop.id]: shop}
+        }
+        case DELETE_SHOP_CRITTER: {
+            const shop = {...state[action.shopId]}
+            shop.critters = [shop.critters.filter(critter => critter.id !== parseInt(action.critterId))]
+            return {...state, [shop.id]: shop}
         }
         default:
             return state

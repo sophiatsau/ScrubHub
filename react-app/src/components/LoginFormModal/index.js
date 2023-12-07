@@ -31,7 +31,7 @@ function LoginFormModal() {
       <form onSubmit={handleSubmit} id="login-form">
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li key={idx} className="error">{error}</li>
           ))}
         </ul>
         <label>
@@ -52,7 +52,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button style={{marginTop:"5px"}} type="submit" className="purple-button">Log In</button>
 
         <DemoLoginButton {...{setErrors, closeModal}}/>
       </form>

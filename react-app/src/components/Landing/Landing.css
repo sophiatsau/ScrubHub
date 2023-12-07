@@ -1,0 +1,23 @@
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 100px auto 0;
+    width: 400px;
+}
+
+.landing-container>* {
+    text-align: center;
+}
+
+.landing-container .fa-solid.fa-shop {
+    font-size: 50px;
+    pointer-events: none;
+}
+
+.landing-button {
+    padding: 10px;
+    font-size: var(--h3Size);
+}

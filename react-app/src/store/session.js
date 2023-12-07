@@ -8,6 +8,8 @@ const SAVE_LOCATION = "session/SAVE_LOCATION"
 const ADD_USER_ADDRESS = "session/ADD_USER_ADDRESS"
 const EDIT_USER_ADDRESS = "session/EDIT_USER_ADDRESS"
 const DELETE_USER_ADDRESS = "session/DELETE_USER_ADDRESS"
+const DELETE_USER_CRITTER = "session/DELETE_USER_CRITTER"
+const ADD_USER_CRITTER = "session/ADD_USER_CRITTER"
 
 
 const setUser = (user) => ({
@@ -47,6 +49,16 @@ const editUserAddress = address => ({
 const deleteUserAddress = addressId => ({
 	type: DELETE_USER_ADDRESS,
 	addressId,
+})
+
+export const deleteUserCritter = critterId => ({
+	type: DELETE_USER_CRITTER,
+	critterId
+})
+
+export const addUserCritter = critterId => ({
+	type: ADD_USER_CRITTER,
+	critterId
 })
 
 export const authenticate = () => async (dispatch) => {
@@ -140,7 +152,7 @@ export const thunkAddUserAddress = address => async dispatch => {
 	if (res.ok) {
 		dispatch(addUserAddress(data))
 	}
-	else data.errors.status = res.status
+	else data.status = res.status
 
 	return data
 }
@@ -157,7 +169,7 @@ export const thunkEditUserAddress = address => async dispatch => {
 	const data = await res.json()
 
 	if (res.ok) dispatch(editUserAddress(data))
-	else data.errors.status = res.status
+	else data.status = res.status
 
 	return data
 }
@@ -170,12 +182,13 @@ export const thunkDeleteUserAddress = addressId => async dispatch => {
 	const data = await res.json()
 
 	if (res.ok) dispatch(deleteUserAddress(parseInt(addressId)))
-	else data.errors.status = res.status
+	else data.status = res.status
 
 	return data
 }
 
-const initialState = { user: null, location: null };
+const initLocation = JSON.parse(localStorage.getItem("location"))
+const initialState = { user: null, location: initLocation };
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
@@ -221,10 +234,7 @@ export default function reducer(state = initialState, action) {
 		}
 		case DELETE_USER_ADDRESS: {
 			const updatedAddresses = {...state.user.addresses};
-			console.log("🚀 ~ file: session.js:224 ~ reducer ~ updatedAddresses:", updatedAddresses)
 			delete updatedAddresses[action.addressId];
-			console.log("🚀 ~ file: session.js:226 ~ reducer ~ updatedAddresses:", updatedAddresses)
-			console.log("🚀 ~ file: session.js:226 ~ reducer ~ action.addressId:", action.addressId)
 			return {
 				...state,
 				user: {
@@ -232,6 +242,13 @@ export default function reducer(state = initialState, action) {
 					addresses: updatedAddresses,
 				}
 			}
+		}
+		case ADD_USER_CRITTER: {
+			return { ...state, user: {...state.user, critters:[...state.user.critters, parseInt(action.critterId)]} }
+		}
+		case DELETE_USER_CRITTER: {
+			const updatedCritters =  state.user.critters.filter(critterId => critterId !== parseInt(action.critterId))
+			return {...state, user: {...state.user, critters: updatedCritters}}
 		}
 		default:
 			return state;

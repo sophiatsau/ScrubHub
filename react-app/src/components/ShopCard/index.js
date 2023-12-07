@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import "./ShopCard.css";
 import { useSelector, useDispatch } from 'react-redux';
 
-// import ShopDeleteButton from '../ShopDeleteButton';
 import DeleteConfirmationModal from '../DeleteConfirmationModal';
 import OpenModalButton from '../OpenModalButton';
 import { useModal } from '../../context/Modal';
@@ -19,7 +18,6 @@ export default function ShopCard({shop}) {
     const res = await dispatch(thunkDeleteShop(shop.id));
 
     if (res.errors) {
-      delete res.errors.status;
       alert(Object.values(res.errors).join(" ")+" "+"Please refresh the page and try again later.")
     } else {
       dispatch(deleteUserShop(shop.id))
@@ -54,9 +52,6 @@ export default function ShopCard({shop}) {
           modalComponent={<DeleteConfirmationModal itemName={"Shop"} deleteFunction={deleteShop}/>}
           buttonText={"Delete"}
         />
-        {/* <div>
-          <ShopDeleteButton shopId={shop.id} />
-        </div> */}
       </div>
       )}
     </div>

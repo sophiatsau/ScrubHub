@@ -1,11 +1,27 @@
+.shop-details-container {
+    padding: 5px 15px;
+}
+
+.shop-profile-container {
+    position: relative;
+    z-index: -1;
+}
+
 .shop-cover-img {
+    position: relative;
     height: 300px;
-    width: 95%;
+    width: 100%;
     object-fit: cover;
+    border-radius: 10px;
+    margin: 0 auto;
 }
 
 .shop-profile-img {
     height: 80px;
     width: 80px;
     object-fit: cover;
+    position: absolute;
+    right: 30px;
+    top: 240px;
+    border-radius: 5px;
 }

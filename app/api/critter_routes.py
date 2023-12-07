@@ -1,5 +1,5 @@
 from flask import Blueprint, session, request
-from app.models import Critter, db
+from app.models import Critter, db, Shop
 from app.forms import CritterForm
 from flask_login import current_user, login_required
 from .utils import error_messages, error_message, get_unique_filename, upload_file_to_s3, remove_file_from_s3
@@ -95,7 +95,6 @@ def update_critter(critterId):
         return error_messages(form.errors), 400
     else:
         return error_message("unknownError", "An unknown error occurred."), 500
-
 
 
 @critter_routes.route("/<int:critterId>/delete", methods=["DELETE"])
