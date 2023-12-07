@@ -89,12 +89,23 @@ export default function ShopCreateForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const errorsObj = {};
     setErrors({})
 
     try {
       formData.businessHours = formatBusinessHours(businessHours)
     } catch (e) {
+      errorsObj.businessHours = e.message;
       setErrors({businessHours: e.message})
+      return;
+    }
+
+    if (!formData.businessImageUrl) errorsObj.businessImageUrl = "Please select a file."
+    if (!formData.coverImageUrl) errorsObj.coverImageUrl = "Please select a file."
+    if (!formData.searchImageUrl) errorsObj.searchImageUrl = "Please select a file."
+
+    if (Object.values(errorsObj).length) {
+      setErrors(errorsObj);
       return;
     }
 
@@ -136,7 +147,7 @@ export default function ShopCreateForm() {
         <ShopFormCategories {...{categories, errors, handleCategoryUpdate}} />
 
         {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
-        <button type="submit" disabled={imageLoading}>Submit</button>
+        <button className="purple-button shop-submit-button" type="submit" disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>

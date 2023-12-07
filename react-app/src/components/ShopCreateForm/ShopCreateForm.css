@@ -35,13 +35,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    font-weight: normal;
+    /* background-image: ; */
+    background-size: cover;
+}
+
+.shop-form-images>label>span {
+    padding: 10px;
+    /* background-color: rgb(255,255,255,0.7); */
+    background-color: rgba(230,230,230, 0.7);;
+    border-radius: 5px;
+}
+
+.shop-form-images>label:hover>span {
+    border-width: 3px;
+    border-radius: inherit;
+    height: 100%;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* transition: all 1s; */
 }
 
 .shop-form-images .shop-card-img {
     position: absolute;
     left: 10px;
-    top: 210px;
+    top: 190px;
 }
 
 .shop-form-images>label>input {
@@ -157,4 +177,12 @@
     max-width: 200px;
     display: grid;
     grid-template-columns: 30px 1fr;
+}
+
+
+.shop-submit-button {
+    padding: 8px;
+    margin: 0 auto;
+    font-size: var(--h3Size);
+    max-width: 300px;
 }
