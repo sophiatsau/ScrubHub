@@ -1,11 +1,8 @@
 import React from 'react'
 
-export default function DisplayPriceRange({priceRange, onClickFunction, name=""}) {
-console.log("🚀 ~ file: DisplayPriceRange.js:4 ~ DisplayPriceRange ~ priceRange:", priceRange)
-
-    // diff colors by class
-    // way to track values
-    const onClick = onClickFunction || console.log;
+export default function DisplayPriceRange({priceRange, onClickFunction}) {
+    const noClickFunc = () => undefined;
+    const onClick = onClickFunction || noClickFunc;
 
     const style = value => {
         return value <= priceRange ? {color: "var(--textColor)", pointerEvents:"none"} : {color: "var(--boxShadowColor)", pointerEvents:"none"}

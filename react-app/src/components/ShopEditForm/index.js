@@ -93,7 +93,6 @@ export default function ShopEditForm() {
     const imageTypes = ["searchImageUrl","coverImageUrl","businessImageUrl"]
 
     imageTypes.forEach(field => {
-      console.log(field, typeof formData[field] === "string")
       if (typeof formData[field] === "string") {
         delete formData[field];
       }

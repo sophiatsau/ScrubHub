@@ -2,6 +2,8 @@ import React from 'react'
 import DisplayPriceRange from '../ShopCard/DisplayPriceRange'
 
 export default function ShopFormBasicInfo({formData, handleFormUpdate, errors}) {
+  console.log("🚀 ~ file: ShopFormBasicInfo.js:5 ~ ShopFormBasicInfo ~ formData.pickup:", formData.pickup)
+  console.log("🚀 ~ file: ShopFormBasicInfo.js:5 ~ ShopFormBasicInfo ~ formData.delivery:", formData.delivery)
   return (
     <>
     <h3>2. Tell us about your shop:</h3>
@@ -42,29 +44,33 @@ export default function ShopFormBasicInfo({formData, handleFormUpdate, errors}) 
             {errors.phoneNumber && <div className='error'>{errors.phoneNumber}</div>}
             </label>
         </div>
-        <label className='shop-form-services'>
+        <div className='bold'>
           Services Provided:
-          <label>
-            <input
+          <div className='shop-form-services'>
+          <input
               type="checkbox"
               name="pickup"
               value={formData.pickup}
+              checked={formData.pickup}
               onChange={handleFormUpdate}
-            />
+          />
+          <label>
             Pickup
             <div className='error'>{errors.pickup && errors.pickup}</div>
           </label>
-          <label>
-            <input
+          <input
               type="checkbox"
               name="delivery"
               value={formData.delivery}
+              checked={formData.delivery}
               onChange={handleFormUpdate}
             />
+          <label>
             Delivery
             <div className='error'>{errors.delivery && errors.delivery}</div>
           </label>
-        </label>
+          </div>
+        </div>
         <label>
           <span id='price-range-form-display'>
           Price Range:

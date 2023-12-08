@@ -241,3 +241,7 @@ a {
 .thin-light-border {
     border-bottom: 1px solid var(--boxShadowColor);
 }
+
+.disabled {
+    pointer-events: none;
+}

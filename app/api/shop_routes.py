@@ -51,8 +51,8 @@ def create_shop():
         category_list = form.data['categories'].split(',')
         categories = Category.query.filter(Category.name.in_(category_list)).all()
 
-        if not categories:
-            return {"errors":"no cats"}, 400
+        # if not categories:
+        #     return {"errors":"no cats"}, 400
 
         for field in ["searchImageUrl","coverImageUrl","businessImageUrl"]:
             img = form.data[field]
@@ -61,6 +61,9 @@ def create_shop():
 
             if "url" not in upload:
                 # if no upload key, there was an error uploading.
+                # delete previously uploaded urls to save space
+                _ = [remove_file_from_s3(img) for img in images.values()]
+
                 return upload, 500
 
             url = upload["url"]
@@ -110,13 +113,14 @@ def update_shop(shopId):
             if not img:
                 # don't set it to None
                 delete_success.append(True)
-                del form.data[field]
                 continue
             img.filename = get_unique_filename(img.filename)
             upload = upload_file_to_s3(img)
 
             if "url" not in upload:
                 # if no upload key, there was an error uploading.
+                # delete previously uploaded urls to save space
+                _ = [remove_file_from_s3(img) for img in updated_data.values()]
                 return upload, 500
 
             # delete original file

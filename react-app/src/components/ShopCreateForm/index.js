@@ -53,8 +53,6 @@ export default function ShopCreateForm() {
 
   const handleHoursUpdate = (e) => {
     const { name, value, checked, type } = e.target;
-    console.log("🚀 ~ file: index.js:56 ~ handleHoursUpdate ~ e.target:", e.target)
-    console.log("🚀 ~ file: index.js:56 ~ handleHoursUpdate ~ name, value, checked, type:", name, value, checked, type)
     const newValue = type==="checkbox" ? checked : value;
 
     setBusinessHours((prevData) => {
@@ -67,7 +65,6 @@ export default function ShopCreateForm() {
   }
 
   const handleFormUpdate = (e) => {
-    e.preventDefault();
     const { name, value, type, files, checked } = e.target;
 
     setFormData((prevData) => {
@@ -76,9 +73,10 @@ export default function ShopCreateForm() {
       if (type==="file") {
         newData[name] = files[0];
       } else if (type==="button") {
+        e.preventDefault();
         newData.priceRange = parseInt(value);
       } else if (type==="checkbox") {
-        newData[name] = checked
+        newData[name] = checked;
       } else {
         newData[name] = value;
       }

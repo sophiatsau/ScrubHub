@@ -8,7 +8,7 @@ export default function ShopFormCategories({categories, errors, handleCategoryUp
         <h3>4. Select categories for your shop:</h3>
         <div id="choose-categories-form">
         {CATEGORIES.map(cat => (
-          <label key={cat} className='choose-categories-input'>
+          <div key={cat} className='choose-categories-input'>
             <input
               type="checkbox"
               name={`${cat}`}
@@ -16,7 +16,7 @@ export default function ShopFormCategories({categories, errors, handleCategoryUp
               checked={categories.has(cat)}
               />
             {cat}
-          </label>
+          </div>
         ))}
         </div>
         {errors.categories && <div className='error'>{errors.categories}</div>}
