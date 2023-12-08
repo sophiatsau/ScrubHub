@@ -54,7 +54,7 @@ export default function AddressForm({address}) {
 		<form onSubmit={handleSubmit}>
 			<ul>
 				{errors.status!==400 && Object.values(errors).map((error, idx) => (
-					<li key={idx}>{error}</li>
+					<li key={idx} className="error">{error}</li>
 				))}
 			</ul>
 			<label>

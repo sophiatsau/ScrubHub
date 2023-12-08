@@ -2,8 +2,6 @@ import React from 'react'
 import DisplayPriceRange from '../ShopCard/DisplayPriceRange'
 
 export default function ShopFormBasicInfo({formData, handleFormUpdate, errors}) {
-  console.log("🚀 ~ file: ShopFormBasicInfo.js:5 ~ ShopFormBasicInfo ~ formData.pickup:", formData.pickup)
-  console.log("🚀 ~ file: ShopFormBasicInfo.js:5 ~ ShopFormBasicInfo ~ formData.delivery:", formData.delivery)
   return (
     <>
     <h3>2. Tell us about your shop:</h3>
