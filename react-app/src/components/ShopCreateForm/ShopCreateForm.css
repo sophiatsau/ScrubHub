@@ -145,14 +145,16 @@
 
 .shop-form-hours .daily-business-hours {
     display: grid;
-    grid-template-columns: 30px 30px 160px 160px;
+    grid-template-columns: 30px 35px 160px 160px;
     column-gap: 8px;
-    align-items: start;
+    align-items: center;
+    font-weight: bold;
 }
 
 .daily-business-hours>label {
     font-weight: normal;
-    margin: 0 3px 0;
+    margin: 5px 3px;
+    color: var(--textColorLighter)
 }
 
 .daily-business-hours>label>input {

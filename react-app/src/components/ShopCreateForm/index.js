@@ -53,6 +53,8 @@ export default function ShopCreateForm() {
 
   const handleHoursUpdate = (e) => {
     const { name, value, checked, type } = e.target;
+    console.log("🚀 ~ file: index.js:56 ~ handleHoursUpdate ~ e.target:", e.target)
+    console.log("🚀 ~ file: index.js:56 ~ handleHoursUpdate ~ name, value, checked, type:", name, value, checked, type)
     const newValue = type==="checkbox" ? checked : value;
 
     setBusinessHours((prevData) => {
