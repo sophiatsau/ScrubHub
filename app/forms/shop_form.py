@@ -7,7 +7,7 @@ from app.models import Shop
 from .utils import is_valid_us_zip
 from ..api.utils import ALLOWED_EXTENSIONS
 
-class ShopUpdateForm(FlaskForm):
+class ShopForm(FlaskForm):
     name = StringField(validators=[DataRequired(), Length(1,50,"Store must have a name between 1-50 characters long.")])
     address = StringField(validators=[Length(max=100), DataRequired()])
     city = StringField(validators=[Length(max=100), DataRequired()])

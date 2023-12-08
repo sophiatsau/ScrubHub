@@ -1,6 +1,6 @@
 from flask import Blueprint, session, request
 from app.models import Shop, db, Category, Critter
-from app.forms import ShopCreateForm, ShopUpdateForm, CritterForm
+from app.forms import CritterForm, ShopForm
 from flask_login import current_user, login_required
 from .utils import error_messages, error_message, get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
@@ -42,7 +42,7 @@ def create_shop():
     """
     Creates a new shop and adds it to the database, returns new shop as dictionary
     """
-    form = ShopCreateForm()
+    form = ShopForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -101,7 +101,7 @@ def update_shop(shopId):
     if shop.userId != current_user.id:
         return error_message("user", "Authorization Error."), 403
 
-    form = ShopUpdateForm()
+    form = ShopForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():

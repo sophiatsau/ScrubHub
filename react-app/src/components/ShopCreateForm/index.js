@@ -185,7 +185,7 @@ export default function ShopCreateForm() {
         <ShopFormCategories {...{categories, errors, handleCategoryUpdate}} />
 
         {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
-        <button className="purple-button shop-submit-button" type="submit" disabled={imageLoading}>Submit</button>
+        <button className={`purple-button shop-submit-button ${imageLoading?"disabled":""}`} type="submit" disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>

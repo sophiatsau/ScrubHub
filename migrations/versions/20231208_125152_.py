@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 95f9c20713d8
-Revises:
-Create Date: 2023-12-04 17:03:31.169175
+Revision ID: 1506e8f9acf5
+Revises: 
+Create Date: 2023-12-08 12:51:52.883850
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '95f9c20713d8'
+revision = '1506e8f9acf5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -49,10 +49,10 @@ def upgrade():
     op.create_table('shops',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=True),
-    sa.Column('name', sa.String(length=100), nullable=False),
-    sa.Column('address', sa.String(length=255), nullable=False),
-    sa.Column('city', sa.String(length=255), nullable=False),
-    sa.Column('state', sa.String(length=255), nullable=False),
+    sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('address', sa.String(length=100), nullable=False),
+    sa.Column('city', sa.String(length=100), nullable=False),
+    sa.Column('state', sa.String(length=100), nullable=False),
     sa.Column('zipCode', sa.String(length=10), nullable=False),
     sa.Column('priceRange', sa.Integer(), nullable=False),
     sa.Column('businessHours', sa.String(length=255), nullable=False),
@@ -65,9 +65,7 @@ def upgrade():
     sa.Column('pickup', sa.Boolean(), nullable=False),
     sa.Column('delivery', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('phoneNumber')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('critters',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -75,10 +73,11 @@ def upgrade():
     sa.Column('species', sa.String(length=255), nullable=True),
     sa.Column('shopId', sa.Integer(), nullable=False),
     sa.Column('price', sa.Numeric(precision=18, scale=2), nullable=False),
-    sa.Column('category', sa.String(length=50), nullable=False),
+    sa.Column('category', sa.String(), nullable=False),
     sa.Column('previewImageUrl', sa.String(length=255), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('stock', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['category'], ['categories.name'], ),
     sa.ForeignKeyConstraint(['shopId'], ['shops.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

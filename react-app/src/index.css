@@ -244,4 +244,5 @@ a {
 
 .disabled {
     pointer-events: none;
+    background-color: var(--disabledColor);
 }
