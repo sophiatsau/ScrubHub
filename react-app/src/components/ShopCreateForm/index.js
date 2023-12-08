@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { thunkCreateShop } from '../../store/shops';
@@ -42,7 +42,11 @@ export default function ShopCreateForm() {
     Sat: {open:"",close:"",active:false},
     Sun: {open:"",close:"",active:false},
   })
-
+  const [previewImages, setPreviewImages] = useState({
+    coverImageUrl: "none",
+    searchImageUrl: "none",
+    businessImageUrl: "none",
+  })
   const [categories, setCategories] = useState(new Set())
   const [errors, setErrors] = useState({})
   const [imageLoading, setImageLoading] = useState(false);
@@ -79,6 +83,40 @@ export default function ShopCreateForm() {
       return newData;
     })
   }
+
+  //handle image update
+  useEffect(() => {
+    const newPreview = formData.businessImageUrl ? URL.createObjectURL(formData.businessImageUrl) : "none";
+    setPreviewImages(prevImages => {
+      const newData = {...prevImages};
+      newData.businessImageUrl = newPreview;
+      return newData;
+    })
+    // Frees memory when the component unmounts
+    return newPreview==="none" ? null : () => URL.revokeObjectURL(newPreview)
+  },[formData.businessImageUrl])
+
+  useEffect(() => {
+    const newPreview = formData.coverImageUrl ? URL.createObjectURL(formData.coverImageUrl) : "none";
+    setPreviewImages(prevImages => {
+      const newData = {...prevImages};
+      newData.coverImageUrl = newPreview;
+      return newPreview==="none" ? null : newData;
+    })
+    // Frees memory when the component unmounts
+    return () => URL.revokeObjectURL(newPreview)
+  },[formData.coverImageUrl])
+
+  useEffect(() => {
+    const newPreview = formData.searchImageUrl ? URL.createObjectURL(formData.searchImageUrl) : "none";
+    setPreviewImages(prevImages => {
+      const newData = {...prevImages};
+      newData.searchImageUrl = newPreview;
+      return newData;
+    })
+    // Frees memory when the component unmounts
+    return newPreview==="none" ? null : () => URL.revokeObjectURL(newPreview)
+  },[formData.searchImageUrl])
 
   const handleCategoryUpdate = e => {
     const { name, checked } = e.target;
@@ -138,7 +176,7 @@ export default function ShopCreateForm() {
         encType="multipart/form-data"
         className='shop-form-container'
       >
-        <ShopFormImages {...{formData, handleFormUpdate, errors}}/>
+        <ShopFormImages {...{previewImages, handleFormUpdate, errors}}/>
         <div className='thin-light-border'/>
         <ShopFormBasicInfo {...{formData, handleFormUpdate, errors}}/>
         <div className='thin-light-border'/>

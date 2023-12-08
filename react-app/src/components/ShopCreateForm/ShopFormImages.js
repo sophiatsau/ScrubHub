@@ -1,46 +1,30 @@
 import React, { useState } from 'react'
 
-export default function ShopFormImages({formData, handleFormUpdate, errors}) {
-  const [previewImages, setPreviewImages] = useState({
-    coverImageUrl: "none",
-    searchImageUrl: "none",
-    businessImageUrl: "none",
-  })
+export default function ShopFormImages({previewImages, handleFormUpdate, errors}) {
+//   const [previewImages, setPreviewImages] = useState({
+//     coverImageUrl: "none",
+//     searchImageUrl: "none",
+//     businessImageUrl: "none",
+//   })
 
 //   const handlePreviewUpdate = (e) => {
-//     const { name, value, files } = e.target;
-//     if (!formData) {
-//         setPreview(prevImages => {
-//             prevImages
-//         })
-//         return
-//     }
+//     const { name, files } = e.target;
+//     const newPreview = files[0] ? URL.createObjectURL(files[0]) : "none";
 
-//     const objectUrl = URL.createObjectURL(formData)
-//     setPreview(objectUrl)
+//     setPreviewImages(prevImages => {
+//         const newData = {...prevImages};
+//         newData[name] = newPreview;
+//         return newData;
 
-//     // free memory when ever this component is unmounted
-//     return () => URL.revokeObjectURL(objectUrl)
-//     }, [formData])
+//         // Frees memory when the component unmounts
+//         // return () => URL.revokeObjectURL(newPreview)
+//     })
+//   }
 
-  const handlePreviewUpdate = (e) => {
-    const { name, files } = e.target;
-    const newPreview = files[0] ? URL.createObjectURL(files[0]) : "none";
-
-    setPreviewImages(prevImages => {
-        const newData = {...prevImages};
-        newData[name] = newPreview;
-        return newData;
-
-        // Frees memory when the component unmounts
-        // return () => URL.revokeObjectURL(objectUrl)
-    })
-  }
-
-  const handleImageUpdate = (e) => {
-    handleFormUpdate(e);
-    handlePreviewUpdate(e);
-  }
+//   const handleFormUpdate = (e) => {
+//     handleFormUpdate(e);
+//     handlePreviewUpdate(e);
+//   }
 
   return (
     <>
@@ -56,7 +40,7 @@ export default function ShopFormImages({formData, handleFormUpdate, errors}) {
             type="file"
             accept="image"
             name="coverImageUrl"
-            onChange={handleImageUpdate}
+            onChange={handleFormUpdate}
             className='hidden'
             // required
           />
@@ -71,7 +55,7 @@ export default function ShopFormImages({formData, handleFormUpdate, errors}) {
             type="file"
             accept="image"
             name="searchImageUrl"
-            onChange={handleImageUpdate}
+            onChange={handleFormUpdate}
             className='hidden'
             // required
           />
@@ -86,7 +70,7 @@ export default function ShopFormImages({formData, handleFormUpdate, errors}) {
             type="file"
             accept="image"
             name="businessImageUrl"
-            onChange={handleImageUpdate}
+            onChange={handleFormUpdate}
             className='hidden'
             // required
           />
