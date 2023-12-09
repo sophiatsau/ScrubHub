@@ -187,6 +187,9 @@ a {
 
 .error {
     color: var(--errorColor);
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: var(--fontSize);
 }
 
 .purple {

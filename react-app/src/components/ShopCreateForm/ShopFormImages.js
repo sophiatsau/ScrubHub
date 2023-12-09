@@ -35,7 +35,7 @@ export default function ShopFormImages({previewImages, handleFormUpdate, errors}
         className="shop-cover-img"
         style={{backgroundImage: `url(${previewImages.coverImageUrl})`}}
         >
-          <span style={{fontSize: "var(--h3Size)"}}>Upload a cover photo for your shop</span>
+          <span style={{fontSize: "var(--h3Size)"}}>Upload a cover photo for your shop {errors.coverImageUrl && <div className='error'>{errors.coverImageUrl}</div>}</span>
           <input
             type="file"
             accept="image"
@@ -44,13 +44,14 @@ export default function ShopFormImages({previewImages, handleFormUpdate, errors}
             className='hidden'
             // required
           />
-          {errors.coverImageUrl && <div className='error'>{errors.coverImageUrl}</div>}
         </label>
         <label
         className="shop-card-img"
         style={{backgroundImage: `url(${previewImages.searchImageUrl})`}}
         >
-          <span>Upload a thumbnail photo</span>
+          <span>Upload a thumbnail photo
+          {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
+          </span>
           <input
             type="file"
             accept="image"
@@ -59,7 +60,6 @@ export default function ShopFormImages({previewImages, handleFormUpdate, errors}
             className='hidden'
             // required
           />
-          {errors.searchImageUrl && <div className='error'>{errors.searchImageUrl}</div>}
         </label>
         <label htmlFor="profile-img" className="shop-profile-img"
         style={{backgroundImage: `url(${previewImages.businessImageUrl})`}}

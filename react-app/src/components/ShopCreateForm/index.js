@@ -134,8 +134,6 @@ export default function ShopCreateForm() {
       formData.businessHours = formatBusinessHours(businessHours)
     } catch (e) {
       errorsObj.businessHours = e.message;
-      setErrors({businessHours: e.message})
-      return;
     }
 
     if (!formData.businessImageUrl) errorsObj.businessImageUrl = "Please select a file."
