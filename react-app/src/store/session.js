@@ -153,7 +153,6 @@ export const thunkAddUserAddress = address => async dispatch => {
 		dispatch(addUserAddress(data))
 	}
 	else data.status = res.status
-	console.log("🚀 ~ file: session.js:156 ~ thunkAddUserAddress ~ data:", data)
 
 	return data
 }

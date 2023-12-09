@@ -51,6 +51,10 @@ export default function ShopCreateForm() {
   const [errors, setErrors] = useState({})
   const [imageLoading, setImageLoading] = useState(false);
 
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+
   const handleHoursUpdate = (e) => {
     const { name, value, checked, type } = e.target;
     const newValue = type==="checkbox" ? checked : value;
@@ -182,7 +186,7 @@ export default function ShopCreateForm() {
         <div className='thin-light-border'/>
         <ShopFormCategories {...{categories, errors, handleCategoryUpdate}} />
 
-        {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
+        {errors.UnknownError && <div className='error'>{errors.UnknownError}</div>}
         <button className={`purple-button shop-submit-button ${imageLoading?"disabled":""}`} type="submit" disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>

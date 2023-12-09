@@ -84,7 +84,7 @@ def create_shop():
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message("unknownError", "An unknown error occurred."), 500
+        return error_message("UnknownError", "An unknown error occurred."), 500
 
 
 @shop_routes.route('/<int:shopId>/edit', methods=['PUT'])
@@ -164,7 +164,7 @@ def update_shop(shopId):
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message("unknownError", "An unknown error occurred."), 500
+        return error_message("UnknownError", "An unknown error occurred."), 500
 
 
 @shop_routes.route("/<int:shopId>/delete", methods=["DELETE"])
@@ -231,4 +231,4 @@ def create_critter(shopId):
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message("unknownError", "An unknown error occurred."), 500
+        return error_message("UnknownError", "An unknown error occurred."), 500

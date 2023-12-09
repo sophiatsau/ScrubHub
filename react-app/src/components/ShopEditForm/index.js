@@ -27,6 +27,10 @@ export default function ShopEditForm() {
   const [imageLoading, setImageLoading] = useState(false);
 
   useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+
+  useEffect(() => {
     dispatch(thunkGetShop(shopId)).then((res)=> {
       setOldPreviews({
         coverImageUrl: res.coverImageUrl,
@@ -154,7 +158,7 @@ export default function ShopEditForm() {
         <ShopFormHours {...{businessHours, handleHoursUpdate, errors}} />
         <div className='thin-light-border'/>
         <ShopFormCategories {...{categories, errors, handleCategoryUpdate}} />
-        {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
+        {errors.UnknownError && <div className='error'>{errors.UnknownError}</div>}
         <button type="submit" className={`purple-button shop-submit-button ${imageLoading?"disabled":""}`} disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>

@@ -94,7 +94,7 @@ def update_critter(critterId):
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message("unknownError", "An unknown error occurred."), 500
+        return error_message("UnknownError", "An unknown error occurred."), 500
 
 
 @critter_routes.route("/<int:critterId>/delete", methods=["DELETE"])
