@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { useModal } from "../../context/Modal";
@@ -25,15 +25,35 @@ export default function AddressForm({address}) {
 
 	const [formData, setFormData] = useState(initialData)
 	const [errors, setErrors] = useState({});
+	const [submitted, setSubmitted] = useState(false);
+
+	useEffect(() => {
+		const {address, city, state, zipCode, name,} = formData;
+		const newErrors = {};
+
+		if (name.length > 40) newErrors.name = "Field cannot be longer than 40 characters."
+		if (!name) newErrors.name = "This field is required."
+		if (address.length > 50) newErrors.address = "Field cannot be longer than 50 characters."
+		if (!address) newErrors.address = "This field is required."
+		if (city.length > 50) newErrors.city = "Field cannot be longer than 50 characters."
+		if (!city) newErrors.city = "This field is required."
+		if (state.length > 50) newErrors.state = "Field cannot be longer than 50 characters."
+		if (!state) newErrors.state = "This field is required."
+		if (!zipCode.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (use XXXXX or XXXXX-XXXX)"
+		if (!zipCode) newErrors.zipCode = "This field is required."
+
+		setErrors(newErrors)
+	}, [setErrors, formData, submitted])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (Object.values(errors).length) return;
 		let formErrors = {}
 		formData.fullAddress = getFullAddress(formData)
 
 		const data = await dispatch(thunk(formData));
 
-		if (data.errors) formErrors=data.errors;
+		if (data.errors && data.status===400) formErrors=data.errors;
 		else closeModal();
 
 		setErrors(formErrors)
@@ -48,15 +68,16 @@ export default function AddressForm({address}) {
 		setFormData(newData)
 	}
 
+	const buttonClass = Object.values(errors).length && submitted ? "disabled purple-button address-form-button":"purple-button address-form-button"
+
 	return (
-		<>
+		<div className="address-form-container">
 		<h1>{header}</h1>
-		<form onSubmit={handleSubmit}>
-			<ul>
-				{errors.status!==400 && Object.values(errors).map((error, idx) => (
-					<li key={idx}>{error}</li>
-				))}
-			</ul>
+		<form onSubmit={(e) => {
+			setSubmitted(true)
+			handleSubmit(e)}}
+			className="address-form"
+		>
 			<label>
 				Give a name to your address:
 				<input
@@ -65,7 +86,7 @@ export default function AddressForm({address}) {
 					value={formData.name}
 					onChange={handleInputChange}
 				/>
-				{errors.name && <div className='error'>{errors.name}</div>}
+				{submitted && errors.name && <div className='error'>{errors.name}</div>}
 			</label>
 			<label>
 				Address
@@ -75,7 +96,7 @@ export default function AddressForm({address}) {
 					value={formData.address}
 					onChange={handleInputChange}
 				/>
-				{errors.address && <div className='error'>{errors.address}</div>}
+				{submitted && errors.address && <div className='error'>{errors.address}</div>}
 			</label>
 			<label>
 				City
@@ -85,7 +106,7 @@ export default function AddressForm({address}) {
 					value={formData.city}
 					onChange={handleInputChange}
 				/>
-				{errors.city && <div className='error'>{errors.city}</div>}
+				{submitted && errors.city && <div className='error'>{errors.city}</div>}
 			</label>
 			<label>
 				State
@@ -95,7 +116,7 @@ export default function AddressForm({address}) {
 					value={formData.state}
 					onChange={handleInputChange}
 				/>
-				{errors.state && <div className='error'>{errors.state}</div>}
+				{submitted && errors.state && <div className='error'>{errors.state}</div>}
 			</label>
 			<label>
 				Zip Code
@@ -106,10 +127,12 @@ export default function AddressForm({address}) {
 					onChange={handleInputChange}
 					placeholder="XXXXX or XXXXX-XXXX"
 				/>
-				{errors.zipCode && <div className='error'>{errors.zipCode}</div>}
+				{submitted && errors.zipCode && <div className='error'>{errors.zipCode}</div>}
 			</label>
-      		<button type="submit">{buttonText}</button>
+      		<button type="submit"
+			className={buttonClass}
+			>{buttonText}</button>
 		</form>
-		</>
+		</div>
 	);
 }

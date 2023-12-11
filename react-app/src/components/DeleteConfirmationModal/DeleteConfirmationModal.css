@@ -1,0 +1,18 @@
+.delete-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 350px;
+    line-height: 150%;
+    padding: 10px;
+}
+
+.delete-modal-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.delete-modal-buttons button {
+    padding: 8px;
+}

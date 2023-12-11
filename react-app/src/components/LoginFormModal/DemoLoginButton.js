@@ -10,8 +10,8 @@ export default function DemoLoginButton({setErrors,closeModal}) {
     const demoLogin = async (e) => {
         e.preventDefault()
         const data = await dispatch(login("demo@aa.io", "password"));
-        if (data) {
-            setErrors(["Failed to log in as Demo User."]);
+        if (data.errors) {
+            setErrors("Failed to log in as Demo User.");
         } else {
             closeModal()
             history.push('/')

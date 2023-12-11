@@ -1,10 +1,20 @@
 #user-profile-page-container {
     display: grid;
     grid-template-columns: 200px 1fr;
+    padding: 20px 0;
 }
 
-.profile-main-container {
-    padding: 20px 0;
+.add-new-button {
+    margin-top: 10px;
+    color: var(--highlightColor);
+    background-color: transparent;
+    text-align: left;
+    width: max-content;
+}
+
+.add-new-button:hover {
+    color: var(--highlightColorDarker);
+    font-weight: bold;
 }
 
 /************** SIDEBAR *************************/

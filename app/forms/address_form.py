@@ -14,9 +14,9 @@ def address_exists(form, field):
 
 
 class AddressForm(FlaskForm):
-    name = StringField(validators=[DataRequired(),Length(max=255)])
+    name = StringField(validators=[DataRequired(),Length(max=40)])
     fullAddress = StringField(validators=[DataRequired(),Length(max=255)])
-    address = StringField(validators=[DataRequired(),Length(max=255)])
-    city = StringField(validators=[DataRequired(),Length(max=255)])
-    state = StringField(validators=[DataRequired(),Length(max=255)])
+    address = StringField(validators=[DataRequired(),Length(max=50)])
+    city = StringField(validators=[DataRequired(),Length(max=50)])
+    state = StringField(validators=[DataRequired(),Length(max=50)])
     zipCode = StringField(validators=[DataRequired(),is_valid_us_zip])

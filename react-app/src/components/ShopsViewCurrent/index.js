@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ShopCard from '../ShopCard'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { thunkGetUserShops } from '../../store/shops'
+import "./ShopsViewCurrent.css"
 
 export default function ShopsViewCurrent() {
   const dispatch = useDispatch()
@@ -23,8 +24,9 @@ export default function ShopsViewCurrent() {
   if (userShops.includes(undefined)) return <div>Loading shops...</div>
 
   return (
-    <div>
+    <div className='current-shops-container'>
         <h2>Manage Your Shops</h2>
+        <div className='shops-list-container'>
         {userShops.length ?
         userShops.map(shop => (
           <div key={shop.id}>
@@ -33,7 +35,9 @@ export default function ShopsViewCurrent() {
         ))
         : <div>You have no shops</div>
         }
-        <Link to="/profile/shops/new">Create A New Shop</Link>
+        </div>
+        <div className='thin-light-border'/>
+        <Link to="/profile/shops/new" className="add-new-button">+ Create A New Shop</Link>
     </div>
   )
 }

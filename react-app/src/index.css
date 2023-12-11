@@ -83,6 +83,10 @@ input {
     box-sizing: border-box;
 }
 
+textarea {
+    resize: none;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -183,6 +187,10 @@ a {
 
 .error {
     color: var(--errorColor);
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: var(--fontSize);
+    text-align: left;
 }
 
 .purple {
@@ -236,4 +244,9 @@ a {
 
 .thin-light-border {
     border-bottom: 1px solid var(--boxShadowColor);
+}
+
+.disabled, .purple-button[disabled="true"] {
+    pointer-events: none;
+    background-color: var(--disabledColor);
 }

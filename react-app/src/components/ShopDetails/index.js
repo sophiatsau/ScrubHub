@@ -27,8 +27,8 @@ export default function ShopDetails() {
                     return res;
                 })
                 .then(res => dispatch(getShopCritters(res.critters)))
-                .then(() => setIsLoaded(true))
-        }
+                .then(() => setIsLoaded(true));
+        } else setIsLoaded(true);
     }, [shop, shopId, dispatch, history, isLoaded])
 
     if (!isLoaded) return <div>Loading Shop...</div>
@@ -55,7 +55,7 @@ export default function ShopDetails() {
             <ShopDetailsNav shop={shop}/>
             <ShopDetailsCritters shop={shop}/>
             <ShopDetailsAbout shop={shop}/>
-            <ShopDetailsReviews shop={shop}/>
+            {/* <ShopDetailsReviews shop={shop}/> */}
         </div>
     )
 }

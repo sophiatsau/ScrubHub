@@ -71,3 +71,20 @@ export const getFullAddress = (addressObj) => {
   const {address, city, state, zipCode} = addressObj;
   return `${address}\n${city}, ${state} ${zipCode}`;
 }
+
+export const fetchData = async (path, options) => {
+  let res, data = {};
+  try {
+    res = await fetch(path, options);
+    data = await res.json();
+    data.status = res.status || 500;
+  } catch (res) {
+    res.status = res.status || 500;
+    if (res.errors) res.errors.fetch = "Failed to Fetch"
+    else res.errors = {"fetch": "Failed to Fetch"};
+    if (res.status >= 500) res.errors.UnknownError = "An error occurred. Please try again.";
+    data = res;
+  }
+
+  return data;
+}
