@@ -17,13 +17,19 @@ export default function AddressViewCurrent() {
 
     return (
         <div id="view-current-addresses-container">
-            <h1>Your Addresses</h1>
+        <h1>Your Addresses</h1>
+        <div className="current-addresses-container">
             {Object.values(sessionUser.addresses).map(address => (
+                <>
                 <AddressCard key={address.id} address={address}/>
+                </>
             ))}
-            <OpenModalButton
-                modalComponent={<AddressForm />}
-                buttonText={"➕ Add a New Address"}
+        </div>
+        <div className='thin-light-border' />
+        <OpenModalButton
+            modalComponent={<AddressForm />}
+            buttonText={"+ Add a New Address"}
+            className={'add-new-button'}
             />
         </div>
     )
