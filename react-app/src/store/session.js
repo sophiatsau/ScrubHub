@@ -1,3 +1,5 @@
+import { fetchData } from "./utils";
+
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
@@ -78,7 +80,7 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-	const response = await fetch("/api/auth/login", {
+	const data = await fetchData("/api/auth/login", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -89,18 +91,9 @@ export const login = (email, password) => async (dispatch) => {
 		}),
 	});
 
-	if (response.ok) {
-		const data = await response.json();
-		dispatch(setUser(data));
-		return null;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
-	} else {
-		return {"UnknownError": "An error occurred. Please try again."};
-	}
+	if (!data.errors) {
+		dispatch(setUser(data)); }
+	return data
 };
 
 export const logout = () => async (dispatch) => {
@@ -116,7 +109,7 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signUp = (formData) => async (dispatch) => {
-	const response = await fetch("/api/auth/signup", {
+	const data = await fetchData("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -124,18 +117,10 @@ export const signUp = (formData) => async (dispatch) => {
 		body: JSON.stringify(formData),
 	});
 
-	if (response.ok) {
-		const data = await response.json();
+	if (!data.errors) {
 		dispatch(setUser(data));
-		return null;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
-	} else {
-		return {"UnknownError": "An error occurred. Please try again."};
 	}
+	return data;
 };
 
 export const thunkAddUserAddress = address => async dispatch => {

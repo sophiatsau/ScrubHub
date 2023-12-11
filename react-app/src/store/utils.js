@@ -73,19 +73,18 @@ export const getFullAddress = (addressObj) => {
 }
 
 export const fetchData = async (path, options) => {
-  let res
+  let res, data = {};
   try {
     res = await fetch(path, options);
-  } catch (e) {
-    e.status = e.status || 500;
-    if (e.errors) e.errors.fetch = "Failed to Fetch"
-    else e.errors = {"fetch": "Failed to Fetch"}
-    res = e;
+    data = await res.json();
+    data.status = res.status || 500;
+  } catch (res) {
+    res.status = res.status || 500;
+    if (res.errors) res.errors.fetch = "Failed to Fetch"
+    else res.errors = {"fetch": "Failed to Fetch"};
+    if (res.status >= 500) res.errors.UnknownError = "An error occurred. Please try again.";
+    data = res;
   }
-
-  const data = await res.json();
-
-  if (!data.errors) data.status = res.status;
 
   return data;
 }

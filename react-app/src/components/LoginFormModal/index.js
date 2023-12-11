@@ -17,9 +17,9 @@ function LoginFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    // only say "invalid credentials" if there's any error
-    if (data.password || data.email) {
-      setErrors("Invalid credentials");
+    // only say "invalid credentials" to not reveal user info
+    if (data.errors) {
+      setErrors(data.errors.UnknownError || "Invalid credentials.");
     } else {
         closeModal()
         history.push('/')
