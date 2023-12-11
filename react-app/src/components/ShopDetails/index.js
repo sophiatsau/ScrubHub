@@ -55,7 +55,7 @@ export default function ShopDetails() {
             <ShopDetailsNav shop={shop}/>
             <ShopDetailsCritters shop={shop}/>
             <ShopDetailsAbout shop={shop}/>
-            <ShopDetailsReviews shop={shop}/>
+            {/* <ShopDetailsReviews shop={shop}/> */}
         </div>
     )
 }

@@ -1,0 +1,14 @@
+.all-shops-container {
+    margin: 15px;
+    margin-top: 65px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.all-shops-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+}
