@@ -1,0 +1,11 @@
+.delete-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.delete-modal-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
