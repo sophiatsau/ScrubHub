@@ -25,6 +25,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <div style={{height: "40px"}}/>
       {isLoaded && (<div className="main-container">
         <Switch>
           <Route exact path="/">
@@ -45,6 +46,7 @@ function App() {
           <Route>404 Page Not Found</Route>
         </Switch>
       </div>)}
+      <div style={{height: "100px"}}/>
       < Footer />
     </>
   );
