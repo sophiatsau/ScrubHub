@@ -67,10 +67,10 @@ function ProfileButton({ user }) {
                 <i className="fa-solid fa-receipt"/>
                 Orders
               </Link>
-              <Link to='/profile/bag'>
+              {/* <Link to='/profile/bag'>
                 <i className="fa-solid fa-bag-shopping"/>
                 Bag
-              </Link>
+              </Link> */}
               {/*TODO: split orders into past / upcoming*/}
             </li>
             <li>

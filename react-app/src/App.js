@@ -13,6 +13,7 @@ import ShopByCategory from "./components/ShopByCategory";
 import ShopsViewAll from "./components/ShopsViewAll";
 import AddressViewCurrent from "./components/AddressViewCurrent";
 import UserProfile from "./components/UserProfile";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
           <Route>404 Page Not Found</Route>
         </Switch>
       </div>)}
+      < Footer />
     </>
   );
 }
