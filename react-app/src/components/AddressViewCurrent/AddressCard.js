@@ -24,7 +24,7 @@ export default function AddressCard({address}) {
     return (
         <li className='address-card'>
             <span className='bold'>{address.name}</span>
-            <span>{address.fullAddress}</span>
+            <span style={{lineHeight:"150%"}}>{address.fullAddress}</span>
             <div className='address-card-buttons'>
                 <div/>
                 <OpenModalButton
