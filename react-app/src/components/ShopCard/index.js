@@ -22,7 +22,6 @@ export default function ShopCard({shop}) {
       alert(Object.values(res.errors).join(" ")+" "+"Please refresh the page and try again later.")
     } else {
       dispatch(deleteUserShop(shop.id))
-      alert("Shop successfully removed!")
     }
 
     closeModal()
