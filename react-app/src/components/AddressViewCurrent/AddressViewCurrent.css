@@ -22,7 +22,7 @@
     padding: 15px;
     border: 1px var(--boxShadowColor) solid;
     border-radius: var(--cardBorderRadius);
-    width: 400px;
+    width: 420px;
     height: 150px;
     display: flex;
     flex-direction: column;
