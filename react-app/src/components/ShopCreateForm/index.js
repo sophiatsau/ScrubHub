@@ -105,7 +105,7 @@ export default function ShopCreateForm() {
     setPreviewImages(prevImages => {
       const newData = {...prevImages};
       newData.coverImageUrl = newPreview;
-      return newPreview==="none" ? null : newData;
+      return newData;
     })
     // Frees memory when the component unmounts
     return () => URL.revokeObjectURL(newPreview)
