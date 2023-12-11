@@ -1,6 +1,6 @@
 from flask import Blueprint, session, request
 from app.models import Shop, db, Category, Critter
-from app.forms import ShopCreateForm, ShopUpdateForm, CritterForm
+from app.forms import CritterForm, ShopForm
 from flask_login import current_user, login_required
 from .utils import error_messages, error_message, get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
@@ -42,7 +42,7 @@ def create_shop():
     """
     Creates a new shop and adds it to the database, returns new shop as dictionary
     """
-    form = ShopCreateForm()
+    form = ShopForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -51,8 +51,8 @@ def create_shop():
         category_list = form.data['categories'].split(',')
         categories = Category.query.filter(Category.name.in_(category_list)).all()
 
-        if not categories:
-            return {"errors":"no cats"}, 400
+        # if not categories:
+        #     return {"errors":"no cats"}, 400
 
         for field in ["searchImageUrl","coverImageUrl","businessImageUrl"]:
             img = form.data[field]
@@ -61,6 +61,9 @@ def create_shop():
 
             if "url" not in upload:
                 # if no upload key, there was an error uploading.
+                # delete previously uploaded urls to save space
+                _ = [remove_file_from_s3(img) for img in images.values()]
+
                 return upload, 500
 
             url = upload["url"]
@@ -81,7 +84,7 @@ def create_shop():
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message("unknownError", "An unknown error occurred."), 500
+        return error_message("UnknownError", "An unknown error occurred."), 500
 
 
 @shop_routes.route('/<int:shopId>/edit', methods=['PUT'])
@@ -98,7 +101,7 @@ def update_shop(shopId):
     if shop.userId != current_user.id:
         return error_message("user", "Authorization Error."), 403
 
-    form = ShopUpdateForm()
+    form = ShopForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -110,13 +113,14 @@ def update_shop(shopId):
             if not img:
                 # don't set it to None
                 delete_success.append(True)
-                del form.data[field]
                 continue
             img.filename = get_unique_filename(img.filename)
             upload = upload_file_to_s3(img)
 
             if "url" not in upload:
                 # if no upload key, there was an error uploading.
+                # delete previously uploaded urls to save space
+                _ = [remove_file_from_s3(img) for img in updated_data.values()]
                 return upload, 500
 
             # delete original file
@@ -160,7 +164,7 @@ def update_shop(shopId):
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message("unknownError", "An unknown error occurred."), 500
+        return error_message("UnknownError", "An unknown error occurred."), 500
 
 
 @shop_routes.route("/<int:shopId>/delete", methods=["DELETE"])
@@ -227,4 +231,4 @@ def create_critter(shopId):
     elif form.errors:
         return error_messages(form.errors), 400
     else:
-        return error_message("unknownError", "An unknown error occurred."), 500
+        return error_message("UnknownError", "An unknown error occurred."), 500

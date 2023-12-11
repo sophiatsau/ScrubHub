@@ -16,8 +16,16 @@ class Category(db.Model):
         back_populates="categories",
     )
 
+    critters = db.relationship(
+        "Critter",
+        back_populates="categoryObj"
+    )
+
     def get_shops(self):
         return [shop.to_dict() for shop in self.shops]
+
+    def get_critters(self):
+        return [critter.to_dict() for critter in self.critters]
 
     def __getitem__(self, item):
         """Configures model to be conscriptable"""

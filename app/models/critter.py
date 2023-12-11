@@ -12,7 +12,7 @@ class Critter(db.Model):
     shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=False)
     # userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     price = db.Column(db.Numeric(18,2), nullable=False)
-    category = db.Column(db.String(50), nullable=False)
+    category = db.Column(db.String, db.ForeignKey(add_prefix_for_prod("categories.name")),nullable=False)
     previewImageUrl = db.Column(db.String(255))
     description = db.Column(db.String(255))
     stock = db.Column(db.Integer, nullable=False)
@@ -20,6 +20,11 @@ class Critter(db.Model):
     shop = db.relationship(
         "Shop",
         back_populates="critters",
+    )
+
+    categoryObj = db.relationship(
+        "Category",
+        back_populates="critters"
     )
 
     # seller = db.relationship(

@@ -33,7 +33,7 @@ export default function AddressForm({address}) {
 
 		const data = await dispatch(thunk(formData));
 
-		if (data.errors) formErrors=data.errors;
+		if (data.errors && data.status===400) formErrors=data.errors;
 		else closeModal();
 
 		setErrors(formErrors)
@@ -52,11 +52,6 @@ export default function AddressForm({address}) {
 		<>
 		<h1>{header}</h1>
 		<form onSubmit={handleSubmit}>
-			<ul>
-				{errors.status!==400 && Object.values(errors).map((error, idx) => (
-					<li key={idx}>{error}</li>
-				))}
-			</ul>
 			<label>
 				Give a name to your address:
 				<input

@@ -11,14 +11,15 @@ function LoginFormModal() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState("");
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(Object.values(data));
+    // only say "invalid credentials" to not reveal user info
+    if (data.errors) {
+      setErrors(data.errors.UnknownError || "Invalid credentials.");
     } else {
         closeModal()
         history.push('/')
@@ -27,12 +28,10 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1 style={{marginBottom: "5px"}}>Log In</h1>
       <form onSubmit={handleSubmit} id="login-form">
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx} className="error">{error}</li>
-          ))}
+        <ul >
+          <li className="error">{errors}</li>
         </ul>
         <label>
           Email

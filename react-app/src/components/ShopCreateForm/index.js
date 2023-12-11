@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { thunkCreateShop } from '../../store/shops';
 import { userAddShop } from '../../store/session';
-import { DAYS, CATEGORIES, formatBusinessHours } from '../../store/utils';
+import { formatBusinessHours } from '../../store/utils';
 
 import "./ShopCreateForm.css"
-import DisplayPriceRange from '../ShopCard/DisplayPriceRange';
 import ShopFormImages from './ShopFormImages';
 import ShopFormBasicInfo from './ShopFormBasicInfo';
+import ShopFormHours from './ShopFormHours';
+import ShopFormCategories from './ShopFormCategories';
 
 export default function ShopCreateForm() {
   const dispatch = useDispatch();
@@ -20,15 +21,7 @@ export default function ShopCreateForm() {
     state:"",
     zipCode:"",
     priceRange:"",
-    businessHoursObj:{
-      Mon: {open:"",close:"",active:false},
-      Tue: {open:"",close:"",active:false},
-      Wed: {open:"",close:"",active:false},
-      Thu: {open:"",close:"",active:false},
-      Fri: {open:"",close:"",active:false},
-      Sat: {open:"",close:"",active:false},
-      Sun: {open:"",close:"",active:false},
-    },
+    businessHours:"",
     email: "",
     phoneNumber: "",
     description: "",
@@ -39,13 +32,43 @@ export default function ShopCreateForm() {
     delivery: false,
     categories: [],
   })
-  const [categories, setCategories] = useState(new Set())
 
+  const [businessHours, setBusinessHours] = useState({
+    Mon: {open:"",close:"",active:false},
+    Tue: {open:"",close:"",active:false},
+    Wed: {open:"",close:"",active:false},
+    Thu: {open:"",close:"",active:false},
+    Fri: {open:"",close:"",active:false},
+    Sat: {open:"",close:"",active:false},
+    Sun: {open:"",close:"",active:false},
+  })
+  const [previewImages, setPreviewImages] = useState({
+    coverImageUrl: "none",
+    searchImageUrl: "none",
+    businessImageUrl: "none",
+  })
+  const [categories, setCategories] = useState(new Set())
   const [errors, setErrors] = useState({})
   const [imageLoading, setImageLoading] = useState(false);
 
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [])
+
+  const handleHoursUpdate = (e) => {
+    const { name, value, checked, type } = e.target;
+    const newValue = type==="checkbox" ? checked : value;
+
+    setBusinessHours((prevData) => {
+      const [day, time] = name.split(" ");
+      const newHours = {...prevData};
+      newHours[day][time] = newValue;
+
+      return newHours;
+    })
+  }
+
   const handleFormUpdate = (e) => {
-    e.preventDefault();
     const { name, value, type, files, checked } = e.target;
 
     setFormData((prevData) => {
@@ -54,22 +77,50 @@ export default function ShopCreateForm() {
       if (type==="file") {
         newData[name] = files[0];
       } else if (type==="button") {
+        e.preventDefault();
         newData.priceRange = parseInt(value);
       } else if (type==="checkbox") {
-        const [day, active] = name.split(" ")
-        if (active) {
-          newData.businessHoursObj[day].active = checked
-        }
-        else newData[name] = checked
-      } else if (type==="time") {
-        const [day, time] = name.split(" ")
-        newData.businessHoursObj[day][time] = value
+        newData[name] = checked;
       } else {
         newData[name] = value;
       }
       return newData;
     })
   }
+
+  //handle image update
+  useEffect(() => {
+    const newPreview = formData.businessImageUrl ? URL.createObjectURL(formData.businessImageUrl) : "none";
+    setPreviewImages(prevImages => {
+      const newData = {...prevImages};
+      newData.businessImageUrl = newPreview;
+      return newData;
+    })
+    // Frees memory when the component unmounts
+    return newPreview==="none" ? null : () => URL.revokeObjectURL(newPreview)
+  },[formData.businessImageUrl])
+
+  useEffect(() => {
+    const newPreview = formData.coverImageUrl ? URL.createObjectURL(formData.coverImageUrl) : "none";
+    setPreviewImages(prevImages => {
+      const newData = {...prevImages};
+      newData.coverImageUrl = newPreview;
+      return newPreview==="none" ? null : newData;
+    })
+    // Frees memory when the component unmounts
+    return () => URL.revokeObjectURL(newPreview)
+  },[formData.coverImageUrl])
+
+  useEffect(() => {
+    const newPreview = formData.searchImageUrl ? URL.createObjectURL(formData.searchImageUrl) : "none";
+    setPreviewImages(prevImages => {
+      const newData = {...prevImages};
+      newData.searchImageUrl = newPreview;
+      return newData;
+    })
+    // Frees memory when the component unmounts
+    return newPreview==="none" ? null : () => URL.revokeObjectURL(newPreview)
+  },[formData.searchImageUrl])
 
   const handleCategoryUpdate = e => {
     const { name, checked } = e.target;
@@ -80,12 +131,21 @@ export default function ShopCreateForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const errorsObj = {};
     setErrors({})
 
     try {
-      formData.businessHours = formatBusinessHours(formData.businessHoursObj)
+      formData.businessHours = formatBusinessHours(businessHours)
     } catch (e) {
-      setErrors({businessHours: e.message})
+      errorsObj.businessHours = e.message;
+    }
+
+    if (!formData.businessImageUrl) errorsObj.businessImageUrl = "Please select a file."
+    if (!formData.coverImageUrl) errorsObj.coverImageUrl = "Please select a file."
+    if (!formData.searchImageUrl) errorsObj.searchImageUrl = "Please select a file."
+
+    if (Object.values(errorsObj).length) {
+      setErrors(errorsObj);
       return;
     }
 
@@ -110,8 +170,6 @@ export default function ShopCreateForm() {
     }
   }
 
-  console.log("************IMAGE LOADING", imageLoading)
-
   return (
     <div className='profile-main-container'>
       <h2>Create A New Shop!</h2>
@@ -120,66 +178,16 @@ export default function ShopCreateForm() {
         encType="multipart/form-data"
         className='shop-form-container'
       >
-        <ShopFormImages {...{formData, handleFormUpdate, errors}}/>
+        <ShopFormImages {...{previewImages, handleFormUpdate, errors}}/>
         <div className='thin-light-border'/>
         <ShopFormBasicInfo {...{formData, handleFormUpdate, errors}}/>
-        <label>
-          Business Hours:
-          <div className='business-hours-form'>
-          {DAYS.map(day => (
-            <label key={day} className='daily-business-hours'>
-              <input
-                type="checkbox"
-                name={`${day} active`}
-                value={formData.businessHoursObj[day].active}
-                onChange={handleFormUpdate}
-              />
-              {day}:
-              <label>
-                Open:
-                <input
-                  type="time"
-                  name={`${day} open`}
-                  value={formData.businessHoursObj[day].open}
-                  onChange={handleFormUpdate}
-                  disabled={!formData.businessHoursObj[day].active}
-                  pattern="[0-9]{2}:[0-9]{2}"
-                />
-              </label>
-              <label>
-                Close:
-                <input
-                  type="time"
-                  name={`${day} close`}
-                  value={formData.businessHoursObj[day].close}
-                  onChange={handleFormUpdate}
-                  disabled={!formData.businessHoursObj[day].active}
-                  pattern="[0-9]{2}:[0-9]{2}"
-                />
-              </label>
-            </label>
-          ))}
-          </div>
-          {errors.businessHours && <div className='error'>{errors.businessHours}</div>}
-        </label>
+        <div className='thin-light-border'/>
+        <ShopFormHours {...{businessHours, handleHoursUpdate, errors}} />
+        <div className='thin-light-border'/>
+        <ShopFormCategories {...{categories, errors, handleCategoryUpdate}} />
 
-        <label className="choose-categories-form">
-          Select categories for your shop:
-          {CATEGORIES.map(cat => (
-            <label key={cat}>
-              <input
-                type="checkbox"
-                name={`${cat}`}
-                onChange={handleCategoryUpdate}
-                checked={categories.has(cat)}
-                />
-              {cat}
-            </label>
-          ))}
-          {errors.categories && <div className='error'>{errors.categories}</div>}
-        </label>
-        {errors.unknownError && <div className='error'>{errors.unknownError}</div>}
-        <button type="submit" disabled={imageLoading}>Submit</button>
+        {errors.UnknownError && <div className='error'>{errors.UnknownError}</div>}
+        <button className={`purple-button shop-submit-button ${imageLoading?"disabled":""}`} type="submit" disabled={imageLoading}>Submit</button>
         {(imageLoading) && <p>Loading...</p>}
       </form>
     </div>

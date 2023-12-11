@@ -35,7 +35,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    font-weight: normal;
+    /* background-image: ; */
+    background-size: cover;
+}
+
+.shop-form-images>label>span {
+    padding: 10px;
+    /* background-color: rgb(255,255,255,0.7); */
+    background-color: rgba(230,230,230, 0.7);;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-form-images>label:hover>span {
+    border-width: 3px;
+    border-radius: inherit;
+    height: 100%;
+    width:100%;
+    cursor: pointer;
 }
 
 .shop-form-images .shop-card-img {
@@ -76,18 +97,20 @@
     max-width: 175px;
 }
 
-.shop-basic-info-section>div {
-    margin-top: 8px;
-}
-
 .shop-basic-info-section>.shop-form-description {
     max-width: 350px;
 }
 
-.shop-form-services>label{
+.shop-form-services{
     /* border: red 1px solid; */
     display: grid;
     grid-template-columns: 1fr 5fr;
+    align-items: center;
+    max-width: 175px;
+}
+
+.shop-form-services label {
+    /* border: 1px red solid; */
     font-weight: normal;
 }
 
@@ -120,15 +143,54 @@
 .business-hours-form {
     display: flex;
     flex-direction: column;
+    margin-top: 15px;
 }
 
-.daily-business-hours {
+.shop-form-hours .daily-business-hours {
     display: grid;
-    grid-template-columns: 5% 5% 20% 20%;
+    grid-template-columns: 30px 35px 160px 160px;
+    column-gap: 8px;
+    align-items: center;
+    font-weight: bold;
+}
+
+.daily-business-hours>label {
+    font-weight: normal;
+    margin: 5px 3px;
+    color: var(--textColorLighter)
+}
+
+.daily-business-hours>label>input {
+    width: 100%;
+}
+
+/************* CATEGORIES ***************************/
+
+.choose-categories-form-section>h3 {
+    margin-bottom: 15px;
+}
+
+#choose-categories-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3px;
+    /* border: 1px solid blue; */
+}
+
+#choose-categories-form>.choose-categories-input {
+    /* border: 1px solid red; */
+    width: 175px;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    font-weight: bold;
     align-items: center;
 }
 
-.choose-categories-form {
-    display: flex;
-    flex-direction: column;
+
+.shop-submit-button {
+    padding: 8px;
+    margin: 10px auto;
+    font-size: var(--h3Size);
+    max-width: 300px;
 }
