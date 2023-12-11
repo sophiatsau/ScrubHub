@@ -25,16 +25,19 @@ export default function AddressCard({address}) {
 
     return (
         <li className='address-card'>
-            <span>{address.name}</span>
-            <p>{address.fullAddress}</p>
+            <span className='bold'>{address.name}</span>
+            <span>{address.fullAddress}</span>
             <div className='address-card-buttons'>
+                <div/>
                 <OpenModalButton
                     modalComponent={<AddressForm address={address}/>}
                     buttonText={"Edit"}
+                    className={"purple-button"}
                 />
                 <OpenModalButton
                     modalComponent={<DeleteConfirmationModal itemName={"Address"} deleteFunction={deleteAddress}/>}
                     buttonText={"Remove"}
+                    className={"light-button"}
                 />
             </div>
         </li>

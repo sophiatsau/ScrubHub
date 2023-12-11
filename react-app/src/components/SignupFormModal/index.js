@@ -24,7 +24,6 @@ function SignupFormModal() {
 		confirmPassword: '',
 	})
 	const [errors, setErrors] = useState({});
-	const [submitted, setSubmitted] = useState(false);
 	const { closeModal } = useModal();
 
 	// useEffect(() => {
@@ -51,7 +50,6 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setSubmitted(true);
 
 		if (formData.password === formData.confirmPassword) {
 			const {confirmPassword, ...sentData} = formData;
@@ -59,7 +57,6 @@ function SignupFormModal() {
 			if (data.errors) {
 				setErrors(data.errors);
 				setFormData({...formData, password:"", confirmPassword:""})
-				setSubmitted(true)
 			} else {
 				closeModal();
 				history.push('/')

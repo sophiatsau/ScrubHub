@@ -1,5 +1,47 @@
+#view-current-addresses-container>h1 {
+    margin-bottom: 15px;
+    /* border: 1px green solid; */
+}
+
+#view-current-addresses-container {
+    width: 100%;
+    /* border: 1px blue solid; */
+
+}
+
+.current-addresses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    /* border: 1px red solid; */
+}
+
 .address-card {
-    border: var(--cardBorder);
+    padding: 15px;
+    border: 1px var(--boxShadowColor) solid;
     border-radius: var(--cardBorderRadius);
-    width: 500px;
+    width: 400px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    gap: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.address-card:hover {
+    background-color: var(--backgroundColorLighter);
+    border: 1px var(--highlightColor) solid;
+}
+
+.address-card-buttons {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    column-gap: 5px;
+    width: 100%;
 }

@@ -4,6 +4,19 @@
     padding: 20px 0;
 }
 
+.add-new-button {
+    margin-top: 10px;
+    color: var(--highlightColor);
+    background-color: transparent;
+    text-align: left;
+    width: max-content;
+}
+
+.add-new-button:hover {
+    color: var(--highlightColorDarker);
+    font-weight: bold;
+}
+
 /************** SIDEBAR *************************/
 #sidebar-container {
     position: fixed;
