@@ -16,8 +16,6 @@ export default function AddressCard({address}) {
 
         if (res.errors) {
             alert(Object.values(res.errors).join(" ")+" "+"Please refresh the page and try again later.")
-        } else {
-            alert("Address successfully removed!")
         }
 
         closeModal()
@@ -35,7 +33,7 @@ export default function AddressCard({address}) {
                     className={"purple-button"}
                 />
                 <OpenModalButton
-                    modalComponent={<DeleteConfirmationModal itemName={"Address"} deleteFunction={deleteAddress}/>}
+                    modalComponent={<DeleteConfirmationModal itemType={"Address"} deleteFunction={deleteAddress} itemName={address.name}/>}
                     buttonText={"Remove"}
                     className={"light-button"}
                 />
