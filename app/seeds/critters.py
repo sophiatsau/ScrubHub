@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 # critters info
 NAMES=["Turtle F", "Frilled Lizards 2yr M", "Snakes", "Frogs", "Kangaroo 1yr M"]
 SPECIES=["Chrysemys picta", "Chlamydosaurus Kingii", "Pantherophis guttatus", "Dryophytes cinereus", "Osphranter rufus"]
-CATEGORIES=["Reptile","Reptile","Reptile","Amphibians", "Other Mammals"]
+CATEGORIES=["Reptiles","Reptiles","Reptiles","Amphibians", "Other Mammals"]
 PREVIEW_IMAGES=["https://crittr-images.s3.us-west-1.amazonaws.com/turtle.webp", None, None, "https://crittr-images.s3.us-west-1.amazonaws.com/hop-grid.jpg", "https://crittr-images.s3.us-west-1.amazonaws.com/hop-cover.jpg"]
 DESCRIPTIONS=["A little turtle", None, "Hsssss", "Green. Comes in all genders and ages.", "He definitely did not kick a toddler in the face when I took him grocery shopping last week"]
 
