@@ -3,7 +3,6 @@ from wtforms import StringField, IntegerField, TextAreaField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, NumberRange, Optional
 from flask_wtf.file import FileField, FileAllowed
 
-from app.models import Shop
 from .utils import is_valid_us_zip, is_valid_us_number
 from ..api.utils import ALLOWED_EXTENSIONS
 

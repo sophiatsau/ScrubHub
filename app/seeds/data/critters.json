@@ -39,5 +39,103 @@
     {"name": "Betta Fish", "species": "Betta splendens", "description": "Colorful freshwater fish with flowing fins.", "price": 14.99, "stock": 40, "storeId": 2, "category": "Fish"},
     {"name": "Chameleon", "species": "Chamaeleonidae", "description": "Lizard known for its ability to change color.", "price": 29.50, "stock": 18, "storeId": 10, "category": "Reptiles"},
     {"name": "Hedgehog", "species": "Erinaceidae", "description": "Spiny mammal known for its distinctive coat.", "price": 30.75, "stock": 25, "storeId": 15, "category": "Other Mammals"},
-    {"name": "Bald Eagle", "species": "Haliaeetus leucocephalus", "description": "Large bird of prey known for its bald head.", "price": 110.00, "stock": 15, "storeId": 8, "category": "Birds"}
+    {"name": "Bald Eagle", "species": "Haliaeetus leucocephalus", "description": "Large bird of prey known for its bald head.", "price": 110.00, "stock": 15, "storeId": 8, "category": "Birds"},
+    {
+        "name": "Great Dane",
+        "species": "Canis lupus familiaris",
+        "description": "Giant dog breed known for its imposing size and gentle nature.",
+        "price": 150.00,
+        "stock": 5,
+        "storeId": 18,
+        "category": "Dogs"
+    },
+    {
+        "name": "Hamster",
+        "species": "Mesocricetus auratus",
+        "description": "Small rodent with a short tail and cheek pouches.",
+        "price": 14.75,
+        "stock": 40,
+        "storeId": 1,
+        "category": "Rodents"
+    },
+    {
+        "name": "Abyssinian Cat",
+        "species": "Felis catus",
+        "description": "Short-haired cat breed with a ticked coat.",
+        "price": 92.25,
+        "stock": 18,
+        "storeId": 10,
+        "category": "Cats"
+    },
+    {
+        "name": "Guinea Pig",
+        "species": "Cavia porcellus",
+        "description": "Small rodent with a gentle disposition.",
+        "price": 19.99,
+        "stock": 35,
+        "storeId": 13,
+        "category": "Rodents"
+    },
+    {
+        "name": "Guppy",
+        "species": "Poecilia reticulata",
+        "description": "Colorful freshwater fish with a variety of tail shapes.",
+        "price": 8.50,
+        "stock": 50,
+        "storeId": 7,
+        "category": "Fish"
+    },
+    {
+        "name": "Box Turtle",
+        "species": "Terrapene",
+        "description": "Land-dwelling turtle with a hinged shell.",
+        "price": 32.25,
+        "stock": 20,
+        "storeId": 16,
+        "category": "Reptiles"
+    },
+    {
+        "name": "Hammerhead Shark",
+        "species": "Sphyrnidae",
+        "description": "Distinctive shark with a flattened head.",
+        "price": 85.80,
+        "stock": 8,
+        "storeId": 17,
+        "category": "Marines"
+    },
+    {
+        "name": "Corn Snake",
+        "species": "Pantherophis guttatus",
+        "description": "Nonvenomous constrictor snake with attractive patterns.",
+        "price": 38.20,
+        "stock": 15,
+        "storeId": 13,
+        "category": "Reptiles"
+    },
+    {
+        "name": "Poodle",
+        "species": "Canis lupus familiaris",
+        "description": "Toy breed known for its curly coat and intelligence.",
+        "price": 95.50,
+        "stock": 10,
+        "storeId": 5,
+        "category": "Dogs"
+    },
+    {
+        "name": "Sugar Glider",
+        "species": "Petaurus breviceps",
+        "description": "Small, nocturnal gliding possum with a membrane between its forelimbs and hindlimbs.",
+        "price": 42.99,
+        "stock": 15,
+        "storeId": 20,
+        "category": "Other Mammals"
+    },
+    {
+        "name": "Green Iguana",
+        "species": "Iguana iguana",
+        "description": "Large herbivorous lizard with a distinctive green coloration.",
+        "price": 49.99,
+        "stock": 0,
+        "category": "Reptiles"
+    }
 ]
