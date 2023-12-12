@@ -7,6 +7,11 @@ def is_valid_us_zip(form, field):
       raise ValidationError("Zip code is in the wrong format (use XXXXX or XXXXX-XXXX)")
 
 
+def is_valid_us_number(form, field):
+   if not re.search("^\(\d{3}\) \d{3}-\d{4}$", field.data):
+      raise ValidationError("Phone number is in the wrong format. Please format your number as (XXX) XXX-XXXX")
+
+
 #not working
 def value_exists_in_table(field_name, model, msg):
    """
