@@ -446,6 +446,16 @@
         "category": "Reptiles"
     },
     {
+        "name": "Brazilian Black Tarantula",
+        "species": "Grammostola pulchra",
+        "description": "Big black spider, very gentle nature, Male",
+        "price": 49.99,
+        "stock": 1,
+        "storeId": 16,
+        "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/cute.jpg",
+        "category": "Arthropods"
+    },
+    {
         "name": "Horse",
         "species": "Equus ferus caballus",
         "description": "Please let me sent my horse to your home instead of the glue factory.",
