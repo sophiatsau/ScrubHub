@@ -191,6 +191,7 @@ a {
     font-weight: bold;
     font-size: var(--fontSize);
     text-align: left;
+    height: 15px;
 }
 
 .purple {
