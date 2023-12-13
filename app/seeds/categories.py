@@ -10,6 +10,7 @@ CATEGORIES = [
     "Birds",
     "Cats",
     "Dogs",
+    "Fish",
     "Marines",
     "Other Mammals",
     "Other Critters",
