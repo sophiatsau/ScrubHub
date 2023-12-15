@@ -460,6 +460,16 @@
         "category": "Dogs"
     },
     {
+        "name": "Poodle",
+        "species": "Canis lupus familiaris",
+        "description": "floofy boi",
+        "price": 70.50,
+        "stock": 0,
+        "shopId": 3,
+        "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/poodle-cover.jpg",
+        "category": "Dogs"
+    },
+    {
         "name": "Sugar Glider",
         "species": "Petaurus breviceps",
         "description": "Small, nocturnal gliding possum with a membrane between its forelimbs and hindlimbs.",
