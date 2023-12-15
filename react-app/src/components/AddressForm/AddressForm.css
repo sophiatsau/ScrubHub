@@ -9,7 +9,7 @@
 .address-form {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    /* gap: 5px; */
     width: 400px;
 }
 
@@ -18,10 +18,11 @@
     flex-direction: column;
     gap: 3px;
     width: 100%;
+    font-weight: bold;
 }
 
 .address-form-button {
     margin-top: 10px;
     padding: 8px;
-    background-color: red;
+    /* background-color: red; */
 }

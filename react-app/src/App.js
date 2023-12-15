@@ -13,6 +13,7 @@ import ShopByCategory from "./components/ShopByCategory";
 import ShopsViewAll from "./components/ShopsViewAll";
 import AddressViewCurrent from "./components/AddressViewCurrent";
 import UserProfile from "./components/UserProfile";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <div style={{height: "40px"}}/>
       {isLoaded && (<div className="main-container">
         <Switch>
           <Route exact path="/">
@@ -44,6 +46,8 @@ function App() {
           <Route>404 Page Not Found</Route>
         </Switch>
       </div>)}
+      <div style={{height: "100px"}}/>
+      < Footer />
     </>
   );
 }

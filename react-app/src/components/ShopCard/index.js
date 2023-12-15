@@ -22,7 +22,6 @@ export default function ShopCard({shop}) {
       alert(Object.values(res.errors).join(" ")+" "+"Please refresh the page and try again later.")
     } else {
       dispatch(deleteUserShop(shop.id))
-      alert("Shop successfully removed!")
     }
 
     closeModal()
@@ -33,25 +32,22 @@ export default function ShopCard({shop}) {
     <div className='shop-card-container'>
       <Link to={`/shops/${shop.id}`}>
         <img className="shop-card-img" src={shop.searchImageUrl} alt={shop.name}/>
-        <div>
-          <span>{shop.name}</span>
-          <span><DisplayPriceRange priceRange={shop.priceRange}/></span>
+        <div className='shop-card-info'>
+          <span className='bold'>{shop.name}</span>
+          <span className='shop-card-price'><DisplayPriceRange priceRange={shop.priceRange}/></span>
           {/* <span>{shop.rating}</span>*/}
-          <span>{shop.categories.map(cat=>(
-            <span key={cat}>
-              {cat}
-            </span>
-          ))}</span>
         </div>
+        <span className='light shop-card-categories'>{shop.categories.join(', ')}</span>
       </Link>
       {sessionUser && sessionUser.id===shop.userId && (
       <div className="shop-owner-buttons">
         <Link to={`/profile/shops/${shop.id}/edit`}>
-          <button>Edit Shop</button>
+          <button className='purple-button'>Edit Shop</button>
         </Link>
         <OpenModalButton
-          modalComponent={<DeleteConfirmationModal itemName={"Shop"} deleteFunction={deleteShop}/>}
+          modalComponent={<DeleteConfirmationModal itemName={shop.name} itemType={"Shop"} deleteFunction={deleteShop}/>}
           buttonText={"Delete"}
+          className="light-button delete-button"
         />
       </div>
       )}

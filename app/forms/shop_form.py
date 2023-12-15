@@ -3,8 +3,7 @@ from wtforms import StringField, IntegerField, TextAreaField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, NumberRange, Optional
 from flask_wtf.file import FileField, FileAllowed
 
-from app.models import Shop
-from .utils import is_valid_us_zip
+from .utils import is_valid_us_zip, is_valid_us_number
 from ..api.utils import ALLOWED_EXTENSIONS
 
 class ShopForm(FlaskForm):
@@ -16,7 +15,7 @@ class ShopForm(FlaskForm):
     priceRange = IntegerField(validators=[DataRequired(), NumberRange(1,5, "Please select a price range for your critters.")])
     businessHours = StringField(validators=[DataRequired(), Length(max=255)])
     email = StringField(validators=[Optional(), Email("Email is invalid.")])
-    phoneNumber = StringField(validators=[Optional(), Length(min=10, max=14)])
+    phoneNumber = StringField(validators=[Optional(), Length(min=10, max=14), is_valid_us_number])
     description = TextAreaField(validators=[Optional(), Length(max=5000)])
     coverImageUrl = FileField(validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     businessImageUrl = FileField(validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])

@@ -6,7 +6,6 @@
 #view-current-addresses-container {
     width: 100%;
     /* border: 1px blue solid; */
-
 }
 
 .current-addresses-container {
@@ -19,11 +18,11 @@
 }
 
 .address-card {
-    padding: 15px;
+    padding: 20px 15px;
     border: 1px var(--boxShadowColor) solid;
     border-radius: var(--cardBorderRadius);
     width: 420px;
-    height: 150px;
+    height: 180px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

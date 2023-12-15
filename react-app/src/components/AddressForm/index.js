@@ -86,7 +86,7 @@ export default function AddressForm({address}) {
 					value={formData.name}
 					onChange={handleInputChange}
 				/>
-				{submitted && errors.name && <div className='error'>{errors.name}</div>}
+				<div className='error'>{submitted && errors.name}</div>
 			</label>
 			<label>
 				Address
@@ -96,7 +96,7 @@ export default function AddressForm({address}) {
 					value={formData.address}
 					onChange={handleInputChange}
 				/>
-				{submitted && errors.address && <div className='error'>{errors.address}</div>}
+				<div className='error'>{submitted && errors.address}</div>
 			</label>
 			<label>
 				City
@@ -106,7 +106,7 @@ export default function AddressForm({address}) {
 					value={formData.city}
 					onChange={handleInputChange}
 				/>
-				{submitted && errors.city && <div className='error'>{errors.city}</div>}
+				<div className='error'>{submitted && errors.city}</div>
 			</label>
 			<label>
 				State
@@ -116,7 +116,7 @@ export default function AddressForm({address}) {
 					value={formData.state}
 					onChange={handleInputChange}
 				/>
-				{submitted && errors.state && <div className='error'>{errors.state}</div>}
+				<div className='error'>{submitted && errors.state}</div>
 			</label>
 			<label>
 				Zip Code
@@ -127,7 +127,7 @@ export default function AddressForm({address}) {
 					onChange={handleInputChange}
 					placeholder="XXXXX or XXXXX-XXXX"
 				/>
-				{submitted && errors.zipCode && <div className='error'>{errors.zipCode}</div>}
+				<div className='error'>{submitted && errors.zipCode}</div>
 			</label>
       		<button type="submit"
 			className={buttonClass}
