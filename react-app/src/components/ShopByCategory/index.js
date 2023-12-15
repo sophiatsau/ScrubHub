@@ -9,7 +9,7 @@ export default function ShopByCategory() {
   // shops
 
   /*
-  category part of store: cat: {cat: [storeIds]}
+  category part of store: cat: {cat: [shopId]}
   */
 
   return (

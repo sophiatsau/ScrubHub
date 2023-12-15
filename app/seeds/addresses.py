@@ -1,6 +1,5 @@
 from app.models import db, Address, environment, SCHEMA
 from sqlalchemy.sql import text
-from .utils import generate_address
 import json
 
 # Adds addresses
@@ -17,23 +16,8 @@ def seed_addresses():
                 zipCode=address["zipCode"],
                 fullAddress=address["fullAddress"],
             )
-            # print(new_address.to_dict())
 
             db.session.add(new_address)
-
-    # [street_address, city, state, zip, fullAddress] = generate_address()
-
-    # for i in range(5):
-    #     new_address = Address(
-    #         userId=i+1,
-    #         name="Home",
-    #         address=street_address,
-    #         city=city,
-    #         state=state,
-    #         zipCode=zip,
-    #         fullAddress=fullAddress,
-    #     )
-    #     db.session.add(new_address)
 
     db.session.commit()
 

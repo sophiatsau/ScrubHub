@@ -5,7 +5,7 @@
         "description": "The king of the jungle.",
         "price": 75.99,
         "stock": 25,
-        "storeId": 5,
+        "shopId": 5,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/lion-square.webp",
         "category": "Other Mammals"},
     {
@@ -14,7 +14,8 @@
         "description": "Striped feline with a powerful roar.",
         "price": 89.50,
         "stock": 18,
-        "storeId": 5,
+        "shopId": 5,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Elephant",
@@ -22,7 +23,8 @@
         "description": "Gentle giant of the savanna.",
         "price": 120.75,
         "stock": 30,
-        "storeId": 13,
+        "shopId": 13,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Blue Jay",
@@ -30,7 +32,8 @@
         "description": "Vibrant blue bird with distinctive markings.",
         "price": 18.25,
         "stock": 45,
-        "storeId": 1,
+        "shopId": 1,
+        "previewImageUrl": null,
         "category": "Birds"},
     {
         "name": "Goldfish",
@@ -38,7 +41,7 @@
         "description": "Small freshwater fish with golden scales.",
         "price": 9.99,
         "stock": 50,
-        "storeId": 6,
+        "shopId": 6,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/goldfish-cover.webp",
         "category": "Fish"},
     {
@@ -47,7 +50,7 @@
         "description": "Amphibian known for its distinctive croaking.",
         "price": 12.50,
         "stock": 28,
-        "storeId": 10,
+        "shopId": 10,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/hop-grid.jpg",
         "category": "Amphibians"},
     {
@@ -56,7 +59,8 @@
         "description": "Large hairy arachnid with eight legs.",
         "price": 45.20,
         "stock": 15,
-        "storeId": 6,
+        "shopId": 6,
+        "previewImageUrl": null,
         "category": "Arthropods"},
     {
         "name": "Siberian Husky",
@@ -64,7 +68,7 @@
         "description": "Medium-sized working dog breed.",
         "price": 129.99,
         "stock": 10,
-        "storeId": 2,
+        "shopId": 2,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/husky-search.webp",
         "category": "Dogs"},
     {
@@ -73,7 +77,8 @@
         "description": "Nonvenomous constrictor snake with a distinctive pattern.",
         "price": 55.50,
         "stock": 20,
-        "storeId": 10,
+        "shopId": 10,
+        "previewImageUrl": null,
         "category": "Reptiles"},
     {
         "name": "Bengal Cat",
@@ -81,7 +86,7 @@
         "description": "Domestic cat breed with distinctive spotted coat.",
         "price": 98.75,
         "stock": 12,
-        "storeId": 4,
+        "shopId": 4,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/bengal-cat-profile.jpg",
         "category": "Cats"},
     {
@@ -90,7 +95,8 @@
         "description": "Semiaquatic turtle with a red stripe on each side of its head.",
         "price": 35.30,
         "stock": 22,
-        "storeId": 15,
+        "shopId": 15,
+        "previewImageUrl": null,
         "category": "Reptiles"},
     {
         "name": "Macaw",
@@ -98,7 +104,8 @@
         "description": "Colorful parrot with long tail feathers.",
         "price": 75.60,
         "stock": 15,
-        "storeId": 20,
+        "shopId": 20,
+        "previewImageUrl": null,
         "category": "Birds"},
     {
         "name": "Betta Fish",
@@ -106,7 +113,7 @@
         "description": "Colorful freshwater fish with flowing fins.",
         "price": 14.99,
         "stock": 40,
-        "storeId": 8,
+        "shopId": 8,
         "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/betta-square.jpg",
         "category": "Fish"},
     {
@@ -115,7 +122,8 @@
         "description": "Lizard known for its ability to change color.",
         "price": 29.50,
         "stock": 17,
-        "storeId": 2,
+        "shopId": 2,
+        "previewImageUrl": null,
         "category": "Reptiles"},
     {
         "name": "Giraffe",
@@ -123,7 +131,8 @@
         "description": "Tall African mammal with a long neck.",
         "price": 110.00,
         "stock": 13,
-        "storeId": 4,
+        "shopId": 4,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Kangaroo",
@@ -132,7 +141,7 @@
         "description": "Marsupial known for hopping on hind legs.",
         "price": 65.25,
         "stock": 30,
-        "storeId": 5,
+        "shopId": 5,
         "category": "Other Mammals"
     },
     {
@@ -141,7 +150,8 @@
         "description": "Flightless bird with a distinctive black and white coloration.",
         "price": 22.75,
         "stock": 25,
-        "storeId": 1,
+        "shopId": 1,
+        "previewImageUrl": null,
         "category": "Birds"},
     {
         "name": "Dolphin",
@@ -149,7 +159,8 @@
         "description": "Intelligent marine mammal with a curved dorsal fin.",
         "price": 90.50,
         "stock": 12,
-        "storeId": 11,
+        "shopId": 11,
+        "previewImageUrl": null,
         "category": "Marines"},
     {
         "name": "Hippopotamus",
@@ -157,7 +168,8 @@
         "description": "Large herbivorous mammal known for its semi-aquatic lifestyle.",
         "price": 105.80,
         "stock": 18,
-        "storeId": 13,
+        "shopId": 13,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Koala",
@@ -165,7 +177,8 @@
         "description": "Marsupial herbivore native to Australia.",
         "price": 45.00,
         "stock": 22,
-        "storeId": 5,
+        "shopId": 5,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Zebra",
@@ -173,7 +186,8 @@
         "description": "African equid known for its distinctive black and white stripes.",
         "price": 88.25,
         "stock": 15,
-        "storeId": 13,
+        "shopId": 13,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Panda",
@@ -181,7 +195,8 @@
         "description": "Bear native to south-central China, known for its black and white coloration.",
         "price": 110.00,
         "stock": 10,
-        "storeId": 5,
+        "shopId": 5,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Arctic Fox",
@@ -189,7 +204,8 @@
         "description": "Adapted to cold environments, known for its thick fur.",
         "price": 75.00,
         "stock": 15,
-        "storeId": 1,
+        "shopId": 1,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Kangaroo Rat",
@@ -197,7 +213,7 @@
         "description": "Small rodent native to North America, known for its long hind legs.",
         "price": 30.00,
         "stock": 20,
-        "storeId": 14,
+        "shopId": 14,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/hop-square.jpg",
         "category": "Rodents"},
     {
@@ -206,7 +222,7 @@
         "description": "Hairless cat breed known for its distinctive appearance.",
         "price": 120.00,
         "stock": 8,
-        "storeId": 4,
+        "shopId": 4,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/spinx-cat-cover.webp",
         "category": "Cats"},
     {
@@ -215,7 +231,8 @@
         "description": "Small lizard with sticky toe pads, found in warm climates.",
         "price": 40.50,
         "stock": 25,
-        "storeId": 17,
+        "shopId": 17,
+        "previewImageUrl": null,
         "category": "Reptiles"},
     {
         "name": "Siamese Fighting Fish",
@@ -223,7 +240,7 @@
         "description": "Colorful freshwater fish known for its aggressive behavior.",
         "price": 18.99,
         "stock": 30,
-        "storeId": 6,
+        "shopId": 6,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/betta-square.jpg",
         "category": "Fish"},
     {
@@ -232,7 +249,8 @@
         "description": "Lizard known for its distinctive beard and spiky appearance.",
         "price": 55.80,
         "stock": 18,
-        "storeId": 18,
+        "shopId": 18,
+        "previewImageUrl": null,
         "category": "Reptiles"},
     {
         "name": "Pomeranian",
@@ -240,7 +258,7 @@
         "description": "Small dog breed known for its fluffy coat and lively personality.",
         "price": 95.00,
         "stock": 12,
-        "storeId": 9,
+        "shopId": 9,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/pomeranian-cover.jpg",
         "category": "Dogs"},
     {
@@ -249,7 +267,8 @@
         "description": "Aquatic salamander with unique regenerative abilities.",
         "price": 35.75,
         "stock": 22,
-        "storeId": 10,
+        "shopId": 10,
+        "previewImageUrl": null,
         "category": "Amphibians"},
     {
         "name": "Great White Shark",
@@ -257,7 +276,7 @@
         "description": "Large predatory marine fish with a fearsome reputation.",
         "price": 150.00,
         "stock": 8,
-        "storeId": 11,
+        "shopId": 11,
         "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/shark-square.webp",
         "category": "Marines"},
     {
@@ -266,7 +285,8 @@
         "description": "Small parrot known for its vibrant plumage.",
         "price": 25.50,
         "stock": 25,
-        "storeId": 1,
+        "shopId": 1,
+        "previewImageUrl": null,
         "category": "Birds"},
     {
         "name": "Axolotl",
@@ -274,7 +294,8 @@
         "description": "Aquatic salamander with unique regenerative abilities.",
         "price": 35.75,
         "stock": 22,
-        "storeId": 15,
+        "shopId": 15,
+        "previewImageUrl": null,
         "category": "Amphibians"},
     {
         "name": "Siamese Cat",
@@ -282,7 +303,7 @@
         "description": "Domestic cat breed known for its sleek coat and distinctive color points.",
         "price": 85.00,
         "stock": 15,
-        "storeId": 19,
+        "shopId": 19,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/kitten-grid.jpg",
         "category": "Cats"},
     {
@@ -291,7 +312,8 @@
         "description": "Venomous snake known for its rattling tail.",
         "price": 45.25,
         "stock": 20,
-        "storeId": 17,
+        "shopId": 17,
+        "previewImageUrl": null,
         "category": "Reptiles"},
     {
         "name": "Cockatoo",
@@ -299,7 +321,8 @@
         "description": "Large parrot with a distinctive crest.",
         "price": 60.80,
         "stock": 18,
-        "storeId": 1,
+        "shopId": 1,
+        "previewImageUrl": null,
         "category": "Birds"},
     {
         "name": "Red Panda",
@@ -307,7 +330,8 @@
         "description": "Small arboreal mammal native to the eastern Himalayas.",
         "price": 95.00,
         "stock": 12,
-        "storeId": 13,
+        "shopId": 13,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Betta Fish",
@@ -315,7 +339,7 @@
         "description": "Colorful freshwater fish with flowing fins.",
         "price": 14.99,
         "stock": 40,
-        "storeId": 6,
+        "shopId": 6,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/betta-cover.jpg",
         "category": "Fish"},
     {
@@ -324,7 +348,8 @@
         "description": "Lizard known for its ability to change color.",
         "price": 29.50,
         "stock": 18,
-        "storeId": 18,
+        "shopId": 18,
+        "previewImageUrl": null,
         "category": "Reptiles"},
     {
         "name": "Hedgehog",
@@ -332,7 +357,8 @@
         "description": "Spiny mammal known for its distinctive coat.",
         "price": 30.75,
         "stock": 25,
-        "storeId": 1,
+        "shopId": 1,
+        "previewImageUrl": null,
         "category": "Other Mammals"},
     {
         "name": "Bald Eagle",
@@ -340,7 +366,8 @@
         "description": "Large bird of prey known for its bald head.",
         "price": 110.00,
         "stock": 15,
-        "storeId": 20,
+        "shopId": 20,
+        "previewImageUrl": null,
         "category": "Birds"},
     {
         "name": "Great Dane",
@@ -348,7 +375,7 @@
         "description": "Giant dog breed known for its imposing size and gentle nature.",
         "price": 150.00,
         "stock": 5,
-        "storeId": 14,
+        "shopId": 14,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/great-dane-square.webp",
         "category": "Dogs"
     },
@@ -358,7 +385,8 @@
         "description": "Small rodent with a short tail and cheek pouches.",
         "price": 14.75,
         "stock": 40,
-        "storeId": 19,
+        "shopId": 19,
+        "previewImageUrl": null,
         "category": "Rodents"
     },
     {
@@ -367,7 +395,7 @@
         "description": "Short-haired cat breed with a ticked coat.",
         "price": 92.25,
         "stock": 18,
-        "storeId": 4,
+        "shopId": 4,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/kitten-cover.jpg",
         "category": "Cats"
     },
@@ -377,7 +405,8 @@
         "description": "Small rodent with a gentle disposition.",
         "price": 19.99,
         "stock": 35,
-        "storeId": 15,
+        "shopId": 15,
+        "previewImageUrl": null,
         "category": "Rodents"
     },
     {
@@ -386,7 +415,8 @@
         "description": "Colorful freshwater fish with a variety of tail shapes.",
         "price": 8.50,
         "stock": 50,
-        "storeId": 8,
+        "shopId": 8,
+        "previewImageUrl": null,
         "category": "Fish"
     },
     {
@@ -395,7 +425,7 @@
         "description": "Land-dwelling turtle with a hinged shell.",
         "price": 32.25,
         "stock": 20,
-        "storeId": 15,
+        "shopId": 15,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/turtle.webp",
         "category": "Reptiles"
     },
@@ -405,7 +435,8 @@
         "description": "Distinctive shark with a flattened head.",
         "price": 85.80,
         "stock": 8,
-        "storeId": 11,
+        "shopId": 11,
+        "previewImageUrl": null,
         "category": "Marines"
     },
     {
@@ -414,7 +445,8 @@
         "description": "Nonvenomous constrictor snake with attractive patterns.",
         "price": 38.20,
         "stock": 15,
-        "storeId": 10,
+        "shopId": 10,
+        "previewImageUrl": null,
         "category": "Reptiles"
     },
     {
@@ -423,7 +455,7 @@
         "description": "Toy breed known for its curly coat and intelligence.",
         "price": 95.50,
         "stock": 10,
-        "storeId": 12,
+        "shopId": 12,
         "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/poodle-cover.jpg",
         "category": "Dogs"
     },
@@ -433,7 +465,8 @@
         "description": "Small, nocturnal gliding possum with a membrane between its forelimbs and hindlimbs.",
         "price": 42.99,
         "stock": 15,
-        "storeId": 5,
+        "shopId": 5,
+        "previewImageUrl": null,
         "category": "Other Mammals"
     },
     {
@@ -442,7 +475,8 @@
         "description": "Large herbivorous lizard with a distinctive green coloration.",
         "price": 49.99,
         "stock": 0,
-        "storeId": 18,
+        "shopId": 18,
+        "previewImageUrl": null,
         "category": "Reptiles"
     },
     {
@@ -451,7 +485,7 @@
         "description": "Big black spider, very gentle nature, Male",
         "price": 49.99,
         "stock": 1,
-        "storeId": 16,
+        "shopId": 16,
         "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/cute.jpg",
         "category": "Arthropods"
     },
@@ -461,7 +495,7 @@
         "description": "Please let me sent my horse to your home instead of the glue factory.",
         "price": 49.99,
         "stock": 1,
-        "storeId": 7,
+        "shopId": 7,
         "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/horse.webp",
         "category": "Other Mammals"
     }
