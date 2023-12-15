@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: 1506e8f9acf5
-Revises: 
+Revises:
 Create Date: 2023-12-08 12:51:52.883850
 
 """
@@ -83,10 +83,10 @@ def upgrade():
     )
     op.create_table('shop_categories',
     sa.Column('shopId', sa.Integer(), nullable=False),
-    sa.Column('categoryId', sa.String(), nullable=False),
-    sa.ForeignKeyConstraint(['categoryId'], ['categories.name'], ),
+    sa.Column('categoryName', sa.String(), nullable=False),
+    sa.ForeignKeyConstraint(['categoryName'], ['categories.name'], ),
     sa.ForeignKeyConstraint(['shopId'], ['shops.id'], ),
-    sa.PrimaryKeyConstraint('shopId', 'categoryId')
+    sa.PrimaryKeyConstraint('shopId', 'categoryName')
     )
     # ### end Alembic commands ###
 
