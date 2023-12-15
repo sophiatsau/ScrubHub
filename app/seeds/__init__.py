@@ -4,6 +4,7 @@ from .users import seed_users, undo_users
 from .shops import seed_shops, undo_shops
 from .addresses import seed_addresses, undo_addresses
 from .critters import seed_critters, undo_critters
+from .shop_categories import seed_shop_categories, undo_shop_categories
 
 from app.models.db import db, environment, SCHEMA
 
@@ -21,6 +22,7 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_critters()
+        undo_shop_categories()
         undo_shops()
         undo_addresses()
         undo_users()
@@ -30,6 +32,7 @@ def seed():
     seed_users()
     seed_addresses()
     seed_shops()
+    seed_shop_categories()
     seed_critters()
     # Add other seed functions here
 
@@ -38,6 +41,7 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_critters()
+    undo_shop_categories()
     undo_shops()
     undo_addresses()
     undo_users()
