@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 1506e8f9acf5
-Revises:
-Create Date: 2023-12-08 12:51:52.883850
+Revision ID: 127134ccfddd
+Revises: 
+Create Date: 2023-12-15 09:45:17.943183
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1506e8f9acf5'
+revision = '127134ccfddd'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,11 +37,11 @@ def upgrade():
     op.create_table('addresses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=255), nullable=False),
+    sa.Column('name', sa.String(length=40), nullable=False),
     sa.Column('fullAddress', sa.String(length=255), nullable=False),
-    sa.Column('address', sa.String(length=255), nullable=False),
-    sa.Column('city', sa.String(length=255), nullable=False),
-    sa.Column('state', sa.String(length=255), nullable=False),
+    sa.Column('address', sa.String(length=50), nullable=False),
+    sa.Column('city', sa.String(length=50), nullable=False),
+    sa.Column('state', sa.String(length=50), nullable=False),
     sa.Column('zipCode', sa.String(length=10), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -83,10 +83,10 @@ def upgrade():
     )
     op.create_table('shop_categories',
     sa.Column('shopId', sa.Integer(), nullable=False),
-    sa.Column('categoryId', sa.String(), nullable=False),
-    sa.ForeignKeyConstraint(['categoryId'], ['categories.name'], ),
+    sa.Column('categoryName', sa.String(), nullable=False),
+    sa.ForeignKeyConstraint(['categoryName'], ['categories.name'], ),
     sa.ForeignKeyConstraint(['shopId'], ['shops.id'], ),
-    sa.PrimaryKeyConstraint('shopId', 'categoryId')
+    sa.PrimaryKeyConstraint('shopId', 'categoryName')
     )
     # ### end Alembic commands ###
 
