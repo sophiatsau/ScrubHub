@@ -3,6 +3,7 @@ from sqlalchemy.sql import text
 from faker import Faker
 import random
 from .utils import generate_address, generate_numbers
+import json
 
 fake = Faker()
 
@@ -101,44 +102,70 @@ Sun Closed''',
 
 # Adds shops
 def seed_shops():
-    [amphibian, arthropod, bird, cat, dog, fish, marine, critter, mammal, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
+    # [amphibian, arthropod, bird, cat, dog, fish, marine, critter, mammal, rabbit, reptile, rodent] = Category.query.order_by(Category.name)
 
-    associations = [
-        [reptile,arthropod,bird],
-        [amphibian,arthropod,rabbit,rodent,mammal,critter],
-        [mammal],
-        [dog],
-        [mammal],
-        [marine,mammal],
-        [marine],
-        [bird],
-        [mammal],
-        [cat]
-    ]
+    # associations = [
+    #     [reptile,arthropod,bird],
+    #     [amphibian,arthropod,rabbit,rodent,mammal,critter],
+    #     [mammal],
+    #     [dog],
+    #     [mammal],
+    #     [marine,mammal],
+    #     [marine],
+    #     [bird],
+    #     [mammal],
+    #     [cat]
+    # ]
 
-    for i in range(n):
-        [street_address, city, state, zip, _] = generate_address()
+    # for i in range(n):
+    #     [street_address, city, state, zip, _] = generate_address()
 
-        new_shop = Shop(
-            userId = SHOP_OWNERS[i],
-            name=SHOP_NAMES[i],
-            address=street_address,
-            city=city,
-            state=state,
-            zipCode=zip,
-            priceRange=random.randint(1,4),
-            businessHours=random.choice(HOURS),
-            email=EMAILS[i],
-            phoneNumber=NUMBERS[i],
-            description=DESCRIPTIONS[i],
-            searchImageUrl=SEARCH_IMAGES[i],
-            coverImageUrl=COVER_IMAGES[i],
-            businessImageUrl=PROFILE_IMAGES[i],
-            pickup=random.getrandbits(1),
-            delivery=random.getrandbits(1),
-        )
-        new_shop.categories.extend(associations[i])
-        db.session.add(new_shop)
+    #     new_shop = Shop(
+    #         userId = SHOP_OWNERS[i],
+    #         name=SHOP_NAMES[i],
+    #         address=street_address,
+    #         city=city,
+    #         state=state,
+    #         zipCode=zip,
+    #         priceRange=random.randint(1,4),
+    #         businessHours=random.choice(HOURS),
+    #         email=EMAILS[i],
+    #         phoneNumber=NUMBERS[i],
+    #         description=DESCRIPTIONS[i],
+    #         searchImageUrl=SEARCH_IMAGES[i],
+    #         coverImageUrl=COVER_IMAGES[i],
+    #         businessImageUrl=PROFILE_IMAGES[i],
+    #         pickup=random.getrandbits(1),
+    #         delivery=random.getrandbits(1),
+    #     )
+    #     new_shop.categories.extend(associations[i])
+    #     db.session.add(new_shop)
+
+    # db.session.commit()
+
+    with open("app/seeds/data/shops.json", "r") as file:
+        data = json.load(file)
+        for shop in data:
+            new_address = Shop(
+                userId=shop["userId"],
+                name=shop["name"],
+                address=shop["address"],
+                city=shop["city"],
+                state=shop["state"],
+                zipCode=shop["zipCode"],
+                priceRange=shop["priceRange"],
+                businessHours=shop["businessHours"],
+                email=shop["email"],
+                phoneNumber=shop["phoneNumber"],
+                description=shop["description"],
+                searchImageUrl=shop["searchImageUrl"],
+                coverImageUrl=shop["coverImageUrl"],
+                businessImageUrl=shop["businessImageUrl"],
+                pickup=shop["pickup"],
+                delivery=shop["delivery"],
+            )
+
+            db.session.add(new_address)
 
     db.session.commit()
 

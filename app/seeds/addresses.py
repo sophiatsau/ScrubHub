@@ -1,6 +1,5 @@
 from app.models import db, Address, environment, SCHEMA
 from sqlalchemy.sql import text
-from .utils import generate_address
 import json
 
 # Adds addresses
