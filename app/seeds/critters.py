@@ -1,5 +1,6 @@
 from app.models import db, Critter, environment, SCHEMA
 from sqlalchemy.sql import text
+import json
 
 # critters info
 NAMES=["Turtle F", "Frilled Lizards 2yr M", "Snakes", "Frogs", "Kangaroo 1yr M"]
@@ -11,34 +12,40 @@ DESCRIPTIONS=["A little turtle", None, "Hsssss", "Green. Comes in all genders an
 # Adds critters
 def seed_critters():
     # critters for demo user
-    for i in range(3):
-        new_critter = Critter(
-            name=NAMES[i],
-            species=SPECIES[i],
-            shopId=1,
-            # userId=1,
-            price=(i+1)*15,
-            category=CATEGORIES[i],
-            previewImageUrl=PREVIEW_IMAGES[i],
-            description=DESCRIPTIONS[i],
-            stock=i*5,
-        )
-        db.session.add(new_critter)
+    # for i in range(3):
+    #     new_critter = Critter(
+    #         name=NAMES[i],
+    #         species=SPECIES[i],
+    #         shopId=1,
+    #         # userId=1,
+    #         price=(i+1)*15,
+    #         category=CATEGORIES[i],
+    #         previewImageUrl=PREVIEW_IMAGES[i],
+    #         description=DESCRIPTIONS[i],
+    #         stock=i*5,
+    #     )
+    #     db.session.add(new_critter)
 
-    # seeders for shop 2
-    for i in range(3,5):
-        new_critter = Critter(
-            name=NAMES[i],
-            species=SPECIES[i],
-            shopId=2,
-            # userId=2,
-            price=(i)*15,
-            category=CATEGORIES[i],
-            previewImageUrl=PREVIEW_IMAGES[i],
-            description=DESCRIPTIONS[i],
-            stock=[10,1][i-3],
-        )
-        db.session.add(new_critter)
+    # # seeders for shop 2
+    # for i in range(3,5):
+    #     new_critter = Critter(
+    #         name=NAMES[i],
+    #         species=SPECIES[i],
+    #         shopId=2,
+    #         # userId=2,
+    #         price=(i)*15,
+    #         category=CATEGORIES[i],
+    #         previewImageUrl=PREVIEW_IMAGES[i],
+    #         description=DESCRIPTIONS[i],
+    #         stock=[10,1][i-3],
+    #     )
+    #     db.session.add(new_critter)
+
+    with open("app/seeds/data/critters.json", "r") as file:
+        data = json.load(file)
+        db.session.execute(db.insert(Critter.__table__).values(data))
+
+        db.session.commit()
 
     db.session.commit()
 
