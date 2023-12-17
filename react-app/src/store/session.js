@@ -183,7 +183,8 @@ export default function reducer(state = initialState, action) {
 		case REMOVE_USER:
 			return { user: null, location: state.location };
 		case USER_ADD_SHOP:
-			return { ...state, user: {...state.user, shops:[...state.user.shops, parseInt(action.shopId)]} }
+			return { ...state, user: {...state.user,
+				shops:[...state.user.shops, parseInt(action.shopId)]} }
 		case DELETE_USER_SHOP: {
 			const newShops =  state.user.shops.filter(shopId => shopId !== parseInt(action.shopId))
 			return {...state, user: {...state.user, shops: newShops}}
