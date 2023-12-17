@@ -47,7 +47,11 @@ class Critter(db.Model):
             "previewImageUrl": self.previewImageUrl,
             "description": self.description,
             "stock": self.stock,
-            "shopName": self.shop.name,
+            # "shopName": self.shop.name,
+            # "shop": {
+            #     "id": self.shopId,
+            #     "name": self.shop.name,
+            # }
         }
 
         # if scope=="detailed":
