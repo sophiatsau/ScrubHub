@@ -10,11 +10,11 @@ export default function CritterDisplaySection({critters, heading}) {
         <>
         <h3>{heading}</h3>
         <section className='critter-display-card-container'>
-            {critters.map(critter => (
+            {critters.length ? critters.map(critter => (
                 <div key={critter.id}>
                 <CritterCard critter={critter}/>
                 </div>
-            ))}
+            )): "This shop is not selling any critters."}
         </section>
         </>
     )
