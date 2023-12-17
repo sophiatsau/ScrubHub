@@ -28,11 +28,10 @@ export default function CrittersViewCurrent() {
 
   const sortedCritters = {};
 
-  sessionUser.shops.forEach(shopId => sortedCritters[shops[shopId].name]=[])
+  sessionUser.shops.forEach(shopId => sortedCritters[shopId]=[])
 
   userCritters.forEach(critter => {
-    const shop = sortedCritters[critter.shopName];
-    shop.push(critter)
+    sortedCritters[critter.shopId].push(critter);
   })
 
   return (
@@ -41,9 +40,9 @@ export default function CrittersViewCurrent() {
         <div>
         {
             userCritters.length ?
-            Object.entries(sortedCritters).map(([name, critters]) => (
-                <div key={name}>
-                    <CritterDisplaySection critters={critters} heading={name} />
+            Object.entries(sortedCritters).map(([shopId, critters]) => (
+                <div key={shops[shopId].name}>
+                    <CritterDisplaySection critters={critters} heading={shops[shopId].name} />
                 </div>
             ))
             : <p>You are not selling any critters.</p>
