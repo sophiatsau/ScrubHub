@@ -3,3 +3,19 @@
     grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
+
+/* .critter-open-create-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    border-radius: 15px;
+    width: max-content;
+    color: var(--highlightColor);
+    background-color: transparent;
+}
+
+.critter-open-create-button:hover {
+    color: var(--highlightColorDarker);
+    font-weight: bold;
+} */
