@@ -26,7 +26,7 @@ export default function CrittersViewCurrent() {
 
   const userCritters = sessionUser.critters.map(critterId => critters[critterId])
 
-  if (userCritters.includes(undefined)) return <div>Loading critters...</div>
+  if (!shops || userCritters.includes(undefined)) return <div>Loading critters...</div>
 
   const sortedCritters = {};
 

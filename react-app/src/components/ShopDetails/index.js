@@ -6,7 +6,7 @@ import ShopDetailsProfile from './ShopDetailsProfile'
 import ShopDetailsNav from './ShopDetailsNav'
 import ShopDetailsCritters from './ShopDetailsCritters'
 import ShopDetailsAbout from './ShopDetailsAbout'
-import ShopDetailsReviews from './ShopDetailsReviews'
+// import ShopDetailsReviews from './ShopDetailsReviews'
 import "./ShopDetails.css"
 import { getShopCritters } from '../../store/critters'
 
@@ -31,7 +31,8 @@ export default function ShopDetails() {
         } else setIsLoaded(true);
     }, [shop, shopId, dispatch, history, isLoaded])
 
-    if (!isLoaded) return <div>Loading Shop...</div>
+    if (!isLoaded || !shop.critters) return <div>Loading Shop...</div>
+
 
     // const {name,
     //     address,
