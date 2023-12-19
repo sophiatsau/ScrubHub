@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 
 import { useModal } from "../../context/Modal";
-import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/session";
-import { getFullAddress } from '../../store/utils'
 
 import "./DeleteConfirmationModal.css";
 
