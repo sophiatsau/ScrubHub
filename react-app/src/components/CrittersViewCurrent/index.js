@@ -46,7 +46,7 @@ export default function CrittersViewCurrent() {
                 <div key={shopId}>
                     <CritterDisplaySection critters={critters} heading={shops[shopId].name} />
                     <OpenModalButton
-                      modalComponent={<CritterCreateModal/>}
+                      modalComponent={<CritterCreateModal shop={shops[shopId]}/>}
                       buttonText={"+ Add New Critter"}
                       className={"critter-open-create-button"}
                     />
