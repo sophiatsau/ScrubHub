@@ -6,12 +6,8 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import Landing from "./components/Landing";
 import ShopDetails from "./components/ShopDetails";
-import ShopsViewCurrent from "./components/ShopsViewCurrent";
-import ShopCreateForm from "./components/ShopCreateForm";
-import ShopEditForm from "./components/ShopEditForm";
 import ShopByCategory from "./components/ShopByCategory";
 import ShopsViewAll from "./components/ShopsViewAll";
-import AddressViewCurrent from "./components/AddressViewCurrent";
 import UserProfile from "./components/UserProfile";
 import Footer from "./components/Footer";
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux';
 
 import AddressForm from '../AddressForm';
@@ -15,7 +15,7 @@ export default function AddressCard({address}) {
         const res = await dispatch(thunkDeleteUserAddress(address.id));
 
         if (res.errors) {
-            alert(Object.values(res.errors).join(" ")+" "+"Please refresh the page and try again later.")
+            alert(Object.values(res.errors).join(" ")+" Please refresh the page and try again later.")
         }
 
         closeModal()
