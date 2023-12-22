@@ -210,15 +210,19 @@ def create_critter(shopId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        print("**********RECEIVED DATA", form.data)
         img = form.data["previewImageUrl"]
-        img.filename = get_unique_filename(img.filename)
-        upload = upload_file_to_s3(img)
-        if "url" not in upload:
-            # if no upload key, there was an error uploading.
-            return upload, 500
-        url = upload["url"]
 
-        form_data = {**form.data, "previewImageUrl": url}
+        if img:
+            img.filename = get_unique_filename(img.filename)
+            upload = upload_file_to_s3(img)
+            if "url" not in upload:
+                # if no upload key, there was an error uploading.
+                return upload, 500
+            url = upload["url"]
+
+        form_data = {**form.data, "previewImageUrl": url if img else None, "shopId": shopId,}
+        print("************FORM DATA*********", form_data)
 
         del form_data['csrf_token']
         del form_data["removePreview"]

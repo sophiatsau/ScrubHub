@@ -101,6 +101,9 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 required
             >
                 <option value="" disabled>Pick a Category</option>
+                {CATEGORIES.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                ))}
             </select>
             <div className='error'>{formErrors.category}</div>
         </label>
@@ -109,7 +112,6 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
             <input
                 type="file"
                 name="previewImageUrl"
-                value={formData.previewImageUrl}
                 onChange={handleFormUpdate}
                 onBlur={handleErrorsUpdate}
                 // accept="image"

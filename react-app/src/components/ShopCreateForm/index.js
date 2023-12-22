@@ -155,7 +155,8 @@ export default function ShopCreateForm() {
 
     for (let [key, value] of Object.entries(formData)) {
       allFormData.append(key, value)
-    }
+      console.log("🚀 ~ file: index.js:158 ~ handleSubmit ~ key, value:", key, value)
+    } return;
 
     // Loading message to let user know the data is being processed
     setImageLoading(true);
