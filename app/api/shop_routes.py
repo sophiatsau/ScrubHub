@@ -210,7 +210,6 @@ def create_critter(shopId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        print("**********RECEIVED DATA", form.data)
         img = form.data["previewImageUrl"]
 
         if img:
@@ -222,7 +221,6 @@ def create_critter(shopId):
             url = upload["url"]
 
         form_data = {**form.data, "previewImageUrl": url if img else None, "shopId": shopId,}
-        print("************FORM DATA*********", form_data)
 
         del form_data['csrf_token']
         del form_data["removePreview"]
