@@ -7,6 +7,7 @@ import ShopCreateForm from '../ShopCreateForm'
 import ShopEditForm from '../ShopEditForm'
 
 import "./UserProfile.css";
+import CrittersViewCurrent from '../CrittersViewCurrent'
 
 //TODO: user profile edit
 // user
@@ -30,7 +31,7 @@ export default function UserProfile() {
             <ShopEditForm />
         </Route>
         <Route exact path="/profile/critters">
-            You are not selling any critters.
+            <CrittersViewCurrent />
         </Route>
         <Route exact path="/profile/orders">
             You have not made any orders.

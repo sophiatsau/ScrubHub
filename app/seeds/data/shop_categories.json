@@ -1,0 +1,146 @@
+[
+    {
+        "shopId": 1,
+        "categoryName": "Birds"
+    },
+    {
+        "shopId": 1,
+        "categoryName": "Other Mammals"
+    },
+    {
+        "shopId": 2,
+        "categoryName": "Cats"
+    },
+    {
+        "shopId": 2,
+        "categoryName": "Dogs"
+    },
+    {
+        "shopId": 3,
+        "categoryName": "Dogs"
+    },
+    {
+        "shopId": 4,
+        "categoryName": "Cats"
+    },
+    {
+        "shopId": 5,
+        "categoryName": "Other Mammals"
+    },
+    {
+        "shopId": 6,
+        "categoryName": "Fish"
+    },
+    {
+        "shopId": 6,
+        "categoryName": "Arthropods"
+    },
+    {
+        "shopId": 6,
+        "categoryName": "Other Critters"
+    },
+    {
+        "shopId": 7,
+        "categoryName": "Other Mammals"
+    },
+    {
+        "shopId": 8,
+        "categoryName": "Fish"
+    },
+    {
+        "shopId": 8,
+        "categoryName": "Other Critters"
+    },
+    {
+        "shopId": 9,
+        "categoryName": "Cats"
+    },
+    {
+        "shopId": 9,
+        "categoryName": "Dogs"
+    },
+    {
+        "shopId": 10,
+        "categoryName": "Reptiles"
+    },
+    {
+        "shopId": 10,
+        "categoryName": "Amphibians"
+    },
+    {
+        "shopId": 11,
+        "categoryName": "Marines"
+    },
+    {
+        "shopId": 12,
+        "categoryName": "Dogs"
+    },
+    {
+        "shopId": 12,
+        "categoryName": "Rabbits"
+    },
+    {
+        "shopId": 13,
+        "categoryName": "Other Mammals"
+    },
+    {
+        "shopId": 14,
+        "categoryName": "Rodents"
+    },
+    {
+        "shopId": 14,
+        "categoryName": "Dogs"
+    },
+    {
+        "shopId": 15,
+        "categoryName": "Rodents"
+    },
+    {
+        "shopId": 15,
+        "categoryName": "Arthropods"
+    },
+    {
+        "shopId": 15,
+        "categoryName": "Reptiles"
+    },
+    {
+        "shopId": 15,
+        "categoryName": "Rabbits"
+    },
+    {
+        "shopId": 16,
+        "categoryName": "Rabbits"
+    },
+    {
+        "shopId": 16,
+        "categoryName": "Arthropods"
+    },
+    {
+        "shopId": 17,
+        "categoryName": "Amphibians"
+    },
+    {
+        "shopId": 17,
+        "categoryName": "Reptiles"
+    },
+    {
+        "shopId": 18,
+        "categoryName": "Reptiles"
+    },
+    {
+        "shopId": 19,
+        "categoryName": "Rodents"
+    },
+    {
+        "shopId": 19,
+        "categoryName": "Cats"
+    },
+    {
+        "shopId": 20,
+        "categoryName": "Other Critters"
+    },
+    {
+        "shopId": 20,
+        "categoryName": "Birds"
+    }
+]

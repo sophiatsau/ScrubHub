@@ -1,0 +1,182 @@
+[
+    {
+      "userId": 1,
+      "name": "Serenity Springs",
+      "address": "75 Essex St.",
+      "city": "Salinas",
+      "state": "CA",
+      "zipCode": "93906",
+      "fullAddress": "75 Essex St.\nSalinas, CA 93906"
+    },
+    {
+      "userId": 2,
+      "name": "Maple Grove Manor",
+      "address": "638 Hillside St.",
+      "city": "Antioch",
+      "state": "CA",
+      "zipCode": "94509",
+      "fullAddress": "638 Hillside St.\nAntioch, CA 94509"
+    },
+    {
+      "userId": 3,
+      "name": "Whispering Pines Retreat",
+      "address": "7772 Mayflower St.",
+      "city": "Canyon Country",
+      "state": "CA",
+      "zipCode": "91351",
+      "fullAddress": "7772 Mayflower St.\nCanyon Country, CA 91351"
+    },
+    {
+      "userId": 4,
+      "name": "Harmony Haven",
+      "address": "7539 Bridgeton Ave.",
+      "city": "Colton",
+      "state": "CA",
+      "zipCode": "92324",
+      "fullAddress": "7539 Bridgeton Ave.\nColton, CA 92324"
+    },
+    {
+      "userId": 5,
+      "name": "Sunflower Cottage",
+      "address": "352 Lawrence Street",
+      "city": "San Francisco",
+      "state": "CA",
+      "zipCode": "94112",
+      "fullAddress": "352 Lawrence Street\nSan Francisco, CA 94112"
+    },
+    {
+      "userId": 6,
+      "name": "Tranquil Terrace",
+      "address": "7185 Pacific Lane",
+      "city": "Ontario",
+      "state": "CA",
+      "zipCode": "91762",
+      "fullAddress": "7185 Pacific Lane\nOntario, CA 91762"
+    },
+    {
+      "userId": 7,
+      "name": "Crimson Crest Chalet",
+      "address": "522 SE. Euclid Street",
+      "city": "Coachella",
+      "state": "CA",
+      "zipCode": "92236",
+      "fullAddress": "522 SE. Euclid Street\nCoachella, CA 92236"
+    },
+    {
+      "userId": 8,
+      "name": "Meadowview Meadows",
+      "address": "173 Windfall St.",
+      "city": "Culpeper",
+      "state": "VA",
+      "zipCode": "22701",
+      "fullAddress": "173 Windfall St.\nCulpeper, VA 22701"
+    },
+    {
+      "userId": 9,
+      "name": "Ocean Breeze Oasis",
+      "address": "19 Fairfield Dr.",
+      "city": "Huntley",
+      "state": "IL",
+      "zipCode": "60142",
+      "fullAddress": "19 Fairfield Dr.\nHuntley, IL 60142"
+    },
+    {
+      "userId": 10,
+      "name": "Lighthouse Lane",
+      "address": "456 NE. Greenrose Ave.\nApt 1",
+      "city": "Cottage Grove",
+      "state": "MN",
+      "zipCode": "55016",
+      "fullAddress": "456 NE. Greenrose Ave.\nApt 1\nCottage Grove, MN 55016"
+    },
+    {
+      "userId": 1,
+      "name": "Velvet Valley Villa",
+      "address": "53 Pendergast Rd.",
+      "city": "Levittown",
+      "state": "NY",
+      "zipCode": "11756",
+      "fullAddress": "53 Pendergast Rd.\nLevittown, NY 11756"
+    },
+    {
+      "userId": 2,
+      "name": "Starlight Sanctuary",
+      "address": "8997 Franklin Circle",
+      "city": "Hilliard",
+      "state": "OH",
+      "zipCode": "43026",
+      "fullAddress": "8997 Franklin Circle\nHilliard, OH 43026"
+    },
+    {
+      "userId": 3,
+      "name": "Emerald Enclave",
+      "address": "329 Pilgrim Lane",
+      "city": "Ronkonkoma",
+      "state": "NY",
+      "zipCode": "11779",
+      "fullAddress": "329 Pilgrim Lane\nRonkonkoma, NY 11779"
+    },
+    {
+      "userId": 4,
+      "name": "Cascade Corner",
+      "address": "8490 Cemetery Court",
+      "city": "Ft Mitchell",
+      "state": "KY",
+      "zipCode": "41017",
+      "fullAddress": "8490 Cemetery Court\nFt Mitchell, KY 41017"
+    },
+    {
+      "userId": 5,
+      "name": "Secret Garden Street",
+      "address": "59 N. Applegate St.",
+      "city": "Naugatuck",
+      "state": "CT",
+      "zipCode": "06770",
+      "fullAddress": "59 N. Applegate St.\nNaugatuck, CT 06770"
+    },
+    {
+      "userId": 1,
+      "name": "Crystal Cove Cottage",
+      "address": "86 Westminster Ave.",
+      "city": "Buford",
+      "state": "GA",
+      "zipCode": "30518",
+      "fullAddress": "86 Westminster Ave.\nBuford, GA 30518"
+    },
+    {
+      "userId": 2,
+      "name": "Sunset Summit",
+      "address": "290 W. Monroe Ave.",
+      "city": "Niles",
+      "state": "MI",
+      "zipCode": "49120",
+      "fullAddress": "290 W. Monroe Ave.\nNiles, MI 49120"
+    },
+    {
+      "userId": 3,
+      "name": "Mystic Moon Mansion",
+      "address": "947 Livingston Lane",
+      "city": "New Haven",
+      "state": "CT",
+      "zipCode": "06511",
+      "fullAddress": "947 Livingston Lane\nNew Haven, CT 06511"
+    },
+    {
+      "userId": 4,
+      "name": "Radiant Ridge Residence",
+      "address": "733 E. Monroe St.",
+      "city": "Auburndale",
+      "state": "FL",
+      "zipCode": "33823",
+      "fullAddress": "733 E. Monroe St.\nAuburndale, FL 33823"
+    },
+    {
+      "userId": 5,
+      "name": "Enchanted Echo Estate",
+      "address": "36 Hudson Rd.",
+      "city": "Windsor Mill",
+      "state": "MD",
+      "zipCode": "21244",
+      "fullAddress": "36 Hudson Rd.\nWindsor Mill, MD 21244"
+    }
+  ]

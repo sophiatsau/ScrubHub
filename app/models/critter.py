@@ -10,7 +10,6 @@ class Critter(db.Model):
     name=db.Column(db.String(255), nullable=False)
     species = db.Column(db.String(255))
     shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=False)
-    # userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     price = db.Column(db.Numeric(18,2), nullable=False)
     category = db.Column(db.String, db.ForeignKey(add_prefix_for_prod("categories.name")),nullable=False)
     previewImageUrl = db.Column(db.String(255))
@@ -48,6 +47,11 @@ class Critter(db.Model):
             "previewImageUrl": self.previewImageUrl,
             "description": self.description,
             "stock": self.stock,
+            # "shopName": self.shop.name,
+            # "shop": {
+            #     "id": self.shopId,
+            #     "name": self.shop.name,
+            # }
         }
 
         # if scope=="detailed":
