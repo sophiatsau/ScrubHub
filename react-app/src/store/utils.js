@@ -20,6 +20,7 @@ export const CATEGORIES = [
   "Rodents",
 ]
 
+export const ALLOWED_EXTENSIONS = ["image/png", "image/jpg", "image/jpeg", "image/webp", "image/svg", "image/bmp", "image/tiff", "image/jfif"]
 
 export const formatBusinessHours = (obj) => {
     const errors = []

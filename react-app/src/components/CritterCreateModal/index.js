@@ -43,7 +43,7 @@ export default function CritterCreateModal({shop}) {
   return (
     <div>
         <h2>Create A New Critter for {shop.name}!</h2>
-        <CritterForm {...{formData, onSubmit, handleFormUpdate, formErrors}}/>
+        <CritterForm {...{formData, onSubmit, handleFormUpdate, formErrors, setFormErrors}}/>
     </div>
   )
 }

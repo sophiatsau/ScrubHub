@@ -1,7 +1,51 @@
 import React from 'react'
 
-export default function CritterForm({formData, onSubmit, handleFormUpdate, formErrors}) {
-  return (
+import { CATEGORIES, ALLOWED_EXTENSIONS } from '../../store/utils';
+
+export default function CritterForm({formData, onSubmit, handleFormUpdate, formErrors, setFormErrors}) {
+    const handleErrorsUpdate = (e) => {
+        const {name, value, files} = e.target;
+
+        let newError = null;
+
+        switch (name) {
+            case "name": {
+                newError = (value.length > 255 || value.length < 2) ? "Critter must have a name between 2-255 characters long" : ""
+                break
+            }
+            case "species": {
+                newError = (value.length > 255 || value.length < 2) ? "Critter must have a species between 2-255 characters long" : "";
+                break;
+            }
+            case "price": {
+                newError = (value < 0.01 || value > 10**16) ? "Please select a price between $0.01 and 10,000,000,000,000,000 for your critter" : "";
+                break;
+            }
+            case "category" : {
+                newError = !value ? "Please select a category for your critter" : "";
+                break;
+            }
+            case "previewImageUrl": {
+                newError = (!files || !files[0] || ALLOWED_EXTENSIONS.includes(files[0].type)) ? "" : `Allowed file types: ${ALLOWED_EXTENSIONS.join(", ")}`;
+                break;
+            }
+            case "description": {
+                newError = value.length > 255 ? "Description must be 255 characters or less" : "";
+                break
+            }
+            case "stock": {
+                newError = value <= 0 ? "Stock must be 0 or greater" : "";
+                break;
+            }
+            default: return
+        }
+
+        setFormErrors(prevErrors => {
+            return {...prevErrors, [name]: newError}
+        })
+    }
+
+    return (
     <form
         onSubmit={onSubmit}
         encType="multipart/form-data"
@@ -14,6 +58,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 name="name"
                 value={formData.name}
                 onChange={handleFormUpdate}
+                onBlur={handleErrorsUpdate}
                 required
             />
             <div className='error'>{formErrors.name}</div>
@@ -25,6 +70,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 name="species"
                 value={formData.species}
                 onChange={handleFormUpdate}
+                onBlur={handleErrorsUpdate}
                 required
             />
             <div className='error'>{formErrors.species}</div>
@@ -36,6 +82,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 name="price"
                 value={formData.price}
                 onChange={handleFormUpdate}
+                onBlur={handleErrorsUpdate}
                 min={.01}
                 max={10**16}
                 step={.01}
@@ -47,9 +94,10 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
             Categories:
             <select
                 type="text"
-                name="categories"
+                name="category"
                 value={formData.category}
                 onChange={handleFormUpdate}
+                onBlur={handleErrorsUpdate}
                 required
             >
                 <option value="" disabled>Pick a Category</option>
@@ -63,7 +111,9 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 name="previewImageUrl"
                 value={formData.previewImageUrl}
                 onChange={handleFormUpdate}
-                accept="image"
+                onBlur={handleErrorsUpdate}
+                // accept="image"
+                accept = {ALLOWED_EXTENSIONS.join(", ")}
             />
             <div className='error'>{formErrors.previewImageUrl}</div>
         </label>
@@ -71,9 +121,10 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
             Tell us about your critter:
             <textarea
                 type="text"
-                name="name"
+                name="description"
                 value={formData.description}
                 onChange={handleFormUpdate}
+                onBlur={handleErrorsUpdate}
                 placeholder='Describe your critter in 250 words or less'
             />
             <div className='error'>{formErrors.description}</div>
@@ -85,6 +136,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 name="stock"
                 value={formData.stock}
                 onChange={handleFormUpdate}
+                onBlur={handleErrorsUpdate}
                 min={0}
                 step={1}
                 required
