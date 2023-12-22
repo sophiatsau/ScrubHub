@@ -1,4 +1,5 @@
-import { normalizeObj } from "./utils"
+import { normalizeObj, fetchData } from "./utils"
+
 const GET_ALL_CRITTERS = "critters/GET_ALL_CRITTERS"
 const GET_USER_CRITTERS = "critters/GET_USER_CRITTERS"
 // const GET_ONE_CRITTER = "critters/GET_ONE_CRITTER"
@@ -43,26 +44,20 @@ const deleteCritter = (critterId) => ({
 })
 
 export const thunkGetAllCritters = () => async (dispatch) => {
-    const response = await fetch("/api/critters/");
+    const data = await fetchData("/api/critters/");
 
-    const data = await response.json()
-    if (response.ok) {
+    if (!data.errors) {
         dispatch(getAllCritters(data.critters));
-    } else {
-        data.status = response.status;
     }
 
     return data;
 }
 
 export const thunkGetUserCritters = () => async (dispatch) => {
-    const response = await fetch(`/api/critters/current`);
+    const data = await fetchData(`/api/critters/current`);
 
-    const data = await response.json()
-    if (response.ok) {
+    if (!data.errors) {
         dispatch(getUserCritters(data.critters));
-    } else {
-        data.status = response.status;
     }
 
     return data;
@@ -81,18 +76,18 @@ export const thunkGetUserCritters = () => async (dispatch) => {
 //     return data;
 // }
 
-export const thunkCreateCritter = formData => async dispatch => {
-    const res = await fetch(`/api/shops/${formData.shopId}/critters/new`, {
+export const thunkCreateCritter = (formData, shopId) => async dispatch => {
+    console.log("FETCHING AT", `/api/shops/${shopId}/critters/new`)
+    const data = await fetchData(`/api/shops/${shopId}/critters/new`, {
         method: "POST",
         body: formData,
     })
-    const data = await res.json()
+    // const data = await data.json()
+    console.log("🚀 ~ file: critters.js:82 ~ thunkCreateCritter ~ data:", data)
 
-    if (res.ok) {
-        dispatch(createCritter(data))
+    if (!data.status) {
+        dispatch(createCritter(data));
         //update shop, user
-    } else {
-        data.status = res.status
     }
 
     return data;

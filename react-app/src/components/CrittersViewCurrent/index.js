@@ -44,9 +44,9 @@ export default function CrittersViewCurrent() {
             sessionUser.shops.length ?
             Object.entries(sortedCritters).map(([shopId, critters]) => (
                 <div key={shopId}>
-                    <CritterDisplaySection critters={critters} heading={shops[shopId].name} />
+                    <CritterDisplaySection critters={critters} heading={shops[shopId]?.name} />
                     <OpenModalButton
-                      modalComponent={<CritterCreateModal/>}
+                      modalComponent={<CritterCreateModal shop={shops[shopId]}/>}
                       buttonText={"+ Add New Critter"}
                       className={"critter-open-create-button"}
                     />
