@@ -1,8 +1,17 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import { CATEGORIES, ALLOWED_EXTENSIONS } from '../../store/utils';
 
 export default function CritterForm({formData, onSubmit, handleFormUpdate, formErrors, setFormErrors}) {
+    const [previewImage, setPreviewImage] = useState("none")
+
+    useEffect(() => {
+        const previewUrl = formData.previewImageUrl ? URL.createObjectURL(formData.previewImageUrl) : "none";
+        setPreviewImage(previewUrl);
+
+        return previewImage === "none" ? "none" : () => URL.revokeObjectURL(previewUrl);
+    }, [formData.previewImageUrl, setPreviewImage])
+
     const handleErrorsUpdate = (e) => {
         const {name, value, files} = e.target;
 
@@ -51,6 +60,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
         encType="multipart/form-data"
         className='critter-form-container'
     >
+        <div style={{backgroundImage: `url(${previewImage})`, height: "100px"}}/>
         <label>
             Name:
             <input

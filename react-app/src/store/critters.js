@@ -63,31 +63,14 @@ export const thunkGetUserCritters = () => async (dispatch) => {
     return data;
 }
 
-// export const thunkGetCritter = (critterId) => async dispatch => {
-//     const response = await fetch(`/api/critters/${critterId}`);
-//     const data = await response.json()
-
-//     if (response.ok) {
-//         dispatch(getOneCritter(data));
-//     } else {
-//         data.status = response.status;
-//     }
-
-//     return data;
-// }
-
 export const thunkCreateCritter = (formData, shopId) => async dispatch => {
-    console.log("FETCHING AT", `/api/shops/${shopId}/critters/new`)
     const data = await fetchData(`/api/shops/${shopId}/critters/new`, {
         method: "POST",
         body: formData,
     })
-    // const data = await data.json()
-    console.log("🚀 ~ file: critters.js:82 ~ thunkCreateCritter ~ data:", data)
 
     if (!data.status) {
         dispatch(createCritter(data));
-        //update shop, user
     }
 
     return data;

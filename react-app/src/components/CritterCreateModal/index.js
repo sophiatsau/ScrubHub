@@ -28,10 +28,14 @@ export default function CritterCreateModal({shop}) {
 
     setFormData(prevData => {
       const newData = {...prevData}
-      switch (type) {
-        case "file":
+      switch (name) {
+        case "previewImageUrl":
           newData[name] = files[0];
           break;
+        case "price":
+          if (value > 10**16 || value < 0) {
+            return prevData;
+          }
         default:
           newData[name] = value;
           break;
