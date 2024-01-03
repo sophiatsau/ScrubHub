@@ -4,6 +4,7 @@ import React from 'react'
 import "./CritterDisplaySection.css"
 import CritterCard from '../CritterCard'
 // import OpenModalButton from '../OpenModalButton';
+// import CritterUpdateModal from '../CritterUpdateModal';
 // import CritterCreateModal from '../CritterCreateModal';
 
 export default function CritterDisplaySection({critters, heading}) {
@@ -22,7 +23,7 @@ export default function CritterDisplaySection({critters, heading}) {
             ))}
             {/* {location.pathname.endsWith("profile/critters") && (
             <OpenModalButton
-              modalComponent={<CritterCreateModal/>}
+              modalComponent={<CritterUpdateModal/>}
               buttonText={"+ Add New Critter"}
               className={"critter-open-create-button"}
             />)} */}

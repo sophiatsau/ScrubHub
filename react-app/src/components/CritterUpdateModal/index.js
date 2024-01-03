@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
 
-import './CritterCreateModal.css'
+import './CritterUpdateModal.css'
 import { thunkCreateCritter } from '../../store/critters';
 import { addUserCritter } from '../../store/session';
 import CritterForm from '../CritterForm';
 import { useModal } from '../../context/Modal';
 
-export default function CritterCreateModal({shop}) {
+export default function CritterUpdateModal({shop}) {
   const dispatch = useDispatch();
   const {closeModal} = useModal()
   const [unknownError, setUnknownError] = useState("")
