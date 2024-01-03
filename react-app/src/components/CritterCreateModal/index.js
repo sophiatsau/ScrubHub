@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import './CritterCreateModal.css'
 import { thunkCreateCritter } from '../../store/critters';
+import { addUserCritter } from '../../store/session';
 import CritterForm from '../CritterForm';
 import { useModal } from '../../context/Modal';
 
@@ -50,16 +51,17 @@ export default function CritterCreateModal({shop}) {
 
     const allFormData = new FormData();
     for (let [key, value] of Object.entries(formData)) {
-      allFormData.append(key, value)
+      allFormData.append(key, value);
     }
 
-    const res = await dispatch(thunkCreateCritter(allFormData, shop.id))
+    const res = await dispatch(thunkCreateCritter(allFormData, shop.id));
     if (res.status===201) {
+      dispatch(addUserCritter(res.id));
       closeModal();
     } else if (res.status===400) {
       setFormErrors(res.errors);
     } else {
-      setUnknownError(Object.values(res.errors))
+      setUnknownError(Object.values(res.errors));
     }
     return;
   }
