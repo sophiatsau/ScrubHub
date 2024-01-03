@@ -25,6 +25,8 @@ export default function CrittersViewCurrent() {
   if (!sessionUser) return <Redirect to="/" />
 
   const userCritters = sessionUser.critters.map(critterId => critters[critterId])
+  console.log("🚀 ~ file: index.js:28 ~ CrittersViewCurrent ~ sessionUser.critters:", sessionUser.critters)
+  console.log("🚀 ~ file: index.js:28 ~ CrittersViewCurrent ~ userCritters:", userCritters)
 
   if (!shops || userCritters.includes(undefined)) return <div>Loading critters...</div>
 
