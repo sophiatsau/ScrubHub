@@ -137,7 +137,7 @@
       "email": "robertsanimalhaven@example.com",
       "phoneNumber": "(555) 890-1234",
       "description": "A haven for all creatures, big and small!",
-      "searchImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/clownfish-cover.webp",
+      "searchImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/clownfish-search.webp",
       "coverImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/bettafish-cover.webp",
       "businessImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/blue-discus-fish.jpeg",
       "pickup": true,

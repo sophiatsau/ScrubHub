@@ -1,0 +1,79 @@
+.critter-form-container {
+    display: grid;
+    grid-template-areas:
+        "required optional"
+        "button button"
+    ;
+    grid-template-columns: 300px 200px;
+    grid-gap: 20px;
+}
+
+.critter-form-container>div {
+    /* display: grid;
+    grid-template-columns: 2fr 1fr; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.critter-form-container>* {
+    /* border: 1px dashed blue; */
+    width: 100%;
+}
+
+.critter-form-required {
+    grid-area: required;
+}
+
+.critter-form-optional {
+    grid-area: optional;
+}
+
+.critter-submit-button {
+    grid-area: button;
+    width: 100%;
+    /* border: 1px red dashed; */
+}
+
+.critter-form-required>label, .critter-form-optional>label {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px red dashed; */
+}
+
+.critter-form-img {
+    border-radius: 15px;
+    height: 120px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: var(--cardBorder);
+    background-color: var(--disabledColor);
+}
+
+.critter-form-img>span {
+    padding: 10px;
+    background-color: rgba(230,230,230, 0.7);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border: red 1px dashed; */
+}
+
+.critter-form-img:hover>span {
+    border-width: 3px;
+    border-radius: inherit;
+    height: 100%;
+    width:100%;
+    cursor: pointer;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+}
