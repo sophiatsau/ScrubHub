@@ -14,10 +14,11 @@ export default function CritterCard({critter}) {
     //TODO: popup modal for adding to cart
     // in current, is edit / delete. elsewhere, is add to cart
     const location = useLocation();
+    const canEdit = location.pathname.endsWith("profile/critters");
 
     const {name, species, price, previewImageUrl, description, stock, category} = critter;
 
-    const classAddOn = stock ? '' : 'sold-out'
+    const classAddOn = stock ? '' : canEdit ? 'sold-out' : 'sold-out disabled'
 
     return (
         <div key={critter.id} className={`critter-card-container ${classAddOn}`}>
@@ -37,7 +38,7 @@ export default function CritterCard({critter}) {
                     : <div/>}
                 <span className="critter-price-tag">${price}</span>
                 <div className='critter-card-buttons'>
-                {location.pathname.endsWith("profile/critters") && (
+                {canEdit && (
                 <>
                     <OpenModalButton
                         modalComponent={<CritterUpdateModal/>}

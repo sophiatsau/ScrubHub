@@ -21,9 +21,12 @@
 }
 
 .sold-out {
-    pointer-events: none;
     color: var(--textColorLighter);
     background-color: var(--disabledColor);
+}
+
+.sold-out.disabled {
+    pointer-events: none;
 }
 
 .critter-card-details {
@@ -46,4 +49,20 @@
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+.critter-card-buttons {
+    display: none;
+}
+
+.critter-card-container:hover .critter-card-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 80px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+    pointer-events: auto;
 }
