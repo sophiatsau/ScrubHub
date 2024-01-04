@@ -69,6 +69,8 @@ export const thunkCreateCritter = (formData, shopId) => async dispatch => {
         body: formData,
     })
 
+    console.log("🚀 ~ file: critters.js:69 ~ thunkCreateCritter ~ data:", data)
+
     if (!data.status) {
         dispatch(createCritter(data));
     }
@@ -95,17 +97,13 @@ export const thunkEditCritter = (critterId, formData) => async dispatch => {
 }
 
 export const thunkDeleteCritter = (critterId) => async dispatch => {
-    const res = await fetch(`/api/critters/${critterId}/delete`, {
+    const data = await fetchData(`/api/critters/${critterId}/delete`, {
         method: "DELETE",
     })
 
-    const data = await res.json()
-
-    if (res.ok) {
+    if (data.status === 200) {
         dispatch(deleteCritter(critterId))
         //update shop, user
-    } else {
-        data.status = res.status
     }
 
     return data;
