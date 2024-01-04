@@ -74,6 +74,7 @@ export const getFullAddress = (addressObj) => {
 }
 
 export const fetchData = async (path, options) => {
+  // returns data + status
   let res, data = {};
   try {
     res = await fetch(path, options);
