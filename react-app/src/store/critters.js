@@ -80,17 +80,13 @@ export const thunkCreateCritter = (formData, shopId) => async dispatch => {
 
 
 export const thunkEditCritter = (critterId, formData) => async dispatch => {
-    const res = await fetch(`/api/critters/${critterId}/edit`, {
+    const data = await fetchData(`/api/critters/${critterId}/edit`, {
         method: "PUT",
         body: formData,
     })
 
-    const data = await res.json()
-
-    if (res.ok) {
+    if (data.status === 200) {
         dispatch(editCritter(data))
-    } else {
-        data.status = res.status
     }
 
     return data;

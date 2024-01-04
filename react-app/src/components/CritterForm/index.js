@@ -3,14 +3,15 @@ import React, {useEffect, useState} from 'react'
 import { CATEGORIES, ALLOWED_EXTENSIONS } from '../../store/utils';
 import './CritterForm.css';
 
-export default function CritterForm({formData, onSubmit, handleFormUpdate, formErrors, setFormErrors}) {
-    const [previewImage, setPreviewImage] = useState("none")
+export default function CritterForm({formData, onSubmit, handleFormUpdate, formErrors, setFormErrors, previewUrl}) {
+    const [previewImage, setPreviewImage] = useState(previewUrl || "none")
 
     useEffect(() => {
-        const previewUrl = formData.previewImageUrl ? URL.createObjectURL(formData.previewImageUrl) : "none";
-        setPreviewImage(previewUrl);
+        setPreviewImage(prevUrl => {
+            return formData.previewImageUrl ? URL.createObjectURL(formData.previewImageUrl) : prevUrl;
+        })
 
-        return previewImage === "none" ? "none" : () => URL.revokeObjectURL(previewUrl);
+        return () => URL.revokeObjectURL(previewUrl);
     }, [formData.previewImageUrl, setPreviewImage])
 
     const handleErrorsUpdate = (e) => {
@@ -177,7 +178,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
         </div>
         <button
             className={`purple-button shop-submit-button critter-submit-button ${Object.values(formErrors).length?"disabled":""}`} type="submit" disabled={Object.values(formErrors).length}
-        >Create New Critter!</button>
+        >Update Critter!</button>
     </form>
   )
 }

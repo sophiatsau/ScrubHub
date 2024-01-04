@@ -57,7 +57,7 @@ export default function CritterCard({critter}) {
                 {canEdit && (
                 <>
                     <OpenModalButton
-                        modalComponent={<CritterUpdateModal/>}
+                        modalComponent={<CritterUpdateModal critter={critter}/>}
                         buttonText={"Edit"}
                         className={"purple-button"}
                     />
