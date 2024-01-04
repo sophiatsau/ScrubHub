@@ -38,8 +38,8 @@ export default function CrittersViewCurrent() {
 
   return (
     <div>
-        <h2>Manage Your Critter Inventory</h2>
-        <div>
+        <h2 style={{paddingBottom: "15px"}}>Manage Your Critter Inventory</h2>
+        <div className='view-current-critters-container'>
         {
             sessionUser.shops.length ?
             Object.entries(sortedCritters).map(([shopId, critters]) => (
@@ -47,7 +47,7 @@ export default function CrittersViewCurrent() {
                     <CritterDisplaySection critters={critters} heading={shops[shopId]?.name} />
                     <OpenModalButton
                       modalComponent={<CritterCreateModal shop={shops[shopId]}/>}
-                      buttonText={"+ Add New Critter to Your Shop"}
+                      buttonText={`+ Add New Critter to ${shops[shopId]?.name}`}
                       className={"critter-open-create-button"}
                     />
                 </div>
