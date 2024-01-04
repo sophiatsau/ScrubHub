@@ -1,3 +1,9 @@
+.view-current-critters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .critter-open-create-button {
     /* border: 1px solid var(--highlightColor); */
     display: flex;
