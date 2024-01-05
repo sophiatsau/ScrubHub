@@ -131,7 +131,27 @@ def unauthorized():
 # initialize flow
 @auth_routes.route('/oauth_login')
 def oauth_login():
+    # generates random value for state variable + authorization_url
     authorization_url, state = flow.authorization_url()
+
+    # double check auth url
+    print("AUTH URL: ", authorization_url)
+    # Ex: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fcallback&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&state=A0eZyFD4WH6AfqSj7XcdypQ0cMhwr9&access_type=offline
+    # Looks a lot like URL in 2nd line of flow chart
+    # access_type=offline - shows Google Login screen for user
+    # NO code_challenge_method or code_challenge
+
+    session['state'] = state # saves state (random value) to session for later comparison
+    return redirect(authorization_url)
+    # lines 2, 3 of flow chart
 
 
 # redirect_uri
+@auth_routes.route('/callback')
+def callback():
+    # authorization (req is line 6 of flowchart, res is 7)
+    flow.fetch_token(authorization_response=request.url)
+
+    # CSRF protection for Oauth
+    if not session["state"] == request.args["state"]:
+        abort(500) # if state doesn't match
