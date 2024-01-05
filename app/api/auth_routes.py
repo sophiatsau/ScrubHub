@@ -144,6 +144,7 @@ def oauth_login():
     session['state'] = state # saves state (random value) to session for later comparison
     return redirect(authorization_url)
     # lines 2, 3 of flow chart
+    # no nonce value sent
 
 
 # redirect_uri
@@ -153,5 +154,38 @@ def callback():
     flow.fetch_token(authorization_response=request.url)
 
     # CSRF protection for Oauth
+    # request is from flask
     if not session["state"] == request.args["state"]:
         abort(500) # if state doesn't match
+
+    credentials = flow.credentials
+    request_session = requests.session() # module not from flask
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    # verify JWT signature sent with object from OpenID Connect
+    # tests values for sub, aud, iat, exp in JWT CLAIMS section? (no nonce value, else server would return nonce in JWT claims to be verified too)
+    # id_token: imported from google oauth package
+    # returns dictionary including google account name, email
+    id_info = id_token.verify_oauth2_token(
+        id_token = credentials._id_token,
+        request = token_request,
+        audience = CLIENT_ID
+    )
+
+    # generate new session for newly authenticated user
+    # creates a new user if email isn't already in system
+    temp_email = id_info.get('email')
+
+    user_exists = User.query.filter(User.email == temp_email).first()
+
+    if not user_exists:
+        user_exists = User(
+            username = id_info.get("name"),
+            email = temp_email,
+            password = 'OAUTH'
+        )
+
+    login_user(user_exists)
+    # add this to Render variables, base_url is deployed url. final redirect, flow chart line 8
+    return redirect(f"{BASE_URL}/")
