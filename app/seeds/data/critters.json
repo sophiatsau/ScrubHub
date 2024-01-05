@@ -42,7 +42,7 @@
         "price": 9.99,
         "stock": 50,
         "shopId": 6,
-        "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/goldfish-cover.webp",
+        "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/goldfish.webp",
         "category": "Fish"},
     {
         "name": "Frog",
@@ -114,7 +114,7 @@
         "price": 14.99,
         "stock": 40,
         "shopId": 8,
-        "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/betta-square.jpg",
+        "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/pink-betta.webp",
         "category": "Fish"},
     {
         "name": "Chameleon",
@@ -241,7 +241,7 @@
         "price": 18.99,
         "stock": 30,
         "shopId": 6,
-        "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/betta-square.jpg",
+        "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/blue-betta.webp",
         "category": "Fish"},
     {
         "name": "Bearded Dragon",
@@ -340,7 +340,7 @@
         "price": 14.99,
         "stock": 40,
         "shopId": 6,
-        "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/betta-cover.jpg",
+        "previewImageUrl": "https://crittr-images.s3.us-west-1.amazonaws.com/white-betta.jpeg",
         "category": "Fish"},
     {
         "name": "Chameleon",
@@ -496,7 +496,7 @@
         "price": 49.99,
         "stock": 1,
         "shopId": 16,
-        "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/cute.jpg",
+        "previewImageUrl":"https://crittr-images.s3.us-west-1.amazonaws.com/grammostola.jpg",
         "category": "Arthropods"
     },
     {

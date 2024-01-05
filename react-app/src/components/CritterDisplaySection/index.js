@@ -4,6 +4,7 @@ import React from 'react'
 import "./CritterDisplaySection.css"
 import CritterCard from '../CritterCard'
 // import OpenModalButton from '../OpenModalButton';
+// import CritterUpdateModal from '../CritterUpdateModal';
 // import CritterCreateModal from '../CritterCreateModal';
 
 export default function CritterDisplaySection({critters, heading}) {
@@ -13,7 +14,7 @@ export default function CritterDisplaySection({critters, heading}) {
 
     return (
         <>
-        <h3>{heading}</h3>
+        <h3 style={{paddingBottom: "10px"}}>{heading}</h3>
         <section className='critter-display-card-container'>
             {critters.map(critter => (
                 <div key={critter.id}>
@@ -22,7 +23,7 @@ export default function CritterDisplaySection({critters, heading}) {
             ))}
             {/* {location.pathname.endsWith("profile/critters") && (
             <OpenModalButton
-              modalComponent={<CritterCreateModal/>}
+              modalComponent={<CritterUpdateModal/>}
               buttonText={"+ Add New Critter"}
               className={"critter-open-create-button"}
             />)} */}
