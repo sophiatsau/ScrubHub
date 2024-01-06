@@ -19,8 +19,8 @@ import json
 
 # create & configure 'flow' object
 # import credentials from .env
-CLIENT_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET')
-CLIENT_ID = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+CLIENT_ID = os.getenv('CLIENT_ID')
 BASE_URL = os.getenv('BASE_URL') # for production
 
 # lots of these are static values
@@ -132,6 +132,7 @@ def unauthorized():
 @auth_routes.route('/oauth_login')
 def oauth_login():
     # generates random value for state variable + authorization_url
+    # state variable – similar to csrf for OAUTH, random value
     authorization_url, state = flow.authorization_url()
 
     # double check auth url
@@ -142,6 +143,7 @@ def oauth_login():
     # NO code_challenge_method or code_challenge
 
     session['state'] = state # saves state (random value) to session for later comparison
+    # return authorization_url
     return redirect(authorization_url)
     # lines 2, 3 of flow chart
     # no nonce value sent
@@ -161,7 +163,7 @@ def callback():
     credentials = flow.credentials
     request_session = requests.session() # module not from flask
     cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session) # this code is very short lived, we send code back to Google
 
     # verify JWT signature sent with object from OpenID Connect
     # tests values for sub, aud, iat, exp in JWT CLAIMS section? (no nonce value, else server would return nonce in JWT claims to be verified too)
@@ -176,6 +178,7 @@ def callback():
     # generate new session for newly authenticated user
     # creates a new user if email isn't already in system
     temp_email = id_info.get('email')
+    print("🚀 ~ file: auth_routes.py:179 ~ id_info:", id_info)
 
     user_exists = User.query.filter(User.email == temp_email).first()
 
@@ -189,3 +192,4 @@ def callback():
     login_user(user_exists)
     # add this to Render variables, base_url is deployed url. final redirect, flow chart line 8
     return redirect(f"{BASE_URL}/")
+    # return
