@@ -32,7 +32,8 @@ client_secrets = {
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", # certificate provider
         "client_secret": CLIENT_SECRET,
         "redirect_uris": [
-            "http://localhost:5000/api/auth/callback"
+            "http://localhost:5000/api/auth/callback",
+            "https://crittr.onrender.com/api/auth/callback"
         ], # what we hit once we successfully log in. Every request contains redirect uri, Google checks every request.
     }
 }
@@ -47,10 +48,12 @@ with open(secrets.name, "w") as output:
 # allow http traffic for local dev
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
+redirect_uri = "http://localhost:5000/api/auth/callback" if os.getenv('NODE_ENV') != "production" else "https://crittr.onrender.com/api/auth/callback"
+
 flow = Flow.from_client_secrets_file(
     client_secrets_file = secrets.name, # file location
     scopes = ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-    redirect_uri = "http://localhost:5000/api/auth/callback",
+    redirect_uri = os.getenv('REDIRECT_URI'),
 )
 
 # delete temp file once flow obj is configured
@@ -66,7 +69,7 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        return current_user.to_dict(), 200
     return error_message("user", 'Unauthenticated'), 401
 
 
@@ -83,7 +86,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        return user.to_dict()
+        return user.to_dict(), 200
     return error_messages(form.errors), 401
 
 
@@ -93,7 +96,7 @@ def logout():
     Logs a user out
     """
     logout_user()
-    return {'message': 'User logged out'}
+    return {'message': 'User logged out'}, 200
 
 
 @auth_routes.route('/signup', methods=['POST'])
@@ -178,10 +181,8 @@ def callback():
     # generate new session for newly authenticated user
     # creates a new user if email isn't already in system
     temp_email = id_info.get('email')
-    # print("🚀 ~ file: auth_routes.py:179 ~ id_info:", id_info)
 
     user_exists = User.query.filter(User.email == temp_email).first()
-    print("🚀 ~ file: auth_routes.py:184 ~ user_exists:", user_exists)
 
     if not user_exists:
         user_exists = User(
@@ -194,8 +195,6 @@ def callback():
 
         db.session.add(user_exists)
         db.session.commit()
-
-    print("🚀 ~ file: auth_routes.py:184 ~ user_exists:", user_exists)
 
     login_user(user_exists)
     # add this to Render variables, base_url is deployed url. final redirect, flow chart line 8
