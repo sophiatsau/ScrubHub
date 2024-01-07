@@ -41,7 +41,11 @@ class User(db.Model, UserMixin):
 
     @password.setter
     def password(self, password):
-        self.hashedPassword = generate_password_hash(password)
+        if password == 'OAUTH':
+            # Prevents data breaches from exposing Oauth users bc the input password never hashes to OAUTH
+            self.hashedPassword = 'OAUTH'
+        else:
+            self.hashedPassword = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)

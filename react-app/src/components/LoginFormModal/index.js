@@ -5,6 +5,7 @@ import { login } from "../../store/session";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import DemoLoginButton from "./DemoLoginButton";
+import OauthButton from "../OauthButton";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function LoginFormModal() {
           />
         </label>
         <button style={{marginTop:"5px"}} type="submit" className="purple-button">Log In</button>
+        <OauthButton />
 
         <DemoLoginButton {...{setErrors, closeModal}}/>
       </form>
