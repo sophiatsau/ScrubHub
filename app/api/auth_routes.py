@@ -32,8 +32,8 @@ client_secrets = {
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", # certificate provider
         "client_secret": CLIENT_SECRET,
         "redirect_uris": [
-            "http://localhost:8000/api/auth/callback"
-        ] # what we hit once we successfully log in. Every request contains redirect uri, Google checks every request.
+            "http://localhost:5000/api/auth/callback"
+        ], # what we hit once we successfully log in. Every request contains redirect uri, Google checks every request.
     }
 }
 
@@ -50,7 +50,7 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 flow = Flow.from_client_secrets_file(
     client_secrets_file = secrets.name, # file location
     scopes = ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
-    redirect_uri = "http://localhost:8000/api/auth/callback",
+    redirect_uri = "http://localhost:5000/api/auth/callback",
 )
 
 # delete temp file once flow obj is configured
@@ -178,16 +178,24 @@ def callback():
     # generate new session for newly authenticated user
     # creates a new user if email isn't already in system
     temp_email = id_info.get('email')
-    print("🚀 ~ file: auth_routes.py:179 ~ id_info:", id_info)
+    # print("🚀 ~ file: auth_routes.py:179 ~ id_info:", id_info)
 
     user_exists = User.query.filter(User.email == temp_email).first()
+    print("🚀 ~ file: auth_routes.py:184 ~ user_exists:", user_exists)
 
     if not user_exists:
         user_exists = User(
             username = id_info.get("name"),
             email = temp_email,
-            password = 'OAUTH'
+            password = 'OAUTH',
+            firstName = id_info.get('given_name'),
+            lastName = id_info.get('family_name'),
         )
+
+        db.session.add(user_exists)
+        db.session.commit()
+
+    print("🚀 ~ file: auth_routes.py:184 ~ user_exists:", user_exists)
 
     login_user(user_exists)
     # add this to Render variables, base_url is deployed url. final redirect, flow chart line 8
