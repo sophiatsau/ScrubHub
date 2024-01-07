@@ -251,3 +251,7 @@ a {
     pointer-events: none;
     background-color: var(--disabledColor);
 }
+
+#signup-form .error {
+    margin-bottom: 0;
+}

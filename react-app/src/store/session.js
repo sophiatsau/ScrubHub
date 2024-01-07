@@ -64,13 +64,13 @@ export const addUserCritter = critterId => ({
 })
 
 export const authenticate = () => async (dispatch) => {
-	const response = await fetch("/api/auth/", {
+	const data = await fetchData("/api/auth/", {
 		headers: {
 			"Content-Type": "application/json",
 		},
 	});
-	if (response.ok) {
-		const data = await response.json();
+	if (data.status === 200) {
+		// const data = await response.json();
 		if (data.errors) {
 			return;
 		}
@@ -97,13 +97,13 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-	const response = await fetch("/api/auth/logout", {
+	const data = await fetchData("/api/auth/logout", {
 		headers: {
 			"Content-Type": "application/json",
 		},
 	});
 
-	if (response.ok) {
+	if (data.status===200) {
 		dispatch(removeUser());
 	}
 };
