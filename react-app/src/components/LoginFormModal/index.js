@@ -29,11 +29,9 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1 style={{marginBottom: "5px"}}>Log In</h1>
+      <h1 >Log In</h1>
       <form onSubmit={handleSubmit} id="login-form">
-        <ul >
-          <li className="error">{errors}</li>
-        </ul>
+        <div className="error">{errors}</div>
         <label>
           Email
           <input

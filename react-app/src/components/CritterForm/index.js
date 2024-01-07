@@ -22,7 +22,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
         switch (name) {
             case "name": {
                 newError = (value.length > 255 || value.length < 2) ? "Critter must have a name between 2-255 characters long" : ""
-                break
+                break;
             }
             case "species": {
                 newError = (value.length > 255 || value.length < 2) ? "Critter must have a species between 2-255 characters long" : "";
