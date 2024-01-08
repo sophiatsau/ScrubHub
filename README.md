@@ -23,9 +23,30 @@ https://crittr.onrender.com/
 <img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" />
 
 ## Screenshots
-Screenshots of your app in action (once completed)
+### Landing Page
+Enter your address to view shops around you!
 
+### Shop Page
+Check out the different animals being sold!
 
+### Profile Page
+Here, you can add, edit, or remove your addresses.
+
+If you are a shop owner, you can manage your shops and critters.
+
+# Endpoints
+### Auth
+| Request  | Purpose | Return Value | Status |
+| :------- | :------ | :----------- | :------ |
+| GET /api/auth/  | On initial load and subsequent refreshes, returns logged in user if there is one | {<br/>&nbsp;&nbsp;&nbsp;id: INT, <br/>&nbsp;&nbsp;&nbsp;username: STRING, <br/>&nbsp;&nbsp;&nbsp;email: STRING, <br/>&nbsp;&nbsp;&nbsp;firstName: STRING, <br/>&nbsp;&nbsp;&nbsp;lastName: STRING, <br/>&nbsp;&nbsp;&nbsp;balance: DECIMAL} | 200 |
+| POST /api/auth/login | Logs in user. Successful login returns user dictionary |{<br/>&nbsp;&nbsp;&nbsp;id: INT, <br/>&nbsp;&nbsp;&nbsp;username: STRING, <br/>&nbsp;&nbsp;&nbsp;email: STRING, <br/>&nbsp;&nbsp;&nbsp;firstName: STRING, <br/>&nbsp;&nbsp;&nbsp;lastName: STRING, <br/>&nbsp;&nbsp;&nbsp;balance: DECIMAL}| 200 |
+| GET /api/auth/logout | Logs current user out |{message: User logged out}| 200 |
+| POST /api/auth/signup | Signs user up with provided info. Creates new user, logs them in, and returns user dictionary |{<br/>&nbsp;&nbsp;&nbsp;id: INT, <br/>&nbsp;&nbsp;&nbsp;username: STRING, <br/>&nbsp;&nbsp;&nbsp;email: STRING, <br/>&nbsp;&nbsp;&nbsp;firstName: STRING, <br/>&nbsp;&nbsp;&nbsp;lastName: STRING, <br/>&nbsp;&nbsp;&nbsp;balance: DECIMAL}| 200 |
+<!-- | GET /api/auth/unauthorized | Returns errors when flask-login authentication fails |{errors: {user: Unauthorized}}| 403 | -->
+<!-- | GET /api/auth/oauth_login | Redirects user to Google Oauth login if user chooses to login or sign up via Google account |redirect(authorization_url)| 302 |
+| GET /api/auth/callback | If Google account authorization successful, creates new user if user doesn't exist, logs user in, and redirects user to landing page |redirect(landing page URL)| 302 | -->
+
+### User
 
 # Feature List
 
