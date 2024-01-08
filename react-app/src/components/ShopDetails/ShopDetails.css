@@ -38,3 +38,54 @@
     top: 220px;
     border-radius: 5px;
 }
+
+/*************** ABOUT ***********************/
+.shop-details-about {
+    display: grid;
+    grid-template-areas:
+    "header header"
+    "about about"
+    "connect hours";
+    row-gap: 15px;
+}
+
+.shop-details-about-header {
+    grid-area: header;
+}
+
+.shop-details-about-basics {
+    grid-area: about;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.shop-details-about-address {
+    line-height: 150%;
+}
+
+.shop-details-about-connect {
+    grid-area: connect;
+}
+
+.shop-details-about-hours {
+    grid-area: hours;
+}
+
+.shop-details-hours-header {
+    font-size: var(--h3Size);
+    font-weight: bold;
+    text-align: left;
+    padding: 5px 15px;
+}
+
+.shop-details-hours-table {
+    /* margin-top: 15px; */
+    /* border-collapse:collapse; */
+    border: var(--disabledColor) 1px solid;
+}
+
+.shop-details-hours-table td {
+    padding: 5px 15px;
+    /* border: var(--cardBorder); */
+}
