@@ -39,6 +39,10 @@
     border-radius: 5px;
 }
 
+/* .shop-details-profile-info {
+    border: 1px solid red;
+} */
+
 /*************** ABOUT ***********************/
 .shop-details-about {
     display: grid;

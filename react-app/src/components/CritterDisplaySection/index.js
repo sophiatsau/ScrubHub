@@ -14,7 +14,7 @@ export default function CritterDisplaySection({critters, heading}) {
 
     return (
         <>
-        <h3 style={{paddingBottom: "10px"}}>{heading}</h3>
+        <h3>{heading}</h3>
         <section className='critter-display-card-container'>
             {critters.map(critter => (
                 <div key={critter.id}>
