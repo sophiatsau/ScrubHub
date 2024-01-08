@@ -9,7 +9,9 @@
 }
 
 .critter-card-container:hover {
-    box-shadow: 0 0 5px var(--boxShadowColor);
+    box-shadow: 0 0 5px var(--footerColor);
+    border: 1px solid var(--footerColor);
+    cursor: pointer;
 }
 
 .critter-card-img {
