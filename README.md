@@ -42,15 +42,23 @@ If you are a shop owner, you can manage your shops and critters.
 ### Auth
 | Request  | Purpose | Return Value | Status |
 | :------- | :------ | :----------- | :------ |
-| GET /api/auth/  | On initial load and subsequent refreshes, returns logged in user if there is one | {<br/>&nbsp;&nbsp;&nbsp;id: INT, <br/>&nbsp;&nbsp;&nbsp;username: STRING, <br/>&nbsp;&nbsp;&nbsp;email: STRING, <br/>&nbsp;&nbsp;&nbsp;firstName: STRING, <br/>&nbsp;&nbsp;&nbsp;lastName: STRING, <br/>&nbsp;&nbsp;&nbsp;balance: DECIMAL} | 200 |
-| POST /api/auth/login | Logs in user. Successful login returns user dictionary |{<br/>&nbsp;&nbsp;&nbsp;id: INT, <br/>&nbsp;&nbsp;&nbsp;username: STRING, <br/>&nbsp;&nbsp;&nbsp;email: STRING, <br/>&nbsp;&nbsp;&nbsp;firstName: STRING, <br/>&nbsp;&nbsp;&nbsp;lastName: STRING, <br/>&nbsp;&nbsp;&nbsp;balance: DECIMAL}| 200 |
-| GET /api/auth/logout | Logs current user out |{message: User logged out}| 200 |
-| POST /api/auth/signup | Signs user up with provided info. Creates new user, logs them in, and returns user dictionary |{<br/>&nbsp;&nbsp;&nbsp;id: INT, <br/>&nbsp;&nbsp;&nbsp;username: STRING, <br/>&nbsp;&nbsp;&nbsp;email: STRING, <br/>&nbsp;&nbsp;&nbsp;firstName: STRING, <br/>&nbsp;&nbsp;&nbsp;lastName: STRING, <br/>&nbsp;&nbsp;&nbsp;balance: DECIMAL}| 200 |
-<!-- | GET /api/auth/unauthorized | Returns errors when flask-login authentication fails |{errors: {user: Unauthorized}}| 403 | -->
+| GET /api/auth/  | On initial load and subsequent refreshes, returns logged in user if there is one | {<br/>&nbsp;&nbsp;&nbsp;"id": INT, <br/>&nbsp;&nbsp;&nbsp;"username": STRING, <br/>&nbsp;&nbsp;&nbsp;"email": STRING, <br/>&nbsp;&nbsp;&nbsp;"firstName": STRING, <br/>&nbsp;&nbsp;&nbsp;"lastName": STRING, <br/>&nbsp;&nbsp;&nbsp;"balance": DECIMAL} | 200 |
+| POST /api/auth/login | Logs in user. Successful login returns user dictionary |{<br/>&nbsp;&nbsp;&nbsp;"id": INT, <br/>&nbsp;&nbsp;&nbsp;"username": STRING, <br/>&nbsp;&nbsp;&nbsp;"email": STRING, <br/>&nbsp;&nbsp;&nbsp;"firstName": STRING, <br/>&nbsp;&nbsp;&nbsp;"lastName": STRING, <br/>&nbsp;&nbsp;&nbsp;"balance": DECIMAL}| 200 |
+| GET /api/auth/logout | Logs current user out |{"message": "User logged out"}| 200 |
+| POST /api/auth/signup | Signs user up with provided info. Creates new user, logs them in, and returns user dictionary |{<br/>&nbsp;&nbsp;&nbsp;"id": INT, <br/>&nbsp;&nbsp;&nbsp;"username": STRING, <br/>&nbsp;&nbsp;&nbsp;"email": STRING, <br/>&nbsp;&nbsp;&nbsp;"firstName": STRING, <br/>&nbsp;&nbsp;&nbsp;"lastName": STRING, <br/>&nbsp;&nbsp;&nbsp;"balance": DECIMAL}| 200 |
+<!-- | GET /api/auth/unauthorized | Returns errors when flask-login authentication fails |{"errors": {"user": "Unauthorized"}}| 403 | -->
 <!-- | GET /api/auth/oauth_login | Redirects user to Google Oauth login if user chooses to login or sign up via Google account |redirect(authorization_url)| 302 |
 | GET /api/auth/callback | If Google account authorization successful, creates new user if user doesn't exist, logs user in, and redirects user to landing page |redirect(landing page URL)| 302 | -->
 
-### User
+### Address
+| Request  | Purpose | Return Value | Status |
+| :------- | :------ | :----------- | :------ |
+| GET /api/addresses/current | Query for all of logged in user's addresses and returns them in a list of dictionaries | {"addresses": <br/>&nbsp;&nbsp;&nbsp;[ARRAY:{"id": INT,<br/>&nbsp;&nbsp;&nbsp;"userId": INT,<br/>&nbsp;&nbsp;&nbsp;"name": STRING,<br/>&nbsp;&nbsp;&nbsp;"address": STRING,<br/>&nbsp;&nbsp;&nbsp;"city": STRING,<br/>&nbsp;&nbsp;&nbsp;"state": STRING,<br/>&nbsp;&nbsp;&nbsp;"zipCode": STRING,<br/>&nbsp;&nbsp;&nbsp;"fullAddress": STRING}]<br/>} | 200 |
+| POST /api/addresses/new | Creates a new address for the user and returns new address in a dictionary | {<br/>&nbsp;&nbsp;&nbsp;"id": INT,<br/>&nbsp;&nbsp;&nbsp;"userId": INT,<br/>&nbsp;&nbsp;&nbsp;"name": STRING,<br/>&nbsp;&nbsp;&nbsp;"address": STRING,<br/>&nbsp;&nbsp;&nbsp;"city": STRING,<br/>&nbsp;&nbsp;&nbsp;"state": STRING,<br/>&nbsp;&nbsp;&nbsp;"zipCode": STRING,<br/>&nbsp;&nbsp;&nbsp;"fullAddress": STRING<br/>} | 201 |
+| PUT /api/addresses/:addressId/edit | Edits an existing address for the user and returns updated address in a dictionary | {<br/>&nbsp;&nbsp;&nbsp;"id": INT,<br/>&nbsp;&nbsp;&nbsp;"userId": INT,<br/>&nbsp;&nbsp;&nbsp;"name": STRING,<br/>&nbsp;&nbsp;&nbsp;"address": STRING,<br/>&nbsp;&nbsp;&nbsp;"city": STRING,<br/>&nbsp;&nbsp;&nbsp;"state": STRING,<br/>&nbsp;&nbsp;&nbsp;"zipCode": STRING,<br/>&nbsp;&nbsp;&nbsp;"fullAddress": STRING<br/>} | 200 |
+| DELETE /api/addresses/:addressId/delete | Deletes an address and returns a message if successfully deleted | {"message": "Address successfully deleted."} | 200 |
+
+
 
 Technical implementation details
 Anything you had to stop and think about before building
