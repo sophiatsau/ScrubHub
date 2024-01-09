@@ -25,18 +25,22 @@ https://crittr.onrender.com/
 # Index
 [Database Schema](https://github.com/sophiatsau/Crittr/wiki/DB-Schema) | [Feature Lists](https://github.com/sophiatsau/Crittr/wiki/Features-List) | [Future Implementations](https://github.com/sophiatsau/Crittr/wiki/Future-Implementations) | [User Stories](https://github.com/sophiatsau/Crittr/wiki/User-Stories)
 
-
 ## Screenshots
 ### Landing Page
 Enter your address to view shops around you!
+![Landing](https://github.com/sophiatsau/Crittr/assets/137214319/4890a052-6097-43ba-a55a-415d54d4c3c3)
 
 ### Shop Page
 Check out the different animals being sold!
+![ShopDetails](https://github.com/sophiatsau/Crittr/assets/137214319/6f40a571-133d-4a32-b71f-b3f101f9bc25)
 
 ### Profile Page
 Here, you can add, edit, or remove your addresses.
+![UserAddress](https://github.com/sophiatsau/Crittr/assets/137214319/e7220d70-e49a-42c0-8c72-6b97dbca0eff)
 
 If you are a shop owner, you can manage your shops and critters.
+![UserCritters](https://github.com/sophiatsau/Crittr/assets/137214319/394fe689-55ce-48d4-b83c-aa16b7d65a2b)
+![UserShops](https://github.com/sophiatsau/Crittr/assets/137214319/8212f90f-029c-4d56-b107-6ee522c3fe54)
 
 # Endpoints
 ### Auth
