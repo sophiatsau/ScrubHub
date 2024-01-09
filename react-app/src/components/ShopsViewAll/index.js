@@ -18,7 +18,7 @@ export default function ShopsViewAll() {
     return (
         <div className='all-shops-container'>
             {/* <div>Categories List</div> */}
-            <h1>Browse Critters Near You</h1>
+            <h1>Browse Shops Near You</h1>
             <div className='all-shops-list'>
             {shops.map((shop) => (
                 <div key={shop.id}>

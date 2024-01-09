@@ -4,6 +4,10 @@
     gap: 10px;
 }
 
+.view-current-critters-container h3 {
+    margin: 10px 0;
+}
+
 .critter-open-create-button {
     /* border: 1px solid var(--highlightColor); */
     display: flex;

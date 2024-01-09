@@ -13,7 +13,7 @@ def get_all_shops():
     Returns all shops available as a list of dictionaries
     """
     shops = Shop.query.all()
-    return {"shops": [shop.to_dict() for shop in shops]}
+    return {"shops": [shop.to_dict() for shop in shops]}, 200
 
 
 @shop_routes.route('/current')
@@ -22,7 +22,7 @@ def get_user_shops():
     """
     Returns all current user's shops as a list of dictionaries
     """
-    return {"shops": [shop.to_dict() for shop in current_user.shops]}
+    return {"shops": [shop.to_dict() for shop in current_user.shops]}, 200
 
 
 @shop_routes.route('/<int:id>')
