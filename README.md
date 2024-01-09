@@ -22,6 +22,10 @@ https://crittr.onrender.com/
 <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" />
 <img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" />
 
+# Index
+[Database Schema](https://github.com/sophiatsau/Crittr/wiki/DB-Schema) | [Feature Lists](https://github.com/sophiatsau/Crittr/wiki/Features-List) | [Future Implementations](https://github.com/sophiatsau/Crittr/wiki/Future-Implementations) | [User Stories](https://github.com/sophiatsau/Crittr/wiki/User-Stories)
+
+
 ## Screenshots
 ### Landing Page
 Enter your address to view shops around you!
@@ -48,12 +52,12 @@ If you are a shop owner, you can manage your shops and critters.
 
 ### User
 
-# Feature List
-
-# Future Feature Goals
 Technical implementation details
 Anything you had to stop and think about before building
 Descriptions of particular challenges
 Snippets or links to see code for these
 Links to contact you (LinkedIn)
 Endpoints (See example below)*
+
+# Connect With Me!
+<a href="https://www.linkedin.com/in/sophiatsau/">LinkedIn</a>
