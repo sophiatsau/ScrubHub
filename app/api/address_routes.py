@@ -13,7 +13,7 @@ def view_user_addresses():
     """
     Query for all of user's addresses and returns them in a list of dictionaries
     """
-    return {'addresses': current_user.get_addresses()}
+    return {'addresses': current_user.get_addresses()}, 200
 
 
 @address_routes.route('/new', methods=["POST"])
@@ -49,7 +49,7 @@ def create_address():
 @login_required
 def edit_address(id):
     """
-    Deletes an address and returns a message if successfully deleted
+    Edits an existing address for the user and returns updated address in a dictionary
     """
     # handle 404, 403 errors
     address = Address.query.get(id)
