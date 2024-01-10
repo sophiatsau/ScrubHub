@@ -51,7 +51,7 @@ export default function ShopDetailsAbout({shop}) {
         <table className="shop-details-hours-table">
           <thead>
             <tr>
-              <th className="shop-details-hours-header" colspan="2">Hours</th>
+              <th className="shop-details-hours-header" colSpan="2">Hours</th>
             </tr>
           </thead>
           <tbody>
