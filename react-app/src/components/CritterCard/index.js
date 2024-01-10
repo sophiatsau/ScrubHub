@@ -22,7 +22,7 @@ export default function CritterCard({critter}) {
     const {closeModal} = useModal();
     const canEdit = location.pathname.endsWith("profile/critters");
 
-    const {name, species, price, previewImageUrl, description, stock, category} = critter;
+    const {name, species, price, previewImageUrl, description, stock} = critter;
 
     const classAddOn = stock ? '' : canEdit ? 'sold-out' : 'sold-out disabled'
 

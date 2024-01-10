@@ -12,7 +12,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
         })
 
         return () => URL.revokeObjectURL(previewUrl);
-    }, [formData.previewImageUrl, setPreviewImage])
+    }, [formData.previewImageUrl, setPreviewImage, previewUrl])
 
     const handleErrorsUpdate = (e) => {
         const {name, value, files} = e.target;
@@ -142,7 +142,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
         <div className="critter-form-optional">
             <label
             style={{
-                backgroundImage: `url(${previewImage})`,
+                backgroundImage: `${previewImage==="none" ? "none" : `url(${previewImage})`}`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
             }}

@@ -25,7 +25,7 @@ export default function CritterCreateModal({shop}) {
   const [formErrors, setFormErrors] = useState({})
 
   const handleFormUpdate = e => {
-    const {name, value, type, files} = e.target;
+    const {name, value, files} = e.target;
 
     setFormData(prevData => {
       const newData = {...prevData}
@@ -37,6 +37,8 @@ export default function CritterCreateModal({shop}) {
           if (value > 10**16 || value < 0) {
             return prevData;
           }
+          newData[name] = value;
+          break;
         default:
           newData[name] = value;
           break;
