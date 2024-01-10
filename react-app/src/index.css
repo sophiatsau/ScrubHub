@@ -229,6 +229,7 @@ a {
 
 .main-container{
     margin-top: 50px;
+    min-height: 85vh;
 }
 
 .bold {

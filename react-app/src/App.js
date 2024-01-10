@@ -42,7 +42,7 @@ function App() {
           <Route>404 Page Not Found</Route>
         </Switch>
       </div>)}
-      <div style={{height: "100px"}}/>
+      <div style={{height: "15vh"}}/>
       < Footer />
     </>
   );
