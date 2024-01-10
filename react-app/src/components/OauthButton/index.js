@@ -8,6 +8,6 @@ export default function OauthButton() {
   // console.log("🚀 ~ file: index.js:7 ~ OauthButton ~ BASE_URL:", BASE_URL)
 
   return (
-    <a href={`${BASE_URL}/api/auth/oauth_login`} style={{width:"100%"}}><button type="button" className='light-button oauth-button'><img src="https://crittr-images.s3.us-west-1.amazonaws.com/google-logo.png" className='oauth-button-icon'/>Log In with Google Account</button></a>
+    <a href={`${BASE_URL}/api/auth/oauth_login`} style={{width:"100%"}}><button type="button" className='light-button oauth-button'><img src="https://crittr-images.s3.us-west-1.amazonaws.com/google-logo.png" className='oauth-button-icon' alt="google icon"/>Log In with Google Account</button></a>
   )
 }

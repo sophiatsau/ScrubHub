@@ -1,5 +1,5 @@
 import React from 'react'
-import { DAYS, CATEGORIES, formatBusinessHours } from '../../store/utils';
+import { DAYS } from '../../store/utils';
 
 export default function ShopFormHours({businessHours, handleHoursUpdate, errors}) {
   return (

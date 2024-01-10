@@ -41,7 +41,7 @@ export default function ShopDetailsAbout({shop}) {
       <div className="shop-details-about-connect">
         <div className='shop-details-about-address'>
           {/*TODO: google maps*/}
-          <a>{formattedAddress}</a>
+          <p className='purple'>{formattedAddress}</p>
           {/* TODO: distance from current */}
         </div>
         <h3>Contact Us</h3>
