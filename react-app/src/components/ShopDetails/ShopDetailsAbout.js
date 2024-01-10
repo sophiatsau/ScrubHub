@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import DisplayPriceRange from '../ShopCard/DisplayPriceRange'
 
 export default function ShopDetailsAbout({shop}) {
@@ -28,10 +28,10 @@ export default function ShopDetailsAbout({shop}) {
       <div className='shop-details-about-basics'>
         <div>
           {categories.map((cat, i) => (
-            <span key={cat}>
-              <Link to={`/shops/${cat}`}>
-                {cat}{i===categories.length-1 ? "":","}
-              </Link>
+            <span key={cat} className='purple'>
+              {/* <Link to={`/shops/${cat}`}> */}
+                {cat}{i===categories.length-1 ? "":", "}
+              {/* </Link> */}
             </span>
           ))}
         </div>
