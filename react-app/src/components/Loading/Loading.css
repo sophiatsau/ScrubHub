@@ -1,0 +1,62 @@
+.loading-element {
+    width: 100%;
+    min-height: 30vh;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+}
+
+.loading-element>p {
+    color: var(--highlightColor);
+    font-weight: bold;
+}
+
+.loading-animation {
+    border: 5vh dotted var(--highlightColor);
+    border-radius: 50%;
+    height: 18vh;
+    width: 18vh;
+    /* animation: spin 4s linear infinite; */
+    animation: color-change 3s linear infinite;
+}
+
+/* @keyframes spin {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+} */
+
+@keyframes color-change {
+    0% {
+        border-top-color: var(--disabledColor);
+        border-right-color: var(--disabledColor);
+        border-bottom-color: var(--highlightColor);
+        border-left-color: var(--highlightColor);
+    }
+    25% {
+        border-top-color: var(--highlightColor);
+        border-right-color: var(--disabledColor);
+        border-bottom-color: var(--disabledColor);
+        border-left-color: var(--highlightColor);
+    }
+    50% {
+        border-top-color: var(--highlightColor);
+        border-right-color: var(--highlightColor);
+        border-bottom-color: var(--disabledColor);
+        border-left-color: var(--disabledColor);
+    }
+    75% {
+        border-top-color: var(--disabledColor);
+        border-right-color: var(--highlightColor);
+        border-bottom-color: var(--highlightColor);
+        border-left-color: var(--disabledColor);
+    }
+    100% {
+        border-top-color: var(--disabledColor);
+        border-right-color: var(--disabledColor);
+        border-bottom-color: var(--highlightColor);
+        border-left-color: var(--highlightColor);
+    }
+}

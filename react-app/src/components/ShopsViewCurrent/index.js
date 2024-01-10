@@ -5,6 +5,7 @@ import ShopCard from '../ShopCard'
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { thunkGetUserShops } from '../../store/shops'
 import "./ShopsViewCurrent.css"
+import Loading from '../Loading'
 
 export default function ShopsViewCurrent() {
   const dispatch = useDispatch()
@@ -21,7 +22,7 @@ export default function ShopsViewCurrent() {
 
   const userShops = sessionUser.shops.map(shopId => shops[shopId])
 
-  if (userShops.includes(undefined)) return <div>Loading shops...</div>
+  if (userShops.includes(undefined)) return <Loading text="Loading shops..." />
 
   return (
     <div className='current-shops-container'>
