@@ -8,6 +8,7 @@ import CritterDisplaySection from '../CritterDisplaySection';
 import { thunkGetUserShops } from '../../store/shops';
 import OpenModalButton from '../OpenModalButton';
 import CritterCreateModal from '../CritterCreateModal';
+import Loading from '../Loading';
 
 export default function CrittersViewCurrent() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export default function CrittersViewCurrent() {
 
   const userCritters = sessionUser.critters.map(critterId => critters[critterId])
 
-  if (!shops || userCritters.includes(undefined)) return <div>Loading critters...</div>
+  if (!shops || userCritters.includes(undefined)) return <Loading text="Loading critters..." />
 
   const sortedCritters = {};
 
