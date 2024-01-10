@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {thunkGetAllShops} from '../../store/shops.js'
 import ShopCard from '../ShopCard/index.js'
+import Loading from '../Loading/index.js';
 import "./ShopsViewAll.css"
 
 export default function ShopsViewAll() {
@@ -13,7 +14,7 @@ export default function ShopsViewAll() {
         dispatch(thunkGetAllShops())
     }, [dispatch])
 
-    if (!shops) return <div>Loading All Shops...</div>
+    if (!shops) return <Loading text="Loading All Shops..."/>
 
     return (
         <div className='all-shops-container'>

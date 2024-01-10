@@ -9,6 +9,7 @@ import ShopDetailsAbout from './ShopDetailsAbout'
 // import ShopDetailsReviews from './ShopDetailsReviews'
 import "./ShopDetails.css"
 import { getShopCritters } from '../../store/critters'
+import Loading from '../Loading'
 
 export default function ShopDetails() {
     const {shopId} = useParams()
@@ -31,7 +32,7 @@ export default function ShopDetails() {
         } else setIsLoaded(true);
     }, [shop, shopId, dispatch, history, isLoaded])
 
-    if (!isLoaded || !shop.critters) return <div>Loading Shop...</div>
+    if (!isLoaded || !shop.critters) return <Loading text="Loading Shop" />
 
 
     // const {name,
