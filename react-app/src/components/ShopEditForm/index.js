@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams, Redirect } from 'react-router-dom';
 import { thunkEditShop, thunkGetShop } from '../../store/shops';
 
-import { DAYS, CATEGORIES, formatBusinessHours, parseBusinessHours } from '../../store/utils';
+import { formatBusinessHours, parseBusinessHours } from '../../store/utils';
 
 import "../ShopCreateForm/ShopCreateForm.css"
 import ShopFormImages from '../ShopCreateForm/ShopFormImages';
@@ -112,7 +112,7 @@ export default function ShopEditForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errorsObj = {};
+    // const errorsObj = {};
     setErrors({})
 
     try {
@@ -141,7 +141,7 @@ export default function ShopEditForm() {
     }
   }
 
-  console.log("************IMAGE LOADING", imageLoading)
+  // console.log("************IMAGE LOADING", imageLoading)
 
   return (
     <div className='profile-main-container'>

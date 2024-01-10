@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { saveLocation } from '../../store/session'
 import { useModal } from '../../context/Modal'
@@ -24,7 +24,7 @@ export default function LocationFormModal({type}) {
 
   const [formData, setFormData] = useState(currentLocation)
 
-  const [saveNewLocation, setSaveNewLocation] = useState(false)
+  // const [saveNewLocation, setSaveNewLocation] = useState(false)
 
   /*TODO:
   if user, drop down select of saved addresses (name, address)

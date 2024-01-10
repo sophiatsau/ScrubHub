@@ -69,7 +69,7 @@ export const thunkCreateCritter = (formData, shopId) => async dispatch => {
         body: formData,
     })
 
-    console.log("🚀 ~ file: critters.js:69 ~ thunkCreateCritter ~ data:", data)
+    // console.log("🚀 ~ file: critters.js:69 ~ thunkCreateCritter ~ data:", data)
 
     if (!data.status) {
         dispatch(createCritter(data));

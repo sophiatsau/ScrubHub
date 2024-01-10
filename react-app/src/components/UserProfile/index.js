@@ -1,6 +1,6 @@
 import React from 'react'
 import SideBar from './SideBar'
-import { Route, Switch, useParams } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import AddressViewCurrent from '../AddressViewCurrent'
 import ShopsViewCurrent from '../ShopsViewCurrent'
 import ShopCreateForm from '../ShopCreateForm'
@@ -12,7 +12,7 @@ import CrittersViewCurrent from '../CrittersViewCurrent'
 //TODO: user profile edit
 // user
 export default function UserProfile() {
-  const {feature} = useParams()
+//   const {feature} = useParams()
   return (
     <div id="user-profile-page-container">
     <SideBar/>
