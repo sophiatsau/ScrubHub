@@ -41,7 +41,7 @@ export default function CritterCard({critter, isOwner}) {
     return (
         <div key={critter.id} className={`critter-card-container ${classAddOn}`}>
             <div className="critter-card-details">
-                <p>
+                <p className='critter-name-species'>
                     <span className="bold" style={{marginRight: "5px"}}>{name}</span>
                     <span className="italic light">{species}</span>
                 </p>

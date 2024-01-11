@@ -1,6 +1,7 @@
 .critter-display-card-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: fit-content(50%) fit-content(50%); */
     gap: 8px;
 }
 
