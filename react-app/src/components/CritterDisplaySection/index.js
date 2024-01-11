@@ -7,7 +7,7 @@ import CritterCard from '../CritterCard'
 // import CritterUpdateModal from '../CritterUpdateModal';
 // import CritterCreateModal from '../CritterCreateModal';
 
-export default function CritterDisplaySection({critters, heading}) {
+export default function CritterDisplaySection({critters, heading, isOwner}) {
     // display list of critters. Headers, etc will be from the parent
     // options for what buttons to display based on path
     // const location = useLocation();
@@ -18,7 +18,7 @@ export default function CritterDisplaySection({critters, heading}) {
         <section className='critter-display-card-container'>
             {critters.map(critter => (
                 <div key={critter.id}>
-                <CritterCard critter={critter}/>
+                <CritterCard critter={critter} isOwner={isOwner}/>
                 </div>
             ))}
             {/* {location.pathname.endsWith("profile/critters") && (

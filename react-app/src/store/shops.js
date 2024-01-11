@@ -172,7 +172,7 @@ export default function reducer(state = initialState, action) {
         }
         case DELETE_SHOP_CRITTER: {
             const shop = {...state[action.shopId]}
-            shop.critters = [shop.critters.filter(critter => critter.id !== parseInt(action.critterId))]
+            shop.critters = shop.critters.filter(critter => critter.id !== parseInt(action.critterId))
             return {...state, [shop.id]: shop}
         }
         default:
