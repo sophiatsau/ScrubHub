@@ -9,6 +9,7 @@ import { useModal } from '../../context/Modal';
 import { thunkDeleteShop } from '../../store/shops';
 import { deleteUserShop } from '../../store/session';
 import DisplayPriceRange from './DisplayPriceRange';
+import ShopOwnerButtons from './ShopOwnerButtons';
 
 export default function ShopCard({shop}) {
   const dispatch = useDispatch()
