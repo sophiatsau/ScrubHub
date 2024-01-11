@@ -229,7 +229,7 @@ def create_critter(shopId):
 
         db.session.add(critter)
         db.session.commit()
-        return critter.to_dict(), 201
+        return {"critter": critter.to_dict()}, 201
     elif form.errors:
         return error_messages(form.errors), 400
     else:

@@ -87,6 +87,14 @@
     border: 1px solid red;
 } */
 
+/*************** CRITTERS ********************/
+.shop-critter-header {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    /* align-items: center; */
+}
+
 /*************** ABOUT ***********************/
 .shop-details-about {
     display: grid;

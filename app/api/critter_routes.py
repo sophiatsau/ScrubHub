@@ -35,7 +35,7 @@ def get_one_critter(id):
     critter = Critter.query.get(id)
     if not critter:
         return error_message("critter", "Critter does not exist"), 404
-    return critter.to_dict(scope="detailed")
+    return {"critter": critter.to_dict(scope="detailed")}, 200
 
 
 @critter_routes.route('/<int:critterId>/edit', methods=['PUT'])
@@ -90,7 +90,7 @@ def update_critter(critterId):
         db.session.add(critter)
         db.session.commit()
 
-        return critter.to_dict(scope="detailed"), 200
+        return {"critter": critter.to_dict(scope="detailed")}, 200
     elif form.errors:
         return error_messages(form.errors), 400
     else:

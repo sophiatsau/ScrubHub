@@ -6,6 +6,7 @@ import { thunkCreateCritter } from '../../store/critters';
 import { addUserCritter } from '../../store/session';
 import CritterForm from '../CritterForm';
 import { useModal } from '../../context/Modal';
+import { addShopCritter } from '../../store/shops';
 
 export default function CritterCreateModal({shop}) {
   const dispatch = useDispatch();
@@ -57,7 +58,8 @@ export default function CritterCreateModal({shop}) {
 
     const res = await dispatch(thunkCreateCritter(allFormData, shop.id));
     if (res.status===201) {
-      dispatch(addUserCritter(res.id));
+      dispatch(addUserCritter(res.critter.id));
+      dispatch(addShopCritter(shop.id, res.critter.id))
       closeModal();
     } else if (res.status===400) {
       setFormErrors(res.errors);

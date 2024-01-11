@@ -64,7 +64,7 @@ export default function ShopDetails() {
         <div className='shop-details-container'>
             <ShopDetailsProfile shop={shop} isOwner={isOwner}/>
             <ShopDetailsNav shop={shop}/>
-            <ShopDetailsCritters shop={shop}/>
+            <ShopDetailsCritters shop={shop} isOwner={isOwner}/>
             <ShopDetailsAbout shop={shop} isOwner={isOwner}/>
             {/* <ShopDetailsReviews shop={shop}/> */}
         </div>

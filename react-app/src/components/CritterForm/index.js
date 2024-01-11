@@ -45,8 +45,6 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 break
             }
             case "stock": {
-                console.log('value', value, typeof value)
-                console.log("is true", value >= 0 && !isNaN(value))
                 newError = parseInt(value) >= 0 ? "" : "Stock must be 0 or greater";
                 break;
             }

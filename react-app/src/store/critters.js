@@ -46,7 +46,7 @@ const deleteCritter = (critterId) => ({
 export const thunkGetAllCritters = () => async (dispatch) => {
     const data = await fetchData("/api/critters/");
 
-    if (!data.errors) {
+    if (data.status===200) {
         dispatch(getAllCritters(data.critters));
     }
 
@@ -56,7 +56,7 @@ export const thunkGetAllCritters = () => async (dispatch) => {
 export const thunkGetUserCritters = () => async (dispatch) => {
     const data = await fetchData(`/api/critters/current`);
 
-    if (!data.errors) {
+    if (data.status===200) {
         dispatch(getUserCritters(data.critters));
     }
 
@@ -69,10 +69,8 @@ export const thunkCreateCritter = (formData, shopId) => async dispatch => {
         body: formData,
     })
 
-    // console.log("🚀 ~ file: critters.js:69 ~ thunkCreateCritter ~ data:", data)
-
-    if (!data.status) {
-        dispatch(createCritter(data));
+    if (data.status===201) {
+        dispatch(createCritter(data.critter));
     }
 
     return data;
@@ -86,7 +84,7 @@ export const thunkEditCritter = (critterId, formData) => async dispatch => {
     })
 
     if (data.status === 200) {
-        dispatch(editCritter(data))
+        dispatch(editCritter(data.critter))
     }
 
     return data;

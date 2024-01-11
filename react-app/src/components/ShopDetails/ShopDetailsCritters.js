@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import CritterDisplaySection from '../CritterDisplaySection'
+import CritterCreateButton from '../CritterCreateButton'
 
-export default function ShopDetailsCritters({shop}) {
+export default function ShopDetailsCritters({shop, isOwner}) {
   //TODO: sidebar displaying different categories
   const allCritters = useSelector(state => state.critters)
 
@@ -15,10 +16,12 @@ export default function ShopDetailsCritters({shop}) {
     return accum;
   },{})
 
-
   return (
     <div className='shop-critter-display-container'>
-      <h2>View Our Critters</h2>
+      <h2 className='shop-critter-header'>
+        View Our Critters
+        {isOwner && <CritterCreateButton shop={shop} />}
+      </h2>
       <div className='critter-display-sections'>
         {Object.entries(sortedCritters).map(([cat,list]) => (
           <section key={cat}>

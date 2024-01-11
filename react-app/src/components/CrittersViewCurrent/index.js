@@ -6,8 +6,9 @@ import { thunkGetUserCritters } from '../../store/critters';
 import "./CrittersViewCurrent.css"
 import CritterDisplaySection from '../CritterDisplaySection';
 import { thunkGetUserShops } from '../../store/shops';
-import OpenModalButton from '../OpenModalButton';
-import CritterCreateModal from '../CritterCreateModal';
+// import OpenModalButton from '../OpenModalButton';
+// import CritterCreateModal from '../CritterCreateModal';
+import CritterCreateButton from '../CritterCreateButton';
 import Loading from '../Loading';
 
 export default function CrittersViewCurrent() {
@@ -46,11 +47,12 @@ export default function CrittersViewCurrent() {
             Object.entries(sortedCritters).map(([shopId, critters]) => (
                 <div key={shopId}>
                     <CritterDisplaySection critters={critters} heading={shops[shopId]?.name} />
-                    <OpenModalButton
+                    {/* <OpenModalButton
                       modalComponent={<CritterCreateModal shop={shops[shopId]}/>}
                       buttonText={`+ Add New Critter to ${shops[shopId]?.name}`}
                       className={"critter-open-create-button"}
-                    />
+                    /> */}
+                    <CritterCreateButton shop={shops[shopId]}/>
                 </div>
             ))
             : <p>You are not selling any critters.</p>
