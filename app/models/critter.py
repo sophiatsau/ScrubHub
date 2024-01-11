@@ -26,6 +26,11 @@ class Critter(db.Model):
         back_populates="critters"
     )
 
+    orderDetails = db.relationship(
+        "OrderDetails",
+        back_populates="critter"
+    )
+
     # seller = db.relationship(
     #     "User",
     #     back_populates="critters",
