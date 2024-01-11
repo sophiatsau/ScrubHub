@@ -51,26 +51,20 @@ export const deleteShopCritter = (shopId, critterId) => ({
 })
 
 export const thunkGetAllShops = () => async (dispatch) => {
-    const response = await fetch("/api/shops/");
+    const data = await fetchData("/api/shops/");
 
-    const data = await response.json()
-    if (response.ok) {
+    if (data.status === 200) {
         dispatch(getAllShops(data.shops));
-    } else {
-        data.status = response.status;
     }
 
     return data;
 }
 
 export const thunkGetUserShops = () => async (dispatch) => {
-    const response = await fetch(`/api/shops/current`);
+    const data = await fetchData(`/api/shops/current`);
 
-    const data = await response.json()
-    if (response.ok) {
+    if (data.status===200) {
         dispatch(getUserShops(data.shops));
-    } else {
-        data.status = response.status;
     }
 
     return data;
@@ -128,7 +122,7 @@ export const thunkDeleteShop = (shopId) => async dispatch => {
     return data;
 }
 
-const initialState = {allShops:{}, currentShop: {}}
+const initialState = {allShops:{}}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -136,7 +130,7 @@ export default function reducer(state = initialState, action) {
             return {...state, allShops: normalizeObj(action.shops)}
         }
         case GET_USER_SHOPS: {
-            return {...state, allShops: normalizeObj(action.shops)}
+            return {...state, allShops: {...state.allShops, ...normalizeObj(action.shops)}}
         }
         case GET_ONE_SHOP:
             return {...state, [action.shop.id]: action.shop}

@@ -32,7 +32,7 @@ export default function CritterCard({critter, isOwner}) {
 
         if (data.status === 200) {
             dispatch(deleteUserCritter(critter.id));
-            dispatch(deleteShopCritter(critter.shopId, critter.id));
+            if (location.pathname.match(/^\/shops\/[\d]+/)) dispatch(deleteShopCritter(critter.shopId, critter.id));
         }
 
         closeModal();
