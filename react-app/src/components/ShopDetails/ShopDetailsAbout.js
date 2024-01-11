@@ -1,5 +1,5 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import DisplayPriceRange from '../ShopCard/DisplayPriceRange'
 
 export default function ShopDetailsAbout({shop}) {
@@ -28,10 +28,10 @@ export default function ShopDetailsAbout({shop}) {
       <div className='shop-details-about-basics'>
         <div>
           {categories.map((cat, i) => (
-            <span key={cat} className='purple'>
-              {/* <Link to={`/shops/${cat}`}> */}
-                {cat}{i===categories.length-1 ? "":", "}
-              {/* </Link> */}
+            <span key={cat}>
+              <Link to={`/shops/${cat}`}>
+                {cat}{i===categories.length-1 ? "":","}
+              </Link>
             </span>
           ))}
         </div>
@@ -41,7 +41,7 @@ export default function ShopDetailsAbout({shop}) {
       <div className="shop-details-about-connect">
         <div className='shop-details-about-address'>
           {/*TODO: google maps*/}
-          <p className='purple'>{formattedAddress}</p>
+          <a>{formattedAddress}</a>
           {/* TODO: distance from current */}
         </div>
         <h3>Contact Us</h3>
@@ -51,7 +51,7 @@ export default function ShopDetailsAbout({shop}) {
         <table className="shop-details-hours-table">
           <thead>
             <tr>
-              <th className="shop-details-hours-header" colSpan="2">Hours</th>
+              <th className="shop-details-hours-header" colspan="2">Hours</th>
             </tr>
           </thead>
           <tbody>

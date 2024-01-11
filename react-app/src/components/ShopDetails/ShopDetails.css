@@ -10,14 +10,13 @@
     margin: 20px 0;
 }
 
-
 .shop-details-container h3 {
     margin: 10px 0;
 }
 
 .shop-profile-container {
     position: relative;
-    z-index: -1;
+    z-index: 0;
 }
 
 .shop-cover-img {
@@ -39,6 +38,51 @@
     border-radius: 5px;
 }
 
+.shop-details-header {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: min-content;
+    /* gap: 15px; */
+    /* border: 1px solid red; */
+}
+
+/* .shop-details-about:hover .shop-owner-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 80px;
+    position: relative;
+    top: -25px;
+    left: 30px;
+} */
+
+.shop-profile-container:hover .shop-details-header>.shop-owner-buttons {
+    /* display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 80px; */
+    display: grid;
+    grid-template-columns: 80px 80px;
+    column-gap: 5px;
+    position: relative;
+    top: -8px;
+    left: 30px;
+    height: 0;
+}
+
+.shop-profile-container:hover .shop-details-header>.shop-owner-buttons button {
+    height: 30px;
+}
+
+.shop-profile-container:hover .shop-details-header>.shop-owner-buttons .delete-button {
+    margin-top: 8px;
+}
+
+/* .shop-details-header>.shop-owner-buttons button {
+    height: 20px;
+    padding: 0;
+} */
 /* .shop-details-profile-info {
     border: 1px solid red;
 } */
