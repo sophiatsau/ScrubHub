@@ -42,5 +42,5 @@ export default function ShopOwnerButtons({shop}) {
           className="light-button delete-button"
         />
     </div>
-  )
+    )
 }
