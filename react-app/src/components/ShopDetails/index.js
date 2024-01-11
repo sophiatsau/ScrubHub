@@ -25,7 +25,7 @@ export default function ShopDetails() {
     }, [sessionUser, shop])
 
     useEffect(() => {
-        if (!shop?.coverImageUrl) {
+        if (!isLoaded && !shop?.coverImageUrl) {
             dispatch(thunkGetShop(shopId))
                 .then(res => {
                     if (res.status===404) {
@@ -39,7 +39,8 @@ export default function ShopDetails() {
         } else setIsLoaded(true);
     }, [shop, shopId, dispatch, history, isLoaded])
 
-    if (!isLoaded || !shop.critters) return <Loading text="Loading Shop" />
+    // shop? - could error if deleting shop from shop page
+    if (!isLoaded || !shop?.critters) return <Loading text="Loading Shop" />
 
     // const {name,
     //     address,
