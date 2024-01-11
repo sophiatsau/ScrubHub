@@ -29,6 +29,11 @@ class User(db.Model, UserMixin):
         cascade="all, delete-orphan",
     )
 
+    orders = db.relationship(
+        "Order",
+        back_populates="purchaser",
+    )
+
     # critters = db.relationship(
     #     "Critter",
     #     back_populates="seller",

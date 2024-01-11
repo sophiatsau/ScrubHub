@@ -43,6 +43,11 @@ class Shop(db.Model):
         cascade="all, delete-orphan",
     )
 
+    orders = db.relationship(
+        "Order",
+        back_populates="shop",
+    )
+
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
         return getattr(self, item)

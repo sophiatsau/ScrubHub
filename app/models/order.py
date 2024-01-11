@@ -17,6 +17,16 @@ class Order(db.Model):
         back_populates="order"
     )
 
+    purchaser = db.relationship(
+        "User",
+        back_populates="orders"
+    )
+
+    shop = db.relationship(
+        "Shop",
+        back_populates="orders"
+    )
+
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
         return getattr(self, item)
