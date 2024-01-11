@@ -45,7 +45,9 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
                 break
             }
             case "stock": {
-                newError = value < 0 ? "Stock must be 0 or greater" : "";
+                console.log('value', value, typeof value)
+                console.log("is true", value >= 0 && !isNaN(value))
+                newError = parseInt(value) >= 0 ? "" : "Stock must be 0 or greater";
                 break;
             }
             default: return
@@ -178,7 +180,7 @@ export default function CritterForm({formData, onSubmit, handleFormUpdate, formE
         </div>
         <button
             className={`purple-button shop-submit-button critter-submit-button ${Object.values(formErrors).length?"disabled":""}`} type="submit" disabled={Object.values(formErrors).length}
-        >Update Critter!</button>
+        >Submit Critter</button>
     </form>
   )
 }

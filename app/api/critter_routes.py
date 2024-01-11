@@ -110,7 +110,7 @@ def delete_critter(critterId):
     if critter.shop.userId != current_user.id:
         return error_message("user", "Authorization Error."), 403
 
-    delete_success = remove_file_from_s3(critter.previewImageUrl)
+    delete_success = remove_file_from_s3(critter.previewImageUrl) if critter.previewImageUrl else True
 
     if delete_success is True:
         db.session.delete(critter)

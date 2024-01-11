@@ -12,6 +12,8 @@ import { getShopCritters } from '../../store/critters'
 import Loading from '../Loading'
 
 export default function ShopDetails() {
+    window.scroll(0,0);
+
     const {shopId} = useParams()
     const dispatch = useDispatch()
     const history = useHistory()

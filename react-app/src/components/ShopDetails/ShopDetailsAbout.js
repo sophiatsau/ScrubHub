@@ -45,7 +45,7 @@ export default function ShopDetailsAbout({shop}) {
           {/* TODO: distance from current */}
         </div>
         <h3>Contact Us</h3>
-        <span className='purple'>{phoneNumber}</span> | <span className='purple'>{email}</span>
+        <span className='purple'>{email}</span> {phoneNumber && <>| <span className='purple'>{phoneNumber}</span></>}
       </div>
       <div className="shop-details-about-hours">
         <table className="shop-details-hours-table">
