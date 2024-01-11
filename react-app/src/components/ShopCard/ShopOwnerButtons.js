@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 import DeleteConfirmationModal from '../DeleteConfirmationModal';
 import OpenModalButton from '../OpenModalButton';
@@ -9,8 +9,12 @@ import { thunkDeleteShop } from '../../store/shops';
 import { deleteUserShop } from '../../store/session';
 
 export default function ShopOwnerButtons({shop}) {
-    const dispatch = useDispatch()
-    const {closeModal} = useModal()
+    const dispatch = useDispatch();
+    const location = useLocation();
+    console.log("🚀 ~ ShopOwnerButtons ~ location:", location.pathname)
+    console.log(location.pathname.match(/^\/shops\/[\d]+/))
+    const history = useHistory();
+    const {closeModal} = useModal();
 
     const deleteShop = async () => {
       const res = await dispatch(thunkDeleteShop(shop.id));
@@ -21,7 +25,13 @@ export default function ShopOwnerButtons({shop}) {
         dispatch(deleteUserShop(shop.id))
       }
 
-      closeModal()
+      closeModal();
+      //if on shop details page, redirect to all shops
+      console.log(location.pathname.match(/^\/shops\/[\d]+/))
+      if (location.pathname.match(/^\/shops\/[\d]+/)) {
+        history.push("/shops")
+      }
+
     }
 
     return (

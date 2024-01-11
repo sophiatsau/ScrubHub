@@ -30,10 +30,11 @@ export default function ShopDetails() {
                 .then(res => {
                     if (res.status===404) {
                         history.push('/not-found')
+                        return ""
                     }
                     return res;
                 })
-                .then(res => dispatch(getShopCritters(res.critters)))
+                .then(res => res ? dispatch(getShopCritters(res.critters)) : null)
                 .then(() => setIsLoaded(true));
         } else setIsLoaded(true);
     }, [shop, shopId, dispatch, history, isLoaded])

@@ -41,7 +41,7 @@ export default function ShopDetailsAbout({shop}) {
       <div className="shop-details-about-connect">
         <div className='shop-details-about-address'>
           {/*TODO: google maps*/}
-          <a>{formattedAddress}</a>
+          <p>{formattedAddress}</p>
           {/* TODO: distance from current */}
         </div>
         <h3>Contact Us</h3>
@@ -51,7 +51,7 @@ export default function ShopDetailsAbout({shop}) {
         <table className="shop-details-hours-table">
           <thead>
             <tr>
-              <th className="shop-details-hours-header" colspan="2">Hours</th>
+              <th className="shop-details-hours-header" colSpan="2">Hours</th>
             </tr>
           </thead>
           <tbody>
