@@ -27,7 +27,7 @@ class Critter(db.Model):
     )
 
     orderDetails = db.relationship(
-        "OrderDetails",
+        "OrderDetail",
         back_populates="critter"
     )
 

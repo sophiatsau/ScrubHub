@@ -31,6 +31,7 @@ def get_one_shop(id):
     Queries for and returns shop details by id
     """
     shop = Shop.query.get(id)
+    print("🚀 ~ shop:", shop)
     if not shop:
         return error_message("shop", "Shop does not exist"), 404
     return {"shop": shop.to_dict(scope="detailed")}, 200

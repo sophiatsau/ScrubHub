@@ -7,8 +7,8 @@ class OrderDetail(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    orderId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    critterId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=False)
+    orderId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("orders.id")), nullable=False)
+    critterId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("critters.id")), nullable=False)
     quantity = db.Column(db.String, nullable=False)
     unitPrice = db.Column(db.Date, nullable=True)
 
