@@ -34,14 +34,16 @@ class Order(db.Model):
     def to_dict(self, scope=None):
         d = {
             "id": self.id,
-            "name": self.name,
-            "species": self.species,
+            "userId": self.userId,
             "shopId": self.shopId,
-            "price": self.price,
-            "category": self.category,
-            "previewImageUrl": self.previewImageUrl,
-            "description": self.description,
-            "stock": self.stock,
+            "orderStatus": self.orderStatus,
+            "purchasedAt": self.purchasedAt,
+            "orderDetails": [],
+            "totalPrice": 0,
         }
+
+        for details in self.orderDetails:
+            d["orderDetails"].append(details.to_dict())
+            d["totalPrice"] += details.unitPrice * details.quantity
 
         return d

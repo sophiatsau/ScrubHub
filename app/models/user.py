@@ -69,6 +69,8 @@ class User(db.Model, UserMixin):
         d["shops"] = [shop.id for shop in self.shops]
         d["addresses"] = self.normalize_addresses()
         d["critters"] = [critter.id for shop in self.shops for critter in shop.critters]
+        d["orders"] = [order.to_dict() for order in self.orders]
+
         return d
 
     def get_addresses(self):

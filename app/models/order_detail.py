@@ -29,14 +29,10 @@ class OrderDetail(db.Model):
     def to_dict(self, scope=None):
         d = {
             "id": self.id,
-            "name": self.name,
-            "species": self.species,
-            "shopId": self.shopId,
-            "price": self.price,
-            "category": self.category,
-            "previewImageUrl": self.previewImageUrl,
-            "description": self.description,
-            "stock": self.stock,
+            "orderId": self.orderId,
+            "critterId": self.critterId,
+            "quantity": self.quantity,
+            "unitPrice": self.unitPrice,
         }
 
         return d
