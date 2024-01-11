@@ -25,7 +25,7 @@ export default function ShopOwnerButtons({shop}) {
 
       closeModal();
       //if on shop details page, redirect to all shops
-      if (location.pathname.match(/^\/shops\/[\d]+/).length) {
+      if (location.pathname.match(/^\/shops\/[\d]+/)) {
         history.push("/shops")
       }
 

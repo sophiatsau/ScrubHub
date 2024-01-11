@@ -1,4 +1,4 @@
-import { normalizeObj } from "./utils"
+import { normalizeObj, fetchData } from "./utils"
 const GET_ALL_SHOPS = "shops/GET_ALL_SHOPS"
 const GET_USER_SHOPS = "shops/GET_USER_SHOPS"
 const GET_ONE_SHOP = "shops/GET_ONE_SHOP"
@@ -77,71 +77,58 @@ export const thunkGetUserShops = () => async (dispatch) => {
 }
 
 export const thunkGetShop = (shopId) => async dispatch => {
-    const response = await fetch(`/api/shops/${shopId}`);
-    const data = await response.json();
-    const critters = data.crittersDetails;
-
-    if (response.ok) {
-        //don't put that in store
-        delete data.crittersDetails;
-        dispatch(getOneShop(data));
-    } else {
-        data.status = response.status;
+    const data = await fetchData(`/api/shops/${shopId}`);
+    // const data = await response.json();
+    if (data.status!==200) return data;
+    else {
+        // get shop + critter data in 1 fetch
+        // but don't put critters in shop store
+        let critters = data.shop.crittersDetails;
+        delete data.shop.crittersDetails;
+        dispatch(getOneShop(data.shop));
+        return {...data, critters};
     }
-
-    return {...data, critters};
 }
 
 export const thunkCreateShop = formData => async dispatch => {
-    const res = await fetch(`/api/shops/new`, {
+    const data = await fetchData(`/api/shops/new`, {
         method: "POST",
         body: formData,
     })
-    const data = await res.json()
 
-    if (res.ok) {
-        dispatch(createShop(data))
-    } else {
-        data.status = res.status
+    if (data.status===201) {
+        dispatch(createShop(data.shop))
     }
 
     return data;
 }
 
 export const thunkEditShop = (shopId, formData) => async dispatch => {
-    const res = await fetch(`/api/shops/${shopId}/edit`, {
+    const data = await fetchData(`/api/shops/${shopId}/edit`, {
         method: "PUT",
         body: formData,
     })
 
-    const data = await res.json()
-
-    if (res.ok) {
-        dispatch(editShop(data))
-    } else {
-        data.status = res.status
+    if (data.status===200) {
+        dispatch(editShop(data.shop))
     }
 
     return data;
 }
 
 export const thunkDeleteShop = (shopId) => async dispatch => {
-    const res = await fetch(`/api/shops/${shopId}/delete`, {
+    const data = await fetchData(`/api/shops/${shopId}/delete`, {
         method: "DELETE",
     })
 
-    const data = await res.json()
-
-    if (res.ok) {
+    if (data.status === 200) {
         dispatch(deleteShop(shopId))
-    } else {
-        data.status = res.status
     }
 
     return data;
 }
 
-
+//allShops:{}, currentShop: {}
 const initialState = {}
 
 export default function reducer(state = initialState, action) {

@@ -33,7 +33,7 @@ def get_one_shop(id):
     shop = Shop.query.get(id)
     if not shop:
         return error_message("shop", "Shop does not exist"), 404
-    return shop.to_dict(scope="detailed")
+    return {"shop": shop.to_dict(scope="detailed")}, 200
 
 
 @shop_routes.route('/new', methods=['POST'])
@@ -80,7 +80,7 @@ def create_shop():
 
         db.session.add(shop)
         db.session.commit()
-        return shop.to_dict(scope="detailed"), 201
+        return {"shop": shop.to_dict(scope="detailed")}, 201
     elif form.errors:
         return error_messages(form.errors), 400
     else:
@@ -160,7 +160,7 @@ def update_shop(shopId):
         if [success for success in delete_success if success is not True]:
             print("🚀 ~ file: shop_routes.py:159 ~ delete_success not successful:", delete_success)
 
-        return shop.to_dict(scope="detailed"), 200
+        return {"shop": shop.to_dict(scope="detailed")}, 200
     elif form.errors:
         return error_messages(form.errors), 400
     else:
