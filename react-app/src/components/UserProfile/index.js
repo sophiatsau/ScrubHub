@@ -12,6 +12,7 @@ import CrittersViewCurrent from '../CrittersViewCurrent'
 //TODO: user profile edit
 // user
 export default function UserProfile() {
+    window.scroll(0,0);
 //   const {feature} = useParams()
   return (
     <div id="user-profile-page-container">

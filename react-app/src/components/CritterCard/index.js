@@ -9,18 +9,19 @@ import { thunkDeleteCritter } from '../../store/critters';
 import { deleteUserCritter } from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
+import { deleteShopCritter } from '../../store/shops';
 
 //usePath for deciding if edit/delete (on /profile/shops/:shopId/edit)
 // /profile/critters for stock edit only
 // no options if on shop details page
 
-export default function CritterCard({critter}) {
+export default function CritterCard({critter, isOwner}) {
     //TODO: popup modal for adding to cart
     // in current, is edit / delete. elsewhere, is add to cart
     const location = useLocation();
     const dispatch = useDispatch();
     const {closeModal} = useModal();
-    const canEdit = location.pathname.endsWith("profile/critters");
+    const canEdit = location.pathname.endsWith("profile/critters") || isOwner;
 
     const {name, species, price, previewImageUrl, description, stock} = critter;
 
@@ -31,6 +32,7 @@ export default function CritterCard({critter}) {
 
         if (data.status === 200) {
             dispatch(deleteUserCritter(critter.id));
+            if (location.pathname.match(/^\/shops\/[\d]+/)) dispatch(deleteShopCritter(critter.shopId, critter.id));
         }
 
         closeModal();
@@ -39,7 +41,7 @@ export default function CritterCard({critter}) {
     return (
         <div key={critter.id} className={`critter-card-container ${classAddOn}`}>
             <div className="critter-card-details">
-                <p>
+                <p className='critter-name-species'>
                     <span className="bold" style={{marginRight: "5px"}}>{name}</span>
                     <span className="italic light">{species}</span>
                 </p>

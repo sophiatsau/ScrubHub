@@ -1,22 +1,18 @@
-.critter-display-card-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* grid-template-columns: fit-content(50%) fit-content(50%); */
-    gap: 8px;
-}
-
-/* .critter-open-create-button {
+.critter-open-create-button {
+    /* border: 1px solid var(--highlightColor); */
     display: flex;
     justify-content: center;
     align-items: center;
     height: max-content;
     border-radius: 15px;
     width: max-content;
+    /* font-size: var(--h3Size); */
     color: var(--highlightColor);
     background-color: transparent;
+    /* align-self: center; */
 }
 
 .critter-open-create-button:hover {
     color: var(--highlightColorDarker);
     font-weight: bold;
-} */
+}

@@ -8,7 +8,7 @@ import "./ShopsViewAll.css"
 
 export default function ShopsViewAll() {
     const dispatch = useDispatch();
-    const shops = Object.values(useSelector(state => state.shops))
+    const shops = Object.values(useSelector(state => state.shops.allShops))
 
     useEffect(() => {
         dispatch(thunkGetAllShops())

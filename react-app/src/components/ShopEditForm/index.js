@@ -31,7 +31,8 @@ export default function ShopEditForm() {
   }, [])
 
   useEffect(() => {
-    dispatch(thunkGetShop(shopId)).then((res)=> {
+    dispatch(thunkGetShop(shopId)).then((data)=> {
+      const res = data.shop
       setOldPreviews({
         coverImageUrl: res.coverImageUrl,
         searchImageUrl: res.searchImageUrl,
@@ -137,7 +138,7 @@ export default function ShopEditForm() {
     if (editedShop.errors) {
       setErrors(editedShop.errors)
     } else {
-      history.push(`/shops/${editedShop.id}`)
+      history.push(`/shops/${editedShop.shop.id}`)
     }
   }
 
