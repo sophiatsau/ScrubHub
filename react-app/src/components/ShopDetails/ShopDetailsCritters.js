@@ -30,7 +30,8 @@ export default function ShopDetailsCritters({shop, isOwner}) {
       <div className='critter-display-sections'>
         {Object.entries(sortedCritters).map(([cat,list]) => (
           <section key={cat}>
-            <CritterDisplaySection critters={list} heading={cat} isOwner={isOwner}/>
+            <h3>{cat}</h3>
+            <CritterDisplaySection critters={list} isOwner={isOwner}/>
           </section>
         ))}
       </div>

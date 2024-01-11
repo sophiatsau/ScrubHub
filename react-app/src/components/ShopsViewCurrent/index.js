@@ -10,7 +10,7 @@ import Loading from '../Loading'
 export default function ShopsViewCurrent() {
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
-  const shops = useSelector(state => state.shops)
+  const shops = useSelector(state => state.shops.allShops)
 
   useEffect(() => {
     if (sessionUser) {

@@ -128,16 +128,15 @@ export const thunkDeleteShop = (shopId) => async dispatch => {
     return data;
 }
 
-//allShops:{}, currentShop: {}
-const initialState = {}
+const initialState = {allShops:{}, currentShop: {}}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_SHOPS: {
-            return normalizeObj(action.shops)
+            return {...state, allShops: normalizeObj(action.shops)}
         }
         case GET_USER_SHOPS: {
-            return {...state, ...normalizeObj(action.shops)}
+            return {...state, allShops: normalizeObj(action.shops)}
         }
         case GET_ONE_SHOP:
             return {...state, [action.shop.id]: action.shop}
