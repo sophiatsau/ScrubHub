@@ -113,8 +113,44 @@ def edit_order(orderId, detailId):
     """
     Updates quantity of existing OrderDetail and returns updated order detail as dictionary.
     """
+    # error handling
+    detail = OrderDetail.query.get(detailId)
+    if not detail or detail.orderId != orderId:
+        return error_message("orderDetails", "Order Details not found"), 404
     # validate that current user is user who has the order
-    return {"message": "route connected!"}, 200
+    if detail.order.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+
+    # update data
+    form = OrderDetailForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        # confirm same critter
+        if form.critterId.data != detail.critterId:
+            return error_message("critter", "Cannot update critterId"), 400
+
+        # confirm critter exists & is from the same shop
+        critter = Critter.query.get(form.critterId.data)
+        if not critter:
+            return error_message("critter", "Critter not found."), 404
+        if critter.shopId != detail.order.shopId:
+            return error_message("critter", "Critter is not from the same shop."), 400
+
+        # confirm critter has enough stock for order
+        if critter.stock < form.quantity.data:
+            return error_message("stock", "Please select a quantity between 1 and available stock"), 400
+
+        detail.quantity = form.quantity.data
+
+        db.session.add(detail)
+        db.session.commit()
+
+        return {"order": detail.order.to_dict()}, 200
+    elif form.errors:
+        return error_messages(form.errors), 400
+    else:
+        return error_message(), 500
 
 
 @order_routes.route('/<int:orderId>/details/<int:detailId>/delete', methods=['DELETE'])
