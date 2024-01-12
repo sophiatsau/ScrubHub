@@ -73,7 +73,10 @@ class User(db.Model, UserMixin):
         d["critters"] = [critter.id for shop in self.shops for critter in shop.critters]
 
         for order in self.orders:
-            d["bag"] = order.to_dict() if order.orderStatus=="Bag" else d["orders"].append(order.to_dict())
+            if order.orderStatus=="Bag":
+                d["bag"] = order.to_dict()
+            else:
+                d["orders"].append(order.to_dict())
 
         return d
 
