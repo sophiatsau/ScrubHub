@@ -10,6 +10,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=True)
+    shopName = db.Column(db.String)
     orderStatus = db.Column(db.String, nullable=False)
     orderType = db.Column(db.String, nullable=True)
     purchasedAt = db.Column(db.Date, nullable=True)
@@ -31,17 +32,12 @@ class Order(db.Model):
     )
 
     @property
-    def boughtFrom(self):
-        return self.boughtFrom if self.purchasedAt else None
-
-    @boughtFrom.setter
-    def boughtFrom(self, shop):
-        self.boughtFrom = shop
-        return self.boughtFrom
+    def total_price(self):
+        return sum([detail.unitPrice * detail.quantity for detail in self.orderDetails])
 
     def checkout(self):
-        self.boughtFrom = self.shop.to_dict(scope="orders")
         self.purchasedAt = date.today()
+        self.shopName = self.shop["name"]
         _ = [detail.checkout() for detail in self.orderDetails]
 
     def __getitem__(self, item):
@@ -53,16 +49,14 @@ class Order(db.Model):
             "id": self.id,
             "userId": self.userId,
             "shopId": self.shopId,
+            "shopName": self.shopName or self.shop["name"],
             "orderStatus": self.orderStatus,
             "orderType": self.orderType,
             "purchasedAt": self.purchasedAt,
-            "orderDetails": [],
-            "totalPrice": 0,
-            "checkout": self.boughtFrom if self.boughtFrom else self.shop.to_dict(),
+            "orderDetails": [detail.to_dict() for detail in self.orderDetails],
+            "totalPrice": self.total_price,
+            # "_shop": self._shop,
+            # "checkout": self.purchasedFrom
         }
-
-        for details in self.orderDetails:
-            d["orderDetails"].append(details.to_dict())
-            d["totalPrice"] += details.unitPrice * details.quantity
 
         return d

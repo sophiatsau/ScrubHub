@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: dde255cd5076
+Revision ID: 9ffb62e6d51d
 Revises: 127134ccfddd
-Create Date: 2024-01-12 10:46:22.906913
+Create Date: 2024-01-12 11:39:34.502598
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'dde255cd5076'
+revision = '9ffb62e6d51d'
 down_revision = '127134ccfddd'
 branch_labels = None
 depends_on = None
@@ -22,6 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('shopId', sa.Integer(), nullable=True),
+    sa.Column('shopName', sa.String(), nullable=True),
     sa.Column('orderStatus', sa.String(), nullable=False),
     sa.Column('orderType', sa.String(), nullable=True),
     sa.Column('purchasedAt', sa.Date(), nullable=True),
@@ -33,6 +34,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('orderId', sa.Integer(), nullable=False),
     sa.Column('critterId', sa.Integer(), nullable=False),
+    sa.Column('critterName', sa.String(), nullable=True),
     sa.Column('quantity', sa.Integer(), nullable=False),
     sa.Column('unitPrice', sa.Numeric(precision=18, scale=2), nullable=True),
     sa.ForeignKeyConstraint(['critterId'], ['critters.id'], ),
