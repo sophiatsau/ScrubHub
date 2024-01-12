@@ -153,14 +153,47 @@ def edit_order(orderId, detailId):
         return error_message(), 500
 
 
+@order_routes.route('/<int:orderId>/delete', methods=['DELETE'])
+@login_required
+def empty_bag(orderId):
+    """
+    Deletes existing Order and returns message if successful. Can only delete Order if its order status is "Bag".
+    """
+    order = Order.query.get(orderId)
+
+    # confirm order exists
+    if not order:
+        return error_message("order", "Order not found."), 404
+    # validate that current user is user who has the order
+    if order.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+    if order.orderStatus != "Bag":
+        return error_message("orderStatus", "Cannot empty bag"), 400
+
+    db.session.delete(order)
+    db.session.commit()
+
+    return {"message": "Bag has been emptied"}, 200
+
+
 @order_routes.route('/<int:orderId>/details/<int:detailId>/delete', methods=['DELETE'])
 @login_required
 def remove_order(orderId, detailId):
     """
     Deletes existing OrderDetail and returns message if successful. If Order is empty after deletion, delete the entire Order
     """
+    order = Order.query.get(orderId)
+
+    # confirm order exists
+    if not order:
+        return error_message("order", "Order not found."), 404
     # validate that current user is user who has the order
-    return {"message": "route connected!"}, 200
+    if order.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+    if order.orderStatus != "Bag":
+        return error_message("user", "Authorization Error."), 403
+
+    return {"message": "Bag has been emptied"}, 200
 
 
 @order_routes.route('/<int:orderId>/checkout', methods=['PUT'])
