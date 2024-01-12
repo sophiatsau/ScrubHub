@@ -10,6 +10,7 @@ class Order(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=False)
     orderStatus = db.Column(db.String, nullable=False)
+    orderType = db.Column(db.String, nullable=False)
     purchasedAt = db.Column(db.Date, nullable=True)
 
     orderDetails = db.relationship(
@@ -37,6 +38,7 @@ class Order(db.Model):
             "userId": self.userId,
             "shopId": self.shopId,
             "orderStatus": self.orderStatus,
+            "orderType": self.orderType,
             "purchasedAt": self.purchasedAt,
             "orderDetails": [],
             "totalPrice": 0,

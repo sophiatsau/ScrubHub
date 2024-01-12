@@ -63,13 +63,17 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'balance': self.balance,
+            'orders': [],
+            'bag': None,
         }
 
         # add shops, addresses
         d["shops"] = [shop.id for shop in self.shops]
         d["addresses"] = self.normalize_addresses()
         d["critters"] = [critter.id for shop in self.shops for critter in shop.critters]
-        d["orders"] = [order.to_dict() for order in self.orders]
+
+        for order in self.orders:
+            d["bag"] = order.to_dict() if order.orderStatus=="Bag" else d["orders"].append(order.to_dict())
 
         return d
 
