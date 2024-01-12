@@ -7,5 +7,5 @@ class OrderForm(FlaskForm):
     userId = IntegerField(validators=[DataRequired()])
     shopId = IntegerField(validators=[DataRequired()])
     orderStatus = StringField(validators=[DataRequired(),Length(max=255)])
-    orderType = SelectField(validators=[DataRequired()],choices=["Delivery", "Pickup"])
+    orderType = SelectField(choices=["Delivery", "Pickup"])
     purchasedAt = DateField()

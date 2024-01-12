@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_login import login_required, current_user
 from app.models import db, Order, OrderDetail
+from app.forms import order_details_form, order_form
 from .utils import error_messages, error_message
 
 order_routes = Blueprint('orders', __name__)
@@ -31,20 +32,21 @@ def add_to_order(orderId):
     return {"message": "route connected!"}, 200
 
 
-@order_routes.route('/details/<int:detailId>/update', methods=['PATCH'])
+@order_routes.route('/<int:orderId>/details/<int:detailId>/update', methods=['PATCH'])
 @login_required
-def edit_order(detailId):
+def edit_order(orderId, detailId):
     """
     Updates quantity of existing OrderDetail and returns updated order detail as dictionary.
     """
     # validate that current user is user who has the order
     return {"message": "route connected!"}, 200
 
-@order_routes.route('/details/<int:detailId>/delete', methods=['DELETE'])
+
+@order_routes.route('/<int:orderId>/details/<int:detailId>/delete', methods=['DELETE'])
 @login_required
-def remove_order(detailId):
+def remove_order(orderId, detailId):
     """
-    Deletes existing OrderDetail and returns message if successful
+    Deletes existing OrderDetail and returns message if successful. If Order is empty after deletion, delete the entire Order
     """
     # validate that current user is user who has the order
     return {"message": "route connected!"}, 200
@@ -54,7 +56,7 @@ def remove_order(detailId):
 @login_required
 def checkout(orderId):
     """
-    Updates order status to 'En Route' or 'Ready for Pickup'  depending on if Order is Delivery or Pickup. Updates critter stock and user balance.
+    Updates order status to 'En Route' or 'Ready for Pickup'  depending on if Order is Delivery or Pickup, updates purchasedAt. Sets order type. Updates critter stock and user balance.
     TODO: Returns updated order status (might need to return shop's critter list > order?)
     """
     # validate that current user is user who has the order
