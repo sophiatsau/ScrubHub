@@ -87,4 +87,13 @@ class Shop(db.Model):
             # critters
             # reviews
 
+        if scope=="orders":
+            d.update({
+                "email": self.email,
+                "phoneNumber": self.phoneNumber,
+            })
+
+            for key in ("priceRange","pickup","delivery","searchImageUrl","categories", "businessHours"):
+                d.pop(key,None)
+
         return d

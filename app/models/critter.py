@@ -41,6 +41,16 @@ class Critter(db.Model):
         return getattr(self, item)
 
     def to_dict(self, scope=None):
+        if scope=="orders":
+            return {
+                "id": self.id,
+                "name": self.name,
+                "species": self.species,
+                "shopId": self.shopId,
+                "price": self.price,
+                "category": self.category,
+            }
+
         d = {
             "id": self.id,
             "name": self.name,

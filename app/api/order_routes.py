@@ -10,7 +10,8 @@ order_routes = Blueprint('orders', __name__)
 @order_routes.route('/')
 @login_required
 def test():
-    return {"message": "route connected!"}, 200
+    orders = Order.query.all()
+    return {"orders": [order.to_dict() for order in orders]}, 200
 
 
 @order_routes.route('/new', methods=['POST'])

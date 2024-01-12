@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import date
 
 class Order(db.Model):
     __tablename__ = 'orders'
@@ -8,14 +9,15 @@ class Order(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=False)
+    shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=True)
     orderStatus = db.Column(db.String, nullable=False)
     orderType = db.Column(db.String, nullable=True)
     purchasedAt = db.Column(db.Date, nullable=True)
 
     orderDetails = db.relationship(
         "OrderDetail",
-        back_populates="order"
+        back_populates="order",
+        cascade="all, delete-orphan",
     )
 
     purchaser = db.relationship(
@@ -27,6 +29,20 @@ class Order(db.Model):
         "Shop",
         back_populates="orders"
     )
+
+    @property
+    def boughtFrom(self):
+        return self.boughtFrom if self.purchasedAt else None
+
+    @boughtFrom.setter
+    def boughtFrom(self, shop):
+        self.boughtFrom = shop
+        return self.boughtFrom
+
+    def checkout(self):
+        self.boughtFrom = self.shop.to_dict(scope="orders")
+        self.purchasedAt = date.today()
+        _ = [detail.checkout() for detail in self.orderDetails]
 
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
@@ -42,6 +58,7 @@ class Order(db.Model):
             "purchasedAt": self.purchasedAt,
             "orderDetails": [],
             "totalPrice": 0,
+            "checkout": self.boughtFrom if self.boughtFrom else self.shop.to_dict(),
         }
 
         for details in self.orderDetails:

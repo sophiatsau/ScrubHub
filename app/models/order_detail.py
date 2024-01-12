@@ -9,8 +9,8 @@ class OrderDetail(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     orderId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("orders.id")), nullable=False)
     critterId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("critters.id")), nullable=False)
-    quantity = db.Column(db.String, nullable=False)
-    unitPrice = db.Column(db.Date, nullable=True)
+    quantity = db.Column(db.Integer, nullable=False)
+    unitPrice = db.Column(db.Numeric(18,2), nullable=True)
 
     order = db.relationship(
         "Order",
@@ -21,6 +21,18 @@ class OrderDetail(db.Model):
         "Critter",
         back_populates="orderDetails"
     )
+
+    @property
+    def product(self):
+        return self.product if self.order.purchasedAt else None
+
+    @product.setter
+    def product(self, critter):
+        self.product = critter
+        return self.product
+
+    def checkout(self):
+        self.product = self.critter.to_dict(scope="orders")
 
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
@@ -33,6 +45,7 @@ class OrderDetail(db.Model):
             "critterId": self.critterId,
             "quantity": self.quantity,
             "unitPrice": self.unitPrice,
+            "product": self.product if self.product else self.critter.to_dict(),
         }
 
         return d
