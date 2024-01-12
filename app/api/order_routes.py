@@ -35,6 +35,12 @@ def start_order():
     """
     Creates a new Order and new OrderDetail, adds them to the database, and returns order as dictionary
     """
+    # cannot have 2 existing orders in bag
+    existing_order = current_user.to_dict()["bag"]
+
+    if existing_order:
+        return error_message("order", "Order already in progress"), 400
+
     form = OrderForm()
 
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -182,18 +188,25 @@ def remove_order(orderId, detailId):
     """
     Deletes existing OrderDetail and returns message if successful. If Order is empty after deletion, delete the entire Order
     """
-    order = Order.query.get(orderId)
-
-    # confirm order exists
-    if not order:
-        return error_message("order", "Order not found."), 404
-    # validate that current user is user who has the order
-    if order.userId != current_user.id:
+    # error handling
+    detail = OrderDetail.query.get(detailId)
+    if not detail or detail.orderId != orderId:
+        return error_message("orderDetails", "Order Details not found"), 404
+    if detail.order.userId != current_user.id:
         return error_message("user", "Authorization Error."), 403
-    if order.orderStatus != "Bag":
-        return error_message("user", "Authorization Error."), 403
+    if detail.order.orderStatus != "Bag":
+        return error_message("orderStatus", "Cannot delete order detail"), 403
 
-    return {"message": "Bag has been emptied"}, 200
+    # deletion
+    order = detail.order
+    if len(order.orderDetails) > 1:
+        db.session.delete(detail)
+        db.session.commit()
+        return {"order": order.to_dict()}, 200
+    else:
+        db.session.delete(detail.order)
+        db.session.commit()
+        return {"message": "Bag has been emptied"}, 200
 
 
 @order_routes.route('/<int:orderId>/checkout', methods=['PUT'])
