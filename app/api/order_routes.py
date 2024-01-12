@@ -1,7 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Order, OrderDetail
-from app.forms import order_details_form, order_form
+from app.forms import OrderForm, OrderDetailForm
 from .utils import error_messages, error_message
 
 order_routes = Blueprint('orders', __name__)
@@ -9,9 +9,22 @@ order_routes = Blueprint('orders', __name__)
 
 @order_routes.route('/')
 @login_required
-def test():
+def get_all_orders():
+    """
+    Returns all orders as a list of dictionaries. Use only for testing.
+    """
     orders = Order.query.all()
     return {"orders": [order.to_dict() for order in orders]}, 200
+
+
+@order_routes.route('/<int:orderId>')
+@login_required
+def get_order(orderId):
+    """
+    Returns a single order as a dictionary. Use only for testing.
+    """
+    order = Order.query.get(orderId)
+    return {"order": order.to_dict()}, 200
 
 
 @order_routes.route('/new', methods=['POST'])
@@ -20,7 +33,25 @@ def start_order():
     """
     Creates a new Order and new OrderDetail, adds them to the database, and returns order as dictionary
     """
-    return {"message": "route connected!"}, 201
+    form = OrderForm()
+
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        order = Order(
+            userId=current_user.id,
+            shopId=form.shopId.data,
+            orderStatus="Bag",
+            orderType=form.orderType.data,
+        )
+        db.session.add(order)
+        db.session.commit()
+
+        return {"order": order.to_dict()}, 201
+    elif form.errors:
+        return error_messages(form.errors), 400
+    else:
+        return error_message(), 500
 
 
 @order_routes.route('/<int:orderId>/add', methods=['PUT'])
