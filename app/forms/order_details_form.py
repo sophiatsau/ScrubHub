@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, NumberRange
 
 
 class OrderDetailForm(FlaskForm):
-    orderId = IntegerField(validators=[DataRequired()])
+    # orderId = IntegerField(validators=[DataRequired()])
     critterId = IntegerField(validators=[DataRequired()])
-    quantity = IntegerField(validators=[DataRequired(), NumberRange(min=0)])
-    unitPrice = DecimalField(validators=[DataRequired()], places=2)
+    quantity = IntegerField(validators=[DataRequired(), NumberRange(min=1)])
+    # unitPrice = DecimalField(validators=[DataRequired()], places=2)

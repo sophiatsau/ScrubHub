@@ -31,6 +31,7 @@ class OrderDetail(db.Model):
     # def product(self, critter):
     #     self.product = critter
 
+    # snapshots critter name & price at time of checkout
     def checkout(self):
         self.critterName = self.critter["name"]
         self.unitPrice = self.critter["price"]
@@ -44,9 +45,9 @@ class OrderDetail(db.Model):
             "id": self.id,
             "orderId": self.orderId,
             "critterId": self.critterId,
-            "critterName": self.critterName,
+            "critterName": self.critterName or (self.critter.name if self.critter else None),
             "quantity": self.quantity,
-            "unitPrice": self.unitPrice,
+            "unitPrice": self.unitPrice or (self.critter.price if self.critter else None),
             # "product": self.product if self.product else self.critter.to_dict(),
         }
 
