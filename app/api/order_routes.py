@@ -235,7 +235,11 @@ def checkout(orderId):
     if order.orderStatus != "Bag":
         return error_message("orderStatus", "Cannot checkout order"), 400
 
-    # TODO: deduct user balance
+    # check, deduct user balance
+    if current_user.balance < order.total_price():
+        return error_message("balance", "Your balance is too low to make this purchase."), 400
+    else:
+        current_user.balance -= order.total_price()
 
     # returns (error_field, message) if fail
     # if successful, updates order + order details info
@@ -243,10 +247,13 @@ def checkout(orderId):
     if checkout_fail:
         return error_message(*checkout_fail), 400
     # TODO: checkout should check if critter stock is still enough + update critter stock
+
+    db.session.add(order)
+    db.session.commit()
     return {"order": order.to_dict()}, 200
 
 
-@order_routes.route('/<int:orderId>/completed', methods=['PATCH'])
+@order_routes.route('/<int:orderId>/complete', methods=['PATCH'])
 @login_required
 def complete_order(orderId):
     """
