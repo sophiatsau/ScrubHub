@@ -14,7 +14,7 @@ def seed_orders():
                 shopId=order["shopId"],
                 orderStatus=order["orderStatus"],
                 orderType=order["orderType"],
-                # purchasedAt=date(*order["purchasedAt"]),
+                purchasedAt=date(*order["purchasedAt"]),
             )
 
             db.session.add(new_order)

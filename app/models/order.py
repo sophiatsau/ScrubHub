@@ -41,9 +41,9 @@ class Order(db.Model):
         """
         Validates status of order, updates orderStatus, purchasedAt, and snapshots shopName + orderDetails info
         """
-        # status = self.check_status()
-        # if type(status).__name__ == 'tuple':
-        #     return status
+        status = self.update_status()
+        if type(status).__name__ == 'tuple':
+            return status
 
         if self.orderType == "Delivery":
             self.orderStatus == "En Route"
@@ -55,10 +55,15 @@ class Order(db.Model):
         self.shopName = self.shop["name"]
         _ = [detail.checkout() for detail in self.orderDetails]
 
+    def _checkout_seeds(self):
+        """checkout, but for seeder data"""
+        self.shopName = self.shop["name"]
+        _ = [detail.checkout() for detail in self.orderDetails]
+
     def complete_order(self):
         self.orderStatus == "Completed"
 
-    def check_status(self):
+    def update_status(self):
         """
         Confirms that shop and associate critters exist, have not been deleted, and critter has enough stock.
         """
@@ -70,6 +75,8 @@ class Order(db.Model):
                     return ("critter", "Critter no longer exists")
                 if detail.critter.stock < detail.quantity:
                     return ("critter", "Critter no longer has enough stock. Please update your quantity")
+                else:
+                    detail.critter.stock -= detail.quantity
         else:
             return self.orderStatus
 

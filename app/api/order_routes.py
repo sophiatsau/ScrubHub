@@ -248,6 +248,7 @@ def checkout(orderId):
         return error_message(*checkout_fail), 400
     # TODO: checkout should check if critter stock is still enough + update critter stock
 
+    # don't commit until all actions are confirmed to be valid
     db.session.add(order)
     db.session.commit()
     return {"order": order.to_dict()}, 200

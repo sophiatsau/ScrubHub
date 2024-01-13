@@ -22,7 +22,7 @@ def seed_order_details():
             db.session.add(new_detail)
             db.session.commit()
 
-        order.checkout()
+        order._checkout_seeds()
         # order.purchasedFrom = {"shop": "Placeholder"}
 
     db.session.commit()
