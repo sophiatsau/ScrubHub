@@ -63,7 +63,7 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'balance': self.balance,
-            'orders': [],
+            # 'orders': [],
             'bag': None,
         }
 
@@ -75,8 +75,9 @@ class User(db.Model, UserMixin):
         for order in self.orders:
             if order.orderStatus=="Bag":
                 d["bag"] = order.to_dict()
-            else:
-                d["orders"].append(order.to_dict())
+                break
+        #     else:
+        #         d["orders"].append(order.id)
 
         return d
 
@@ -91,6 +92,10 @@ class User(db.Model, UserMixin):
 
     def get_critters(self):
         return [critter.to_dict() for shop in self.shops for critter in shop.critters]
+
+    def get_orders(self):
+        return [order.to_dict() for order in self.orders if order.orderStatus is not "Bag"]
+    # TODO: can do pagination for orders, so that user defaults to seeing most recent orders, can choose to view more
 
     def __getitem__(self, item):
         """Configures model to be conscriptable"""

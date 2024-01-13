@@ -29,6 +29,15 @@ def get_order(orderId):
     return {"order": order.to_dict()}, 200
 
 
+@order_routes.route('/current')
+@login_required
+def get_user_orders():
+    """
+    Returns details of all of current user's orders as a list of dictionaries
+    """
+    return {"orders": current_user.get_orders()}, 200
+
+
 @order_routes.route('/new', methods=['POST'])
 @login_required
 def start_order():
@@ -204,7 +213,7 @@ def remove_order(orderId, detailId):
         db.session.commit()
         return {"order": order.to_dict()}, 200
     else:
-        db.session.delete(detail.order)
+        db.session.delete(order)
         db.session.commit()
         return {"message": "Bag has been emptied"}, 200
 
@@ -213,11 +222,28 @@ def remove_order(orderId, detailId):
 @login_required
 def checkout(orderId):
     """
-    Updates order status to 'En Route' or 'Waiting for Pickup'  depending on if Order is Delivery or Pickup, updates purchasedAt. Sets order type. Updates critter stock and user balance.
+    Updates order status to 'En Route' or 'Waiting for Pickup'  depending on if Order is Delivery or Pickup, updates purchasedAt. Updates critter stock and user balance.
     TODO: Returns updated order status (might need to return shop's critter list > order?)
     """
-    # validate that current user is user who has the order
-    return {"message": "route connected!"}, 200
+    order = Order.query.get(orderId)
+
+    # validations
+    if not order:
+        return error_message("order", "Order not found."), 404
+    if order.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+    if order.orderStatus != "Bag":
+        return error_message("orderStatus", "Cannot checkout order"), 400
+
+    # TODO: deduct user balance
+
+    # returns (error_field, message) if fail
+    # if successful, updates order + order details info
+    checkout_fail = order.checkout()
+    if checkout_fail:
+        return error_message(*checkout_fail), 400
+    # TODO: checkout should check if critter stock is still enough + update critter stock
+    return {"order": order.to_dict()}, 200
 
 
 @order_routes.route('/<int:orderId>/completed', methods=['PATCH'])

@@ -42,7 +42,7 @@ class Order(db.Model):
         Validates status of order, updates orderStatus, purchasedAt, and snapshots shopName + orderDetails info
         """
         status = self.check_status()
-        if type(status).__name__ == 'dict':
+        if type(status).__name__ == 'tuple':
             return status
 
         if self.orderType == "Delivery":
@@ -50,7 +50,7 @@ class Order(db.Model):
         elif self.orderType == "Pickup":
             self.orderStatus == "Waiting for Pickup"
         else:
-            return {"orderStatus": "Cannot check out"}
+            return ("orderStatus", "Cannot check out")
         self.purchasedAt = date.today()
         self.shopName = self.shop["name"]
         _ = [detail.checkout() for detail in self.orderDetails]
@@ -64,10 +64,10 @@ class Order(db.Model):
         """
         if self.orderStatus == "Bag":
             if not self.shop:
-                return {"shop": "Shop does not exist"}
+                return ("shop", "Shop does not exist")
             for detail in self.orderDetails:
                 if not detail.critter:
-                    return {"critter": "Critter does not exist"}
+                    return ("critter", "Critter does not exist")
         else:
             return self.orderStatus
 
