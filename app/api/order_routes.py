@@ -267,7 +267,7 @@ def complete_order(orderId):
     if order.userId != current_user.id:
         return error_message("user", "Authorization Error."), 403
     if order.orderStatus in ("En Route", "Waiting for Pickup"):
-        order.orderStatus = "Completed"
+        order.complete_order()
         db.session.commit()
         return {"order": order.to_dict()}, 200
 

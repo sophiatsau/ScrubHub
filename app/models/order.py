@@ -61,7 +61,7 @@ class Order(db.Model):
         _ = [detail.checkout() for detail in self.orderDetails]
 
     def complete_order(self):
-        self.orderStatus == "Completed"
+        self.orderStatus = "Completed"
 
     def update_status(self):
         """
