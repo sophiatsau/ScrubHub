@@ -259,5 +259,16 @@ def complete_order(orderId):
     """
     Updates order status to 'Completed', returns updated order as dictionary
     """
-    # validate that current user is user who has the order
-    return {"message": "route connected!"}, 200
+    order = Order.query.get(orderId)
+
+    # validations
+    if not order:
+        return error_message("order", "Order not found."), 404
+    if order.userId != current_user.id:
+        return error_message("user", "Authorization Error."), 403
+    if order.orderStatus in ("En Route", "Waiting for Pickup"):
+        order.orderStatus = "Completed"
+        db.session.commit()
+        return {"order": order.to_dict()}, 200
+
+    return error_message("orderStatus", "Cannot complete order"), 400
