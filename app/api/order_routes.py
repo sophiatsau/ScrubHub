@@ -233,20 +233,19 @@ def checkout(orderId):
     if order.userId != current_user.id:
         return error_message("user", "Authorization Error."), 403
     if order.orderStatus != "Bag":
-        return error_message("orderStatus", "Cannot checkout order"), 400
+        return error_message("orderStatus", "Order has already been made"), 400
 
     # check, deduct user balance
-    if current_user.balance < order.total_price():
+    if current_user.balance < order.total_price:
         return error_message("balance", "Your balance is too low to make this purchase."), 400
     else:
-        current_user.balance -= order.total_price()
+        current_user.balance -= order.total_price
 
     # returns (error_field, message) if fail
     # if successful, updates order + order details info
     checkout_fail = order.checkout()
     if checkout_fail:
         return error_message(*checkout_fail), 400
-    # TODO: checkout should check if critter stock is still enough + update critter stock
 
     # don't commit until all actions are confirmed to be valid
     db.session.add(order)

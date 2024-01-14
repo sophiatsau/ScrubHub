@@ -46,9 +46,9 @@ class Order(db.Model):
             return status
 
         if self.orderType == "Delivery":
-            self.orderStatus == "En Route"
+            self.orderStatus = "En Route"
         elif self.orderType == "Pickup":
-            self.orderStatus == "Waiting for Pickup"
+            self.orderStatus = "Waiting for Pickup"
         else:
             return ("orderStatus", "Cannot check out")
         self.purchasedAt = date.today()

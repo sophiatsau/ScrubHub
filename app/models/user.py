@@ -94,7 +94,7 @@ class User(db.Model, UserMixin):
         return [critter.to_dict() for shop in self.shops for critter in shop.critters]
 
     def get_orders(self):
-        return [order.to_dict() for order in self.orders if order.orderStatus is not "Bag"]
+        return [order.to_dict() for order in self.orders]
     # TODO: can do pagination for orders, so that user defaults to seeing most recent orders, can choose to view more
 
     def __getitem__(self, item):
