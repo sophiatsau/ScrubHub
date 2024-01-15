@@ -43,6 +43,11 @@ class Shop(db.Model):
         cascade="all, delete-orphan",
     )
 
+    orders = db.relationship(
+        "Order",
+        back_populates="shop",
+    )
+
     def __getitem__(self, item):
         """Configures model to be conscriptable"""
         return getattr(self, item)
@@ -81,5 +86,14 @@ class Shop(db.Model):
             })
             # critters
             # reviews
+
+        if scope=="orders":
+            d.update({
+                "email": self.email,
+                "phoneNumber": self.phoneNumber,
+            })
+
+            for key in ("priceRange","pickup","delivery","searchImageUrl","categories", "businessHours"):
+                d.pop(key,None)
 
         return d

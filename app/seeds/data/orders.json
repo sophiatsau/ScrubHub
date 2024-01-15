@@ -1,0 +1,72 @@
+[
+    {
+      "userId": 1,
+      "shopId": 2,
+      "orderStatus": "Completed",
+      "orderType": "Delivery",
+      "purchasedAt": [2015, 5, 20]
+    },
+    {
+      "userId": 1,
+      "shopId": 7,
+      "orderStatus": "En Route",
+      "orderType": "Delivery",
+      "purchasedAt": [2018, 10, 15]
+    },
+    {
+      "userId": 1,
+      "shopId": 12,
+      "orderStatus": "Waiting for Pickup",
+      "orderType": "Pickup",
+      "purchasedAt": [2013, 7, 8]
+    },
+    {
+      "userId": 1,
+      "shopId": 17,
+      "orderStatus": "Completed",
+      "orderType": "Delivery",
+      "purchasedAt": [2016, 12, 3]
+    },
+    {
+      "userId": 1,
+      "shopId": 3,
+      "orderStatus": "En Route",
+      "orderType": "Delivery",
+      "purchasedAt": [2017, 9, 22]
+    },
+    {
+      "userId": 1,
+      "shopId": 8,
+      "orderStatus": "Waiting for Pickup",
+      "orderType": "Pickup",
+      "purchasedAt": [2014, 4, 18]
+    },
+    {
+      "userId": 1,
+      "shopId": 13,
+      "orderStatus": "Completed",
+      "orderType": "Delivery",
+      "purchasedAt": [2019, 6, 27]
+    },
+    {
+      "userId": 1,
+      "shopId": 18,
+      "orderStatus": "En Route",
+      "orderType": "Delivery",
+      "purchasedAt": [2012, 11, 12]
+    },
+    {
+      "userId": 1,
+      "shopId": 4,
+      "orderStatus": "Waiting for Pickup",
+      "orderType": "Pickup",
+      "purchasedAt": [2016, 2, 5]
+    },
+    {
+      "userId": 1,
+      "shopId": 9,
+      "orderStatus": "Completed",
+      "orderType": "Delivery",
+      "purchasedAt": [2017, 8, 10]
+    }
+]
