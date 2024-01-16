@@ -79,8 +79,31 @@ export const startOrder = (order) => ({
 	order
 })
 
-export const addToBag = (order) => ({
+export const addToBag = (detail) => ({
 	type: ADD_TO_BAG,
+	detail
+})
+
+export const updateBag = (detail) => ({
+	type: UPDATE_BAG,
+	detail
+})
+
+export const emptyBag = () => ({
+	type: EMPTY_BAG,
+})
+
+export const removeFromBag = (detailId) => ({
+	type: REMOVE_FROM_BAG,
+	detailId
+})
+
+export const checkout = () => ({
+	type: CHECKOUT,
+})
+
+export const completeOrder = (order) => ({
+	type: COMPLETE_ORDER,
 	order
 })
 
