@@ -3,15 +3,26 @@ import { fetchData } from "./utils";
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+
 const USER_ADD_SHOP = "session/USER_ADD_SHOP"
 const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"
+
 const SAVE_LOCATION = "session/SAVE_LOCATION"
 // const GET_USER_ADDRESSES = "session/GET_USER_ADDRESSES"
 const ADD_USER_ADDRESS = "session/ADD_USER_ADDRESS"
 const EDIT_USER_ADDRESS = "session/EDIT_USER_ADDRESS"
 const DELETE_USER_ADDRESS = "session/DELETE_USER_ADDRESS"
+
 const DELETE_USER_CRITTER = "session/DELETE_USER_CRITTER"
 const ADD_USER_CRITTER = "session/ADD_USER_CRITTER"
+
+const START_ORDER = "session/START_ORDER"
+const ADD_TO_BAG = "session/ADD_TO_BAG"
+const UPDATE_BAG = "session/UPDATE_BAG"
+const EMPTY_BAG = "session/EMPTY_BAG"
+const REMOVE_FROM_BAG = "session/REMOVE_FROM_BAG"
+const CHECKOUT = "session/CHECKOUT"
+const COMPLETE_ORDER = "session/COMPLETE_ORDER"
 
 
 const setUser = (user) => ({
@@ -171,6 +182,9 @@ export const thunkDeleteUserAddress = addressId => async dispatch => {
 
 	return data
 }
+
+/***************** ORDERS ****************** */
+
 
 const initLocation = JSON.parse(localStorage.getItem("location"))
 const initialState = { user: null, location: initLocation };
