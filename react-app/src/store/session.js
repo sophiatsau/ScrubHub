@@ -218,7 +218,19 @@ export const thunkDeleteUserAddress = addressId => async dispatch => {
 }
 
 /***************** ORDERS ****************** */
+export const thunkStartOrder = (order) => async (dispatch) => {
+	const data = await fetchData("/api/orders/new", {
+		method: 'POST',
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(order),
+	});
 
+	if (data.status===201) {
+		dispatch(startOrder(data.order));
+	}
+};
 
 const initLocation = JSON.parse(localStorage.getItem("location"))
 const initialState = { user: null, location: initLocation };
