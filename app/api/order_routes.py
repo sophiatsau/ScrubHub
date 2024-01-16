@@ -55,13 +55,32 @@ def start_order():
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
+        # create order
         order = Order(
             userId=current_user.id,
             shopId=form.shopId.data,
             orderStatus="Bag",
             orderType=form.orderType.data,
         )
+
         db.session.add(order)
+
+        # validate, create, add detail
+        critter = Critter.query.get(form.critterId.data)
+        if not critter:
+            return error_message("critter", "Critter not found."), 404
+
+        if critter.shopId != order.shopId:
+            return error_message("shop", "Please add a critter from the same shop as the order"), 400
+        if critter.stock < form.quantity.data:
+            return error_message("stock", "Please select a quantity between 1 and available stock"), 400
+
+        detail = OrderDetail(
+            orderId=order.id,
+            critterId=form.critterId.data,
+            quantity=form.quantity.data,
+        )
+        db.session.add(detail)
         db.session.commit()
 
         return {"order": order.to_dict()}, 201

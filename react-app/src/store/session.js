@@ -24,7 +24,7 @@ const REMOVE_FROM_BAG = "session/REMOVE_FROM_BAG"
 const CHECKOUT = "session/CHECKOUT"
 const COMPLETE_ORDER = "session/COMPLETE_ORDER"
 
-
+/************* ACTIONS **************** */
 const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
@@ -74,6 +74,17 @@ export const addUserCritter = critterId => ({
 	critterId
 })
 
+export const startOrder = (order) => ({
+	type: START_ORDER,
+	order
+})
+
+export const addToBag = (order) => ({
+	type: ADD_TO_BAG,
+	order
+})
+
+/********************** THUNKS ************** */
 export const authenticate = () => async (dispatch) => {
 	const data = await fetchData("/api/auth/", {
 		headers: {
