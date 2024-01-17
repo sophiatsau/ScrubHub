@@ -79,9 +79,9 @@ export const startOrder = (order) => ({
 	order
 })
 
-export const addToBag = (detail) => ({
+export const addToBag = (order) => ({
 	type: ADD_TO_BAG,
-	detail
+	order
 })
 
 export const updateBag = (detail) => ({
@@ -232,14 +232,29 @@ export const thunkStartOrder = (order) => async (dispatch) => {
 	}
 };
 
+export const thunkAddToBag = (detail, orderId) => async (dispatch) => {
+	const data = await fetchData(`/api/${orderId}/add`, {
+		method: 'PUT',
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(detail),
+	});
+
+	if (data.status===200) {
+		dispatch(addToBag(data.order));
+	}
+}
+
 const initLocation = JSON.parse(localStorage.getItem("location"))
 const initialState = { user: null, location: initLocation };
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		// set, remove user will keep the location which isn't saved in database.
-		case SET_USER:
+		case SET_USER:{
 			return { user: action.payload, location: state.location };
+		}
 		case REMOVE_USER:
 			return { user: null, location: state.location };
 		case USER_ADD_SHOP:
@@ -295,6 +310,33 @@ export default function reducer(state = initialState, action) {
 		case DELETE_USER_CRITTER: {
 			const updatedCritters =  state.user.critters.filter(critterId => critterId !== parseInt(action.critterId))
 			return {...state, user: {...state.user, critters: updatedCritters}}
+		}
+		case START_ORDER: {
+			return {
+				...state,
+				user: {
+					...state.user,
+					bag: action.order.id,
+					orders: {
+						...state.orders,
+						[action.order.id]: action.order
+					}
+				}
+			}
+		}
+		case ADD_TO_BAG: {
+			// const order = {...state.user.order[action.detail.orderId]}
+			// order.orderDetails.push(action.detail)
+			return {
+				...state,
+				user: {
+					...state.user,
+					orders: {
+						...state.orders,
+						[action.order.id]: action.order
+					}
+				}
+			}
 		}
 		default:
 			return state;

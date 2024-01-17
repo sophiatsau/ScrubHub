@@ -64,7 +64,7 @@ class User(db.Model, UserMixin):
             'lastName': self.lastName,
             'balance': self.balance,
             'bag': self.get_bag(),
-            'orders': self.get_orders(),
+            'orders': self.normalize_orders(),
         }
 
         # add shops, addresses
@@ -96,6 +96,9 @@ class User(db.Model, UserMixin):
     def get_orders(self):
         return [order.to_dict() for order in self.orders]
     # TODO: can do pagination for orders, so that user defaults to seeing most recent orders, can choose to view more
+
+    def normalize_orders(self):
+        return {order.id: order.to_dict() for order in self.orders}
 
     def get_bag(self):
         bag = [order.to_dict() for order in self.orders if order.orderStatus=="Bag"]
