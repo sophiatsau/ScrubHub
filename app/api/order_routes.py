@@ -141,15 +141,15 @@ def add_to_order(orderId):
         return error_message(), 500
 
 
-@order_routes.route('/<int:orderId>/details/<int:detailId>/update', methods=['PATCH'])
+@order_routes.route('/details/<int:detailId>/update', methods=['PATCH'])
 @login_required
-def edit_order(orderId, detailId):
+def edit_order(detailId):
     """
     Updates quantity of existing OrderDetail and returns updated order detail as dictionary.
     """
     # error handling
     detail = OrderDetail.query.get(detailId)
-    if not detail or detail.orderId != orderId:
+    if not detail:
         return error_message("orderDetails", "Order Details not found"), 404
     # validate that current user is user who has the order
     if detail.order.userId != current_user.id:
@@ -210,15 +210,15 @@ def empty_bag(orderId):
     return {"message": "Bag has been emptied"}, 200
 
 
-@order_routes.route('/<int:orderId>/details/<int:detailId>/delete', methods=['DELETE'])
+@order_routes.route('/details/<int:detailId>/delete', methods=['DELETE'])
 @login_required
-def remove_order(orderId, detailId):
+def remove_order(detailId):
     """
     Deletes existing OrderDetail and returns message if successful. If Order is empty after deletion, delete the entire Order
     """
     # error handling
     detail = OrderDetail.query.get(detailId)
-    if not detail or detail.orderId != orderId:
+    if not detail:
         return error_message("orderDetails", "Order Details not found"), 404
     if detail.order.userId != current_user.id:
         return error_message("user", "Authorization Error."), 403
@@ -237,7 +237,7 @@ def remove_order(orderId, detailId):
         return {"message": "Bag has been emptied"}, 200
 
 
-@order_routes.route('/<int:orderId>/checkout', methods=['PUT'])
+@order_routes.route('/<int:orderId>/checkout', methods=['GET'])
 @login_required
 def checkout(orderId):
     """
@@ -272,7 +272,7 @@ def checkout(orderId):
     return {"order": order.to_dict()}, 200
 
 
-@order_routes.route('/<int:orderId>/complete', methods=['PATCH'])
+@order_routes.route('/<int:orderId>/complete', methods=['GET'])
 @login_required
 def complete_order(orderId):
     """

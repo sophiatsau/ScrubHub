@@ -84,13 +84,14 @@ export const addToBag = (order) => ({
 	order
 })
 
-export const updateBag = (detail) => ({
+export const updateBag = (order) => ({
 	type: UPDATE_BAG,
-	detail
+	order
 })
 
-export const emptyBag = () => ({
+export const emptyBag = (orderId) => ({
 	type: EMPTY_BAG,
+	orderId
 })
 
 export const removeFromBag = (detailId) => ({
@@ -98,13 +99,14 @@ export const removeFromBag = (detailId) => ({
 	detailId
 })
 
-export const checkout = () => ({
+export const checkout = (order) => ({
 	type: CHECKOUT,
+	order
 })
 
-export const completeOrder = (order) => ({
+export const completeOrder = (orderId) => ({
 	type: COMPLETE_ORDER,
-	order
+	orderId
 })
 
 /********************** THUNKS ************** */
@@ -230,10 +232,12 @@ export const thunkStartOrder = (order) => async (dispatch) => {
 	if (data.status===201) {
 		dispatch(startOrder(data.order));
 	}
+
+	return data
 };
 
 export const thunkAddToBag = (detail, orderId) => async (dispatch) => {
-	const data = await fetchData(`/api/${orderId}/add`, {
+	const data = await fetchData(`/api/orders/${orderId}/add`, {
 		method: 'PUT',
 		headers: {
 			"Content-Type": "application/json",
@@ -244,6 +248,68 @@ export const thunkAddToBag = (detail, orderId) => async (dispatch) => {
 	if (data.status===200) {
 		dispatch(addToBag(data.order));
 	}
+
+	return data
+}
+
+export const thunkUpdateBag = (detail) => async (dispatch) => {
+	const data = await fetchData(`/api/orders/details/${detail.id}/update`, {
+		method: 'PATCH',
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(detail),
+	});
+
+	if (data.status===200) {
+		dispatch(updateBag(data.order));
+	}
+
+	return data
+}
+
+export const thunkEmptyBag = (orderId) => async (dispatch) => {
+	const data = await fetchData(`/api/orders/${orderId}/delete`, {
+		method: 'DELETE',
+	});
+
+	if (data.status===200) {
+		dispatch(emptyBag(orderId));
+	}
+
+	return data
+}
+
+export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
+	const data = await fetchData(`/api/orders/details/${detailId}/delete`, {
+		method: 'DELETE',
+	});
+
+	if (data.status===200) {
+		dispatch(removeFromBag(detailId));
+	}
+
+	return data
+}
+
+export const thunkCheckout = (orderId) => async (dispatch) => {
+	const data = await fetchData(`/api/orders/${orderId}/checkout`);
+
+	if (data.status===200) {
+		dispatch(checkout(data.order));
+	}
+
+	return data
+}
+
+export const thunkCompleteOrder = (orderId) => async (dispatch) => {
+	const data = await fetchData(`/api/orders/${orderId}/complete`);
+
+	if (data.status===200) {
+		dispatch(completeOrder(orderId));
+	}
+
+	return data
 }
 
 const initLocation = JSON.parse(localStorage.getItem("location"))
