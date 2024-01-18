@@ -90,7 +90,7 @@ def start_order():
         return error_message(), 500
 
 
-@order_routes.route('/<int:orderId>/add', methods=['PUT'])
+@order_routes.route('/<int:orderId>/add', methods=['POST'])
 @login_required
 def add_to_order(orderId):
     """
@@ -237,7 +237,7 @@ def empty_bag(orderId):
 #         return {"message": "Bag has been emptied"}, 200
 
 
-@order_routes.route('/<int:orderId>/checkout', methods=['GET'])
+@order_routes.route('/<int:orderId>/checkout', methods=['PATCH'])
 @login_required
 def checkout(orderId):
     """
@@ -272,7 +272,7 @@ def checkout(orderId):
     return {"order": order.to_dict()}, 200
 
 
-@order_routes.route('/<int:orderId>/complete', methods=['GET'])
+@order_routes.route('/<int:orderId>/complete', methods=['PATCH'])
 @login_required
 def complete_order(orderId):
     """

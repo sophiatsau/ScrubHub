@@ -63,7 +63,7 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'balance': self.balance,
-            'bag': self.get_bag(),
+            'bag': self.get_bag().id,
             'orders': self.normalize_orders(),
         }
 

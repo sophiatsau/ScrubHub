@@ -62,7 +62,7 @@ export const thunkStartOrder = (order) => async (dispatch) => {
 
 export const thunkAddToBag = (detail, orderId) => async (dispatch) => {
 	const data = await fetchData(`/api/orders/${orderId}/add`, {
-		method: 'PUT',
+		method: 'POST',
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -117,7 +117,7 @@ export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
 }
 
 export const thunkCheckout = (orderId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/${orderId}/checkout`);
+	const data = await fetchData(`/api/orders/${orderId}/checkout`, {method: 'PATCH'});
 
 	if (data.status===200) {
 		dispatch(checkout(data.order));
@@ -127,7 +127,7 @@ export const thunkCheckout = (orderId) => async (dispatch) => {
 }
 
 export const thunkCompleteOrder = (orderId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/${orderId}/complete`);
+	const data = await fetchData(`/api/orders/${orderId}/complete`, {method: 'PATCH'});
 
 	if (data.status===200) {
 		dispatch(completeOrder(orderId));
@@ -135,6 +135,9 @@ export const thunkCompleteOrder = (orderId) => async (dispatch) => {
 
 	return data
 }
+
+/******** GETTER */
+export const consumeBag = () => (state) => state.orders[state.orders.bag];
 
 const initialState = {}
 
@@ -156,13 +159,7 @@ export default function reducer(state=initialState, action) {
 		case ADD_TO_BAG: {
 			return {
 				...state,
-				user: {
-					...state.user,
-					orders: {
-						...state.orders,
-						[action.order.id]: action.order
-					}
-				}
+				[action.order.id]: action.order
 			}
 		}
         default:

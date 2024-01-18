@@ -41,7 +41,7 @@ app.register_blueprint(shop_routes, url_prefix='/api/shops')
 app.register_blueprint(address_routes, url_prefix='/api/addresses')
 app.register_blueprint(critter_routes, url_prefix='/api/critters')
 app.register_blueprint(order_routes, url_prefix='/api/orders')
-app.register_blueprint(order_detail_routes, url_prefix='/api/orders')
+app.register_blueprint(order_detail_routes, url_prefix='/api/order-details')
 
 
 db.init_app(app)
