@@ -1,11 +1,13 @@
-import { fetchData } from "./utils";
-import { SET_USER, REMOVE_USER } from "./constants";
+import { fetchData, normalizeObj } from "./utils";
+import {
+	SET_USER,
+	REMOVE_USER,
+	START_ORDER,
+	ADD_TO_BAG,
+	EMPTY_BAG,
+	REMOVE_FROM_BAG
+} from "./constants";
 
-const START_ORDER = "session/START_ORDER"
-const ADD_TO_BAG = "session/ADD_TO_BAG"
-const UPDATE_BAG = "session/UPDATE_BAG"
-const EMPTY_BAG = "session/EMPTY_BAG"
-const REMOVE_FROM_BAG = "session/REMOVE_FROM_BAG"
 const CHECKOUT = "session/CHECKOUT"
 const COMPLETE_ORDER = "session/COMPLETE_ORDER"
 
@@ -20,13 +22,9 @@ export const addToBag = (detail) => ({
 	detail
 })
 
-export const updateBag = (detail) => ({
-	type: UPDATE_BAG,
-	detail
-})
-
-export const emptyBag = () => ({
+export const emptyBag = (orderId) => ({
 	type: EMPTY_BAG,
+	orderId,
 })
 
 export const removeFromBag = (detailId) => ({
@@ -34,8 +32,9 @@ export const removeFromBag = (detailId) => ({
 	detailId
 })
 
-export const checkout = () => ({
+export const checkout = (order) => ({
 	type: CHECKOUT,
+	order
 })
 
 export const completeOrder = (order) => ({
@@ -69,24 +68,8 @@ export const thunkAddToBag = (detail, orderId) => async (dispatch) => {
 		body: JSON.stringify(detail),
 	});
 
-	if (data.status===200) {
-		dispatch(addToBag(data.order));
-	}
-
-	return data
-}
-
-export const thunkUpdateBag = (detail) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detail.id}/update`, {
-		method: 'PATCH',
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(detail),
-	});
-
-	if (data.status===200) {
-		dispatch(updateBag(data.order));
+	if (data.status===201) {
+		dispatch(addToBag(data.detail));
 	}
 
 	return data
@@ -139,12 +122,15 @@ export const thunkCompleteOrder = (orderId) => async (dispatch) => {
 /******** GETTER */
 export const consumeBag = () => (state) => state.orders[state.orders.bag];
 
-const initialState = {}
+const initialState = {
+	bag: null, //bag is an id
+}
 
 export default function reducer(state=initialState, action) {
     switch (action.type) {
 		case SET_USER: {
-			return {...action.payload.orders, bag: action.payload.bag}
+			const {orders, bag} = action.payload
+			return {...normalizeObj(orders), bag: bag.id}
 		}
 		case REMOVE_USER: {
 			return initialState
@@ -157,9 +143,39 @@ export default function reducer(state=initialState, action) {
 			}
 		}
 		case ADD_TO_BAG: {
+			const order = state[action.detail.orderId]
+			const orderDetails = [...order.orderDetails, action.detail.id]
 			return {
 				...state,
-				[action.order.id]: action.order
+				[order.id]: {...order, orderDetails}
+			}
+		}
+		case EMPTY_BAG: {
+			const newState = {...state}
+			delete newState[newState.bag]
+			newState.bag = null
+			return newState
+		}
+		case REMOVE_FROM_BAG: {
+			const detailId = parseInt(action.detailId)
+			const order = state[state.bag]
+			const orderDetails = order.orderDetails.filter(detail => detail.id !== detailId)
+			return {
+				...state,
+				[order.id]: {...order, orderDetails}
+			}
+		}
+		case CHECKOUT: {
+			return {
+				...state,
+				bag: null,
+				[action.order.id]: action.order,
+			}
+		}
+		case COMPLETE_ORDER: {
+			return {
+				...state,
+				[action.order.id]: action.order,
 			}
 		}
         default:

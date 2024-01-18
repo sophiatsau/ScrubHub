@@ -317,6 +317,9 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		// set, remove user will keep the location which isn't saved in database.
 		case SET_USER:{
+			const user = {...action.payload}
+			delete user.bag
+			user.orders = user.orders.map(order => order.id)
 			return { user: action.payload, location: state.location };
 		}
 		case REMOVE_USER:

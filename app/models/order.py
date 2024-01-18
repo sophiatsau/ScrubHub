@@ -93,10 +93,13 @@ class Order(db.Model):
             "orderStatus": self.orderStatus,
             "orderType": self.orderType,
             "purchasedAt": self.purchasedAt,
-            "orderDetails": [detail.to_dict() for detail in self.orderDetails],
+            "orderDetails": [detail.id for detail in self.orderDetails],
             "totalPrice": self.total_price,
             # "_shop": self._shop,
             # "checkout": self.purchasedFrom
         }
+
+        if scope == "detailed":
+            d["details"] = [detail.to_dict() for detail in self.orderDetails]
 
         return d

@@ -63,8 +63,8 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'balance': self.balance,
-            'bag': self.get_bag().id,
-            'orders': self.normalize_orders(),
+            'bag': self.get_bag(),
+            'orders': self.get_orders(),
         }
 
         # add shops, addresses
@@ -101,7 +101,7 @@ class User(db.Model, UserMixin):
         return {order.id: order.to_dict() for order in self.orders}
 
     def get_bag(self):
-        bag = [order.to_dict() for order in self.orders if order.orderStatus=="Bag"]
+        bag = [order.to_dict(scope="detailed") for order in self.orders if order.orderStatus=="Bag"]
         return bag[0] if bag else None
 
     def __getitem__(self, item):
