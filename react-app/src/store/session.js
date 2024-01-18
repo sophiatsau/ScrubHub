@@ -6,10 +6,6 @@ const USER_ADD_SHOP = "session/USER_ADD_SHOP"
 const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"
 
 const SAVE_LOCATION = "session/SAVE_LOCATION"
-// const GET_USER_ADDRESSES = "session/GET_USER_ADDRESSES"
-const ADD_USER_ADDRESS = "session/ADD_USER_ADDRESS"
-const EDIT_USER_ADDRESS = "session/EDIT_USER_ADDRESS"
-const DELETE_USER_ADDRESS = "session/DELETE_USER_ADDRESS"
 
 const DELETE_USER_CRITTER = "session/DELETE_USER_CRITTER"
 const ADD_USER_CRITTER = "session/ADD_USER_CRITTER"
@@ -45,21 +41,6 @@ export const deleteUserShop = (shopId) => ({
 export const saveLocation = location => ({
 	type: SAVE_LOCATION,
 	location,
-})
-
-const addUserAddress = address => ({
-	type: ADD_USER_ADDRESS,
-	address,
-})
-
-const editUserAddress = address => ({
-	type: EDIT_USER_ADDRESS,
-	address,
-})
-
-const deleteUserAddress = addressId => ({
-	type: DELETE_USER_ADDRESS,
-	addressId,
 })
 
 export const deleteUserCritter = critterId => ({
@@ -115,13 +96,14 @@ export const authenticate = () => async (dispatch) => {
 		},
 	});
 	if (data.status === 200) {
-		// const data = await response.json();
-		if (data.errors) {
-			return;
-		}
+		// if (data.errors) {
+		// 	return;
+		// }
 
 		dispatch(setUser(data));
 	}
+
+	return data
 };
 
 export const login = (email, password) => async (dispatch) => {
@@ -136,8 +118,9 @@ export const login = (email, password) => async (dispatch) => {
 		}),
 	});
 
-	if (!data.errors) {
+	if (data.status === 200) {
 		dispatch(setUser(data)); }
+
 	return data
 };
 
@@ -151,6 +134,8 @@ export const logout = () => async (dispatch) => {
 	if (data.status===200) {
 		dispatch(removeUser());
 	}
+
+	return data
 };
 
 export const signUp = (formData) => async (dispatch) => {
@@ -162,153 +147,12 @@ export const signUp = (formData) => async (dispatch) => {
 		body: JSON.stringify(formData),
 	});
 
-	if (!data.errors) {
+	if (data.status===201) {
 		dispatch(setUser(data));
 	}
+
 	return data;
 };
-
-export const thunkAddUserAddress = address => async dispatch => {
-	const res = await fetch(`/api/addresses/new`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(address),
-	})
-
-	const data = await res.json()
-
-	if (res.ok) {
-		dispatch(addUserAddress(data))
-	}
-	else data.status = res.status
-
-	return data
-}
-
-export const thunkEditUserAddress = address => async dispatch => {
-	const res = await fetch(`/api/addresses/${address.id}/edit`, {
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(address),
-	})
-
-	const data = await res.json()
-
-	if (res.ok) dispatch(editUserAddress(data))
-	else data.status = res.status
-
-	return data
-}
-
-export const thunkDeleteUserAddress = addressId => async dispatch => {
-	const res = await fetch(`/api/addresses/${addressId}/delete`, {
-		method: "DELETE",
-	})
-
-	const data = await res.json()
-
-	if (res.ok) dispatch(deleteUserAddress(parseInt(addressId)))
-	else data.status = res.status
-
-	return data
-}
-
-/***************** ORDERS ****************** */
-export const thunkStartOrder = (order) => async (dispatch) => {
-	const data = await fetchData("/api/orders/new", {
-		method: 'POST',
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(order),
-	});
-
-	if (data.status===201) {
-		dispatch(startOrder(data.order));
-	}
-
-	return data
-};
-
-export const thunkAddToBag = (detail, orderId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/${orderId}/add`, {
-		method: 'PUT',
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(detail),
-	});
-
-	if (data.status===200) {
-		dispatch(addToBag(data.order));
-	}
-
-	return data
-}
-
-export const thunkUpdateBag = (detail) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detail.id}/update`, {
-		method: 'PATCH',
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(detail),
-	});
-
-	if (data.status===200) {
-		dispatch(updateBag(data.order));
-	}
-
-	return data
-}
-
-export const thunkEmptyBag = (orderId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/${orderId}/delete`, {
-		method: 'DELETE',
-	});
-
-	if (data.status===200) {
-		dispatch(emptyBag(orderId));
-	}
-
-	return data
-}
-
-export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detailId}/delete`, {
-		method: 'DELETE',
-	});
-
-	if (data.status===200) {
-		dispatch(removeFromBag(detailId));
-	}
-
-	return data
-}
-
-export const thunkCheckout = (orderId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/${orderId}/checkout`);
-
-	if (data.status===200) {
-		dispatch(checkout(data.order));
-	}
-
-	return data
-}
-
-export const thunkCompleteOrder = (orderId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/${orderId}/complete`);
-
-	if (data.status===200) {
-		dispatch(completeOrder(orderId));
-	}
-
-	return data
-}
 
 const initLocation = JSON.parse(localStorage.getItem("location"))
 const initialState = { user: null, location: initLocation };
@@ -319,8 +163,10 @@ export default function reducer(state = initialState, action) {
 		case SET_USER:{
 			const user = {...action.payload}
 			delete user.bag
+			// delete user.orders
+			delete user.addresses
 			user.orders = user.orders.map(order => order.id)
-			return { user: action.payload, location: state.location };
+			return { user, location: state.location };
 		}
 		case REMOVE_USER:
 			return { user: null, location: state.location };
@@ -334,76 +180,12 @@ export default function reducer(state = initialState, action) {
 		case SAVE_LOCATION: {
 			return {...state, location: action.location}
 		}
-		case ADD_USER_ADDRESS: {
-			const newAddresses = {
-				...state.user.addresses,
-				[action.address.id]: action.address,
-			};
-			return {
-				...state,
-				user: {
-					...state.user,
-					addresses: newAddresses,
-				},
-			}
-		}
-		case EDIT_USER_ADDRESS: {
-			const updatedAddresses = {
-				...state.user.addresses,
-				[action.address.id]: action.address,
-			};
-			return {
-				...state,
-				user: {
-					...state.user,
-					addresses: updatedAddresses,
-				},
-			}
-		}
-		case DELETE_USER_ADDRESS: {
-			const updatedAddresses = {...state.user.addresses};
-			delete updatedAddresses[action.addressId];
-			return {
-				...state,
-				user: {
-					...state.user,
-					addresses: updatedAddresses,
-				}
-			}
-		}
 		case ADD_USER_CRITTER: {
 			return { ...state, user: {...state.user, critters:[...state.user.critters, parseInt(action.critterId)]} }
 		}
 		case DELETE_USER_CRITTER: {
 			const updatedCritters =  state.user.critters.filter(critterId => critterId !== parseInt(action.critterId))
 			return {...state, user: {...state.user, critters: updatedCritters}}
-		}
-		case START_ORDER: {
-			return {
-				...state,
-				user: {
-					...state.user,
-					bag: action.order.id,
-					orders: {
-						...state.orders,
-						[action.order.id]: action.order
-					}
-				}
-			}
-		}
-		case ADD_TO_BAG: {
-			// const order = {...state.user.order[action.detail.orderId]}
-			// order.orderDetails.push(action.detail)
-			return {
-				...state,
-				user: {
-					...state.user,
-					orders: {
-						...state.orders,
-						[action.order.id]: action.order
-					}
-				}
-			}
 		}
 		default:
 			return state;

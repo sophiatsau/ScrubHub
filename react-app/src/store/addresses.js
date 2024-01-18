@@ -22,7 +22,7 @@ const deleteUserAddress = addressId => ({
 })
 
 export const thunkAddUserAddress = address => async dispatch => {
-	const res = await fetch(`/api/addresses/new`, {
+	const data = await fetchData(`/api/addresses/new`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -30,18 +30,15 @@ export const thunkAddUserAddress = address => async dispatch => {
 		body: JSON.stringify(address),
 	})
 
-	const data = await res.json()
-
-	if (res.ok) {
-		dispatch(addUserAddress(data))
+	if (data.status === 201) {
+		dispatch(addUserAddress(data.address))
 	}
-	else data.status = res.status
 
 	return data
 }
 
 export const thunkEditUserAddress = address => async dispatch => {
-	const res = await fetch(`/api/addresses/${address.id}/edit`, {
+	const data = await fetchData(`/api/addresses/${address.id}/edit`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
@@ -49,23 +46,17 @@ export const thunkEditUserAddress = address => async dispatch => {
 		body: JSON.stringify(address),
 	})
 
-	const data = await res.json()
-
-	if (res.ok) dispatch(editUserAddress(data))
-	else data.status = res.status
+	if (data.status === 200) dispatch(editUserAddress(data.address))
 
 	return data
 }
 
 export const thunkDeleteUserAddress = addressId => async dispatch => {
-	const res = await fetch(`/api/addresses/${addressId}/delete`, {
+	const data = await fetchData(`/api/addresses/${addressId}/delete`, {
 		method: "DELETE",
 	})
 
-	const data = await res.json()
-
-	if (res.ok) dispatch(deleteUserAddress(parseInt(addressId)))
-	else data.status = res.status
+	if (data.status === 200) dispatch(deleteUserAddress(parseInt(addressId)))
 
 	return data
 }
@@ -81,41 +72,21 @@ export default function reducer(state = initialState, action) {
 			return initialState
 		}
 		case ADD_USER_ADDRESS: {
-			const newAddresses = {
-				...state.user.addresses,
-				[action.address.id]: action.address,
-			};
 			return {
 				...state,
-				user: {
-					...state.user,
-					addresses: newAddresses,
-				},
+				[action.address.id]: action.address,
 			}
 		}
 		case EDIT_USER_ADDRESS: {
-			const updatedAddresses = {
-				...state.user.addresses,
-				[action.address.id]: action.address,
-			};
 			return {
 				...state,
-				user: {
-					...state.user,
-					addresses: updatedAddresses,
-				},
+				[action.address.id]: action.address,
 			}
 		}
 		case DELETE_USER_ADDRESS: {
-			const updatedAddresses = {...state.user.addresses};
-			delete updatedAddresses[action.addressId];
-			return {
-				...state,
-				user: {
-					...state.user,
-					addresses: updatedAddresses,
-				}
-			}
+			const newState = {...state};
+			delete newState[action.addressId];
+			return newState
 		}
 		default:
 			return state;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { useModal } from "../../context/Modal";
-import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/session";
+import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
 import { getFullAddress } from '../../store/utils'
 
 import "./AddressForm.css";
