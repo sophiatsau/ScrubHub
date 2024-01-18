@@ -38,7 +38,7 @@ def create_address():
         )
         db.session.add(address)
         db.session.commit()
-        return address.to_dict(), 201
+        return {"address": address.to_dict()}, 201
     elif form.errors:
         return error_messages(form.errors), 400
     else:
@@ -72,7 +72,7 @@ def edit_address(id):
 
         db.session.add(address)
         db.session.commit()
-        return address.to_dict(), 200
+        return {"address": address.to_dict()}, 200
     elif form.errors:
         return error_messages(form.errors), 400
     else:

@@ -319,8 +319,10 @@ export default function reducer(state = initialState, action) {
 		case SET_USER:{
 			const user = {...action.payload}
 			delete user.bag
+			// delete user.orders
+			delete user.addresses
 			user.orders = user.orders.map(order => order.id)
-			return { user: action.payload, location: state.location };
+			return { user, location: state.location };
 		}
 		case REMOVE_USER:
 			return { user: null, location: state.location };
