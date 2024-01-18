@@ -5,6 +5,7 @@ import shops from './shops'
 import critters from './critters'
 import addresses from './addresses'
 import orders from './orders'
+import orderDetails from './orderDetails'
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   critters,
   addresses,
   orders,
+  orderDetails,
 });
 
 
