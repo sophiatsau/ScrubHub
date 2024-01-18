@@ -3,11 +3,17 @@ import thunk from 'redux-thunk';
 import session from './session'
 import shops from './shops'
 import critters from './critters'
+import addresses from './addresses'
+import orders from './orders'
+import orderDetails from './orderDetails'
 
 const rootReducer = combineReducers({
   session,
   shops,
-  critters
+  critters,
+  addresses,
+  orders,
+  orderDetails,
 });
 
 
