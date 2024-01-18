@@ -1,6 +1,6 @@
 import { fetchData } from "./utils";
 import { combineReducers } from "redux";
-import addresses from './address';
+import addresses from './addresses';
 import orders from './orders';
 
 const SET_USER = "session/SET_USER";

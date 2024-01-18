@@ -1,8 +1,6 @@
 import { fetchData } from "./utils";
 
-// constants
-const SET_USER = "session/SET_USER";
-const REMOVE_USER = "session/REMOVE_USER";
+import { SET_USER, REMOVE_USER } from "./constants";
 
 const USER_ADD_SHOP = "session/USER_ADD_SHOP"
 const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"

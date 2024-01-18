@@ -1,4 +1,5 @@
 import { fetchData } from "./utils";
+import { SET_USER, REMOVE_USER } from "./constants";
 
 // const GET_USER_ADDRESSES = "session/GET_USER_ADDRESSES"
 const ADD_USER_ADDRESS = "session/ADD_USER_ADDRESS"
@@ -73,6 +74,12 @@ const initialState = {}
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
+		case SET_USER: {
+			return action.payload.addresses
+		}
+		case REMOVE_USER: {
+			return initialState
+		}
 		case ADD_USER_ADDRESS: {
 			const newAddresses = {
 				...state.user.addresses,
