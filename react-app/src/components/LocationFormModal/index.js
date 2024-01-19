@@ -13,6 +13,12 @@ export default function LocationFormModal({type}) {
   const {closeModal} = useModal()
   //TODO: option to save address to db
   //TODO: dropdown menu for users with saved addresses
+  /*
+  Type address
+  Click validate
+  choose / confirm validate address OR pick a saved address
+  Submit button => change location
+  */
 
   const currentLocation = useSelector(state => state.session.location) || {
     fullAddress:"",
@@ -60,11 +66,33 @@ export default function LocationFormModal({type}) {
     setFormData(newData)
   }
 
+  const validateAddress = async (e) => {
+    const res = await fetch(
+      `https://addressvalidation.googleapis.com/v1:validateAddress?key=${process.env.REACT_APP_MAPS_KEY}`,
+      {
+        method:"POST",
+        body: JSON.stringify({"address": {"addressLines":[formData.fullAddress]}})
+      })
+    const data = await res.json()
+    console.log("GOOGLE SENT BACK THE-", data)
+  }
+
 
   return (
     <>
     <h1 style={{marginBottom:"8px"}}>Enter Your Location</h1>
     <form onSubmit={handleSubmit} id="location-form">
+      <label>
+        Address:
+        <input
+					type="text"
+          name="fullAddress"
+					value={formData.fullAddress}
+					onChange={handleInputChange}
+          required
+				/>
+      </label>
+      <button type="button" onClick={validateAddress}>Validate</button>
       <label>
 				Address
 				<input
