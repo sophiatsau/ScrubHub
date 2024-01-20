@@ -74,6 +74,21 @@ export const getFullAddress = (addressObj) => {
   return `${address}\n${city}, ${state} ${zipCode}`;
 }
 
+export const componentsToAddressLines = (addressObj) => {
+  const {address, city, state, zipCode} = addressObj;
+  return [`${address}`, `${city}, ${state} ${zipCode}`];
+}
+
+export const fullAddressToComponents = (str) => {
+  //1 World Way, Los Angeles, CA 90045-5803, USA
+  const [address, city, stateZip, _country] = str.split(", ")
+  const [state, zipCode] = stateZip.split(" ")
+  const data = {address, city, state, zipCode}
+  data.fullAddress = getFullAddress(data)
+  console.log("🚀 ~ fullAddressToComponents ~ data.fullAddress:", data.fullAddress)
+  return data
+}
+
 export const fetchData = async (path, options) => {
   // returns data + status
   let res, data = {};

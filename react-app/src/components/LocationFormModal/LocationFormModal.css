@@ -13,7 +13,7 @@
     flex-direction: column;
 }
 
-#location-form>div {
+#location-form>.city-state {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 5px;
@@ -25,4 +25,23 @@
 
 #location-form * {
     box-sizing: border-box;
+}
+
+.address-checkbox-container {
+    width: 100%;
+    text-align: left;
+}
+
+.address-checkbox>input {
+    height: 15px;
+    width: 15px;
+    border: red 1px solid;
+    color: blue;
+    background-color: green;
+}
+
+.address-checkbox {
+    display: grid;
+    grid-template-columns: fit-content(5%) fit-content(90%);
+    column-gap: 15px;
 }

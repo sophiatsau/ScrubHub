@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import { saveLocation } from '../../store/session'
 import { useModal } from '../../context/Modal'
-import { getFullAddress } from '../../store/utils'
+import { getFullAddress, componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
 import "./LocationFormModal.css"
 
 export default function LocationFormModal({type}) {
@@ -29,6 +29,11 @@ export default function LocationFormModal({type}) {
   }
 
   const [formData, setFormData] = useState(currentLocation)
+  const [validAddress, setValidAddress] = useState(false)
+  const [confirmAddress, setConfirmAddress] = useState("")
+  const [confirmed, setConfirmed] = useState(false)
+  const [error, setError] = useState()
+  // const [loading, setLoading] = useState(false)
 
   // const [saveNewLocation, setSaveNewLocation] = useState(false)
 
@@ -49,7 +54,8 @@ export default function LocationFormModal({type}) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    formData.fullAddress = getFullAddress(formData)
+    // formData.fullAddress = getFullAddress(formData)
+    // setFormData(fullAddressToComponents(confirmAddress))
     localStorage.setItem("location", JSON.stringify(formData))
     dispatch(saveLocation(formData))
 
@@ -67,14 +73,41 @@ export default function LocationFormModal({type}) {
   }
 
   const validateAddress = async (e) => {
-    const res = await fetch(
+    const data = await fetchData(
       `https://addressvalidation.googleapis.com/v1:validateAddress?key=${process.env.REACT_APP_MAPS_KEY}`,
       {
         method:"POST",
-        body: JSON.stringify({"address": {"addressLines":[formData.fullAddress]}})
+        body: JSON.stringify({
+          "address": {
+            "addressLines": componentsToAddressLines(formData)}
+            // "addressLines": ["1 World Way"]}
+        })
       })
-    const data = await res.json()
-    console.log("GOOGLE SENT BACK THE-", data)
+
+    if (data.status===200) {
+      const {verdict, address} = data.result
+      if (verdict.hasUnconfirmedComponents) {
+        setError("No matching address was found. Please check for typos and try again.")
+        setValidAddress(false)
+      }
+      else {
+        setError("")
+        setValidAddress(true)
+        setConfirmAddress(address.formattedAddress)
+        // setFormData(fullAddressToComponents(address.formattedAddress))
+        // console.log("🚀 ~ LocationFormModal ~ fullAddressToComponents(address.formattedAddress):", fullAddressToComponents(address.formattedAddress))
+      }
+      console.log("GOOGLE SENT BACK THE-", data)
+    } else {
+      setError("Something funny happened. Please refresh the page and try again.")
+    }
+  }
+
+  const handleConfirmAddress = e => {
+    setConfirmed(e.target.checked)
+    if (e.target.checked) {
+      setFormData(fullAddressToComponents(confirmAddress))
+    }
   }
 
 
@@ -82,17 +115,6 @@ export default function LocationFormModal({type}) {
     <>
     <h1 style={{marginBottom:"8px"}}>Enter Your Location</h1>
     <form onSubmit={handleSubmit} id="location-form">
-      <label>
-        Address:
-        <input
-					type="text"
-          name="fullAddress"
-					value={formData.fullAddress}
-					onChange={handleInputChange}
-          required
-				/>
-      </label>
-      <button type="button" onClick={validateAddress}>Validate</button>
       <label>
 				Address
 				<input
@@ -103,7 +125,7 @@ export default function LocationFormModal({type}) {
           required
 				/>
 			</label>
-      <div>
+      <div className='city-state'>
         <label>
           City
           <input
@@ -136,7 +158,23 @@ export default function LocationFormModal({type}) {
           required
 				/>
 			</label>
-      <button type="submit" className='purple-button' style={{marginTop:"8px", padding: "8px"}}>Update Location to View Shops!</button>
+      <button type="button" onClick={validateAddress}>Validate Address</button>
+      <div className={validAddress ? 'address-checkbox-container' : 'hidden'}>
+        Please confirm your address:
+        <label className='address-checkbox' style={{marginTop:"8px"}}>
+          <input
+            type="checkbox"
+            name="fullAddress"
+            checked={confirmed}
+            value={confirmed}
+            onChange={handleConfirmAddress}
+            required
+          />
+          <div>{confirmAddress}</div>
+        </label>
+      </div>
+      <div className='error'>{error}</div>
+      <button type="submit" className={`purple-button ${validAddress && confirmed ? "" : "disabled"}`} style={{marginTop:"8px", padding: "8px"}}>Update Location to View Shops!</button>
       {/* {sessionUser && <Link to="/profile/addresses">Save Location</Link>} */}
     </form>
     </>
