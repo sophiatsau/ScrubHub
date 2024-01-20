@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
@@ -32,10 +32,9 @@ export default function LocationFormModal({type}) {
   const [validAddress, setValidAddress] = useState(false)
   const [confirmAddress, setConfirmAddress] = useState("")
   const [confirmed, setConfirmed] = useState(false)
-  const [error, setError] = useState()
-  // const [loading, setLoading] = useState(false)
-
-  // const [saveNewLocation, setSaveNewLocation] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [invalidError, setInvalidError] = useState("")
+  const [validating, setValidating] = useState(false)
 
   /*TODO:
   if user, drop down select of saved addresses (name, address)
@@ -72,7 +71,29 @@ export default function LocationFormModal({type}) {
     setFormData(newData)
   }
 
+  const handleErrors = (e) => {
+		const {address, city, state, zipCode,} = formData;
+		const newErrors = {};
+
+		if (!address) newErrors.address = "This field is required."
+		if (!city) newErrors.city = "This field is required."
+		if (!state) newErrors.state = "This field is required."
+		if (zipCode && !zipCode.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (XXXXX or XXXXX-XXXX)"
+		if (!zipCode) newErrors.zipCode = "This field is required."
+
+		setErrors(newErrors)
+	}
+
+  useEffect(() => {
+    if (validating) {
+      setValidating(false)
+    }
+  }, [validating, setValidating])
+
   const validateAddress = async (e) => {
+    e.preventDefault()
+    setValidating(true)
+
     const data = await fetchData(
       `https://addressvalidation.googleapis.com/v1:validateAddress?key=${process.env.REACT_APP_MAPS_KEY}`,
       {
@@ -87,11 +108,11 @@ export default function LocationFormModal({type}) {
     if (data.status===200) {
       const {verdict, address} = data.result
       if (verdict.hasUnconfirmedComponents) {
-        setError("No matching address was found. Please check for typos and try again.")
+        setInvalidError("No matching address was found. Please check for typos and try again.")
         setValidAddress(false)
       }
       else {
-        setError("")
+        setInvalidError("")
         setValidAddress(true)
         setConfirmAddress(address.formattedAddress)
         // setFormData(fullAddressToComponents(address.formattedAddress))
@@ -99,7 +120,7 @@ export default function LocationFormModal({type}) {
       }
       console.log("GOOGLE SENT BACK THE-", data)
     } else {
-      setError("Something funny happened. Please refresh the page and try again.")
+      setInvalidError("Something funny happened. Please refresh the page and try again.")
     }
   }
 
@@ -110,6 +131,21 @@ export default function LocationFormModal({type}) {
     }
   }
 
+  const validationDiv = invalidError ? <div className='error'>{invalidError}</div> :
+  <div className={validAddress ? 'address-checkbox-container' : 'hidden'}>
+    Please confirm your address:
+    <label className='address-checkbox' style={{marginTop:"8px"}}>
+      <input
+        type="checkbox"
+        name="fullAddress"
+        checked={confirmed}
+        value={confirmed}
+        onChange={handleConfirmAddress}
+        required
+      />
+      <div>{confirmAddress}</div>
+    </label>
+  </div>
 
   return (
     <>
@@ -122,8 +158,10 @@ export default function LocationFormModal({type}) {
           name="address"
 					value={formData.address}
 					onChange={handleInputChange}
+          onBlur={handleErrors}
           required
 				/>
+        <div className='error'>{errors.address}</div>
 			</label>
       <div className='city-state'>
         <label>
@@ -133,8 +171,10 @@ export default function LocationFormModal({type}) {
             name="city"
             value={formData.city}
             onChange={handleInputChange}
+            onBlur={handleErrors}
             required
           />
+          <div className='error'>{errors.city}</div>
         </label>
         <label>
           State
@@ -143,8 +183,10 @@ export default function LocationFormModal({type}) {
             name="state"
             value={formData.state}
             onChange={handleInputChange}
+            onBlur={handleErrors}
             required
           />
+          <div className='error'>{errors.state}</div>
         </label>
       </div>
 			<label>
@@ -154,26 +196,14 @@ export default function LocationFormModal({type}) {
           name="zipCode"
 					value={formData.zipCode}
 					onChange={handleInputChange}
+          onBlur={handleErrors}
 					placeholder="XXXXX or XXXXX-XXXX"
           required
 				/>
+        <div className='error'>{errors.zipCode}</div>
 			</label>
-      <button type="button" onClick={validateAddress}>Validate Address</button>
-      <div className={validAddress ? 'address-checkbox-container' : 'hidden'}>
-        Please confirm your address:
-        <label className='address-checkbox' style={{marginTop:"8px"}}>
-          <input
-            type="checkbox"
-            name="fullAddress"
-            checked={confirmed}
-            value={confirmed}
-            onChange={handleConfirmAddress}
-            required
-          />
-          <div>{confirmAddress}</div>
-        </label>
-      </div>
-      <div className='error'>{error}</div>
+      <button type="submit" onClick={validateAddress} className={`purple-button ${Object.values(errors).length || validating ? "disabled" : ""}`}>Validate Address</button>
+      <div style={{minHeight:"40px"}}>{validationDiv}</div>
       <button type="submit" className={`purple-button ${validAddress && confirmed ? "" : "disabled"}`} style={{marginTop:"8px", padding: "8px"}}>Update Location to View Shops!</button>
       {/* {sessionUser && <Link to="/profile/addresses">Save Location</Link>} */}
     </form>

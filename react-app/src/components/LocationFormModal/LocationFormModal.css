@@ -1,5 +1,5 @@
 #location-form {
-    width: 250px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,9 +35,6 @@
 .address-checkbox>input {
     height: 15px;
     width: 15px;
-    border: red 1px solid;
-    color: blue;
-    background-color: green;
 }
 
 .address-checkbox {
