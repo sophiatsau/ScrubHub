@@ -1,6 +1,6 @@
 .nav-container {
   display: grid;
-  grid-template-columns: 175px 175px 1fr 40px;
+  grid-template-columns: 175px 175px 1fr 100px;
   align-items: center;
   border-bottom: 1px solid var(--boxShadowColor);
   background-color: var(--backgroundColorLighter);
@@ -71,7 +71,7 @@
   font-size: var(--h3Size);
 }
 
-.fa-user-circle {
+.fa-user-circle, .fa-bag-shopping {
   font-size: var(--h2Size);
 }
 
@@ -89,4 +89,11 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+#nav-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* border: red solid 1px; */
 }

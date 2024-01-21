@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
     history.push("/")
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = `profile-dropdown ${showMenu ? "":"hidden"}`
   const closeMenu = () => setShowMenu(false);
 
   return (
@@ -50,7 +50,9 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li><h3>Hi, {user.firstName}</h3></li>
-            <li onClick={closeMenu} className="dropdown-links">
+            <li
+            onClick={closeMenu}
+            className="dropdown-links">
               <Link to='/profile/addresses'>
                 <i className="fa-solid fa-location-dot"/>
                 Addresses
@@ -67,10 +69,6 @@ function ProfileButton({ user }) {
                 <i className="fa-solid fa-receipt"/>
                 Orders
               </Link>
-              {/* <Link to='/profile/bag'>
-                <i className="fa-solid fa-bag-shopping"/>
-                Bag
-              </Link> */}
               {/*TODO: split orders into past / upcoming*/}
             </li>
             <li>
@@ -82,7 +80,7 @@ function ProfileButton({ user }) {
           <li>
             <OpenModalButton
               buttonText="Log In"
-              onItemClick={closeMenu}
+              onButtonClick={closeMenu}
               className="light-button"
               modalComponent={<LoginFormModal />}
             />
@@ -90,7 +88,7 @@ function ProfileButton({ user }) {
           <li>
             <OpenModalButton
               buttonText="Sign Up"
-              onItemClick={closeMenu}
+              onButtonClick={closeMenu}
               className="light-button"
               modalComponent={<SignupFormModal />}
             />
