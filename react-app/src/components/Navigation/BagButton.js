@@ -6,16 +6,23 @@ export default function BagButton({user}) {
     const ulRef = useRef()
     const [showMenu, setShowMenu] = useState(false)
 
-    const openMenu = () => setShowMenu(!showMenu)
+    const openMenu = () => {
+        if (!showMenu) setShowMenu(true)
+    }
     const closeMenu = () => setShowMenu(false)
 
     const bagClass = `profile-dropdown ${showMenu ? "":"hidden"}`
 
     useEffect(() => {
-        document.addEventListener("click", closeMenu)
-        if (showMenu) {
-            //
+        if (!showMenu) return
+
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false)
+            }
         }
+
+        document.addEventListener("click", closeMenu)
 
         return () => document.removeEventListener("click", closeMenu)
     }, [showMenu])
@@ -26,7 +33,10 @@ export default function BagButton({user}) {
             <i className="fa-solid fa-bag-shopping purple" />
         </button>
         <ul ref={ulRef} className={bagClass}>
-            Bag Contents
+            {user ?
+            <>Bag Contents</>
+            :
+            <>Log In or Sign Up to view contents</>}
         </ul>
         </>
     )
