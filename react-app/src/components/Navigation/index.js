@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
 import AddressFormModal from '../LocationFormModal';
 import ProfileButton from './ProfileButton';
+import BagButton from './BagButton';
 
 import './Navigation.css';
 
@@ -34,9 +35,14 @@ function Navigation({ isLoaded }){
 			</li>
 			<li></li>
 			{isLoaded && (
+			<li>
+				<li>
+					<BagButton user={sessionUser} />
+				</li>
 				<li>
 					<ProfileButton user={sessionUser} />
 				</li>
+			</li>
 			)}
 		</ul>
 	);
