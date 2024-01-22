@@ -120,7 +120,7 @@ export const thunkCompleteOrder = (orderId) => async (dispatch) => {
 }
 
 /******** GETTER */
-export const consumeBag = () => (state) => state.orders[state.orders.bag];
+export const consumeBag = () => (state) => state.orders.bag ? state.orders[state.orders.bag] : null;
 
 const initialState = {
 	bag: null, //bag is an id

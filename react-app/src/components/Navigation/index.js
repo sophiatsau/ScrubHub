@@ -36,12 +36,12 @@ function Navigation({ isLoaded }){
 			<li></li>
 			{isLoaded && (
 			<li id='nav-buttons'>
-				<li>
+				<div>
 					<BagButton user={sessionUser} />
-				</li>
-				<li>
+				</div>
+				<div>
 					<ProfileButton user={sessionUser} />
-				</li>
+				</div>
 			</li>
 			)}
 		</ul>
