@@ -1,0 +1,15 @@
+.bag-dropdown>div {
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+.bag-order-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.bag-order-type-button {
+    width: fit-content;
+}

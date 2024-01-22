@@ -37,7 +37,7 @@ export default function BagButton({user}) {
         </button>
         <ul ref={ulRef} className={bagClass}>
             {user ?
-            <Bag />
+            <Bag closeMenu/>
             :
             <>Log In or Sign Up to view contents</>}
         </ul>
