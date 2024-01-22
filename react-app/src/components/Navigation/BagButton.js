@@ -14,7 +14,7 @@ export default function BagButton({user}) {
     }
     const closeMenu = () => setShowMenu(false)
 
-    const bagClass = `profile-dropdown ${showMenu ? "":"hidden"}`
+    const bagClass = `bag-dropdown ${showMenu ? "":"hidden"}`
 
     useEffect(() => {
         if (!showMenu) return

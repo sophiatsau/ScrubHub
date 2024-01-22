@@ -97,3 +97,16 @@
   justify-content: space-around;
   /* border: red solid 1px; */
 }
+
+.bag-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: var(--backgroundColorLighter);
+  padding: 8px;
+  border: 1px var(--boxShadowColor) solid;
+  box-shadow: 0 0 5px var(--boxShadowColor);
+  border-radius: 7px;
+  width: 300px;
+  text-align: center;
+}
