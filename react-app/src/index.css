@@ -222,6 +222,11 @@ a {
     border-color: var(--highlightColorLighter);
 }
 
+.link-button {
+    background-color: transparent;
+    border: none;
+}
+
 .business-hours-form {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,67 @@
+/*********** EMPTY *************/
+.empty-bag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    pointer-events: none;
+}
+
+.empty-bag p {
+    color: var(--textColorLighter);
+    font-size: var(--h3Size);
+    padding-bottom: 15px;
+}
+
+.empty-bag i {
+    color: var(--boxShadowColor);
+    font-size: 80px;
+    padding-top: 15px;
+}
+
+/******* GENERAL **********/
+
+.bag-dropdown li {
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+.bag-shop-name {
+    text-align: start;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.bag-order-type {
+    display: grid;
+    grid-template-columns: 20% 1fr 25%;
+    align-items: center;
+}
+
+.bag-order-type>i {
+    pointer-events: none;
+}
+
+.bag-order-type-button {
+    width: fit-content;
+}
+
+div.order-detail-card {
+    cursor: pointer;
+    font-weight: normal;
+    display: grid;
+    grid-template-columns: 10% 1fr 10% 20%;
+    margin: 0 8px;
+}
+
+.fa-solid.fa-trash-can {
+    color: var(--textColorLighter);
+}
+
+.bag-subtotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+}
