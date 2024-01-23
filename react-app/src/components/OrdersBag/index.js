@@ -5,6 +5,8 @@ import { consumeBag } from '../../store/orders'
 import OrderDetailCard from './OrderDetailCard'
 import './OrdersBag.css'
 import EmptyBag from './EmptyBag'
+import OpenModalCard from '../OpenModalCard'
+import DetailForm from './DetailForm'
 
 export default function Bag({closeMenu}) {
   const bag = useSelector(consumeBag())
@@ -30,8 +32,13 @@ export default function Bag({closeMenu}) {
       <ul>
         {Object.values(details).map(detail => (
           <li key={detail.id}>
-            <li className='thin-light-border'/>
-            <OrderDetailCard detail={detail} />
+            <div className='thin-light-border'/>
+            <OpenModalCard
+              modalComponent={<DetailForm detail={detail}/>}
+              cardComponent={<OrderDetailCard detail={detail} />}
+              className="order-detail-card"
+            />
+            {/* <OrderDetailCard detail={detail} /> */}
           </li>
         ))}
       </ul>

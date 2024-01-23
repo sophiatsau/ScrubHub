@@ -21,7 +21,7 @@
 
 /******* GENERAL **********/
 
-.bag-dropdown li {
+.bag-dropdown li, .bag-dropdown .thin-light-border {
     margin: 8px 0;
     font-weight: bold;
 }
