@@ -1,3 +1,26 @@
+/*********** EMPTY *************/
+.empty-bag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    pointer-events: none;
+}
+
+.empty-bag p {
+    color: var(--textColorLighter);
+    font-size: var(--h3Size);
+    padding-bottom: 15px;
+}
+
+.empty-bag i {
+    color: var(--boxShadowColor);
+    font-size: 80px;
+    padding-top: 15px;
+}
+
+/******* GENERAL **********/
+
 .bag-dropdown li {
     margin: 8px 0;
     font-weight: bold;

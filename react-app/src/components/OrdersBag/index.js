@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { consumeBag } from '../../store/orders'
 import OrderDetailCard from './OrderDetailCard'
 import './OrdersBag.css'
+import EmptyBag from './EmptyBag'
 
 export default function Bag({closeMenu}) {
   const bag = useSelector(consumeBag())
@@ -39,7 +40,7 @@ export default function Bag({closeMenu}) {
       <li className='thin-light-border'/>
       <button onClick={console.log} className='purple-button'>Checkout</button>
       </>
-      : "Your bag is empty"
+      : <EmptyBag />
       }
     </>
   )
