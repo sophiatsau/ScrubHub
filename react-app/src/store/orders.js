@@ -130,7 +130,7 @@ export default function reducer(state=initialState, action) {
     switch (action.type) {
 		case SET_USER: {
 			const {orders, bag} = action.payload
-			return {...normalizeObj(orders), bag: bag.id}
+			return {...normalizeObj(orders), bag: bag ? bag.id:null}
 		}
 		case REMOVE_USER: {
 			return initialState
