@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import Bag from '../OrdersBag'
-
+import BagNoUser from './BagNoUser'
 
 export default function BagButton({user}) {
     // if no user, show login to add to bag
@@ -37,9 +37,9 @@ export default function BagButton({user}) {
         </button>
         <ul ref={ulRef} className={bagClass}>
             {user ?
-            <Bag closeMenu/>
+            <Bag closeMenu={closeMenu}/>
             :
-            <>Log In or Sign Up to view contents</>}
+            <BagNoUser closeMenu={closeMenu}/>}
         </ul>
         </>
     )

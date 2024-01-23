@@ -98,6 +98,8 @@
   /* border: red solid 1px; */
 }
 
+/********** BAG ************/
+
 .bag-dropdown {
   position: absolute;
   top: 60px;
@@ -109,4 +111,26 @@
   border-radius: 7px;
   width: 300px;
   text-align: center;
+}
+
+.bag-when-no-user {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.bag-when-no-user span {
+  font-weight: normal;
+  padding: 0 5px;
+}
+
+.bag-when-no-user button {
+  width: fit-content;
+  padding: 0;
+}
+
+.bag-when-no-user button:hover {
+  font-weight: bold;
 }
