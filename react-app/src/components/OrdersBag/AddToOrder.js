@@ -2,18 +2,28 @@ import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { consumeBag } from '../../store/orders'
-import DetailForm from './DetailForm'
+import DetailEditForm from './DetailEditForm'
+import OrderCreateForm from './OrderCreateForm'
+import OrderDeleteForm from './OrderDeleteForm'
+import DetailCreateForm from './DetailCreateForm'
 
 export default function AddToOrder({critter}) {
   const bag = useSelector(consumeBag())
   const bagDetails = useSelector(state => state.orderDetails)
   const [quantity, setQuantity] = useState(1)
+  const dispatch = useDispatch()
+
+  if (!bag) return <OrderCreateForm />
+
+  if (bag.shopId !== critter.shopId) return <OrderDeleteForm orderId={bag.orderId}/>
 
   for (let id of bag.orderDetails) {
     if (bagDetails[id]?.critterId === critter.id) {
-      return <DetailForm detail={bagDetails[id]}/>
+      return <DetailEditForm detail={bagDetails[id]}/>
     }
   }
+
+  return <DetailCreateForm />
 
   const updateQuantity = (e) => {
       setQuantity(Math.floor(e.target.value))
@@ -32,7 +42,7 @@ export default function AddToOrder({critter}) {
 
     // dispatch(thunkUpdateBag(formData))
     // closeModal()
-}
+  }
 
   return (
     <form className="bag-detail-form" onSubmit={handleFormSubmit}>

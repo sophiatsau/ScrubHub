@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { thunkUpdateBag } from '../../store/orderDetails'
 import { useModal } from '../../context/Modal'
 
-export default function DetailForm({detail}) {
+export default function DetailEditForm({detail}) {
     const dispatch = useDispatch()
     const {closeModal} = useModal()
     const critter = useSelector(state => state.critters[detail.critterId])
