@@ -22,7 +22,7 @@ export const removeFromBag = (detailId) => ({
 
 /********************** THUNKS ************** */
 export const thunkUpdateBag = (detail) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detail.id}/update`, {
+	const data = await fetchData(`/api/order-details/${detail.id}/update`, {
 		method: 'PATCH',
 		headers: {
 			"Content-Type": "application/json",
@@ -31,14 +31,14 @@ export const thunkUpdateBag = (detail) => async (dispatch) => {
 	});
 
 	if (data.status===200) {
-		dispatch(updateBag(data.order));
+		dispatch(updateBag(data.detail));
 	}
 
 	return data
 }
 
 export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detailId}/delete`, {
+	const data = await fetchData(`/api/order-details/${detailId}/delete`, {
 		method: 'DELETE',
 	});
 
@@ -79,6 +79,9 @@ export default function reducer(state=initialState, action) {
 			}
 		}
 		case UPDATE_BAG: {
+			console.log('ORDER DETAILS, ACTION', action)
+			console.log('ORDER DETAILS, ACTION.DETail', action.detail)
+			console.log('ORDER DETAILS, ACTION', action)
 			return {
 				...state,
 				[action.detail.id]: action.detail
@@ -97,4 +100,6 @@ export default function reducer(state=initialState, action) {
         default:
             return state;
     }
+		console.log("🚀 ~ reducer ~ UPDATE_BAG:", UPDATE_BAG)
+		console.log("🚀 ~ reducer ~ UPDATE_BAG:", UPDATE_BAG)
 }

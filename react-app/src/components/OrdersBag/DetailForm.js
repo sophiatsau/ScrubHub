@@ -1,17 +1,51 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { thunkUpdateBag } from '../../store/orderDetails'
+import { useModal } from '../../context/Modal'
 
 export default function DetailForm({detail}) {
+    const dispatch = useDispatch()
+    const {closeModal} = useModal()
     const critter = useSelector(state => state.critters[detail.critterId])
+    const [quantity, setQuantity] = useState(detail.quantity)
+
+    const updateQuantity = (e) => {
+        setQuantity(Math.floor(e.target.value))
+    }
+
+    const newPrice = (Math.round(100 * quantity * critter.price) / 100)
+
+    const handleFormSubmit = e => {
+        e.preventDefault()
+
+        const formData = {
+            id: detail.id,
+            critterId: detail.critterId,
+            quantity,
+        }
+
+        dispatch(thunkUpdateBag(formData))
+        closeModal()
+    }
+
     return (
-    <form className="bag-detail-form">
+    <form className="bag-detail-form" onSubmit={handleFormSubmit}>
         {critter.previewImageUrl && <img src={critter.previewImageUrl} alt={critter.name}/>}
-        <h1>Update your Order</h1>
+        <h1>{critter.name}</h1>
+        <p className="species" >{critter.species}</p>
+        <p>{critter.description}</p>
+        <p className="species" >{critter.stock} left in stock</p>
         <label>
             Quantity:
-            <input type="number"/>
+            <input
+                type="number"
+                min={1}
+                max={critter.stock}
+                value={quantity}
+                onChange={updateQuantity}
+            />
         </label>
-        <button>Update</button>
+        <button className='purple-button'>Update: {newPrice.toFixed(2)}</button>
     </form>
   )
 }

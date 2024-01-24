@@ -37,6 +37,7 @@ export default function Bag({closeMenu}) {
               modalComponent={<DetailForm detail={detail}/>}
               cardComponent={<OrderDetailCard detail={detail} />}
               className="order-detail-card"
+              onCardClick={closeMenu}
             />
             {/* <OrderDetailCard detail={detail} /> */}
           </li>

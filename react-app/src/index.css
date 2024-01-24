@@ -257,3 +257,9 @@ a {
     pointer-events: none;
     background-color: var(--disabledColor);
 }
+
+.species {
+    font-style: italic;
+    color: var(--textColorLighter);
+    font-weight: normal;
+}
