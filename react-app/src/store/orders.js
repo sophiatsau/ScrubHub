@@ -146,9 +146,10 @@ export default function reducer(state=initialState, action) {
 		case ADD_TO_BAG: {
 			const order = state[action.detail.orderId]
 			const orderDetails = [...order.orderDetails, action.detail.id]
+			const totalPrice = (parseFloat(order.totalPrice) + action.detail.quantity * parseFloat(action.detail.unitPrice)).toFixed(2)
 			return {
 				...state,
-				[order.id]: {...order, orderDetails}
+				[order.id]: {...order, orderDetails, totalPrice}
 			}
 		}
 		case EMPTY_BAG: {

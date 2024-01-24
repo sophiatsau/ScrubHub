@@ -47,7 +47,6 @@ export default function Bag({closeMenu}) {
               className="order-detail-card"
               onCardClick={closeMenu}
             />
-            {/* <OrderDetailCard detail={detail} /> */}
           </li>
         ))}
       </ul>
