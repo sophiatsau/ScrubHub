@@ -5,10 +5,15 @@ import { consumeBag } from '../../store/orders'
 import OrderDetailCard from './OrderDetailCard'
 import './OrdersBag.css'
 import EmptyBag from './EmptyBag'
+import OpenModalCard from '../OpenModalCard'
+import DetailForm from './DetailForm'
+// import OrderTypeForm from './OrderTypeForm'
+// import OpenModalButton from '../OpenModalButton'
 
 export default function Bag({closeMenu}) {
   const bag = useSelector(consumeBag())
   const details = useSelector(state => state.orderDetails)
+  //TODO: functionality for changing order type (delivery vs pickup)
 
   return (
     <>
@@ -25,13 +30,24 @@ export default function Bag({closeMenu}) {
         : <i className="fa-solid fa-person-walking"></i>
         }
         {bag.orderType}
-        <button className="bag-order-type-button purple-button">Change</button>
+        {/* <OpenModalButton
+          modalComponent={<OrderTypeForm/>}
+          className="bag-order-type-button purple-button"
+          onButtonClick={closeMenu}
+          buttonText="Change"
+        /> */}
       </li>
       <ul>
         {Object.values(details).map(detail => (
           <li key={detail.id}>
-            <li className='thin-light-border'/>
-            <OrderDetailCard detail={detail} />
+            <div className='thin-light-border'/>
+            <OpenModalCard
+              modalComponent={<DetailForm detail={detail}/>}
+              cardComponent={<OrderDetailCard detail={detail} />}
+              className="order-detail-card"
+              onCardClick={closeMenu}
+            />
+            {/* <OrderDetailCard detail={detail} /> */}
           </li>
         ))}
       </ul>

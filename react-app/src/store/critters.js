@@ -1,4 +1,5 @@
 import { normalizeObj, fetchData } from "./utils"
+import { SET_USER } from "./constants"
 
 const GET_ALL_CRITTERS = "critters/GET_ALL_CRITTERS"
 const GET_USER_CRITTERS = "critters/GET_USER_CRITTERS"
@@ -108,6 +109,10 @@ const initialState = {}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
+        case SET_USER: {
+            const critters = action.payload ? action.payload.bag.details.map(detail => detail.critter) : []
+            return {...state, ...normalizeObj(critters)}
+        }
         case GET_ALL_CRITTERS: {
             return normalizeObj(action.critters)
         }

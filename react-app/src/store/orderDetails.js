@@ -22,7 +22,7 @@ export const removeFromBag = (detailId) => ({
 
 /********************** THUNKS ************** */
 export const thunkUpdateBag = (detail) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detail.id}/update`, {
+	const data = await fetchData(`/api/order-details/${detail.id}/update`, {
 		method: 'PATCH',
 		headers: {
 			"Content-Type": "application/json",
@@ -31,14 +31,14 @@ export const thunkUpdateBag = (detail) => async (dispatch) => {
 	});
 
 	if (data.status===200) {
-		dispatch(updateBag(data.order));
+		dispatch(updateBag(data.detail));
 	}
 
 	return data
 }
 
 export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detailId}/delete`, {
+	const data = await fetchData(`/api/order-details/${detailId}/delete`, {
 		method: 'DELETE',
 	});
 
@@ -57,7 +57,9 @@ export default function reducer(state=initialState, action) {
     switch (action.type) {
 		case SET_USER: {
             //only need details for bag initially
-			const details = action.payload.bag ? normalizeObj(action.payload.bag.details) : initialState
+			const detailList = action.payload.bag.details
+			detailList.forEach(detail => delete detail.critter)
+			const details = action.payload.bag ? normalizeObj(detailList) : initialState
 			return details
 		}
 		case REMOVE_USER: {
@@ -77,9 +79,11 @@ export default function reducer(state=initialState, action) {
 			}
 		}
 		case UPDATE_BAG: {
+			const newDetails = {...action.detail}
+			delete newDetails.order
 			return {
 				...state,
-				[action.detail.id]: action.detail
+				[action.detail.id]: newDetails
 			}
 		}
 		case EMPTY_BAG: {

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import { saveLocation } from '../../store/session'
 import { useModal } from '../../context/Modal'
-import { getFullAddress, componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
+import { componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
 import "./LocationFormModal.css"
 
 export default function LocationFormModal({type}) {
