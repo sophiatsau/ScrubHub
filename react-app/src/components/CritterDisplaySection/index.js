@@ -24,7 +24,7 @@ export default function CritterDisplaySection({critters, heading, isOwner}) {
                 <CritterCard critter={critter} isOwner={isOwner} />
                 : <OpenModalCard
                     cardComponent={<CritterCard critter={critter} isOwner={isOwner} />}
-                    modalComponent={<AddToOrder />}
+                    modalComponent={<AddToOrder critter={critter}/>}
                     className={critter.stock ? "critter-modal-card" : "critter-modal-card disabled"}
                 />
                 }
