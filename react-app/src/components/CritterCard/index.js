@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import "./CritterCard.css"
 import OpenModalButton from '../OpenModalButton';
+import OpenModalCard from '../OpenModalCard'
 import CritterUpdateModal from '../CritterUpdateModal';
 import DeleteConfirmationModal from '../DeleteConfirmationModal';
 import { thunkDeleteCritter } from '../../store/critters';
