@@ -1,9 +1,19 @@
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useModal } from '../../context/Modal'
+import { consumeBag } from '../../store/orders'
+import DetailForm from './DetailForm'
 
 export default function AddToOrder({critter}) {
+  const bag = useSelector(consumeBag())
+  const bagDetails = useSelector(state => state.orderDetails)
   const [quantity, setQuantity] = useState(1)
+
+  for (let id of bag.orderDetails) {
+    if (bagDetails[id]?.critterId === critter.id) {
+      return <DetailForm detail={bagDetails[id]}/>
+    }
+  }
 
   const updateQuantity = (e) => {
       setQuantity(Math.floor(e.target.value))
