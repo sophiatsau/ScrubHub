@@ -227,6 +227,10 @@ a {
     border: none;
 }
 
+.modal-button {
+    padding: 8px;
+}
+
 .business-hours-form {
     display: flex;
     flex-direction: column;

@@ -30,22 +30,25 @@ export default function DetailForm({detail}) {
 
     return (
     <form className="bag-detail-form" onSubmit={handleFormSubmit}>
-        {critter.previewImageUrl && <img src={critter.previewImageUrl} alt={critter.name}/>}
-        <h1>{critter.name}</h1>
-        <p className="species" >{critter.species}</p>
-        <p>{critter.description}</p>
-        <p className="species" >{critter.stock} left in stock</p>
-        <label>
-            Quantity:
-            <input
-                type="number"
-                min={1}
-                max={critter.stock}
-                value={quantity}
-                onChange={updateQuantity}
-            />
-        </label>
-        <button className='purple-button'>Update: {newPrice.toFixed(2)}</button>
+        <div className='bag-detail-form-content'>
+            {critter.previewImageUrl && <img src={critter.previewImageUrl} alt={critter.name}/>}
+            <h1>{critter.name} </h1>
+            <p className="species" >{critter.species}</p>
+            <p>{critter.description}</p>
+            <div className='thin-light-border' />
+            <label>
+                Quantity:
+                <input
+                    type="number"
+                    min={1}
+                    max={critter.stock}
+                    value={quantity}
+                    onChange={updateQuantity}
+                />
+            </label>
+            <p className="species" >{critter.stock} left in stock</p>
+        </div>
+        <button className='purple-button modal-button'>Update: {newPrice.toFixed(2)}</button>
     </form>
   )
 }

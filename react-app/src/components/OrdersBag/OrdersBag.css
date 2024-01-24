@@ -72,11 +72,36 @@ div.order-detail-card {
 .bag-detail-form {
     height: 80vh;
     width: 50vw;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.bag-detail-form-content {
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .bag-detail-form img {
     max-height: 40vh;
     max-width: 100%;
     object-fit: cover;
+}
+
+.bag-detail-form label {
+    font-weight: bold;
+}
+
+.bag-detail-form input {
+    margin-left: 5px;
+    padding-left: 5px;
+}
+
+.bag-detail-form button {
+    width: fit-content;
+    padding: 8px 25vh;
+    align-self: center;
 }
