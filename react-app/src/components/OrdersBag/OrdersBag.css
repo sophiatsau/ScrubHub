@@ -65,3 +65,16 @@ div.order-detail-card {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+/******* ORDER DETAIL FORM ************/
+.bag-detail-form {
+    height: 80vh;
+    width: 50vw;
+    overflow-y: auto;
+}
+
+.bag-detail-form img {
+    max-height: 40vh;
+    max-width: 100%;
+    object-fit: cover;
+}

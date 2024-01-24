@@ -111,9 +111,6 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_USER: {
             const critters = action.payload ? action.payload.bag.details.map(detail => detail.critter) : []
-            console.log("🚀 ~ reducer ~ critters:", critters)
-            console.log("🚀 ~ reducer ~ action.payload.user:", action.payload)
-            console.log("🚀 ~ reducer ~ critters:", critters)
             return {...state, ...normalizeObj(critters)}
         }
         case GET_ALL_CRITTERS: {

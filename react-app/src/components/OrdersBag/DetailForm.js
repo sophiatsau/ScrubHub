@@ -1,8 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 export default function DetailForm({detail}) {
-  return (
-    <form>
+    const critter = useSelector(state => state.critters[detail.critterId])
+    return (
+    <form className="bag-detail-form">
+        {critter.previewImageUrl && <img src={critter.previewImageUrl} alt={critter.name}/>}
         <h1>Update your Order</h1>
         <label>
             Quantity:
