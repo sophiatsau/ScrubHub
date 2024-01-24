@@ -52,6 +52,8 @@ div.order-detail-card {
     display: grid;
     grid-template-columns: 10% 1fr 10% 20%;
     margin: 0 8px;
+    align-items: center;
+    height: 30px;
 }
 
 .fa-solid.fa-trash-can {

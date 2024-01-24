@@ -46,7 +46,7 @@ def edit_order(detailId):
         db.session.add(detail)
         db.session.commit()
 
-        return {"detail": detail.to_dict()}, 200
+        return {"detail": {**detail.to_dict(), "order": detail.order.to_dict() }}, 200
     elif form.errors:
         return error_messages(form.errors), 400
     else:

@@ -79,12 +79,11 @@ export default function reducer(state=initialState, action) {
 			}
 		}
 		case UPDATE_BAG: {
-			console.log('ORDER DETAILS, ACTION', action)
-			console.log('ORDER DETAILS, ACTION.DETail', action.detail)
-			console.log('ORDER DETAILS, ACTION', action)
+			const newDetails = {...action.detail}
+			delete newDetails.order
 			return {
 				...state,
-				[action.detail.id]: action.detail
+				[action.detail.id]: newDetails
 			}
 		}
 		case EMPTY_BAG: {
@@ -100,6 +99,4 @@ export default function reducer(state=initialState, action) {
         default:
             return state;
     }
-		console.log("🚀 ~ reducer ~ UPDATE_BAG:", UPDATE_BAG)
-		console.log("🚀 ~ reducer ~ UPDATE_BAG:", UPDATE_BAG)
 }

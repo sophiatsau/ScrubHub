@@ -5,7 +5,8 @@ import {
 	START_ORDER,
 	ADD_TO_BAG,
 	EMPTY_BAG,
-	REMOVE_FROM_BAG
+	REMOVE_FROM_BAG,
+	UPDATE_BAG
 } from "./constants";
 
 const CHECKOUT = "session/CHECKOUT"
@@ -176,6 +177,12 @@ export default function reducer(state=initialState, action) {
 			return {
 				...state,
 				[action.order.id]: action.order,
+			}
+		}
+		case UPDATE_BAG: {
+			return {
+				...state,
+				[action.detail.orderId]: {...action.detail.order}
 			}
 		}
         default:
