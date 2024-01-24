@@ -73,9 +73,11 @@ export default function reducer(state=initialState, action) {
 			}
 		}
 		case ADD_TO_BAG: {
+			const newDetail = {...action.detail}
+			delete newDetail.critter
 			return {
 				...state,
-				[action.detail.id]: action.detail
+				[action.detail.id]: newDetail
 			}
 		}
 		case UPDATE_BAG: {

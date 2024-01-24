@@ -6,7 +6,7 @@ import OrderDetailCard from './OrderDetailCard'
 import './OrdersBag.css'
 import EmptyBag from './EmptyBag'
 import OpenModalCard from '../OpenModalCard'
-import DetailForm from './DetailForm'
+import DetailEditForm from './DetailEditForm'
 // import OrderTypeForm from './OrderTypeForm'
 // import OpenModalButton from '../OpenModalButton'
 
@@ -42,12 +42,11 @@ export default function Bag({closeMenu}) {
           <li key={detail.id}>
             <div className='thin-light-border'/>
             <OpenModalCard
-              modalComponent={<DetailForm detail={detail}/>}
+              modalComponent={<DetailEditForm detail={detail}/>}
               cardComponent={<OrderDetailCard detail={detail} />}
               className="order-detail-card"
               onCardClick={closeMenu}
             />
-            {/* <OrderDetailCard detail={detail} /> */}
           </li>
         ))}
       </ul>

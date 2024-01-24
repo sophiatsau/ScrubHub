@@ -47,7 +47,7 @@ export default function CrittersViewCurrent() {
             Object.entries(sortedCritters).map(([shopId, critters]) => (
                 <div key={shopId}>
                     <Link to={`/shops/${shopId}`}><h3 className='purple'>{shops[shopId].name}</h3></Link>
-                    <CritterDisplaySection critters={critters} />
+                    <CritterDisplaySection critters={critters} isOwner={true} />
                     <CritterCreateButton shop={shops[shopId]}/>
                 </div>
             ))

@@ -21,11 +21,10 @@ export default function CritterCard({critter, isOwner}) {
     const location = useLocation();
     const dispatch = useDispatch();
     const {closeModal} = useModal();
-    const canEdit = location.pathname.endsWith("profile/critters") || isOwner;
 
     const {name, species, price, previewImageUrl, description, stock} = critter;
 
-    const classAddOn = stock ? '' : canEdit ? 'sold-out' : 'sold-out disabled'
+    const classAddOn = stock ? '' : isOwner ? 'sold-out' : 'sold-out disabled'
 
     const deleteCritter = async () => {
         const data = await dispatch(thunkDeleteCritter(critter.id));
@@ -56,7 +55,7 @@ export default function CritterCard({critter, isOwner}) {
                     : <div/>}
                 <span className="critter-price-tag">${price}</span>
                 <div className='critter-card-buttons'>
-                {canEdit && (
+                {isOwner && (
                 <>
                     <OpenModalButton
                         modalComponent={<CritterUpdateModal critter={critter}/>}

@@ -3,6 +3,8 @@ import React from 'react'
 
 import "./CritterDisplaySection.css"
 import CritterCard from '../CritterCard'
+import OpenModalCard from '../OpenModalCard'
+import AddToOrder from '../OrdersBag/AddToOrder'
 // import OpenModalButton from '../OpenModalButton';
 // import CritterUpdateModal from '../CritterUpdateModal';
 // import CritterCreateModal from '../CritterCreateModal';
@@ -18,7 +20,14 @@ export default function CritterDisplaySection({critters, heading, isOwner}) {
         <section className='critter-display-card-container'>
             {critters.map(critter => (
                 <div key={critter.id}>
-                <CritterCard critter={critter} isOwner={isOwner}/>
+                {isOwner ?
+                <CritterCard critter={critter} isOwner={isOwner} />
+                : <OpenModalCard
+                    cardComponent={<CritterCard critter={critter} isOwner={isOwner} />}
+                    modalComponent={<AddToOrder critter={critter}/>}
+                    className={critter.stock ? "critter-modal-card" : "critter-modal-card disabled"}
+                />
+                }
                 </div>
             ))}
             {/* {location.pathname.endsWith("profile/critters") && (
