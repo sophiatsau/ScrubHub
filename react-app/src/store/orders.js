@@ -88,18 +88,6 @@ export const thunkEmptyBag = (orderId) => async (dispatch) => {
 	return data
 }
 
-// export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
-// 	const data = await fetchData(`/api/orders/details/${detailId}/delete`, {
-// 		method: 'DELETE',
-// 	});
-
-// 	if (data.status===200) {
-// 		dispatch(removeFromBag(detailId));
-// 	}
-
-// 	return data
-// }
-
 export const thunkCheckout = (orderId) => async (dispatch) => {
 	const data = await fetchData(`/api/orders/${orderId}/checkout`, {method: 'PATCH'});
 
@@ -159,14 +147,20 @@ export default function reducer(state=initialState, action) {
 			return newState
 		}
 		case REMOVE_FROM_BAG: {
-			// const detailId = parseInt(action.detailId)
 			const order = action.payload.order
-			// const totalPrice = parseFloat(order.totalPrice) - state.orderDetails
-			// const orderDetails = order.orderDetails.filter(id => id !== detailId)
-			// TODO: UPDATE TOTAL PRICE
-			return {
-				...state,
-				[order.id]: {...order}
+
+			if (order) {
+				return {
+					...state,
+					[order.id]: order,
+				}
+			} else {
+				const newState = {...state}
+				delete newState[state.bag]
+				return {
+					...state,
+					bag: null,
+				}
 			}
 		}
 		case CHECKOUT: {

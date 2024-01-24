@@ -77,4 +77,4 @@ def remove_order(detailId):
     else:
         db.session.delete(order)
         db.session.commit()
-        return {"message": "Bag has been emptied"}, 200
+        return {"order": None, "removedDetail": detailId}, 200
