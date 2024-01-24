@@ -1,11 +1,22 @@
 import React from 'react'
-import DeleteConfirmationModal from '../DeleteConfirmationModal'
 import OpenModalButton from '../OpenModalButton'
+import DetailDeleteForm from './DetailDeleteForm'
+import { useDispatch } from 'react-redux'
+import { thunkRemoveFromBag } from '../../store/orderDetails'
+import { useModal } from '../../context/Modal'
 
-export default function OrderDetailCard({detail}) {
-  const deleteOrderDetail = e => {
+export default function OrderDetailCard({detail, closeMenu}) {
+  const dispatch = useDispatch()
+  const {closeModal} = useModal()
+
+  const deleteOrderDetail = async e => {
+    await dispatch(thunkRemoveFromBag(detail.id))
+    closeModal()
+  }
+
+  const onButtonClick = e => {
     e.stopPropagation()
-    console.log("DELETE ORDER DETAIL")
+    closeMenu()
   }
 
   return (
@@ -14,9 +25,9 @@ export default function OrderDetailCard({detail}) {
         <p className='purple' style={{justifySelf:"start"}}>{detail.critterName}</p>
         <OpenModalButton
           buttonText={<i className="fa-solid fa-trash-can"/>}
-          modalComponent={<DeleteConfirmationModal deleteFunction={deleteOrderDetail} itemType="critter" itemName={detail.critterName}/>}
+          modalComponent={<DetailDeleteForm deleteFunction={deleteOrderDetail} itemType="critter" itemName={detail.critterName}/>}
           className="trashcan"
-          onButtonClick={deleteOrderDetail}
+          onButtonClick={onButtonClick}
         />
 
         <p >{(detail.unitPrice * detail.quantity).toFixed(2)}</p>

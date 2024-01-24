@@ -15,9 +15,9 @@ export const updateBag = (detail) => ({
 	detail
 })
 
-export const removeFromBag = (detailId) => ({
+export const removeFromBag = (payload) => ({
 	type: REMOVE_FROM_BAG,
-	detailId
+	payload
 })
 
 /********************** THUNKS ************** */
@@ -43,7 +43,7 @@ export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
 	});
 
 	if (data.status===200) {
-		dispatch(removeFromBag(detailId));
+		dispatch(removeFromBag(data));
 	}
 
 	return data
@@ -95,7 +95,7 @@ export default function reducer(state=initialState, action) {
 		}
 		case REMOVE_FROM_BAG: {
 			const newState = {...state}
-			delete state[action.detailId]
+			delete newState[action.payload.removedDetail]
 			return newState
 		}
         default:
