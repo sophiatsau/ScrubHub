@@ -6,10 +6,10 @@ import {
 	ADD_TO_BAG,
 	EMPTY_BAG,
 	REMOVE_FROM_BAG,
-	UPDATE_BAG
+	UPDATE_BAG,
+	CHECKOUT,
 } from "./constants";
 
-const CHECKOUT = "session/CHECKOUT"
 const COMPLETE_ORDER = "session/COMPLETE_ORDER"
 
 /************* ACTIONS **************** */
@@ -33,9 +33,9 @@ export const emptyBag = (orderId) => ({
 // 	detailId
 // })
 
-export const checkout = (order) => ({
+export const checkout = (payload) => ({
 	type: CHECKOUT,
-	order
+	payload
 })
 
 export const completeOrder = (order) => ({
@@ -92,7 +92,7 @@ export const thunkCheckout = (orderId) => async (dispatch) => {
 	const data = await fetchData(`/api/orders/${orderId}/checkout`, {method: 'PATCH'});
 
 	if (data.status===200) {
-		dispatch(checkout(data.order));
+		dispatch(checkout(data));
 	}
 
 	return data
@@ -167,7 +167,7 @@ export default function reducer(state=initialState, action) {
 			return {
 				...state,
 				bag: null,
-				[action.order.id]: action.order,
+				[action.payload.order.id]: action.payload.order,
 			}
 		}
 		case COMPLETE_ORDER: {

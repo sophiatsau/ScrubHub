@@ -196,7 +196,14 @@ def checkout(orderId):
     # don't commit until all actions are confirmed to be valid
     db.session.add(order)
     db.session.commit()
-    return {"order": order.to_dict()}, 200
+
+    critters = [detail.critter.to_dict() for detail in order.orderDetails]
+
+    return {
+        "order": order.to_dict(),
+        "user": {"balance": current_user.balance},
+        "critters": critters
+    }, 200
 
 
 @order_routes.route('/<int:orderId>/complete', methods=['PATCH'])

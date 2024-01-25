@@ -1,5 +1,5 @@
 import { normalizeObj, fetchData } from "./utils"
-import { SET_USER } from "./constants"
+import { SET_USER, CHECKOUT } from "./constants"
 
 const GET_ALL_CRITTERS = "critters/GET_ALL_CRITTERS"
 const GET_USER_CRITTERS = "critters/GET_USER_CRITTERS"
@@ -137,6 +137,11 @@ export default function reducer(state = initialState, action) {
             const newState = {...state}
             delete newState[action.critterId]
             return newState
+        }
+        case CHECKOUT: {
+            // payload contains all critters that were purchased => stock must be updated
+            const critters = normalizeObj(action.payload.critters)
+            return {...state, ...critters}
         }
         default:
             return state
