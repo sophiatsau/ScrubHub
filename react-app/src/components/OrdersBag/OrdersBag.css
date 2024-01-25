@@ -134,3 +134,21 @@ div.order-detail-card {
     gap: 20px;
     min-height: 30vh;
 }
+
+/************** CREATE NEW ORDER ****************/
+.create-order-select-type {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-between; */
+    border: 1px red solid;
+}
+
+.create-order-select-type label {
+    /* border: 1px blue solid; */
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+}

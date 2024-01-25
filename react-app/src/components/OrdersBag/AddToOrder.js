@@ -11,9 +11,9 @@ export default function AddToOrder({critter}) {
   const bag = useSelector(consumeBag())
   const bagDetails = useSelector(state => state.orderDetails)
 
-  if (!bag) return <OrderCreateForm />
+  if (!bag) return <OrderCreateForm critter={critter}/>
 
-  if (bag.shopId !== critter.shopId) return <OrderDeleteForm orderId={bag.orderId}/>
+  if (bag.shopId !== critter.shopId) return <OrderDeleteForm orderId={bag.orderId} critter={critter}/>
 
   for (let id of bag.orderDetails) {
     if (bagDetails[id]?.critterId === critter.id) {

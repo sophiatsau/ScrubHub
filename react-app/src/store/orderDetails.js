@@ -57,6 +57,9 @@ export default function reducer(state=initialState, action) {
     switch (action.type) {
 		case SET_USER: {
             //only need details for bag initially
+			if (!action.payload || !action.payload.bag) {
+                return state
+            }
 			const detailList = action.payload.bag.details
 			detailList.forEach(detail => delete detail.critter)
 			const details = action.payload.bag ? normalizeObj(detailList) : initialState
