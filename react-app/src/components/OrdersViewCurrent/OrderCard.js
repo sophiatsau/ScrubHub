@@ -6,10 +6,12 @@ export default function OrderCard({order}) {
 
   return (
     <div className='view-current-order-card'>
-        <Link to={`/shops/${order.shopId}`}>{order.shopName}</Link>
-        <span>${order.totalPrice}</span>
-        <span>{order.purchasedAt}</span>
-        <span>{order.orderType.toUpperCase()}</span>
+        <div className='view-current-order-heading'>
+            <Link to={`/shops/${order.shopId}`}>{order.shopName}</Link>
+            <span>${order.totalPrice}</span>
+        </div>
+        <span className='light'>{order.purchasedAt}</span>
+        <span className='light'>{order.orderType.toUpperCase()}</span>
     </div>
   )
 }

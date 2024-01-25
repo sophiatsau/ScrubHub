@@ -81,7 +81,7 @@ export default function OrdersViewCurrent() {
         <h1>Your Orders</h1>
         {orders.inProgress &&
             <div className='orders-display-section'>
-                <h2>Incomplete Orders</h2>
+                <h2>Current Orders</h2>
                 {orders.enRoute.length &&
                 <>
                     <h3>Orders En Route</h3>
@@ -101,7 +101,7 @@ export default function OrdersViewCurrent() {
             </div>
         }
         <div className='orders-display-section'>
-            <h2>Completed Orders</h2>
+            <h2>Past Orders</h2>
             {orders.completed.map(order => (
                 <OrderCard key={order.id} order={order}/>
             ))}

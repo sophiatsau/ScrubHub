@@ -7,3 +7,34 @@
 .orders-display-section h3{
     margin: 8px 0;
 }
+
+.orders-display-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.view-current-order-card {
+    padding: 20px 15px;
+    border: 1px var(--boxShadowColor) solid;
+    border-radius: var(--cardBorderRadius);
+    width: calc(100% - 15px);
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    gap: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.view-current-order-heading {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-size: medium;
+}
