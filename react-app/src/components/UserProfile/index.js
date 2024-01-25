@@ -1,19 +1,24 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { Route, Switch, Redirect } from 'react-router-dom'
+
 import SideBar from './SideBar'
-import { Route, Switch } from 'react-router-dom'
 import AddressViewCurrent from '../AddressViewCurrent'
 import ShopsViewCurrent from '../ShopsViewCurrent'
 import ShopCreateForm from '../ShopCreateForm'
 import ShopEditForm from '../ShopEditForm'
+import CrittersViewCurrent from '../CrittersViewCurrent'
+import OrdersViewCurrent from '../OrdersViewCurrent'
 
 import "./UserProfile.css";
-import CrittersViewCurrent from '../CrittersViewCurrent'
 
 //TODO: user profile edit
-// user
 export default function UserProfile() {
-    window.scroll(0,0);
-//   const {feature} = useParams()
+  const sessionUser = useSelector(state => state.session.user)
+
+  if (!sessionUser) return <Redirect to="/"/>
+
+  window.scroll(0,0);
   return (
     <div id="user-profile-page-container">
     <SideBar/>
@@ -35,7 +40,7 @@ export default function UserProfile() {
             <CrittersViewCurrent />
         </Route>
         <Route exact path="/profile/orders">
-            You have not made any orders.
+            <OrdersViewCurrent />
         </Route>
         <Route>
             Page not found
