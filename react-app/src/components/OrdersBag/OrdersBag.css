@@ -156,3 +156,22 @@ div.order-detail-card {
     align-items: center;
     padding: 0;
 }
+
+/************* ORDER CONFIRM MODAL ***************/
+/* .order-confirmation-modal {
+    overflow-y: auto;
+} */
+
+.order-confirmation-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: 10px; */
+}
+
+.order-confirmation-buttons button {
+    width: 180px;
+    font-size: var(--h3Size);
+    padding: 5px 15px;
+}

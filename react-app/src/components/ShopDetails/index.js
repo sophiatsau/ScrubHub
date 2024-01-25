@@ -27,7 +27,7 @@ export default function ShopDetails() {
     }, [sessionUser, shop])
 
     useEffect(() => {
-        if (!isLoaded && !shop?.coverImageUrl) {
+        if (!shop?.coverImageUrl) {
             dispatch(thunkGetShop(shopId))
                 .then(res => {
                     if (res.status===404) {

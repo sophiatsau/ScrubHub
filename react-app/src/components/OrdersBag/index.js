@@ -6,7 +6,9 @@ import OrderDetailCard from './OrderDetailCard'
 import './OrdersBag.css'
 import EmptyBag from './EmptyBag'
 import OpenModalCard from '../OpenModalCard'
+import OpenModalButton from '../OpenModalButton'
 import DetailEditForm from './DetailEditForm'
+import OrderConfirmation from './OrderConfirmation'
 // import OrderTypeForm from './OrderTypeForm'
 // import OpenModalButton from '../OpenModalButton'
 
@@ -53,7 +55,12 @@ export default function Bag({closeMenu}) {
       <li className='thin-light-border'/>
       <li className='bag-subtotal'>Items subtotal: <span>{bag.totalPrice}</span></li>
       <li className='thin-light-border'/>
-      <button onClick={console.log} className='purple-button'>Checkout</button>
+      <OpenModalButton
+        modalComponent={<OrderConfirmation bag={bag}/>}
+        className="purple-button"
+        onButtonClick={closeMenu}
+        buttonText="Checkout"
+      />
       </>
       : <EmptyBag />
       }

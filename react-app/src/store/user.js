@@ -2,8 +2,8 @@ import { fetchData } from "./utils";
 import { combineReducers } from "redux";
 import addresses from './addresses';
 import orders from './orders';
+import { SET_USER, CHECKOUT } from "./constants"
 
-const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 
 const USER_ADD_SHOP = "session/USER_ADD_SHOP"
@@ -124,6 +124,9 @@ function user(state = initialState, action) {
 		case DELETE_USER_CRITTER: {
 			const updatedCritters =  state.critters.filter(critterId => critterId !== parseInt(action.critterId))
 			return {...state, critters: updatedCritters}
+		}
+		case CHECKOUT: {
+			return {...state, balance: action.user.balance}
 		}
 		default:
 			return state;
