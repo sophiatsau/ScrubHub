@@ -1,21 +1,26 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { consumeBag } from '../../store/orders'
+import { useDispatch, useSelector } from 'react-redux'
+import {Link} from 'react-router-dom'
+import { consumeBag, thunkEmptyBag } from '../../store/orders'
 import OrderCreateForm from './OrderCreateForm.js'
 import { useModal } from '../../context/Modal.js'
 
-export default function OrderDeleteForm({critter, orderId}) {
-  const bag = useSelector(consumeBag())
+export default function OrderDeleteForm({critter, bag}) {
+  const dispatch = useDispatch()
   const {closeModal} = useModal()
-  const deleteFunction = console.log
 
   if (!bag) {
-    return <OrderCreateForm critter={critter}/>
+    return <OrderCreateForm critter={critter} />
+  }
+
+  const deleteFunction = async e => {
+    dispatch(thunkEmptyBag(bag.id))
   }
 
   return (
     <div className="delete-modal delete-modal-bag">
-      <p>Remove <span className="bold">{critter.name}</span> from your bag?</p>
+      <h1>Start a new order?</h1>
+      <p>Your bag contains items from <Link to={`/shops/${bag.shopId}`} onClick={closeModal}>{bag.shopName}</Link>. Empty your bag to start a new order.</p>
       <div className="delete-modal-buttons">
           <button className="delete-button purple-button" onClick={deleteFunction}>Yes</button>
           <button className="keep-button light-button" onClick={closeModal}>No</button>

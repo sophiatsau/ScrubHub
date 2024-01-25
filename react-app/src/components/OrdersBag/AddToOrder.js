@@ -13,7 +13,7 @@ export default function AddToOrder({critter}) {
 
   if (!bag) return <OrderCreateForm critter={critter}/>
 
-  if (bag.shopId !== critter.shopId) return <OrderDeleteForm orderId={bag.orderId} critter={critter}/>
+  if (bag.shopId !== critter.shopId) return <OrderDeleteForm bag={bag} critter={critter}/>
 
   for (let id of bag.orderDetails) {
     if (bagDetails[id]?.critterId === critter.id) {
