@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useModal } from '../../context/Modal'
+import { thunkStartOrder } from '../../store/orders'
 
 export default function OrderCreateForm({critter}) {
   const shop = useSelector(state => state.shops[critter.shopId])
@@ -25,11 +26,13 @@ export default function OrderCreateForm({critter}) {
     e.preventDefault()
 
     const formData = {
-        critterId: critter.id,
-        quantity,
+      shopId: critter.shopId,
+      orderType,
+      critterId: critter.id,
+      quantity,
     }
 
-    // dispatch(thunkAddToBag(formData, orderId))
+    dispatch(thunkStartOrder(formData))
     closeModal()
   }
 
@@ -55,17 +58,17 @@ export default function OrderCreateForm({critter}) {
               !shop.pickup && !shop.delivery ?
               <div className='error'>This critter is not available for pickup or delivery at this time.</div>
               :
-              <div className="create-order-select-type" style={{fontWeight:"bold"}}>
+              <div className="create-order-select-type">
                 Order Type:
                 {shop.pickup && <>
                   <input
                       id="order-create-form-pickup"
                       type="radio"
-                      value="pickup"
+                      value="Pickup"
                       onChange={updateOrderType}
                       name="orderType"
                   />
-                  <label style={{fontWeight:"normal"}} htmlFor="order-create-form-pickup">
+                  <label htmlFor="order-create-form-pickup">
                     Pickup
                   </label>
                 </>}
@@ -73,12 +76,12 @@ export default function OrderCreateForm({critter}) {
                   <input
                       id="order-create-form-delivery"
                       type="radio"
-                      value="delivery"
+                      value="Delivery"
                       onChange={updateOrderType}
                       name="orderType"
                   />
-                  <label style={{fontWeight:"normal"}} htmlFor="order-create-form-delivery">
-                    Pickup
+                  <label htmlFor="order-create-form-delivery">
+                    Delivery
                   </label>
                   </>}
               </div>

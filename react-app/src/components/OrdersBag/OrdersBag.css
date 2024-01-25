@@ -140,12 +140,16 @@ div.order-detail-card {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* justify-content: space-between; */
-    border: 1px red solid;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.create-order-select-type input {
+    margin: auto 0;
 }
 
 .create-order-select-type label {
-    /* border: 1px blue solid; */
+    font-weight: normal;
     width: max-content;
     display: flex;
     flex-direction: row;
