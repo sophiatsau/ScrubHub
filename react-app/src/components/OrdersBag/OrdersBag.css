@@ -106,3 +106,53 @@ div.order-detail-card {
     padding: 8px;
     align-self: center;
 }
+
+/************** DELETE ORDER DETAIL *******************/
+.trashcan {
+    background-color: transparent;
+}
+
+.delete-modal-bag p {
+    font-size: var(--h3Size);
+}
+
+.delete-modal-bag .delete-modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.delete-modal-bag button {
+    width: 80px;
+}
+
+.delete-modal.delete-modal-bag {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    min-height: 30vh;
+}
+
+/************** CREATE NEW ORDER ****************/
+.create-order-select-type {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.create-order-select-type input {
+    margin: auto 0;
+}
+
+.create-order-select-type label {
+    font-weight: normal;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+}

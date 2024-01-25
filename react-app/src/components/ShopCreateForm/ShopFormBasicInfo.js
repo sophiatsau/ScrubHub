@@ -42,7 +42,7 @@ export default function ShopFormBasicInfo({formData, handleFormUpdate, errors}) 
             {errors.phoneNumber && <div className='error'>{errors.phoneNumber}</div>}
             </label>
         </div>
-        <div className='bold'>
+        <div className='bold shop-form-services-container' style={{marginTop:"8px"}}>
           Services Provided:
           <div className='shop-form-services'>
           <input
@@ -54,7 +54,6 @@ export default function ShopFormBasicInfo({formData, handleFormUpdate, errors}) 
           />
           <label>
             Pickup
-            <div className='error'>{errors.pickup && errors.pickup}</div>
           </label>
           <input
               type="checkbox"
@@ -65,8 +64,9 @@ export default function ShopFormBasicInfo({formData, handleFormUpdate, errors}) 
             />
           <label>
             Delivery
-            <div className='error'>{errors.delivery && errors.delivery}</div>
           </label>
+          <div className='error'>{errors.pickup && errors.pickup}</div>
+          <div className='error'>{errors.delivery && errors.delivery}</div>
           </div>
         </div>
         <label>

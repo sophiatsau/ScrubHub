@@ -28,10 +28,10 @@ export const emptyBag = (orderId) => ({
 	orderId,
 })
 
-export const removeFromBag = (detailId) => ({
-	type: REMOVE_FROM_BAG,
-	detailId
-})
+// export const removeFromBag = (detailId) => ({
+// 	type: REMOVE_FROM_BAG,
+// 	detailId
+// })
 
 export const checkout = (order) => ({
 	type: CHECKOUT,
@@ -83,18 +83,6 @@ export const thunkEmptyBag = (orderId) => async (dispatch) => {
 
 	if (data.status===200) {
 		dispatch(emptyBag(orderId));
-	}
-
-	return data
-}
-
-export const thunkRemoveFromBag = (detailId) => async (dispatch) => {
-	const data = await fetchData(`/api/orders/details/${detailId}/delete`, {
-		method: 'DELETE',
-	});
-
-	if (data.status===200) {
-		dispatch(removeFromBag(detailId));
 	}
 
 	return data
@@ -159,12 +147,20 @@ export default function reducer(state=initialState, action) {
 			return newState
 		}
 		case REMOVE_FROM_BAG: {
-			const detailId = parseInt(action.detailId)
-			const order = state[state.bag]
-			const orderDetails = order.orderDetails.filter(detail => detail.id !== detailId)
-			return {
-				...state,
-				[order.id]: {...order, orderDetails}
+			const order = action.payload.order
+
+			if (order) {
+				return {
+					...state,
+					[order.id]: order,
+				}
+			} else {
+				const newState = {...state}
+				delete newState[state.bag]
+				return {
+					...state,
+					bag: null,
+				}
 			}
 		}
 		case CHECKOUT: {

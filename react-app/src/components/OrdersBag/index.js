@@ -43,7 +43,7 @@ export default function Bag({closeMenu}) {
             <div className='thin-light-border'/>
             <OpenModalCard
               modalComponent={<DetailEditForm detail={detail}/>}
-              cardComponent={<OrderDetailCard detail={detail} />}
+              cardComponent={<OrderDetailCard detail={detail} closeMenu={closeMenu}/>}
               className="order-detail-card"
               onCardClick={closeMenu}
             />

@@ -73,8 +73,8 @@ def remove_order(detailId):
     if len(order.orderDetails) > 1:
         db.session.delete(detail)
         db.session.commit()
-        return {"order": order.to_dict()}, 200
+        return {"order": order.to_dict(), "removedDetail": detailId}, 200
     else:
         db.session.delete(order)
         db.session.commit()
-        return {"message": "Bag has been emptied"}, 200
+        return {"order": None, "removedDetail": detailId}, 200

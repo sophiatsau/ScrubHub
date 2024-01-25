@@ -110,6 +110,9 @@ const initialState = {}
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_USER: {
+            if (!action.payload || !action.payload.bag) {
+                return state
+            }
             const critters = action.payload ? action.payload.bag.details.map(detail => detail.critter) : []
             return {...state, ...normalizeObj(critters)}
         }
