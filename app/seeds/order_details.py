@@ -1,8 +1,6 @@
 from app.models import db, OrderDetail, Order, environment, SCHEMA
 from sqlalchemy.sql import text
-import json
-from datetime import date
-from random import choices, randint, sample
+from random import randint, sample
 
 # Adds order_details
 def seed_order_details():

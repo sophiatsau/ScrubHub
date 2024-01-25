@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from datetime import date
+from datetime import datetime
 
 class Order(db.Model):
     __tablename__ = 'orders'
@@ -10,10 +10,10 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     shopId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("shops.id")), nullable=True)
-    shopName = db.Column(db.String, nullable=False)
+    shopName = db.Column(db.String, nullable=True)
     orderStatus = db.Column(db.String, nullable=False)
     orderType = db.Column(db.String, nullable=True)
-    purchasedAt = db.Column(db.Date, nullable=True)
+    purchasedAt = db.Column(db.DateTime, nullable=True)
 
     orderDetails = db.relationship(
         "OrderDetail",
@@ -51,7 +51,7 @@ class Order(db.Model):
             self.orderStatus = "Waiting for Pickup"
         else:
             return ("orderStatus", "Cannot check out")
-        self.purchasedAt = date.today()
+        self.purchasedAt = datetime.now()
         self.shopName = self.shop["name"]
         _ = [detail.checkout() for detail in self.orderDetails]
 
