@@ -29,7 +29,6 @@ export default function OrdersViewCurrent() {
         })
 
     if (orderList.length > 1) {
-        // TODO: sort orders by date
         const completed = []
         const enRoute = []
         const waitingPickup = []
@@ -37,7 +36,6 @@ export default function OrdersViewCurrent() {
         let bag = null
 
         for (let order of orderList) {
-            console.log("🚀 ~ useEffect ~ order:", order)
             if (!order) continue
 
             switch (order.orderStatus) {
