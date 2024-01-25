@@ -6,8 +6,7 @@ from random import choices, randint, sample
 
 # Adds order_details
 def seed_order_details():
-    orders = [Order.query.get(id) for id in (1,2,3,4,5,6,7,8,9,10)]
-    # print("🚀 ~ orders:", orders)
+    orders = Order.query.all()
 
     for order in orders:
         critters = order.shop.critters
