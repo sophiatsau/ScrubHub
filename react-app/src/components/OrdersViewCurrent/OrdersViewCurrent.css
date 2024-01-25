@@ -1,0 +1,9 @@
+#view-orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.orders-display-section h3{
+    margin: 8px 0;
+}
