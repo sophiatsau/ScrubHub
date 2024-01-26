@@ -71,33 +71,6 @@
   font-size: var(--h3Size);
 }
 
-/* .manage-balance-button { */
-  /* background-color: transparent; */
-  /* border: var(--boxShadowColor) 1px solid; */
-  /* text-align: center; */
-  /* border-radius: 5px; */
-  /* height: 20px; */
-  /* display: flex;
-  flex-direction: column;
-  gap: 5px;
-  justify-content: center;
-  align-items: center; */
-/* } */
-
-/* .manage-balance-button {
-  color: var(--textColorLighter);
-} */
-
-/* .manage-balance-button .dollar-signs {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-} */
-
-/* .manage-balance-button .fa-dollar-sign {
-  font-size: medium;
-} */
-
 .manage-balance-button {
   color: var(--highlightColor);
 }

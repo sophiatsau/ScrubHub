@@ -23,3 +23,13 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+
+@user_routes.route('/<int:id>', methods=["PATCH"])
+@login_required
+def add_to_balance(id):
+    """
+    Updates current user's balance
+    """
+    user = User.query.get(id)
+    return user.to_dict()
