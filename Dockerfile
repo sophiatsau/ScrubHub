@@ -1,5 +1,7 @@
 FROM node:15-alpine3.10 as build
 COPY /react-app /react_app
+ARG REACT_APP_MAPS_KEY
+ENV REACT_APP_MAPS_KEY=$REACT_APP_MAPS_KEY
 WORKDIR /react_app
 RUN npm install && CI=false && npm run build
 FROM python:3.9.18-alpine3.18
@@ -16,7 +18,6 @@ ARG S3_BUCKET
 ARG S3_KEY
 ARG S3_SECRET
 ARG NODE_VERSION
-ARG REACT_APP_MAPS_KEY
 
 WORKDIR /var/www
 COPY requirements.txt .
