@@ -116,9 +116,7 @@ export default function LocationFormModal({type}) {
         setValidAddress(true)
         setConfirmAddress(address.formattedAddress)
         // setFormData(fullAddressToComponents(address.formattedAddress))
-        // console.log("🚀 ~ LocationFormModal ~ fullAddressToComponents(address.formattedAddress):", fullAddressToComponents(address.formattedAddress))
       }
-      // console.log("GOOGLE SENT BACK THE-", data)
     } else {
       setInvalidError("Something funny happened. Please refresh the page and try again.")
     }

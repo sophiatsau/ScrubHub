@@ -142,7 +142,6 @@ export default function ShopEditForm() {
     }
   }
 
-  // console.log("************IMAGE LOADING", imageLoading)
 
   return (
     <div className='profile-main-container'>

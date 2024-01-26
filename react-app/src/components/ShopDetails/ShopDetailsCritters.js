@@ -6,7 +6,6 @@ import CritterCreateButton from '../CritterCreateButton'
 export default function ShopDetailsCritters({shop, isOwner}) {
   //TODO: sidebar displaying different categories
   const allCritters = useSelector(state => state.critters)
-  // console.log("🚀 ~ ShopDetailsCritters ~ allCritters:", allCritters)
 
   if (!allCritters) return <>Loading Critters...</>
 
@@ -19,7 +18,6 @@ export default function ShopDetailsCritters({shop, isOwner}) {
     accum[critter.category] = accum[critter.category] ? accum[critter.category].concat(critter):[critter]
     return accum;
   },{})
-  // console.log("🚀 ~ sortedCritters ~ sortedCritters:", sortedCritters)
 
   return (
     <div className='shop-critter-display-container'>
