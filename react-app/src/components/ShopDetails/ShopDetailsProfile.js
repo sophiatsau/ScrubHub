@@ -1,6 +1,7 @@
 import React from 'react'
+import ShopOwnerButtons from '../ShopCard/ShopOwnerButtons'
 
-export default function ShopDetailsProfile({shop}) {
+export default function ShopDetailsProfile({shop, isOwner}) {
     const {name,
         address,
         // city,
@@ -22,7 +23,10 @@ export default function ShopDetailsProfile({shop}) {
             <img className="shop-cover-img" src={coverImageUrl} alt={`Cover for ${name}`} />
             <img className="shop-profile-img" src={businessImageUrl} alt={`Profile for ${name}`} />
             <div className='shop-details-profile-info'>
-                <h1>{name}</h1>
+                <h1 className='shop-details-header'>
+                    {name}
+                    {isOwner && <ShopOwnerButtons shop={shop}/>}
+                </h1>
                 <p style={{marginBottom: "15px"}}>{address}</p>
                 {/* rating here */}
                 <div>

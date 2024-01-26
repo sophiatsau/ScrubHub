@@ -1,7 +1,12 @@
 .critter-display-card-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: fit-content(50%) fit-content(50%); */
     gap: 8px;
+}
+
+.critter-display-card-container .critter-modal-card {
+    border-radius: 15px;
 }
 
 /* .critter-open-create-button {

@@ -28,7 +28,7 @@ export default function ShopDetailsAbout({shop}) {
       <div className='shop-details-about-basics'>
         <div>
           {categories.map((cat, i) => (
-            <span key={cat} className='purple'>
+            <span key={cat} className="purple">
               {/* <Link to={`/shops/${cat}`}> */}
                 {cat}{i===categories.length-1 ? "":", "}
               {/* </Link> */}
@@ -41,11 +41,11 @@ export default function ShopDetailsAbout({shop}) {
       <div className="shop-details-about-connect">
         <div className='shop-details-about-address'>
           {/*TODO: google maps*/}
-          <p className='purple'>{formattedAddress}</p>
+          <p>{formattedAddress}</p>
           {/* TODO: distance from current */}
         </div>
         <h3>Contact Us</h3>
-        <span className='purple'>{phoneNumber}</span> | <span className='purple'>{email}</span>
+        <span className='purple'>{email}</span> {phoneNumber && <>| <span className='purple'>{phoneNumber}</span></>}
       </div>
       <div className="shop-details-about-hours">
         <table className="shop-details-hours-table">

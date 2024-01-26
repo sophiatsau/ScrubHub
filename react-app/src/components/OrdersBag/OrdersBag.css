@@ -1,0 +1,177 @@
+/*********** EMPTY *************/
+.empty-bag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    pointer-events: none;
+}
+
+.empty-bag p {
+    color: var(--textColorLighter);
+    font-size: var(--h3Size);
+    padding-bottom: 15px;
+}
+
+.empty-bag i {
+    color: var(--boxShadowColor);
+    font-size: 80px;
+    padding-top: 15px;
+}
+
+/******* GENERAL **********/
+
+.bag-dropdown li, .bag-dropdown .thin-light-border {
+    margin: 8px 0;
+    font-weight: bold;
+}
+
+.bag-shop-name {
+    text-align: start;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.bag-order-type {
+    display: grid;
+    grid-template-columns: 20% 1fr 25%;
+    align-items: center;
+}
+
+.bag-order-type>i {
+    pointer-events: none;
+}
+
+.bag-order-type-button {
+    width: fit-content;
+}
+
+div.order-detail-card {
+    cursor: pointer;
+    font-weight: normal;
+    display: grid;
+    grid-template-columns: 10% 1fr 10% 20%;
+    margin: 0 8px;
+    align-items: center;
+    height: 30px;
+}
+
+.fa-solid.fa-trash-can {
+    color: var(--textColorLighter);
+}
+
+.bag-subtotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/******* ORDER DETAIL FORM ************/
+.bag-detail-form {
+    max-height: 80vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.bag-detail-form-content {
+    min-height: 30vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bag-detail-form img {
+    max-height: 40vh;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.bag-detail-form label {
+    font-weight: bold;
+}
+
+.bag-detail-form input {
+    margin-left: 5px;
+    padding-left: 5px;
+}
+
+.bag-detail-form button {
+    width: 60%;
+    padding: 8px;
+    align-self: center;
+}
+
+/************** DELETE ORDER DETAIL *******************/
+.trashcan {
+    background-color: transparent;
+}
+
+.delete-modal-bag p {
+    font-size: var(--h3Size);
+}
+
+.delete-modal-bag .delete-modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.delete-modal-bag button {
+    width: 80px;
+}
+
+.delete-modal.delete-modal-bag {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    min-height: 30vh;
+}
+
+/************** CREATE NEW ORDER ****************/
+.create-order-select-type {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.create-order-select-type input {
+    margin: auto 0;
+}
+
+.create-order-select-type label {
+    font-weight: normal;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+}
+
+/************* ORDER CONFIRM MODAL ***************/
+/* .order-confirmation-modal {
+    overflow-y: auto;
+} */
+
+.order-confirmation-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: 10px; */
+}
+
+.order-confirmation-buttons button {
+    width: 180px;
+    font-size: var(--h3Size);
+    padding: 5px 15px;
+}

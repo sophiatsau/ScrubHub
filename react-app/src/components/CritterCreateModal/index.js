@@ -1,14 +1,17 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom';
 
 import './CritterCreateModal.css'
 import { thunkCreateCritter } from '../../store/critters';
 import { addUserCritter } from '../../store/session';
 import CritterForm from '../CritterForm';
 import { useModal } from '../../context/Modal';
+import { addShopCritter } from '../../store/shops';
 
 export default function CritterCreateModal({shop}) {
   const dispatch = useDispatch();
+  const location = useLocation();
   const {closeModal} = useModal()
   const [unknownError, setUnknownError] = useState("")
   const [formData, setFormData] = useState({
@@ -57,7 +60,8 @@ export default function CritterCreateModal({shop}) {
 
     const res = await dispatch(thunkCreateCritter(allFormData, shop.id));
     if (res.status===201) {
-      dispatch(addUserCritter(res.id));
+      dispatch(addUserCritter(res.critter.id));
+      if (location.pathname.match(/^\/shops\/[\d]+/)) dispatch(addShopCritter(shop.id, res.critter.id));
       closeModal();
     } else if (res.status===400) {
       setFormErrors(res.errors);

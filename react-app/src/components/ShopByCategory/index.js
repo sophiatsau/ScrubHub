@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 export default function ShopByCategory() {
   const {category} = useParams();
-  // const shops = useSelector(state => state.shops);
+  // const shops = useSelector(state => state.shops.allShops);
 
   // shops
 

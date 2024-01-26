@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import AddressForm from '../AddressForm';
 import OpenModalButton from '../OpenModalButton';
 import DeleteConfirmationModal from '../DeleteConfirmationModal';
-import { thunkDeleteUserAddress } from '../../store/session';
+import { thunkDeleteUserAddress } from '../../store/addresses';
 import { useModal } from '../../context/Modal';
 
 export default function AddressCard({address}) {

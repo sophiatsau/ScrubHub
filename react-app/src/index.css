@@ -222,6 +222,15 @@ a {
     border-color: var(--highlightColorLighter);
 }
 
+.link-button {
+    background-color: transparent;
+    border: none;
+}
+
+.modal-button {
+    padding: 8px;
+}
+
 .business-hours-form {
     display: flex;
     flex-direction: column;
@@ -251,4 +260,10 @@ a {
 .disabled, .purple-button[disabled="true"] {
     pointer-events: none;
     background-color: var(--disabledColor);
+}
+
+.species {
+    font-style: italic;
+    color: var(--textColorLighter);
+    font-weight: normal;
 }

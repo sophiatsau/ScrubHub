@@ -1,4 +1,5 @@
 import { normalizeObj, fetchData } from "./utils"
+import { SET_USER, CHECKOUT } from "./constants"
 
 const GET_ALL_CRITTERS = "critters/GET_ALL_CRITTERS"
 const GET_USER_CRITTERS = "critters/GET_USER_CRITTERS"
@@ -46,7 +47,7 @@ const deleteCritter = (critterId) => ({
 export const thunkGetAllCritters = () => async (dispatch) => {
     const data = await fetchData("/api/critters/");
 
-    if (!data.errors) {
+    if (data.status===200) {
         dispatch(getAllCritters(data.critters));
     }
 
@@ -56,7 +57,7 @@ export const thunkGetAllCritters = () => async (dispatch) => {
 export const thunkGetUserCritters = () => async (dispatch) => {
     const data = await fetchData(`/api/critters/current`);
 
-    if (!data.errors) {
+    if (data.status===200) {
         dispatch(getUserCritters(data.critters));
     }
 
@@ -69,10 +70,8 @@ export const thunkCreateCritter = (formData, shopId) => async dispatch => {
         body: formData,
     })
 
-    // console.log("🚀 ~ file: critters.js:69 ~ thunkCreateCritter ~ data:", data)
-
-    if (!data.status) {
-        dispatch(createCritter(data));
+    if (data.status===201) {
+        dispatch(createCritter(data.critter));
     }
 
     return data;
@@ -86,7 +85,7 @@ export const thunkEditCritter = (critterId, formData) => async dispatch => {
     })
 
     if (data.status === 200) {
-        dispatch(editCritter(data))
+        dispatch(editCritter(data.critter))
     }
 
     return data;
@@ -110,6 +109,13 @@ const initialState = {}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
+        case SET_USER: {
+            if (!action.payload || !action.payload.bag) {
+                return state
+            }
+            const critters = action.payload ? action.payload.bag.details.map(detail => detail.critter) : []
+            return {...state, ...normalizeObj(critters)}
+        }
         case GET_ALL_CRITTERS: {
             return normalizeObj(action.critters)
         }
@@ -131,6 +137,11 @@ export default function reducer(state = initialState, action) {
             const newState = {...state}
             delete newState[action.critterId]
             return newState
+        }
+        case CHECKOUT: {
+            // payload contains all critters that were purchased => stock must be updated
+            const critters = normalizeObj(action.payload.critters)
+            return {...state, ...critters}
         }
         default:
             return state

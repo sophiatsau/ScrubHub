@@ -118,7 +118,7 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        return user.to_dict(), 201
     return error_messages(form.errors), 401
 
 

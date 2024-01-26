@@ -10,15 +10,13 @@ import Loading from '../Loading'
 export default function ShopsViewCurrent() {
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
-  const shops = useSelector(state => state.shops)
+  const shops = useSelector(state => state.shops.allShops)
 
   useEffect(() => {
     if (sessionUser) {
       dispatch(thunkGetUserShops())
     }
   }, [dispatch, sessionUser])
-
-  if (!sessionUser) return <Redirect to="/" />
 
   const userShops = sessionUser.shops.map(shopId => shops[shopId])
 

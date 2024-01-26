@@ -1,4 +1,4 @@
-import { normalizeObj } from "./utils"
+import { normalizeObj, fetchData } from "./utils"
 const GET_ALL_SHOPS = "shops/GET_ALL_SHOPS"
 const GET_USER_SHOPS = "shops/GET_USER_SHOPS"
 const GET_ONE_SHOP = "shops/GET_ONE_SHOP"
@@ -51,106 +51,86 @@ export const deleteShopCritter = (shopId, critterId) => ({
 })
 
 export const thunkGetAllShops = () => async (dispatch) => {
-    const response = await fetch("/api/shops/");
+    const data = await fetchData("/api/shops/");
 
-    const data = await response.json()
-    if (response.ok) {
+    if (data.status === 200) {
         dispatch(getAllShops(data.shops));
-    } else {
-        data.status = response.status;
     }
 
     return data;
 }
 
 export const thunkGetUserShops = () => async (dispatch) => {
-    const response = await fetch(`/api/shops/current`);
+    const data = await fetchData(`/api/shops/current`);
 
-    const data = await response.json()
-    if (response.ok) {
+    if (data.status===200) {
         dispatch(getUserShops(data.shops));
-    } else {
-        data.status = response.status;
     }
 
     return data;
 }
 
 export const thunkGetShop = (shopId) => async dispatch => {
-    const response = await fetch(`/api/shops/${shopId}`);
-    const data = await response.json();
-    const critters = data.crittersDetails;
-
-    if (response.ok) {
-        //don't put that in store
-        delete data.crittersDetails;
-        dispatch(getOneShop(data));
-    } else {
-        data.status = response.status;
+    const data = await fetchData(`/api/shops/${shopId}`);
+    // const data = await response.json();
+    if (data.status!==200) return data;
+    else {
+        // get shop + critter data in 1 fetch
+        // but don't put critters in shop store
+        let critters = data.shop.crittersDetails;
+        delete data.shop.crittersDetails;
+        dispatch(getOneShop(data.shop));
+        return {...data, critters};
     }
-
-    return {...data, critters};
 }
 
 export const thunkCreateShop = formData => async dispatch => {
-    const res = await fetch(`/api/shops/new`, {
+    const data = await fetchData(`/api/shops/new`, {
         method: "POST",
         body: formData,
     })
-    const data = await res.json()
 
-    if (res.ok) {
-        dispatch(createShop(data))
-    } else {
-        data.status = res.status
+    if (data.status===201) {
+        dispatch(createShop(data.shop))
     }
 
     return data;
 }
 
 export const thunkEditShop = (shopId, formData) => async dispatch => {
-    const res = await fetch(`/api/shops/${shopId}/edit`, {
+    const data = await fetchData(`/api/shops/${shopId}/edit`, {
         method: "PUT",
         body: formData,
     })
 
-    const data = await res.json()
-
-    if (res.ok) {
-        dispatch(editShop(data))
-    } else {
-        data.status = res.status
+    if (data.status===200) {
+        dispatch(editShop(data.shop))
     }
 
     return data;
 }
 
 export const thunkDeleteShop = (shopId) => async dispatch => {
-    const res = await fetch(`/api/shops/${shopId}/delete`, {
+    const data = await fetchData(`/api/shops/${shopId}/delete`, {
         method: "DELETE",
     })
 
-    const data = await res.json()
-
-    if (res.ok) {
+    if (data.status === 200) {
         dispatch(deleteShop(shopId))
-    } else {
-        data.status = res.status
     }
 
     return data;
 }
 
-
-const initialState = {}
+const initialState = {allShops:{}}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_SHOPS: {
-            return normalizeObj(action.shops)
+            return {...state, allShops: normalizeObj(action.shops)}
         }
         case GET_USER_SHOPS: {
-            return {...state, ...normalizeObj(action.shops)}
+            return {...state, allShops: {...state.allShops, ...normalizeObj(action.shops)}}
         }
         case GET_ONE_SHOP:
             return {...state, [action.shop.id]: action.shop}
@@ -172,7 +152,7 @@ export default function reducer(state = initialState, action) {
         }
         case DELETE_SHOP_CRITTER: {
             const shop = {...state[action.shopId]}
-            shop.critters = [shop.critters.filter(critter => critter.id !== parseInt(action.critterId))]
+            shop.critters = shop.critters.filter(critter => critter.id !== parseInt(action.critterId))
             return {...state, [shop.id]: shop}
         }
         default:

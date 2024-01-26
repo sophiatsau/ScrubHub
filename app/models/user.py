@@ -29,6 +29,11 @@ class User(db.Model, UserMixin):
         cascade="all, delete-orphan",
     )
 
+    orders = db.relationship(
+        "Order",
+        back_populates="purchaser",
+    )
+
     # critters = db.relationship(
     #     "Critter",
     #     back_populates="seller",
@@ -58,12 +63,22 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName,
             'balance': self.balance,
+            'bag': self.get_bag(),
+            'orders': self.get_orders(),
         }
 
         # add shops, addresses
         d["shops"] = [shop.id for shop in self.shops]
         d["addresses"] = self.normalize_addresses()
         d["critters"] = [critter.id for shop in self.shops for critter in shop.critters]
+
+        # for order in self.orders:
+        #     if order.orderStatus=="Bag":
+        #         d["bag"] = order.to_dict()
+        #         break
+        #     else:
+        #         d["orders"].append(order.id)
+
         return d
 
     def get_addresses(self):
@@ -77,6 +92,17 @@ class User(db.Model, UserMixin):
 
     def get_critters(self):
         return [critter.to_dict() for shop in self.shops for critter in shop.critters]
+
+    def get_orders(self):
+        return [order.to_dict() for order in self.orders]
+    # TODO: can do pagination for orders, so that user defaults to seeing most recent orders, can choose to view more
+
+    def normalize_orders(self):
+        return {order.id: order.to_dict() for order in self.orders}
+
+    def get_bag(self):
+        bag = [order.to_dict(scope="detailed") for order in self.orders if order.orderStatus=="Bag"]
+        return bag[0] if bag else None
 
     def __getitem__(self, item):
         """Configures model to be conscriptable"""

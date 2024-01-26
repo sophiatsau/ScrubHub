@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import AddressFormModal from '../LocationFormModal'
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
+import { Redirect } from 'react-router-dom'
 import OpenModalButton from '../OpenModalButton'
 
 import "./Landing.css"
@@ -9,9 +9,7 @@ import "./Landing.css"
 export default function Landing() {
   const address = useSelector(state => state.session.location)
 
-  if (address) {
-    return <Redirect to="/shops"/>
-  }
+  if (address) return <Redirect to="/shops"/>
 
   return (
     <div className="landing-container">

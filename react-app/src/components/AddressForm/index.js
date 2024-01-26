@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { useModal } from "../../context/Modal";
-import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/session";
+import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
 import { getFullAddress } from '../../store/utils'
 
 import "./AddressForm.css";
@@ -39,7 +39,7 @@ export default function AddressForm({address}) {
 		if (!city) newErrors.city = "This field is required."
 		if (state.length > 50) newErrors.state = "Field cannot be longer than 50 characters."
 		if (!state) newErrors.state = "This field is required."
-		if (!zipCode.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (use XXXXX or XXXXX-XXXX)"
+		if (zipCode && !zipCode.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (use XXXXX or XXXXX-XXXX)"
 		if (!zipCode) newErrors.zipCode = "This field is required."
 
 		setErrors(newErrors)
