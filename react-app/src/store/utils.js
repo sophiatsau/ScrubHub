@@ -85,7 +85,6 @@ export const fullAddressToComponents = (str) => {
   const [state, zipCode] = stateZip.split(" ")
   const data = {address, city, state, zipCode}
   data.fullAddress = getFullAddress(data)
-  console.log("🚀 ~ fullAddressToComponents ~ data.fullAddress:", data.fullAddress)
   return data
 }
 
