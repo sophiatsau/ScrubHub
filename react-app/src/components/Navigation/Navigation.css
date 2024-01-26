@@ -71,6 +71,14 @@
   font-size: var(--h3Size);
 }
 
+.manage-balance-button {
+  color: var(--highlightColor);
+}
+
+.manage-balance-button:hover {
+  font-weight: bold;
+}
+
 .fa-user-circle, .fa-bag-shopping {
   font-size: var(--h2Size);
 }

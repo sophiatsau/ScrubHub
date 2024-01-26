@@ -1,6 +1,6 @@
 import { fetchData } from "./utils";
 
-import { SET_USER, REMOVE_USER } from "./constants";
+import { SET_USER, REMOVE_USER, CHECKOUT } from "./constants";
 
 const USER_ADD_SHOP = "session/USER_ADD_SHOP"
 const DELETE_USER_SHOP = "session/DELETE_USER_SHOP"
@@ -15,8 +15,9 @@ const ADD_TO_BAG = "session/ADD_TO_BAG"
 const UPDATE_BAG = "session/UPDATE_BAG"
 const EMPTY_BAG = "session/EMPTY_BAG"
 const REMOVE_FROM_BAG = "session/REMOVE_FROM_BAG"
-const CHECKOUT = "session/CHECKOUT"
 const COMPLETE_ORDER = "session/COMPLETE_ORDER"
+
+const UPDATE_BALANCE = "session/UPDATE_BALANCE"
 
 /************* ACTIONS **************** */
 const setUser = (user) => ({
@@ -78,14 +79,19 @@ export const removeFromBag = (detailId) => ({
 	detailId
 })
 
-export const checkout = (order) => ({
+export const checkout = (payload) => ({
 	type: CHECKOUT,
-	order
+	payload
 })
 
 export const completeOrder = (orderId) => ({
 	type: COMPLETE_ORDER,
 	orderId
+})
+
+const updateBalance = payload => ({
+	type: UPDATE_BALANCE,
+	payload
 })
 
 /********************** THUNKS ************** */
@@ -154,6 +160,21 @@ export const signUp = (formData) => async (dispatch) => {
 	return data;
 };
 
+export const thunkUpdateBalance = balance => async dispatch => {
+	const data = await fetchData("/api/users/add-balance", {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({balance}),
+	});
+
+	if (data.status === 200) {
+		dispatch(updateBalance(data));
+	}
+	return data;
+}
+
 const initLocation = JSON.parse(localStorage.getItem("location"))
 const initialState = { user: null, location: initLocation };
 
@@ -186,6 +207,26 @@ export default function reducer(state = initialState, action) {
 		case DELETE_USER_CRITTER: {
 			const updatedCritters =  state.user.critters.filter(critterId => critterId !== parseInt(action.critterId))
 			return {...state, user: {...state.user, critters: updatedCritters}}
+		}
+		case CHECKOUT: {
+			return {
+				...state,
+				user: {
+					...state.user,
+					balance: action.payload.user.balance
+				}
+			}
+		}
+		case UPDATE_BALANCE: {
+			if (action.payload.user.id !== state.user.id) return state
+
+			return {
+				...state,
+				user: {
+					...state.user,
+					balance: action.payload.user.balance
+				}
+			}
 		}
 		default:
 			return state;

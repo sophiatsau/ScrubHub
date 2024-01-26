@@ -32,3 +32,63 @@
     border: 1px solid var(--boxShadowColor);
     z-index: 1;
 }
+
+/************ MANAGE BALANCE PAGE *******************/
+#cool-links-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#cool-links-container a {
+    width: calc(50% - 23px);
+    display: flex;
+}
+
+.add-money-button {
+    font-size: large;
+    height: 100px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+
+    border: 1px solid var(--boxShadowColor);
+    background-image: radial-gradient(circle at center, white, transparent 100%);
+
+    animation: change-background 1.5s linear infinite;
+}
+
+@keyframes change-background {
+    0% {
+        background-color: rgb(255, 240, 200);
+    }
+    50% {
+        background-color: rgb(255, 212, 41);
+    }
+    100% {
+        background-color: rgb(255, 240, 200);
+    }
+}
+
+.add-money-button:hover {
+    border-color: var(--highlightColor);
+    font-weight: bold;
+}
+
+.money-button-image {
+    height: 98px;
+    object-fit: cover;
+    justify-self: end;
+    border-radius: 50%;
+}
+
+.amount-added {
+    color: rgb(20,170,20);
+    font-weight: bold;
+    font-size: var(--h3Size);
+}

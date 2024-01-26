@@ -50,6 +50,14 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li><h3>Hi, {user.firstName}</h3></li>
+            <li>Your current balance: <div className="bold" style={{marginTop:"5px"}}>${user.balance}</div></li>
+            <li>
+              <Link to='/profile/balance'>
+                <button className="link-button manage-balance-button" onClick={closeMenu}>
+                  $ Manage Your Balance
+                </button>
+              </Link>
+            </li>
             <li
             onClick={closeMenu}
             className="dropdown-links">

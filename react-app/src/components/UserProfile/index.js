@@ -11,6 +11,7 @@ import CrittersViewCurrent from '../CrittersViewCurrent'
 import OrdersViewCurrent from '../OrdersViewCurrent'
 
 import "./UserProfile.css";
+import ManageBalancePage from './ManageBalancePage'
 
 //TODO: user profile edit
 export default function UserProfile() {
@@ -24,6 +25,9 @@ export default function UserProfile() {
     <SideBar/>
     <div/>
     <Switch>
+        <Route exact path="/profile/balance">
+            <ManageBalancePage />
+        </Route>
         <Route exact path="/profile/addresses">
             <AddressViewCurrent />
         </Route>

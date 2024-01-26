@@ -6,6 +6,9 @@ export default function SideBar() {
     <div id="sidebar-container">
         <h2>Your Account</h2>
         <div className='thin-light-border'/>
+        <NavLink to="/profile/balance">
+            Manage Your Balance
+        </NavLink>
         <NavLink to="/profile/addresses">
             View Your Addresses
         </NavLink>
