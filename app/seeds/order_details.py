@@ -1,13 +1,10 @@
 from app.models import db, OrderDetail, Order, environment, SCHEMA
 from sqlalchemy.sql import text
-import json
-from datetime import date
-from random import choices, randint, sample
+from random import randint, sample
 
 # Adds order_details
 def seed_order_details():
-    orders = [Order.query.get(id) for id in (1,2,3,4,5,6,7,8,9,10)]
-    # print("🚀 ~ orders:", orders)
+    orders = Order.query.all()
 
     for order in orders:
         critters = order.shop.critters

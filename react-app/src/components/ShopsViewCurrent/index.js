@@ -18,8 +18,6 @@ export default function ShopsViewCurrent() {
     }
   }, [dispatch, sessionUser])
 
-  if (!sessionUser) return <Redirect to="/" />
-
   const userShops = sessionUser.shops.map(shopId => shops[shopId])
 
   if (userShops.includes(undefined)) return <Loading text="Loading shops..." />

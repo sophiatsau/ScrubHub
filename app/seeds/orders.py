@@ -1,7 +1,7 @@
 from app.models import db, Order, OrderDetail, environment, SCHEMA
 from sqlalchemy.sql import text
 import json
-from datetime import date
+from datetime import datetime
 from random import choice, randint
 
 # Adds orders
@@ -14,7 +14,7 @@ def seed_orders():
                 shopId=order["shopId"],
                 orderStatus=order["orderStatus"],
                 orderType=order["orderType"],
-                purchasedAt=date(*order["purchasedAt"]),
+                purchasedAt=datetime(*order["purchasedAt"]),
             )
 
             db.session.add(new_order)

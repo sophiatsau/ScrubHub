@@ -6,4 +6,10 @@
 
 .view-current-critters-container h3 {
     margin: 10px 0;
+    width: fit-content;
+}
+
+.view-current-critters-container a {
+    width: fit-content;
+    display: inline-block; /* so that width can have effect */
 }

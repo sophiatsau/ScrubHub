@@ -24,11 +24,9 @@ export default function CrittersViewCurrent() {
     }
   }, [dispatch, sessionUser])
 
-  if (!sessionUser) return <Redirect to="/" />
-
   const userCritters = sessionUser.critters.map(critterId => critters[critterId])
 
-  if (!shops || userCritters.includes(undefined)) return <Loading text="Loading critters..." />
+  if (!Object.values(shops).length || userCritters.includes(undefined)) return <Loading text="Loading critters..." />
 
   const sortedCritters = {};
 
