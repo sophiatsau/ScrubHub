@@ -36,22 +36,23 @@
 /************ MANAGE BALANCE PAGE *******************/
 #cool-links-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
 #cool-links-container a {
-    width: 100%;
+    width: calc(50% - 23px);
     display: flex;
 }
 
 .add-money-button {
-    font-size: medium;
-    height: 60px;
+    font-size: large;
+    height: 100px;
     width: 100%;
 
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     justify-content: center;
     align-items: center;
     padding: 0;
@@ -80,9 +81,10 @@
 }
 
 .money-button-image {
-    height: 58px;
+    height: 98px;
     object-fit: cover;
     justify-self: end;
+    border-radius: 50%;
 }
 
 .amount-added {
