@@ -38,9 +38,9 @@ export const checkout = (payload) => ({
 	payload
 })
 
-export const completeOrder = (order) => ({
+export const completeOrder = (payload) => ({
 	type: COMPLETE_ORDER,
-	order
+	payload
 })
 
 /********************** THUNKS ************** */
@@ -102,7 +102,7 @@ export const thunkCompleteOrder = (orderId) => async (dispatch) => {
 	const data = await fetchData(`/api/orders/${orderId}/complete`, {method: 'PATCH'});
 
 	if (data.status===200) {
-		dispatch(completeOrder(orderId));
+		dispatch(completeOrder(data));
 	}
 
 	return data
@@ -173,7 +173,7 @@ export default function reducer(state=initialState, action) {
 		case COMPLETE_ORDER: {
 			return {
 				...state,
-				[action.order.id]: action.order,
+				[action.payload.order.id]: action.payload.order,
 			}
 		}
 		case UPDATE_BAG: {

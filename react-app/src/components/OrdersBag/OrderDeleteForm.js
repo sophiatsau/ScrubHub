@@ -1,7 +1,7 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {Link} from 'react-router-dom'
-import { consumeBag, thunkEmptyBag } from '../../store/orders'
+import { thunkEmptyBag } from '../../store/orders'
 import OrderCreateForm from './OrderCreateForm.js'
 import { useModal } from '../../context/Modal.js'
 

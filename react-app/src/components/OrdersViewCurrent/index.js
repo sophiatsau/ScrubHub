@@ -28,80 +28,71 @@ export default function OrdersViewCurrent() {
             return order
         })
 
-    if (orderList.length > 1) {
-        const completed = []
-        const enRoute = []
-        const waitingPickup = []
-        let inProgress = false
-        let bag = null
-
-        for (let order of orderList) {
-            if (!order) continue
-
-            switch (order.orderStatus) {
-                case "Completed":
-                    completed.push(order)
-                    break
-                case "En Route":
-                    inProgress=true
-                    enRoute.push(order)
-                    break
-                case "Waiting for Pickup":
-                    inProgress=true
-                    waitingPickup.push(order)
-                    break
-                case "Bag":
-                    bag = order
-                    break
-                default:
-                    continue
-            }
+    const completed = []
+    const enRoute = []
+    const waitingPickup = []
+    let inProgress = false
+    let bag = null
+    for (let order of orderList) {
+        if (!order) continue
+        switch (order.orderStatus) {
+            case "Completed":
+                completed.push(order)
+                break
+            case "En Route":
+                inProgress=true
+                enRoute.push(order)
+                break
+            case "Waiting for Pickup":
+                inProgress=true
+                waitingPickup.push(order)
+                break
+            case "Bag":
+                bag = order
+                break
+            default:
+                continue
         }
-
-        setOrders({
-            completed,
-            enRoute,
-            waitingPickup,
-            bag,
-            inProgress,
-        })
     }
-  }, [allOrders])
 
-  if (Object.values(allOrders).length <= 1) return (
-    <div>
-        You have not made any orders.
-    </div>
-  )
+    setOrders({
+        completed,
+        enRoute,
+        waitingPickup,
+        bag,
+        inProgress,
+    })
+  }, [allOrders])
 
   if (!orders) return <Loading text="Loading Orders..."/>
 
   return (
     <div id="view-orders-container">
         <h1>Your Orders</h1>
-        {orders.inProgress &&
-            <div className='orders-display-section'>
-                <h2>Current Orders</h2>
-                {orders.enRoute.length &&
-                <>
-                    <h3>Orders En Route</h3>
-                    {orders.enRoute.map(order => (
-                        <OrderCard key={order.id} order={order}/>
-                    ))}
-                </>
-                }
-                {orders.waitingPickup.length &&
-                <>
-                    <h3>Orders Waiting for Pickup</h3>
-                    {orders.waitingPickup.map(order => (
-                        <OrderCard key={order.id} order={order}/>
-                    ))}
-                </>
-                }
-            </div>
-        }
+        <div className='orders-display-section'>
+            <h2>Upcoming Orders</h2>
+            {!orders.inProgress && <>You have no upcoming orders.</>}
+            {orders.enRoute.length ?
+            <>
+                <h3>Orders En Route</h3>
+                {orders.enRoute.map(order => (
+                    <OrderCard key={order.id} order={order}/>
+                ))}
+            </> : null
+            }
+            {orders.waitingPickup.length ?
+            <>
+                <h3>Orders Waiting for Pickup</h3>
+                {orders.waitingPickup.map(order => (
+                    <OrderCard key={order.id} order={order}/>
+                ))}
+            </> : null
+            }
+        </div>
+        <div style={{height: "40px"}}/>
         <div className='orders-display-section'>
             <h2>Past Orders</h2>
+            {!orders.completed.length && <>You have not made any orders.</>}
             {orders.completed.map(order => (
                 <OrderCard key={order.id} order={order}/>
             ))}
