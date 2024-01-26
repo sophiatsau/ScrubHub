@@ -1,12 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { thunkUpdateBalance } from '../../store/session'
 
 export default function ManageBalancePage() {
     const sessionUser = useSelector(state => state.session.user)
+    const dispatch = useDispatch()
 
     const addMoney = 200
 
-    const increaseBalance = console.log
+    const increaseBalance = async e => {
+        const data = await dispatch(thunkUpdateBalance(addMoney))
+    }
 
     return (
         <div id="view-current-addresses-container manage-balance-page-container">
