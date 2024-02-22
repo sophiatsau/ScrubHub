@@ -32,7 +32,7 @@ export default function LocationFormModal({type}) {
   const [validAddress, setValidAddress] = useState(false)
   const [confirmAddress, setConfirmAddress] = useState("")
   const [confirmed, setConfirmed] = useState(false)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({disabled: true})
   const [invalidError, setInvalidError] = useState("")
   const [validating, setValidating] = useState(false)
 
@@ -68,21 +68,39 @@ export default function LocationFormModal({type}) {
     const newData = {...formData};
     newData[name] = value;
 
+    setErrors(prev => {
+      const newErrors = {...prev};
+      switch (name) {
+        case "address":
+          if (!value && name === "address") newErrors.address = "This field is required."
+          else delete newErrors.address
+          break
+        case "city":
+          if (!value) newErrors.city = "This field is required."
+          else delete newErrors.city
+          break
+        case "state":
+          if (!value) newErrors.state = "This field is required."
+          else delete newErrors.state
+          break
+        case "zipCode":
+          if (value && !value.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (XXXXX or XXXXX-XXXX)"
+          else if (!value) newErrors.zipCode = "This field is required."
+          else delete newErrors.zipCode
+          break
+      }
+      delete newErrors.disabled
+      return newErrors
+    })
     setFormData(newData)
+    setConfirmed(false)
   }
 
-  const handleErrors = (e) => {
-		const {address, city, state, zipCode,} = formData;
-		const newErrors = {};
-
-		if (!address) newErrors.address = "This field is required."
-		if (!city) newErrors.city = "This field is required."
-		if (!state) newErrors.state = "This field is required."
-		if (zipCode && !zipCode.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (XXXXX or XXXXX-XXXX)"
-		if (!zipCode) newErrors.zipCode = "This field is required."
-
-		setErrors(newErrors)
-	}
+  // const handleErrors = (e) => {
+  //   const newErrors = {...errors}
+  //   delete newErrors.disabled
+	// 	setErrors(newErrors)
+	// }
 
   useEffect(() => {
     if (validating) {
@@ -156,7 +174,7 @@ export default function LocationFormModal({type}) {
           name="address"
 					value={formData.address}
 					onChange={handleInputChange}
-          onBlur={handleErrors}
+          // onBlur={handleErrors}
           required
 				/>
         <div className='error'>{errors.address}</div>
@@ -169,7 +187,7 @@ export default function LocationFormModal({type}) {
             name="city"
             value={formData.city}
             onChange={handleInputChange}
-            onBlur={handleErrors}
+            // onBlur={handleErrors}
             required
           />
           <div className='error'>{errors.city}</div>
@@ -181,7 +199,7 @@ export default function LocationFormModal({type}) {
             name="state"
             value={formData.state}
             onChange={handleInputChange}
-            onBlur={handleErrors}
+            // onBlur={handleErrors}
             required
           />
           <div className='error'>{errors.state}</div>
@@ -194,7 +212,7 @@ export default function LocationFormModal({type}) {
           name="zipCode"
 					value={formData.zipCode}
 					onChange={handleInputChange}
-          onBlur={handleErrors}
+          // onBlur={handleErrors}
 					placeholder="XXXXX or XXXXX-XXXX"
           required
 				/>
