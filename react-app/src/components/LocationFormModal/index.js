@@ -73,11 +73,8 @@ export default function LocationFormModal({type}) {
 
   const handleErrors = (e) => {
     const {name, value} = e.target;
-		const {address, city, state, zipCode,} = formData;
 		const newErrors = {...errors};
-    console.log("name, value***************88", name, value)
 
-    console.log("NEW ERRORS***************88", newErrors)
     switch (name) {
       case "address":
         if (!value && name === "address") newErrors.address = "This field is required."
@@ -89,13 +86,14 @@ export default function LocationFormModal({type}) {
         break
       case "state":
         if (!value) newErrors.state = "This field is required."
+        else newErrors.state = ""
         break
       case "zipCode":
         if (value && !value.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (XXXXX or XXXXX-XXXX)"
-        if (!value) newErrors.zipCode = "This field is required."
+        else if (!value) newErrors.zipCode = "This field is required."
+        else newErrors.zipCode = ""
         break
     }
-    console.log("NEW ERRORS***************88", newErrors)
 		setErrors(newErrors)
 	}
 
