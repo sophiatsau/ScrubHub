@@ -27,12 +27,15 @@ https://crittr.onrender.com/
 
 ## Screenshots
 ### Landing Page
-Enter your address to view shops around you!
-![Landing](https://github.com/sophiatsau/Crittr/assets/137214319/4890a052-6097-43ba-a55a-415d54d4c3c3)
+Enter a valid address to view shops around you!
+![20240228_Landing](https://github.com/sophiatsau/Crittr/assets/137214319/3a6d5b9d-5238-45c1-ae7c-dd0ef8700cd9)
 
 ### Shop Page
 Check out the different animals being sold!
 ![ShopDetails](https://github.com/sophiatsau/Crittr/assets/137214319/6f40a571-133d-4a32-b71f-b3f101f9bc25)
+
+When you find an animal you like, you can add it to your bag.
+![240228_Bag](https://github.com/sophiatsau/Crittr/assets/137214319/7029d958-760d-418d-a3db-ffc5a4f96b2f)
 
 ### Profile Page
 Here, you can add, edit, or remove your addresses.
