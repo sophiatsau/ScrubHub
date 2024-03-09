@@ -169,7 +169,7 @@ def empty_bag(orderId):
 def checkout(orderId):
     """
     Updates order status to 'En Route' or 'Waiting for Pickup'  depending on if Order is Delivery or Pickup, updates purchasedAt. Updates critter stock and user balance.
-    TODO: Returns updated order status (might need to return shop's critter list > order?)
+    Returns updated order, user, and critters.
     """
     order = Order.query.get(orderId)
 
