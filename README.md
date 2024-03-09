@@ -84,5 +84,10 @@ If you are a shop owner, you can manage your shops and critters.
 | PUT /api/critters/:critterId/edit | Edits an existing critter, returns edited critter as dictionary | {"critter": <br/>&nbsp;&nbsp;&nbsp;{"id": INT,<br/>&nbsp;&nbsp;&nbsp;"name": STRING,<br/>&nbsp;&nbsp;&nbsp;"species": STRING,<br/>&nbsp;&nbsp;&nbsp;"shopId": INT,<br/>&nbsp;&nbsp;&nbsp;"price": DECIMAL,<br/>&nbsp;&nbsp;&nbsp;"category": STRING,<br/>&nbsp;&nbsp;&nbsp;"previewImageUrl": STRING,<br/>&nbsp;&nbsp;&nbsp;"description": STRING,<br/>&nbsp;&nbsp;&nbsp;"stock": INT}<br/>} | 200 |
 | DELETE /api/critters/:critterId/delete | Deletes a critter and returns a message if successfully deleted | {"message": "Critter successfully deleted"} | 200 |
 
+### Orders
+| Request  | Purpose | Return Value | Status |
+| :------- | :------ | :----------- | :------ |
+| GET /api/orders/current | Returns details of all of current user's orders as a list of dictionaries | {"orders": <br/>&nbsp;&nbsp;&nbsp;[ARRAY:{<br/>&nbsp;&nbsp;&nbsp;"id": INT,<br/>&nbsp;&nbsp;&nbsp;"userId": INT,<br/>&nbsp;&nbsp;&nbsp;"shopId": INT,<br/>&nbsp;&nbsp;&nbsp;"shopName": STRING,<br/>&nbsp;&nbsp;&nbsp;"orderStatus": STRING,<br/>&nbsp;&nbsp;&nbsp;"orderType": STRING,<br/>&nbsp;&nbsp;&nbsp;"purchasedAt": DATETIME,<br/>&nbsp;&nbsp;&nbsp;"orderDetails": STRING,<br/>&nbsp;&nbsp;&nbsp;"totalPrice": DECIMAL}]<br/>} | 200 |
+
 # Connect With Me!
 <a href="https://www.linkedin.com/in/sophiatsau/">LinkedIn</a>
