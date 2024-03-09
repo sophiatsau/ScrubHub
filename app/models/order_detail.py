@@ -49,7 +49,7 @@ class OrderDetail(db.Model):
             "quantity": self.quantity,
             "unitPrice": self.unitPrice or (self.critter.price if self.critter else None),
             # "product": self.product if self.product else self.critter.to_dict(),
-            "critter": self.critter.to_dict(),
+            "critter": self.critter.to_dict() if self.critter else None,
         }
 
         return d
