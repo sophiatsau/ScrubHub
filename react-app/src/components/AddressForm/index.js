@@ -98,26 +98,28 @@ export default function AddressForm({address}) {
 				/>
 				<div className='error'>{submitted && errors.address}</div>
 			</label>
-			<label>
-				City
-				<input
-					type="text"
-          			name="city"
-					value={formData.city}
-					onChange={handleInputChange}
-				/>
-				<div className='error'>{submitted && errors.city}</div>
-			</label>
-			<label>
-				State
-				<input
-					type="text"
-          			name="state"
-					value={formData.state}
-					onChange={handleInputChange}
-				/>
-				<div className='error'>{submitted && errors.state}</div>
-			</label>
+			<div className='city-state'>
+				<label>
+					City
+					<input
+						type="text"
+						name="city"
+						value={formData.city}
+						onChange={handleInputChange}
+					/>
+					<div className='error'>{submitted && errors.city}</div>
+				</label>
+				<label>
+					State
+					<input
+						type="text"
+						name="state"
+						value={formData.state}
+						onChange={handleInputChange}
+					/>
+					<div className='error'>{submitted && errors.state}</div>
+				</label>
+			</div>
 			<label>
 				Zip Code
 				<input
