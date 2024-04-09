@@ -175,6 +175,7 @@ export const thunkUpdateBalance = balance => async dispatch => {
 	return data;
 }
 
+// use store for location: notify when to update interface to match
 const initLocation = JSON.parse(localStorage.getItem("location"))
 const initialState = { user: null, location: initLocation };
 
