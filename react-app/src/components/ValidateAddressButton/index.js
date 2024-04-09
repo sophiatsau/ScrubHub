@@ -4,6 +4,7 @@ import { componentsToAddressLines, fetchData, fullAddressToComponents } from '..
 
 export default function ValidateAddressButton({formData}) {
     const {stuff} = useAddressValidator()
+
     const validateAddress = async (e) => {
         e.preventDefault()
         setValidating(true)
@@ -37,6 +38,17 @@ export default function ValidateAddressButton({formData}) {
     }
 
     return (
-        <div>ValidateAddressButton</div>
+        <>
+        <button
+            type="submit"
+            onClick={validateAddress}
+            className={`purple-button ${Object.values(errors).length || validating ? "disabled" : ""}`}
+        >
+            Validate Address
+        </button>
+        <div style={{minHeight:"40px"}}>
+            {validationDiv}
+        </div>
+        </>
     )
 }
