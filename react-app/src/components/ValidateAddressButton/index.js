@@ -32,8 +32,6 @@ export default function ValidateAddressButton({formData, setFormData, errors}) {
                 // "addressLines": ["1 World Way"]}
             })
         })
-        console.log("🚀 ~ validateAddress ~ componentsToAddressLines(components):", componentsToAddressLines(formData))
-        console.log("🚀 ~ validateAddress ~ formData:", formData)
 
         if (data.status===200) {
         const {verdict, address} = data.result

@@ -13,6 +13,9 @@ export default function AddressForm({address}) {
 	const dispatch = useDispatch();
 	const {closeModal} = useModal()
 	const {
+		validAddress,
+		confirmed,
+		validating, setValidating,
         resetValidatorValues,
     } = useAddressValidator()
 
@@ -33,6 +36,12 @@ export default function AddressForm({address}) {
 	const [formData, setFormData] = useState(initialData)
 	const [errors, setErrors] = useState({});
 	const [submitted, setSubmitted] = useState(false);
+
+	useEffect(() => {
+		if (validating) {
+		  setValidating(false)
+		}
+	  }, [validating, setValidating])
 
 	useEffect(() => {
 		const {address, city, state, zipCode, name,} = formData;
@@ -75,7 +84,7 @@ export default function AddressForm({address}) {
 		setFormData(newData)
 	}
 
-	const buttonClass = Object.values(errors).length && submitted ? "disabled purple-button address-form-button":"purple-button address-form-button"
+	const buttonClass = Object.values(errors).length || !validAddress || !confirmed || validating ? "disabled purple-button address-form-button":"purple-button address-form-button"
 
 	return (
 		<div className="address-form-container">
