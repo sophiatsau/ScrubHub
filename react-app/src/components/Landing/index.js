@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import AddressFormModal from '../LocationFormModal'
+import LocationFormModal from '../LocationFormModal'
 import { Redirect } from 'react-router-dom'
 import OpenModalButton from '../OpenModalButton'
 
@@ -22,7 +22,7 @@ export default function Landing() {
           Enter Your Address
           </>}
           className={"purple-button landing-button"}
-          modalComponent={<AddressFormModal type={"temp"}/>}
+          modalComponent={<LocationFormModal type={"temp"}/>}
       />
     </div>
   )

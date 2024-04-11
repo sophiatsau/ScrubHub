@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAddressValidator } from '../../context/ValidateAddress'
 import { componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
 
-export default function ValidateAddressButton({formData}) {
-    const {stuff} = useAddressValidator()
+export default function ValidateAddressButton({formData, setFormData, errors}) {
+    const {validAddress, setValidAddress,
+        confirmAddress, setConfirmAddress,
+        confirmed, setConfirmed,
+        invalidError, setInvalidError,
+        validating, setValidating,
+    } = useAddressValidator()
+
+    const handleConfirmAddress = e => {
+        setConfirmed(e.target.checked)
+        if (e.target.checked) {
+          setFormData(fullAddressToComponents(confirmAddress))
+        }
+    }
 
     const validateAddress = async (e) => {
         e.preventDefault()
@@ -36,6 +48,24 @@ export default function ValidateAddressButton({formData}) {
             setInvalidError("Something funny happened. Please refresh the page and try again.")
         }
     }
+
+    const validationDiv = invalidError ?
+        <div className='error'>{invalidError}</div>
+        :
+        <div className={validAddress ? 'address-checkbox-container' : 'hidden'}>
+            Please confirm your address:
+            <label className='address-checkbox' style={{marginTop:"8px"}}>
+            <input
+                type="checkbox"
+                name="fullAddress"
+                checked={confirmed}
+                value={confirmed}
+                onChange={handleConfirmAddress}
+                required
+            />
+            <div>{confirmAddress}</div>
+            </label>
+        </div>
 
     return (
         <>

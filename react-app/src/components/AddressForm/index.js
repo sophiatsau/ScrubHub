@@ -1,15 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { useAddressValidator } from '../../context/ValidateAddress'
 import { useModal } from "../../context/Modal";
 import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
 import { getFullAddress } from '../../store/utils'
+import ValidateAddressButton from '../ValidateAddressButton'
 
 import "./AddressForm.css";
 
 export default function AddressForm({address}) {
 	const dispatch = useDispatch();
 	const {closeModal} = useModal()
+	const {
+        resetValidatorValues,
+    } = useAddressValidator()
+    const modalRef = useRef()
+
+	useEffect(() => {
+		console.log("🚀 ~ clearValidatorValues ~ modalRef:", modalRef)
+		const clearValidatorValues = (e) => {
+            console.log("🚀 ~ clearValidatorValues ~ e:", e.target)
+            if (!modalRef.current.contains(e.target)) {
+                resetValidatorValues()
+            }
+        }
+
+        document.addEventListener("click", clearValidatorValues)
+
+		return () => {
+			document.removeEventListener("click", clearValidatorValues)
+			resetValidatorValues()
+			console.log("removing everything rn")
+		}
+    }, [modalRef])
 
 	const initialData = address || {
 		fullAddress:"",
@@ -71,7 +95,7 @@ export default function AddressForm({address}) {
 	const buttonClass = Object.values(errors).length && submitted ? "disabled purple-button address-form-button":"purple-button address-form-button"
 
 	return (
-		<div className="address-form-container">
+		<div className="address-form-container" ref={modalRef}>
 		<h1>{header}</h1>
 		<form onSubmit={(e) => {
 			setSubmitted(true)
@@ -131,6 +155,7 @@ export default function AddressForm({address}) {
 				/>
 				<div className='error'>{submitted && errors.zipCode}</div>
 			</label>
+			<ValidateAddressButton {...{errors, formData, setFormData}}/>
       		<button type="submit"
 			className={buttonClass}
 			>{buttonText}</button>

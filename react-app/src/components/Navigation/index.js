@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import OpenModalButton from '../OpenModalButton';
-import AddressFormModal from '../LocationFormModal';
+import LocationFormModal from '../LocationFormModal';
 import ProfileButton from './ProfileButton';
 import BagButton from './BagButton';
 
@@ -30,7 +30,7 @@ function Navigation({ isLoaded }){
 				</span>
 				</>}
 				className={"light-button location-update-button"}
-				modalComponent={<AddressFormModal type={"temp"}/>}
+				modalComponent={<LocationFormModal type={"temp"}/>}
 			/>
 			</li>
 			<li></li>

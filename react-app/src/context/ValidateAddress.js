@@ -15,12 +15,21 @@ export function AddressValidatorProvider({children}) {
     //is server in process of validating address? if true, some buttons should be temporarily disabled
     const [validating, setValidating] = useState(false)
 
+    const resetValidatorValues = () => {
+        setValidAddress(false)
+        setConfirmAddress("")
+        setConfirmed(false)
+        setInvalidError("")
+        setValidating(false)
+    }
+
     const contextValue = {
         validAddress, setValidAddress,
         confirmAddress, setConfirmAddress,
         confirmed, setConfirmed,
         invalidError, setInvalidError,
         validating, setValidating,
+        resetValidatorValues,
     }
 
     return (
