@@ -13,7 +13,8 @@ export default function ValidateAddressButton({formData, setFormData, errors}) {
     const handleConfirmAddress = e => {
         setConfirmed(e.target.checked)
         if (e.target.checked) {
-          setFormData(fullAddressToComponents(confirmAddress))
+          setFormData({name: formData.name,
+            ...fullAddressToComponents(confirmAddress)})
         }
     }
 
@@ -31,6 +32,8 @@ export default function ValidateAddressButton({formData, setFormData, errors}) {
                 // "addressLines": ["1 World Way"]}
             })
         })
+        console.log("🚀 ~ validateAddress ~ componentsToAddressLines(components):", componentsToAddressLines(formData))
+        console.log("🚀 ~ validateAddress ~ formData:", formData)
 
         if (data.status===200) {
         const {verdict, address} = data.result

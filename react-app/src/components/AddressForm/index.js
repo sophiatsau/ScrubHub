@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { useAddressValidator } from '../../context/ValidateAddress'
@@ -15,25 +15,8 @@ export default function AddressForm({address}) {
 	const {
         resetValidatorValues,
     } = useAddressValidator()
-    const modalRef = useRef()
 
-	useEffect(() => {
-		console.log("🚀 ~ clearValidatorValues ~ modalRef:", modalRef)
-		const clearValidatorValues = (e) => {
-            console.log("🚀 ~ clearValidatorValues ~ e:", e.target)
-            if (!modalRef.current.contains(e.target)) {
-                resetValidatorValues()
-            }
-        }
-
-        document.addEventListener("click", clearValidatorValues)
-
-		return () => {
-			document.removeEventListener("click", clearValidatorValues)
-			resetValidatorValues()
-			console.log("removing everything rn")
-		}
-    }, [modalRef])
+	useEffect(() => resetValidatorValues, [])
 
 	const initialData = address || {
 		fullAddress:"",
@@ -95,7 +78,7 @@ export default function AddressForm({address}) {
 	const buttonClass = Object.values(errors).length && submitted ? "disabled purple-button address-form-button":"purple-button address-form-button"
 
 	return (
-		<div className="address-form-container" ref={modalRef}>
+		<div className="address-form-container">
 		<h1>{header}</h1>
 		<form onSubmit={(e) => {
 			setSubmitted(true)
