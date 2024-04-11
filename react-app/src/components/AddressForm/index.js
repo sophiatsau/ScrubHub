@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { useAddressValidator } from '../../context/ValidateAddress'
 import { useModal } from "../../context/Modal";
 import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
 import { getFullAddress } from '../../store/utils'
+import ValidateAddressButton from '../ValidateAddressButton'
 
 import "./AddressForm.css";
 
 export default function AddressForm({address}) {
 	const dispatch = useDispatch();
 	const {closeModal} = useModal()
+	const {
+		validAddress,
+		confirmed,
+		validating, setValidating,
+        resetValidatorValues,
+    } = useAddressValidator()
+
+	useEffect(() => resetValidatorValues, [])
 
 	const initialData = address || {
 		fullAddress:"",
@@ -26,6 +36,12 @@ export default function AddressForm({address}) {
 	const [formData, setFormData] = useState(initialData)
 	const [errors, setErrors] = useState({});
 	const [submitted, setSubmitted] = useState(false);
+
+	useEffect(() => {
+		if (validating) {
+		  setValidating(false)
+		}
+	  }, [validating, setValidating])
 
 	useEffect(() => {
 		const {address, city, state, zipCode, name,} = formData;
@@ -68,7 +84,7 @@ export default function AddressForm({address}) {
 		setFormData(newData)
 	}
 
-	const buttonClass = Object.values(errors).length && submitted ? "disabled purple-button address-form-button":"purple-button address-form-button"
+	const buttonClass = Object.values(errors).length || !validAddress || !confirmed || validating ? "disabled purple-button address-form-button":"purple-button address-form-button"
 
 	return (
 		<div className="address-form-container">
@@ -98,26 +114,28 @@ export default function AddressForm({address}) {
 				/>
 				<div className='error'>{submitted && errors.address}</div>
 			</label>
-			<label>
-				City
-				<input
-					type="text"
-          			name="city"
-					value={formData.city}
-					onChange={handleInputChange}
-				/>
-				<div className='error'>{submitted && errors.city}</div>
-			</label>
-			<label>
-				State
-				<input
-					type="text"
-          			name="state"
-					value={formData.state}
-					onChange={handleInputChange}
-				/>
-				<div className='error'>{submitted && errors.state}</div>
-			</label>
+			<div className='city-state'>
+				<label>
+					City
+					<input
+						type="text"
+						name="city"
+						value={formData.city}
+						onChange={handleInputChange}
+					/>
+					<div className='error'>{submitted && errors.city}</div>
+				</label>
+				<label>
+					State
+					<input
+						type="text"
+						name="state"
+						value={formData.state}
+						onChange={handleInputChange}
+					/>
+					<div className='error'>{submitted && errors.state}</div>
+				</label>
+			</div>
 			<label>
 				Zip Code
 				<input
@@ -129,6 +147,7 @@ export default function AddressForm({address}) {
 				/>
 				<div className='error'>{submitted && errors.zipCode}</div>
 			</label>
+			<ValidateAddressButton {...{errors, formData, setFormData}}/>
       		<button type="submit"
 			className={buttonClass}
 			>{buttonText}</button>

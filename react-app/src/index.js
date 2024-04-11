@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import { ModalProvider, Modal } from "./context/Modal";
+import { AddressValidatorProvider } from "./context/ValidateAddress";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import App from "./App";
@@ -23,12 +24,14 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
 	return (
 		<ModalProvider>
-			<Provider store={store}>
-				<BrowserRouter>
-					<App />
-					<Modal />
-				</BrowserRouter>
-			</Provider>
+			<AddressValidatorProvider>
+				<Provider store={store}>
+					<BrowserRouter>
+						<App />
+						<Modal />
+					</BrowserRouter>
+				</Provider>
+			</AddressValidatorProvider>
 		</ModalProvider>
 	);
 }

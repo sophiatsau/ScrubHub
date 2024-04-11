@@ -32,6 +32,7 @@ export default function LocationFormModal({type}) {
   const [validAddress, setValidAddress] = useState(false)
   const [confirmAddress, setConfirmAddress] = useState("")
   const [confirmed, setConfirmed] = useState(false)
+  //{disabled:true} is used to disable button initially, because button disable/enable is based on length of errors. This gets removed when 'handleInputChange' is triggered
   const [errors, setErrors] = useState({disabled: true})
   const [invalidError, setInvalidError] = useState("")
   const [validating, setValidating] = useState(false)
