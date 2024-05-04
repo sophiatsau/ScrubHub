@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useAddressValidator } from '../../context/ValidateAddress'
 import { useModal } from "../../context/Modal";
 import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
-import { getFullAddress } from '../../store/utils'
+import { getFullAddress, componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
 import ValidateAddressButton from '../ValidateAddressButton'
 
 import "./AddressForm.css";
@@ -12,14 +12,14 @@ import "./AddressForm.css";
 export default function AddressForm({address}) {
 	const dispatch = useDispatch();
 	const {closeModal} = useModal()
-	const {
-		validAddress,
-		confirmed,
-		validating, setValidating,
-        resetValidatorValues,
-    } = useAddressValidator()
+	// const {
+	// 	validAddress,
+	// 	confirmed,
+	// 	validating, setValidating,
+    //     resetValidatorValues,
+    // } = useAddressValidator()
 
-	useEffect(() => resetValidatorValues, [])
+	// useEffect(() => resetValidatorValues, [])
 
 	const initialData = address || {
 		fullAddress:"",
@@ -36,6 +36,17 @@ export default function AddressForm({address}) {
 	const [formData, setFormData] = useState(initialData)
 	const [errors, setErrors] = useState({});
 	const [submitted, setSubmitted] = useState(false);
+
+	//address is validated and is valid / invalid
+    const [validAddress, setValidAddress] = useState(false)
+    //the validated address
+    const [confirmAddress, setConfirmAddress] = useState("")
+    //user has confirmed Google API returned address to be desired address
+    const [confirmed, setConfirmed] = useState(false)
+    //error message returned by validateAddress function if 1) address is invalid or 2) some sort of backend error
+    const [invalidError, setInvalidError] = useState("")
+    //is server in process of validating address? if true, some buttons should be temporarily disabled
+    const [validating, setValidating] = useState(false)
 
 	useEffect(() => {
 		if (validating) {
@@ -65,6 +76,7 @@ export default function AddressForm({address}) {
 		e.preventDefault();
 		if (Object.values(errors).length) return;
 		let formErrors = {}
+		console.log("🚀 ~ handleSubmit ~ formData:", formData)
 		formData.fullAddress = getFullAddress(formData)
 
 		const data = await dispatch(thunk(formData));
@@ -85,6 +97,64 @@ export default function AddressForm({address}) {
 	}
 
 	const buttonClass = Object.values(errors).length || !validAddress || !confirmed || validating ? "disabled purple-button address-form-button":"purple-button address-form-button"
+
+	const handleConfirmAddress = e => {
+        setConfirmed(e.target.checked)
+        if (e.target.checked) {
+          setFormData({...formData, name: formData.name,
+            ...fullAddressToComponents(confirmAddress)})
+        }
+    }
+
+    const validateAddress = async (e) => {
+        e.preventDefault()
+        setValidating(true)
+
+        const data = await fetchData(
+        `https://addressvalidation.googleapis.com/v1:validateAddress?key=${process.env.REACT_APP_MAPS_KEY}`,
+        {
+            method:"POST",
+            body: JSON.stringify({
+            "address": {
+                "addressLines": componentsToAddressLines(formData)}
+                // "addressLines": ["1 World Way"]}
+            })
+        })
+
+        if (data.status===200) {
+        const {verdict, address} = data.result
+        if (verdict.hasUnconfirmedComponents) {
+            setInvalidError("No matching address was found. Please check for typos and try again.")
+            setValidAddress(false)
+        }
+        else {
+            setInvalidError("")
+            setValidAddress(true)
+            setConfirmAddress(address.formattedAddress)
+        }
+        } else {
+            setInvalidError("Something funny happened. Please refresh the page and try again.")
+        }
+    }
+
+	// appears when address validation button clicked
+	const validationDiv = invalidError ?
+        <div className='error'>{invalidError}</div>
+        :
+        <div className={validAddress ? 'address-checkbox-container' : 'hidden'}>
+            Please confirm your address:
+            <label className='address-checkbox' style={{marginTop:"8px"}}>
+            <input
+                type="checkbox"
+                name="fullAddress"
+                checked={confirmed}
+                value={confirmed}
+                onChange={handleConfirmAddress}
+                required
+            />
+            <div>{confirmAddress}</div>
+            </label>
+        </div>
 
 	return (
 		<div className="address-form-container">
@@ -147,7 +217,17 @@ export default function AddressForm({address}) {
 				/>
 				<div className='error'>{submitted && errors.zipCode}</div>
 			</label>
-			<ValidateAddressButton {...{errors, formData, setFormData}}/>
+			{/* <ValidateAddressButton {...{errors, formData, setFormData}}/> */}
+			<button
+				type="submit"
+				onClick={validateAddress}
+				className={`purple-button ${Object.values(errors).length || validating ? "disabled" : ""}`}
+			>
+				Validate Address
+			</button>
+			<div style={{minHeight:"40px"}}>
+				{validationDiv}
+			</div>
       		<button type="submit"
 			className={buttonClass}
 			>{buttonText}</button>
