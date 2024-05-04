@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-// import { useAddressValidator } from '../../context/ValidateAddress'
 import { useModal } from "../../context/Modal";
 import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
 import { getFullAddress, componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
-// import ValidateAddressButton from '../ValidateAddressButton'
 
 import "./AddressForm.css";
 
 export default function AddressForm({address}) {
 	const dispatch = useDispatch();
 	const {closeModal} = useModal()
-	// const {
-	// 	validAddress,
-	// 	confirmed,
-	// 	validating, setValidating,
-    //     resetValidatorValues,
-    // } = useAddressValidator()
-
-	// useEffect(() => resetValidatorValues, [])
 
 	const initialData = address || {
 		fullAddress:"",
@@ -73,36 +63,6 @@ export default function AddressForm({address}) {
 
 		const newData = {...formData};
 		newData[name] = value;
-
-		// const newErrors = {...errors};
-
-		// switch (name) {
-		// 	case "name":
-		// 		if (value.length > 40) newErrors.name = "Field cannot be longer than 40 characters."
-		// 		else if (!value) newErrors.name = "This field is required."
-		// 		else delete newErrors.name
-		// 		break
-		// 	case "address":
-		// 		if (!value) newErrors.address = "This field is required."
-		// 		else if (value.length > 50) newErrors.address = "Field cannot be longer than 50 characters."
-		// 		else delete newErrors.address
-		// 		break
-		// 	case "city":
-		// 		if (!value) newErrors.city = "This field is required."
-		// 		else if (value.length > 50) newErrors.city = "Field cannot be longer than 50 characters."
-		// 		else delete newErrors.city
-		// 		break
-		// 	case "state":
-		// 		if (value.length > 50) newErrors.state = "Field cannot be longer than 50 characters."
-		// 		else if (!value) newErrors.state = "This field is required."
-		// 		else delete newErrors.state
-		// 		break
-		// 	case "zipCode":
-		// 		if (value && !value.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (XXXXX or XXXXX-XXXX)"
-		// 		else if (!value) newErrors.zipCode = "This field is required."
-		// 		else delete newErrors.zipCode
-		// 		break
-		// }
 
 		setFormData(newData)
 		setConfirmed(false)
