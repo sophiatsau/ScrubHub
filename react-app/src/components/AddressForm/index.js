@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { useAddressValidator } from '../../context/ValidateAddress'
+// import { useAddressValidator } from '../../context/ValidateAddress'
 import { useModal } from "../../context/Modal";
 import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
 import { getFullAddress, componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
-import ValidateAddressButton from '../ValidateAddressButton'
+// import ValidateAddressButton from '../ValidateAddressButton'
 
 import "./AddressForm.css";
 
@@ -54,29 +54,10 @@ export default function AddressForm({address}) {
 		}
 	  }, [validating, setValidating])
 
-	useEffect(() => {
-		const {address, city, state, zipCode, name,} = formData;
-		const newErrors = {};
-
-		if (name.length > 40) newErrors.name = "Field cannot be longer than 40 characters."
-		if (!name) newErrors.name = "This field is required."
-		if (address.length > 50) newErrors.address = "Field cannot be longer than 50 characters."
-		if (!address) newErrors.address = "This field is required."
-		if (city.length > 50) newErrors.city = "Field cannot be longer than 50 characters."
-		if (!city) newErrors.city = "This field is required."
-		if (state.length > 50) newErrors.state = "Field cannot be longer than 50 characters."
-		if (!state) newErrors.state = "This field is required."
-		if (zipCode && !zipCode.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (use XXXXX or XXXXX-XXXX)"
-		if (!zipCode) newErrors.zipCode = "This field is required."
-
-		setErrors(newErrors)
-	}, [setErrors, formData, submitted])
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (Object.values(errors).length) return;
 		let formErrors = {}
-		console.log("🚀 ~ handleSubmit ~ formData:", formData)
 		formData.fullAddress = getFullAddress(formData)
 
 		const data = await dispatch(thunk(formData));
@@ -93,7 +74,39 @@ export default function AddressForm({address}) {
 		const newData = {...formData};
 		newData[name] = value;
 
+		const newErrors = {...errors};
+
+		switch (name) {
+			case "name":
+				if (value.length > 40) newErrors.name = "Field cannot be longer than 40 characters."
+				else if (!value) newErrors.name = "This field is required."
+				else delete newErrors.name
+				break
+			case "address":
+				if (!value) newErrors.address = "This field is required."
+				else if (value.length > 50) newErrors.address = "Field cannot be longer than 50 characters."
+				else delete newErrors.address
+				break
+			case "city":
+				if (!value) newErrors.city = "This field is required."
+				else if (value.length > 50) newErrors.city = "Field cannot be longer than 50 characters."
+				else delete newErrors.city
+				break
+			case "state":
+				if (value.length > 50) newErrors.state = "Field cannot be longer than 50 characters."
+				else if (!value) newErrors.state = "This field is required."
+				else delete newErrors.state
+				break
+			case "zipCode":
+				if (value && !value.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (XXXXX or XXXXX-XXXX)"
+				else if (!value) newErrors.zipCode = "This field is required."
+				else delete newErrors.zipCode
+				break
+		}
+
+		setErrors(newErrors)
 		setFormData(newData)
+		setConfirmed(false)
 	}
 
 	const buttonClass = Object.values(errors).length || !validAddress || !confirmed || validating ? "disabled purple-button address-form-button":"purple-button address-form-button"
@@ -103,6 +116,7 @@ export default function AddressForm({address}) {
         if (e.target.checked) {
           setFormData({...formData, name: formData.name,
             ...fullAddressToComponents(confirmAddress)})
+			setErrors({name: errors.name})
         }
     }
 
@@ -172,7 +186,7 @@ export default function AddressForm({address}) {
 					value={formData.name}
 					onChange={handleInputChange}
 				/>
-				<div className='error'>{submitted && errors.name}</div>
+				<div className='error'>{errors.name}</div>
 			</label>
 			<label>
 				Address
@@ -182,7 +196,7 @@ export default function AddressForm({address}) {
 					value={formData.address}
 					onChange={handleInputChange}
 				/>
-				<div className='error'>{submitted && errors.address}</div>
+				<div className='error'>{errors.address}</div>
 			</label>
 			<div className='city-state'>
 				<label>
@@ -193,7 +207,7 @@ export default function AddressForm({address}) {
 						value={formData.city}
 						onChange={handleInputChange}
 					/>
-					<div className='error'>{submitted && errors.city}</div>
+					<div className='error'>{errors.city}</div>
 				</label>
 				<label>
 					State
@@ -203,7 +217,7 @@ export default function AddressForm({address}) {
 						value={formData.state}
 						onChange={handleInputChange}
 					/>
-					<div className='error'>{submitted && errors.state}</div>
+					<div className='error'>{errors.state}</div>
 				</label>
 			</div>
 			<label>
@@ -215,7 +229,7 @@ export default function AddressForm({address}) {
 					onChange={handleInputChange}
 					placeholder="XXXXX or XXXXX-XXXX"
 				/>
-				<div className='error'>{submitted && errors.zipCode}</div>
+				<div className='error'>{errors.zipCode}</div>
 			</label>
 			{/* <ValidateAddressButton {...{errors, formData, setFormData}}/> */}
 			<button

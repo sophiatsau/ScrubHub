@@ -73,7 +73,7 @@ export default function LocationFormModal({type}) {
       const newErrors = {...prev};
       switch (name) {
         case "address":
-          if (!value && name === "address") newErrors.address = "This field is required."
+          if (!value) newErrors.address = "This field is required."
           else delete newErrors.address
           break
         case "city":
