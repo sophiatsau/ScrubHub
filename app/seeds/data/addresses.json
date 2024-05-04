@@ -1,12 +1,30 @@
 [
     {
       "userId": 1,
-      "name": "Serenity Springs",
-      "address": "75 Essex St.",
-      "city": "Salinas",
+      "name": "Arcadia",
+      "address": "305 N Santa Anita Ave",
+      "city": "Arcadia",
       "state": "CA",
-      "zipCode": "93906",
-      "fullAddress": "75 Essex St.\nSalinas, CA 93906"
+      "zipCode": "91006",
+      "fullAddress": "305 N Santa Anita Ave\nArcadia, CA 91006"
+    },
+    {
+      "userId": 1,
+      "name": "East Riverside",
+      "address": "2111 Iowa Ave, Unit A",
+      "city": "Riverside",
+      "state": "CA",
+      "zipCode": "92507",
+      "fullAddress": "2111 Iowa Ave, Unit A\nRiverside, CA 92507"
+    },
+    {
+      "userId": 1,
+      "name": "High Desert",
+      "address": "15315 Cholame Rd, Unit D",
+      "city": "Victorville",
+      "state": "CA",
+      "zipCode": "92392",
+      "fullAddress": "15315 Cholame Rd, Unit D\nVictorville, CA 92392"
     },
     {
       "userId": 2,
@@ -90,15 +108,6 @@
       "fullAddress": "456 NE. Greenrose Ave.\nApt 1\nCottage Grove, MN 55016"
     },
     {
-      "userId": 1,
-      "name": "Velvet Valley Villa",
-      "address": "53 Pendergast Rd.",
-      "city": "Levittown",
-      "state": "NY",
-      "zipCode": "11756",
-      "fullAddress": "53 Pendergast Rd.\nLevittown, NY 11756"
-    },
-    {
       "userId": 2,
       "name": "Starlight Sanctuary",
       "address": "8997 Franklin Circle",
@@ -133,15 +142,6 @@
       "state": "CT",
       "zipCode": "06770",
       "fullAddress": "59 N. Applegate St.\nNaugatuck, CT 06770"
-    },
-    {
-      "userId": 1,
-      "name": "Crystal Cove Cottage",
-      "address": "86 Westminster Ave.",
-      "city": "Buford",
-      "state": "GA",
-      "zipCode": "30518",
-      "fullAddress": "86 Westminster Ave.\nBuford, GA 30518"
     },
     {
       "userId": 2,
