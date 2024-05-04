@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { useModal } from "../../context/Modal";
 import { thunkEditUserAddress, thunkAddUserAddress } from "../../store/addresses";
-import { getFullAddress } from '../../store/utils'
+import { getFullAddress, componentsToAddressLines, fetchData, fullAddressToComponents } from '../../store/utils'
 
 import "./AddressForm.css";
 
@@ -27,23 +27,22 @@ export default function AddressForm({address}) {
 	const [errors, setErrors] = useState({});
 	const [submitted, setSubmitted] = useState(false);
 
+	//address is validated and is valid / invalid
+    const [validAddress, setValidAddress] = useState(false)
+    //the validated address
+    const [confirmAddress, setConfirmAddress] = useState("")
+    //user has confirmed Google API returned address to be desired address
+    const [confirmed, setConfirmed] = useState(false)
+    //error message returned by validateAddress function if 1) address is invalid or 2) some sort of backend error
+    const [invalidError, setInvalidError] = useState("")
+    //is server in process of validating address? if true, some buttons should be temporarily disabled
+    const [validating, setValidating] = useState(false)
+
 	useEffect(() => {
-		const {address, city, state, zipCode, name,} = formData;
-		const newErrors = {};
-
-		if (name.length > 40) newErrors.name = "Field cannot be longer than 40 characters."
-		if (!name) newErrors.name = "This field is required."
-		if (address.length > 50) newErrors.address = "Field cannot be longer than 50 characters."
-		if (!address) newErrors.address = "This field is required."
-		if (city.length > 50) newErrors.city = "Field cannot be longer than 50 characters."
-		if (!city) newErrors.city = "This field is required."
-		if (state.length > 50) newErrors.state = "Field cannot be longer than 50 characters."
-		if (!state) newErrors.state = "This field is required."
-		if (zipCode && !zipCode.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (use XXXXX or XXXXX-XXXX)"
-		if (!zipCode) newErrors.zipCode = "This field is required."
-
-		setErrors(newErrors)
-	}, [setErrors, formData, submitted])
+		if (validating) {
+		  setValidating(false)
+		}
+	  }, [validating, setValidating])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -66,9 +65,104 @@ export default function AddressForm({address}) {
 		newData[name] = value;
 
 		setFormData(newData)
+		setConfirmed(false)
 	}
 
-	const buttonClass = Object.values(errors).length && submitted ? "disabled purple-button address-form-button":"purple-button address-form-button"
+	const handleErrors = (e) => {
+		const {value, name} = e.target;
+
+		const newErrors = {...errors};
+
+		switch (name) {
+			case "name":
+				if (value.length > 40) newErrors.name = "Field cannot be longer than 40 characters."
+				else if (!value) newErrors.name = "This field is required."
+				else delete newErrors.name
+				break
+			case "address":
+				if (!value) newErrors.address = "This field is required."
+				else if (value.length > 50) newErrors.address = "Field cannot be longer than 50 characters."
+				else delete newErrors.address
+				break
+			case "city":
+				if (!value) newErrors.city = "This field is required."
+				else if (value.length > 50) newErrors.city = "Field cannot be longer than 50 characters."
+				else delete newErrors.city
+				break
+			case "state":
+				if (value.length > 50) newErrors.state = "Field cannot be longer than 50 characters."
+				else if (!value) newErrors.state = "This field is required."
+				else delete newErrors.state
+				break
+			case "zipCode":
+				if (value && !value.match(/^\d{5}(-\d{4})?$/)) newErrors.zipCode = "Zip code is in the wrong format (XXXXX or XXXXX-XXXX)"
+				else if (!value) newErrors.zipCode = "This field is required."
+				else delete newErrors.zipCode
+				break
+		}
+		setErrors(newErrors)
+	}
+
+	const buttonClass = Object.values(errors).length || !validAddress || !confirmed || validating ? "disabled purple-button address-form-button":"purple-button address-form-button"
+
+	const handleConfirmAddress = e => {
+        setConfirmed(e.target.checked)
+        if (e.target.checked) {
+          setFormData({...formData, name: formData.name,
+            ...fullAddressToComponents(confirmAddress)})
+			setErrors(prev => prev.name ? {name:prev.name} : {})
+        }
+    }
+
+    const validateAddress = async (e) => {
+        e.preventDefault()
+        setValidating(true)
+
+        const data = await fetchData(
+        `https://addressvalidation.googleapis.com/v1:validateAddress?key=${process.env.REACT_APP_MAPS_KEY}`,
+        {
+            method:"POST",
+            body: JSON.stringify({
+            "address": {
+                "addressLines": componentsToAddressLines(formData)}
+                // "addressLines": ["1 World Way"]}
+            })
+        })
+
+        if (data.status===200) {
+        const {verdict, address} = data.result
+        if (verdict.hasUnconfirmedComponents) {
+            setInvalidError("No matching address was found. Please check for typos and try again.")
+            setValidAddress(false)
+        }
+        else {
+            setInvalidError("")
+            setValidAddress(true)
+            setConfirmAddress(address.formattedAddress)
+        }
+        } else {
+            setInvalidError("Something funny happened. Please refresh the page and try again.")
+        }
+    }
+
+	// appears when address validation button clicked
+	const validationDiv = invalidError ?
+        <div className='error'>{invalidError}</div>
+        :
+        <div className={validAddress ? 'address-checkbox-container' : 'hidden'}>
+            Please confirm your address:
+            <label className='address-checkbox' style={{marginTop:"8px"}}>
+            <input
+                type="checkbox"
+                name="fullAddress"
+                checked={confirmed}
+                value={confirmed}
+                onChange={handleConfirmAddress}
+                required
+            />
+            <div>{confirmAddress}</div>
+            </label>
+        </div>
 
 	return (
 		<div className="address-form-container">
@@ -85,8 +179,9 @@ export default function AddressForm({address}) {
           			name="name"
 					value={formData.name}
 					onChange={handleInputChange}
+					onBlur={handleErrors}
 				/>
-				<div className='error'>{submitted && errors.name}</div>
+				<div className='error'>{errors.name}</div>
 			</label>
 			<label>
 				Address
@@ -95,29 +190,34 @@ export default function AddressForm({address}) {
           			name="address"
 					value={formData.address}
 					onChange={handleInputChange}
+					onBlur={handleErrors}
 				/>
-				<div className='error'>{submitted && errors.address}</div>
+				<div className='error'>{errors.address}</div>
 			</label>
-			<label>
-				City
-				<input
-					type="text"
-          			name="city"
-					value={formData.city}
-					onChange={handleInputChange}
-				/>
-				<div className='error'>{submitted && errors.city}</div>
-			</label>
-			<label>
-				State
-				<input
-					type="text"
-          			name="state"
-					value={formData.state}
-					onChange={handleInputChange}
-				/>
-				<div className='error'>{submitted && errors.state}</div>
-			</label>
+			<div className='city-state'>
+				<label>
+					City
+					<input
+						type="text"
+						name="city"
+						value={formData.city}
+						onBlur={handleErrors}
+						onChange={handleInputChange}
+					/>
+					<div className='error'>{errors.city}</div>
+				</label>
+				<label>
+					State
+					<input
+						type="text"
+						name="state"
+						value={formData.state}
+						onChange={handleInputChange}
+						onBlur={handleErrors}
+					/>
+					<div className='error'>{errors.state}</div>
+				</label>
+			</div>
 			<label>
 				Zip Code
 				<input
@@ -125,10 +225,22 @@ export default function AddressForm({address}) {
           			name="zipCode"
 					value={formData.zipCode}
 					onChange={handleInputChange}
+					onBlur={handleErrors}
 					placeholder="XXXXX or XXXXX-XXXX"
 				/>
-				<div className='error'>{submitted && errors.zipCode}</div>
+				<div className='error'>{errors.zipCode}</div>
 			</label>
+			{/* <ValidateAddressButton {...{errors, formData, setFormData}}/> */}
+			<button
+				type="submit"
+				onClick={validateAddress}
+				className={`purple-button ${Object.values(errors).length || validating ? "disabled" : ""}`}
+			>
+				Validate Address
+			</button>
+			<div style={{minHeight:"40px"}}>
+				{validationDiv}
+			</div>
       		<button type="submit"
 			className={buttonClass}
 			>{buttonText}</button>
