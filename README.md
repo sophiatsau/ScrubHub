@@ -23,7 +23,7 @@ https://crittr.onrender.com/
 <img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" />
 
 # Index
-[Database Schema](https://github.com/sophiatsau/Crittr/wiki/DB-Schema) | [Feature Lists](https://github.com/sophiatsau/Crittr/wiki/Features-List) | [Future Implementations](https://github.com/sophiatsau/Crittr/wiki/Future-Implementations) | [User Stories](https://github.com/sophiatsau/Crittr/wiki/User-Stories)
+[Database Schema](https://github.com/sophiatsau/Crittr/wiki/DB-Schema) | [Feature Lists](https://github.com/sophiatsau/Crittr/wiki/Features-List) | [Store Shape](https://github.com/sophiatsau/Crittr/wiki/Store-Shape) | [User Stories](https://github.com/sophiatsau/Crittr/wiki/User-Stories)
 
 ## Screenshots
 ### Landing Page
