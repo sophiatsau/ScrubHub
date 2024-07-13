@@ -25,7 +25,7 @@ export default function AddressForm({address}) {
 
 	const [formData, setFormData] = useState(initialData)
 	const [errors, setErrors] = useState({});
-	const [submitted, setSubmitted] = useState(false);
+	// const [submitted, setSubmitted] = useState(false);
 
 	//address is validated and is valid / invalid
     const [validAddress, setValidAddress] = useState(false)
@@ -99,6 +99,8 @@ export default function AddressForm({address}) {
 				else if (!value) newErrors.zipCode = "This field is required."
 				else delete newErrors.zipCode
 				break
+			default:
+				break
 		}
 		setErrors(newErrors)
 	}
@@ -168,7 +170,7 @@ export default function AddressForm({address}) {
 		<div className="address-form-container">
 		<h1>{header}</h1>
 		<form onSubmit={(e) => {
-			setSubmitted(true)
+			// setSubmitted(true)
 			handleSubmit(e)}}
 			className="address-form"
 		>

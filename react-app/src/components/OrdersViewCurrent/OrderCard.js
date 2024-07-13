@@ -1,12 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-import { useModal } from '../../context/Modal'
+// import { useModal } from '../../context/Modal'
 import OpenModalButton from '../OpenModalButton'
 import OrderCompleteModal from './OrderCompleteModal'
 
 export default function OrderCard({order}) {
-    let {closeModal} = useModal()
+    // let {closeModal} = useModal()
 
     if (!order) return null
 

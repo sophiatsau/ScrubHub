@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import ShopCard from '../ShopCard'
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
+// import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 import { thunkGetUserShops } from '../../store/shops'
 import "./ShopsViewCurrent.css"
 import Loading from '../Loading'

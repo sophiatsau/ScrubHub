@@ -89,6 +89,8 @@ export default function LocationFormModal({type}) {
           else if (!value) newErrors.zipCode = "This field is required."
           else delete newErrors.zipCode
           break
+        default:
+          break
       }
       delete newErrors.disabled
       return newErrors
