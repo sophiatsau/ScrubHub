@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { thunkGetUserCritters } from '../../store/critters';
 
 import "./CrittersViewCurrent.css"
 import CritterDisplaySection from '../CritterDisplaySection';
 import { thunkGetUserShops } from '../../store/shops';
-// import OpenModalButton from '../OpenModalButton';
-// import CritterCreateModal from '../CritterCreateModal';
 import CritterCreateButton from '../CritterCreateButton';
 import Loading from '../Loading';
 

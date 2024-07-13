@@ -9,7 +9,7 @@ export default function ManageBalancePage() {
     const addMoney = 200
 
     const increaseBalance = async e => {
-        const data = await dispatch(thunkUpdateBalance(addMoney))
+        await dispatch(thunkUpdateBalance(addMoney))
     }
 
     return (
@@ -17,35 +17,35 @@ export default function ManageBalancePage() {
             <h1>Your Current Balance: ${sessionUser.balance}</h1>
             <h3 style={{margin: "12px 0"}}>Increase Your Balance:</h3>
             <div id="cool-links-container">
-                <a target="_blank" href="https://github.com/sophiatsau">
+                <a rel="noreferrer" target="_blank" href="https://github.com/sophiatsau">
                     <button className='add-money-button' onClick={increaseBalance}>
                         <div className='amount-added'>+ ${addMoney}</div>
                         <div>Check out my Github</div>
                         <img className="money-button-image" src="https://crittr-images.s3.us-west-1.amazonaws.com/github.png" alt="github icon"/>
                     </button>
                 </a>
-                <a target="_blank" href="https://www.linkedin.com/in/sophiatsau/">
+                <a rel="noreferrer" target="_blank" href="https://www.linkedin.com/in/sophiatsau/">
                     <button className='add-money-button' onClick={increaseBalance}>
                         <div className='amount-added'>+ ${addMoney}</div>
                         <div>Check out my LinkedIn</div>
                         <img className="money-button-image" src="https://crittr-images.s3.us-west-1.amazonaws.com/LinkedIn_icon_circle.svg.png" alt="linkedin icon"/>
                     </button>
                 </a>
-                <a target="_blank" href="https://sophiatsau.github.io/">
+                <a rel="noreferrer" target="_blank" href="https://sophiatsau.github.io/">
                     <button className='add-money-button' onClick={increaseBalance}>
                         <div className='amount-added'>+ ${addMoney}</div>
                         <div>Check out my Portfolio Site</div>
                         <img className="money-button-image" src="https://crittr-images.s3.us-west-1.amazonaws.com/browser-icon-bold.png" alt="portfolio icon"/>
                     </button>
                 </a>
-                <a target="_blank" href="https://spotifrog.onrender.com/">
+                <a rel="noreferrer" target="_blank" href="https://spotifrog.onrender.com/">
                     <button className='add-money-button' onClick={increaseBalance}>
                         <div className='amount-added'>+ ${addMoney}</div>
                         <div>Listen to music, upload albums, and build playlists on a frog-themed Spotify lookalike</div>
                         <img className="money-button-image" src="https://spotifrogmp3.s3.us-west-1.amazonaws.com/IMG_0034-1.png" alt="spotifrog icon"/>
                     </button>
                 </a>
-                <a target="_blank" href="https://infestation.onrender.com/">
+                <a rel="noreferrer" target="_blank" href="https://infestation.onrender.com/">
                     <button className='add-money-button' onClick={increaseBalance}>
                         <div className='amount-added'>+ ${addMoney}</div>
                         <div>A Meetup clone for cockroaches to establish social groups and create events</div>
